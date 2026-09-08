@@ -1,6 +1,14 @@
-# Ignore temporary development files
-temp/
-*.pyc
+# Python virtual environment
+.venv/
+# Antigravity / AGY hidden runtime data
+.agents/
+# Byte‑code caches
 __pycache__/
-.idea/
-.vscode/
+*.py[cod]
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+# OS‑specific junk
+.DS_Store
+# Other common artifacts you may want to ignore
+*.log
+*.sqlite3
