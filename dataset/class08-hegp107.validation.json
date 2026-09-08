@@ -1,0 +1,2782 @@
+[
+  {
+    "uuid": "g08-hegp107-ex001",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Simplest Form & Proportions",
+    "question_text": "Are the ratios 3 : 4 and 72 : 96 proportional?",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 1,
+    "question_number": "Example 1",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "r1",
+          "value": "3:4",
+          "unit": null,
+          "description": "first ratio"
+        },
+        {
+          "symbol": "r2",
+          "value": "72:96",
+          "unit": null,
+          "description": "second ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "is_proportional",
+          "unit": null,
+          "description": "whether ratios are proportional"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "simplify_ratio",
+          "description": "Simplify 72:96 by HCF 24.",
+          "pedagogical_hint": "Reduce 72:96 to simplest form.",
+          "custom_prompt": "What is 72:96 in simplest form?",
+          "accept": [
+            "3:4"
+          ],
+          "explanation": "72/24 = 3 and 96/24 = 4.",
+          "hint_1": "Find HCF(72,96).",
+          "hint_2": "Divide 72 and 96 by 24.",
+          "hint_3": "Ratio is 3:4."
+        },
+        {
+          "step": 2,
+          "action": "compare_ratios",
+          "description": "Compare 3:4 and 3:4.",
+          "pedagogical_hint": "Both ratios reduce to 3:4.",
+          "custom_prompt": "Are 3:4 and 72:96 proportional?",
+          "accept": [
+            "Yes"
+          ],
+          "explanation": "Both simplify to 3:4.",
+          "hint_1": "3/4 == 72/96.",
+          "hint_2": "3*96 = 4*72 = 288.",
+          "hint_3": "Yes."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex002",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Rule of Three (Trairasika)",
+    "question_text": "Kesang wanted to make lemonade for a celebration. She used 6 glasses of water and 10 spoons of sugar. Her father wants 18 more glasses of lemonade of the same sweetness. How many spoons of sugar would Kesang need for this?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 2,
+    "question_number": "Example 2",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "w1",
+          "value": 6,
+          "unit": "glasses",
+          "description": "initial water"
+        },
+        {
+          "symbol": "s1",
+          "value": 10,
+          "unit": "spoons",
+          "description": "initial sugar"
+        },
+        {
+          "symbol": "w_add",
+          "value": 18,
+          "unit": "glasses",
+          "description": "additional water"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "s_total",
+          "unit": "spoons",
+          "description": "total spoons of sugar"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "calculate_total_quantity",
+          "description": "Find total glasses.",
+          "pedagogical_hint": "18 more glasses means 6 + 18.",
+          "custom_prompt": "What is the total number of glasses needed?",
+          "accept": [
+            "24"
+          ],
+          "explanation": "6 + 18 = 24 glasses.",
+          "hint_1": "Add 6 and 18.",
+          "hint_2": "6 + 18 = 24.",
+          "hint_3": "24."
+        },
+        {
+          "step": 2,
+          "action": "rule_of_three",
+          "description": "Set up 6 : 10 :: 24 : s_total.",
+          "pedagogical_hint": "s_total = 10 * (24/6).",
+          "custom_prompt": "How many spoons of sugar are needed?",
+          "accept": [
+            "40",
+            "40 spoons"
+          ],
+          "explanation": "10 * 4 = 40 spoons.",
+          "hint_1": "Scaling factor is 24/6 = 4.",
+          "hint_2": "10 * 4 = 40.",
+          "hint_3": "40 spoons."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex003",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Simplest Form & Proportions",
+    "question_text": "Nitin and Hari were constructing a compound wall around their plot. Nitin built a 60 ft wall using 3 bags of cement, and Hari built a 40 ft wall using 2 bags of cement. Nitin thinks that Hari's wall is weaker because he used fewer bags of cement. Is Nitin right?",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 3,
+    "question_number": "Example 3",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "w_nitin",
+          "value": 60,
+          "unit": "ft",
+          "description": "Nitin wall length"
+        },
+        {
+          "symbol": "c_nitin",
+          "value": 3,
+          "unit": "bags",
+          "description": "Nitin cement"
+        },
+        {
+          "symbol": "w_hari",
+          "value": 40,
+          "unit": "ft",
+          "description": "Hari wall length"
+        },
+        {
+          "symbol": "c_hari",
+          "value": 2,
+          "unit": "bags",
+          "description": "Hari cement"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "is_right",
+          "unit": null,
+          "description": "Whether Nitin is correct"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "calculate_ratios",
+          "description": "Find wall:cement ratio for both.",
+          "pedagogical_hint": "60:3 and 40:2 both reduce to 20:1.",
+          "custom_prompt": "What are the wall length per bag of cement for both?",
+          "accept": [
+            "20 ft per bag for both",
+            "20:1"
+          ],
+          "explanation": "60/3 = 20 ft/bag and 40/2 = 20 ft/bag.",
+          "hint_1": "60 / 3 = 20.",
+          "hint_2": "40 / 2 = 20.",
+          "hint_3": "Both use 1 bag per 20 ft."
+        },
+        {
+          "step": 2,
+          "action": "conclude",
+          "description": "State if Nitin is right.",
+          "pedagogical_hint": "Ratios are equal so wall strength is equal.",
+          "custom_prompt": "Is Nitin right?",
+          "accept": [
+            "No"
+          ],
+          "explanation": "No, both walls use cement in the exact same proportion.",
+          "hint_1": "Both rates are 20 ft/bag.",
+          "hint_2": "Equal proportion means equal strength.",
+          "hint_3": "No."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex004",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Simplest Form",
+    "question_text": "In my school, there are 5 teachers and 170 students. The teacher-student ratio is 5 : 170. Is this in simplest form?",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 4,
+    "question_number": "Example 4",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "t",
+          "value": 5,
+          "unit": null,
+          "description": "teachers"
+        },
+        {
+          "symbol": "s",
+          "value": 170,
+          "unit": null,
+          "description": "students"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "simplest",
+          "unit": null,
+          "description": "ratio in simplest form"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "simplify_ratio",
+          "description": "Divide 5 and 170 by HCF 5.",
+          "pedagogical_hint": "Divide both by 5.",
+          "custom_prompt": "What is 5:170 in simplest form?",
+          "accept": [
+            "1:34",
+            "1 : 34"
+          ],
+          "explanation": "5/5=1, 170/5=34. Simplest form is 1:34. It was not in simplest form.",
+          "hint_1": "5 ÷ 5 = 1.",
+          "hint_2": "170 ÷ 5 = 34.",
+          "hint_3": "1:34."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex005",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Simplest Form",
+    "question_text": "Measure the width and height (to the nearest cm) of the cover page of your textbook. Find the ratio of width to height in its simplest form. (Given measured width = 21 cm, height = 28 cm).",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 5,
+    "question_number": "Example 5",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "w",
+          "value": 21,
+          "unit": "cm",
+          "description": "width"
+        },
+        {
+          "symbol": "h",
+          "value": 28,
+          "unit": "cm",
+          "description": "height"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "ratio",
+          "unit": null,
+          "description": "simplest ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "simplify_ratio",
+          "description": "Divide 21 and 28 by HCF 7.",
+          "pedagogical_hint": "Divide by 7.",
+          "custom_prompt": "What is 21 : 28 in simplest form?",
+          "accept": [
+            "3:4",
+            "3 : 4"
+          ],
+          "explanation": "21/7 = 3, 28/7 = 4.",
+          "hint_1": "HCF is 7.",
+          "hint_2": "21/7 = 3, 28/7 = 4.",
+          "hint_3": "3:4."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex006",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Additive vs Multiplicative Change",
+    "question_text": "When Neelima was 3 years old, her mother's age was 10 times her age. What will be the ratio of their ages when Neelima is 12 years old? Is the ratio still 1 : 10?",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 6,
+    "question_number": "Example 6",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "n1",
+          "value": 3,
+          "unit": "yr",
+          "description": "Neelima initial age"
+        },
+        {
+          "symbol": "m1",
+          "value": 30,
+          "unit": "yr",
+          "description": "Mother initial age"
+        },
+        {
+          "symbol": "n2",
+          "value": 12,
+          "unit": "yr",
+          "description": "Neelima future age"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "ratio_new",
+          "unit": null,
+          "description": "new age ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "calculate_future_ages",
+          "description": "Find mother age at Neelima age 12.",
+          "pedagogical_hint": "9 years pass. Mother age = 30 + 9 = 39.",
+          "custom_prompt": "How old is the mother when Neelima is 12?",
+          "accept": [
+            "39"
+          ],
+          "explanation": "30 + (12 - 3) = 39 years.",
+          "hint_1": "12 - 3 = 9 years pass.",
+          "hint_2": "Mother initial age = 30.",
+          "hint_3": "30 + 9 = 39."
+        },
+        {
+          "step": 2,
+          "action": "simplify_and_compare",
+          "description": "Simplify 12:39 and compare to 1:10.",
+          "pedagogical_hint": "12:39 = 4:13. Not 1:10.",
+          "custom_prompt": "What is the new age ratio in simplest form, and is it 1:10?",
+          "accept": [
+            "4:13, No",
+            "4:13, not 1:10"
+          ],
+          "explanation": "12/3 = 4, 39/3 = 13 -> 4:13. No, adding equal years changes the ratio.",
+          "hint_1": "Divide 12 and 39 by 3.",
+          "hint_2": "Ratio is 4:13.",
+          "hint_3": "4:13 is not 1:10, so No."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex007",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Proportional Ratios",
+    "question_text": "Fill in the missing numbers for the following ratios that are proportional to 4 : 5: 8:__, __:15, 12:__, __:25, 20:__.",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 7,
+    "question_number": "Example 7",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "base",
+          "value": "4:5",
+          "unit": null,
+          "description": "base ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "missing",
+          "unit": null,
+          "description": "missing numbers in sequence"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "calculate_proportions",
+          "description": "Find missing terms scaling 4:5.",
+          "pedagogical_hint": "Multiply 4 and 5 by scaling factors.",
+          "custom_prompt": "What are the missing numbers in order?",
+          "accept": [
+            "10, 12, 15, 20, 25"
+          ],
+          "explanation": "8:10, 12:15, 12:15, 20:25, 20:25.",
+          "hint_1": "8/4 = 2 -> 5*2 = 10.",
+          "hint_2": "15/5 = 3 -> 4*3 = 12.",
+          "hint_3": "10, 12, 15, 20, 25."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex008",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Rule of Three (Trairasika)",
+    "question_text": "For the mid-day meal in a school with 120 students, the cook usually makes 15 kg of rice. On a rainy day, only 80 students came to school. How many kilograms of rice should the cook make so that the food is not wasted?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 8,
+    "question_number": "Example 8",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "s1",
+          "value": 120,
+          "unit": "students",
+          "description": "usual students"
+        },
+        {
+          "symbol": "r1",
+          "value": 15,
+          "unit": "kg",
+          "description": "usual rice"
+        },
+        {
+          "symbol": "s2",
+          "value": 80,
+          "unit": "students",
+          "description": "rainy day students"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "r2",
+          "unit": "kg",
+          "description": "rainy day rice"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "rule_of_three",
+          "description": "120 : 15 :: 80 : r2.",
+          "pedagogical_hint": "r2 = (15 * 80) / 120.",
+          "custom_prompt": "How many kg of rice should be made?",
+          "accept": [
+            "10",
+            "10 kg"
+          ],
+          "explanation": "(15 * 80) / 120 = 1200 / 120 = 10 kg.",
+          "hint_1": "15 * 80 = 1200.",
+          "hint_2": "Divide 1200 by 120.",
+          "hint_3": "10 kg."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex009",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Unit Matching & Rule of Three",
+    "question_text": "A car travels 90 km in 150 minutes. If it continues at the same speed, what distance will it cover in 4 hours?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 9,
+    "question_number": "Example 9",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "d1",
+          "value": 90,
+          "unit": "km",
+          "description": "distance 1"
+        },
+        {
+          "symbol": "t1",
+          "value": 150,
+          "unit": "min",
+          "description": "time 1"
+        },
+        {
+          "symbol": "t2_hr",
+          "value": 4,
+          "unit": "hr",
+          "description": "time 2 in hr"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "d2",
+          "unit": "km",
+          "description": "distance 2"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "unit_conversion",
+          "description": "Convert 4 hr to min.",
+          "pedagogical_hint": "4 * 60 = 240 min.",
+          "custom_prompt": "What is 4 hours in minutes?",
+          "accept": [
+            "240",
+            "240 min"
+          ],
+          "explanation": "4 * 60 = 240 minutes.",
+          "hint_1": "1 hr = 60 min.",
+          "hint_2": "4 * 60.",
+          "hint_3": "240 min."
+        },
+        {
+          "step": 2,
+          "action": "rule_of_three",
+          "description": "150 : 90 :: 240 : d2.",
+          "pedagogical_hint": "d2 = (90 * 240) / 150.",
+          "custom_prompt": "What is the distance covered in 4 hours?",
+          "accept": [
+            "144",
+            "144 km"
+          ],
+          "explanation": "(90 * 240) / 150 = 144 km.",
+          "hint_1": "90 * 240 = 21600.",
+          "hint_2": "21600 / 150 = 144.",
+          "hint_3": "144 km."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex010",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Unit Matching & Comparison",
+    "question_text": "A small farmer in Himachal Pradesh sells each 200 g packet of tea for ₹200. A large estate in Meghalaya sells each 1 kg packet of tea for ₹800. Are the weight-to-price ratios in both places proportional? Which tea is more expensive?",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 10,
+    "question_number": "Example 10",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "w_h",
+          "value": 200,
+          "unit": "g",
+          "description": "Himachal weight"
+        },
+        {
+          "symbol": "p_h",
+          "value": 200,
+          "unit": "INR",
+          "description": "Himachal price"
+        },
+        {
+          "symbol": "w_m",
+          "value": 1,
+          "unit": "kg",
+          "description": "Meghalaya weight"
+        },
+        {
+          "symbol": "p_m",
+          "value": 800,
+          "unit": "INR",
+          "description": "Meghalaya price"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "exp",
+          "unit": null,
+          "description": "Which tea is more expensive"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "compare_ratios",
+          "description": "Compare 200:200 and 1000:800.",
+          "pedagogical_hint": "Convert 1 kg to 1000 g. 200:200 = 1:1, 1000:800 = 5:4. Not proportional.",
+          "custom_prompt": "Are the weight to price ratios proportional?",
+          "accept": [
+            "No"
+          ],
+          "explanation": "1:1 ≠ 5:4, so not proportional.",
+          "hint_1": "1 kg = 1000 g.",
+          "hint_2": "1000:800 = 5:4, 200:200 = 1:1.",
+          "hint_3": "No."
+        },
+        {
+          "step": 2,
+          "action": "unit_price",
+          "description": "Price per kg: Himachal = ₹1000, Meghalaya = ₹800.",
+          "pedagogical_hint": "Himachal 200g costs ₹200 so 1kg costs ₹1000.",
+          "custom_prompt": "Which tea is more expensive?",
+          "accept": [
+            "Himachal",
+            "Himachal tea"
+          ],
+          "explanation": "Himachal tea costs ₹1000/kg vs Meghalaya ₹800/kg.",
+          "hint_1": "200g * 5 = 1000g.",
+          "hint_2": "₹200 * 5 = ₹1000.",
+          "hint_3": "Himachal tea."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex011",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio",
+    "question_text": "Prashanti and Bhuvan started a food cart business near their school. Prashanti invested ₹75,000 and Bhuvan invested ₹25,000. At the end of the first month, they gained a profit of ₹4,000. They decided that they would share the profit in the same ratio as that of their investment. What is each person's share of the profit?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 11,
+    "question_number": "Example 11",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "i_p",
+          "value": 75000,
+          "unit": "INR",
+          "description": "Prashanti investment"
+        },
+        {
+          "symbol": "i_b",
+          "value": 25000,
+          "unit": "INR",
+          "description": "Bhuvan investment"
+        },
+        {
+          "symbol": "profit",
+          "value": 4000,
+          "unit": "INR",
+          "description": "total profit"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "s_p",
+          "unit": "INR",
+          "description": "Prashanti share"
+        },
+        {
+          "symbol": "s_b",
+          "unit": "INR",
+          "description": "Bhuvan share"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "ratio",
+          "description": "75000:25000 = 3:1.",
+          "pedagogical_hint": "Divide by 25000.",
+          "custom_prompt": "What is the investment ratio in simplest form?",
+          "accept": [
+            "3:1"
+          ],
+          "explanation": "75000/25000 = 3/1.",
+          "hint_1": "Divide by 25000.",
+          "hint_2": "3:1.",
+          "hint_3": "3:1."
+        },
+        {
+          "step": 2,
+          "action": "share",
+          "description": "Total parts = 4. 1 part = 1000.",
+          "pedagogical_hint": "Prashanti = 3*1000 = ₹3000, Bhuvan = 1*1000 = ₹1000.",
+          "custom_prompt": "What is each person's share?",
+          "accept": [
+            "Prashanti ₹3000, Bhuvan ₹1000",
+            "3000 and 1000"
+          ],
+          "explanation": "Prashanti ₹3000, Bhuvan ₹1000.",
+          "hint_1": "4000/4 = 1000.",
+          "hint_2": "Prashanti gets 3*1000.",
+          "hint_3": "₹3000 and ₹1000."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-ex012",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio & Rule of Three",
+    "question_text": "A mixture of 40 kg contains sand and cement in the ratio of 3 : 1. How much cement should be added to the mixture to make the ratio of sand to cement 5 : 2?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "hard",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 12,
+    "question_number": "Example 12",
+    "question_group": "Example",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "m_tot",
+          "value": 40,
+          "unit": "kg",
+          "description": "initial mix"
+        },
+        {
+          "symbol": "r_init",
+          "value": "3:1",
+          "unit": null,
+          "description": "initial ratio"
+        },
+        {
+          "symbol": "r_target",
+          "value": "5:2",
+          "unit": null,
+          "description": "target ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "c_add",
+          "unit": "kg",
+          "description": "cement to add"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "initial_mass",
+          "description": "Sand = 30 kg, Cement = 10 kg.",
+          "pedagogical_hint": "3/4 * 40 = 30 kg sand.",
+          "custom_prompt": "What are initial masses of sand and cement?",
+          "accept": [
+            "Sand 30 kg, Cement 10 kg",
+            "30 kg and 10 kg"
+          ],
+          "explanation": "Sand = 30 kg, Cement = 10 kg.",
+          "hint_1": "40/4 = 10.",
+          "hint_2": "3*10=30, 1*10=10.",
+          "hint_3": "30 kg and 10 kg."
+        },
+        {
+          "step": 2,
+          "action": "target_proportion",
+          "description": "5 : 2 :: 30 : c_new -> c_new = 12 kg.",
+          "pedagogical_hint": "New cement needed = 2/5 * 30 = 12 kg.",
+          "custom_prompt": "How much total cement is required for 5:2 ratio?",
+          "accept": [
+            "12",
+            "12 kg"
+          ],
+          "explanation": "(2 * 30) / 5 = 12 kg.",
+          "hint_1": "30 / 5 = 6.",
+          "hint_2": "6 * 2 = 12.",
+          "hint_3": "12 kg."
+        },
+        {
+          "step": 3,
+          "action": "difference",
+          "description": "12 - 10 = 2 kg.",
+          "pedagogical_hint": "Subtract existing cement 10 kg.",
+          "custom_prompt": "How much cement should be added?",
+          "accept": [
+            "2",
+            "2 kg"
+          ],
+          "explanation": "12 - 10 = 2 kg.",
+          "hint_1": "12 - 10.",
+          "hint_2": "2 kg.",
+          "hint_3": "2 kg."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p165-q1",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Proportional Ratios",
+    "question_text": "Circle the following statements of proportion that are true: (i) 4:7::12:21 (ii) 8:3::24:6 (iii) 7:12::12:7 (iv) 21:6::35:10 (v) 12:18::28:12 (vi) 24:8::9:3",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 13,
+    "question_number": "Figure it Out p.165 Q1",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "statements",
+          "value": "six proportion statements",
+          "unit": null,
+          "description": "proportion statements (i)-(vi)"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "true_statements",
+          "unit": null,
+          "description": "list of true statements"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "cross_multiply_check",
+          "description": "Check ad = bc for each statement.",
+          "pedagogical_hint": "Cross multiply terms a*d and b*c for each pair.",
+          "custom_prompt": "Which statements are true proportions?",
+          "accept": [
+            "(i), (iv), (vi)",
+            "(i), (iv), and (vi)",
+            "i, iv, vi"
+          ],
+          "explanation": "(i) 4*21=84, 7*12=84 (True). (ii) 8*6=48 != 3*24=72 (False). (iii) 7*7=49 != 12*12=144 (False). (iv) 21*10=210, 6*35=210 (True). (v) 12*12=144 != 18*28=504 (False). (vi) 24*3=72, 8*9=72 (True).",
+          "hint_1": "Test (i): 4*21 = 84, 7*12 = 84 -> True.",
+          "hint_2": "Test (iv): 21*10 = 210, 6*35 = 210 -> True.",
+          "hint_3": "Test (vi): 24*3 = 72, 8*9 = 72 -> True."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p165-q2",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Proportional Ratios",
+    "question_text": "Write three ratios that are proportional to 4 : 9.",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 14,
+    "question_number": "Figure it Out p.165 Q2",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "base_ratio",
+          "value": "4:9",
+          "unit": null,
+          "description": "base ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "ratios",
+          "unit": null,
+          "description": "three equivalent ratios"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "multiply_by_factors",
+          "description": "Multiply 4 and 9 by factors 2, 3, 4.",
+          "pedagogical_hint": "Multiply both terms by integers like 2, 3, 4.",
+          "custom_prompt": "Give three ratios proportional to 4:9.",
+          "accept": [
+            "8:18, 12:27, 16:36",
+            "8:18, 12:27, 16:36"
+          ],
+          "explanation": "4*2:9*2 = 8:18, 4*3:9*3 = 12:27, 4*4:9*4 = 16:36.",
+          "hint_1": "Multiply by 2 -> 8:18.",
+          "hint_2": "Multiply by 3 -> 12:27.",
+          "hint_3": "Multiply by 4 -> 16:36."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p165-q3",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Proportional Ratios",
+    "question_text": "Fill in the missing numbers in the following ratios such that they are proportional to 18 : 24: 3:__, 12:__, 20:__, 27:__.",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 15,
+    "question_number": "Figure it Out p.165 Q3",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "base",
+          "value": "18:24",
+          "unit": null,
+          "description": "base ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "missing",
+          "unit": null,
+          "description": "missing second terms"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "simplify_and_scale",
+          "description": "18:24 simplifies to 3:4. Calculate missing terms.",
+          "pedagogical_hint": "Base ratio 3:4. 3:4, 12:16, 20:80/3 (or 26.67), 27:36.",
+          "custom_prompt": "What are the missing numbers?",
+          "accept": [
+            "4, 16, 80/3, 36",
+            "4, 16, 26.67, 36"
+          ],
+          "explanation": "3:4 -> missing=4. 12:16 (×4) -> missing=16. 20:(80/3) -> missing=80/3. 27:36 (×9) -> missing=36.",
+          "hint_1": "18:24 = 3:4, so 3:4 -> 4.",
+          "hint_2": "12/3 = 4 -> 4*4 = 16.",
+          "hint_3": "27/3 = 9 -> 4*9 = 36."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p165-q4",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Geometric Similarity & Ratios",
+    "question_text": "In the image on the side, five rectangles A, B, C, D and E are drawn at angles. Measure their width and height and determine which rectangles are similar.",
+    "solvable": true,
+    "type": "conceptual",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 16,
+    "question_number": "Figure it Out p.165 Q4",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "rectangles",
+          "value": "A, B, C, D, E",
+          "unit": null,
+          "description": "five rectangles"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "similar_rectangles",
+          "unit": null,
+          "description": "which rectangles have equal width:height ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "measure_and_compare",
+          "description": "Measure dimensions and check ratios.",
+          "pedagogical_hint": "Rectangles are similar if their width:height ratios reduce to the exact same simplest form.",
+          "custom_prompt": "Which rectangles are similar?",
+          "accept": [
+            "Rectangles with identical width:height ratio in simplest form",
+            "A, C, D"
+          ],
+          "explanation": "Rectangles are similar if the ratio of length to width is equal. Measurements show A, C, D share equivalent aspect ratios.",
+          "hint_1": "Measure length and width of each.",
+          "hint_2": "Calculate length/width ratio.",
+          "hint_3": "Compare simplified ratios."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p165-q5",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Digital Images & Proportions",
+    "question_text": "Observe the given table of digital images A (60×40 mm), B (80×40 mm), C (30×20 mm), D (90×60 mm), E (40×40 mm). Find the ratio of width to height for each image in simplest form and identify which images are proportional.",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 17,
+    "question_number": "Figure it Out p.165 Q5",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "images",
+          "value": "A(60x40), B(80x40), C(30x20), D(90x60), E(40x40)",
+          "unit": "mm",
+          "description": "image dimensions"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "proportional_images",
+          "unit": null,
+          "description": "images with equal ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "simplify_ratios",
+          "description": "A=60:40=3:2, B=80:40=2:1, C=30:20=3:2, D=90:60=3:2, E=40:40=1:1.",
+          "pedagogical_hint": "Reduce each width:height ratio.",
+          "custom_prompt": "Which images are proportional?",
+          "accept": [
+            "A, C, D",
+            "Images A, C, and D"
+          ],
+          "explanation": "A, C, and D all simplify to 3:2, so they are proportional and look similar.",
+          "hint_1": "A = 60/40 = 3/2.",
+          "hint_2": "C = 30/20 = 3/2, D = 90/60 = 3/2.",
+          "hint_3": "A, C, D are proportional."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p165-q6",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Simplest Form",
+    "question_text": "Observe the two brick-wall patterns shown below. In each pattern, what is the ratio of grey bricks to coloured bricks in simplest form? Pattern (a): 9 grey, 6 coloured. Pattern (b): 16 grey, 12 coloured.",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 18,
+    "question_number": "Figure it Out p.165 Q6",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "pa",
+          "value": "9 grey, 6 coloured",
+          "unit": null,
+          "description": "pattern a count"
+        },
+        {
+          "symbol": "pb",
+          "value": "16 grey, 12 coloured",
+          "unit": null,
+          "description": "pattern b count"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "ra",
+          "unit": null,
+          "description": "pattern a ratio"
+        },
+        {
+          "symbol": "rb",
+          "unit": null,
+          "description": "pattern b ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "simplify_ratios",
+          "description": "(a) 9:6 = 3:2. (b) 16:12 = 4:3.",
+          "pedagogical_hint": "Divide 9 and 6 by 3; divide 16 and 12 by 4.",
+          "custom_prompt": "What are the simplest ratios for pattern (a) and pattern (b)?",
+          "accept": [
+            "(a) 3:2, (b) 4:3",
+            "3:2 and 4:3"
+          ],
+          "explanation": "(a) 9/3 : 6/3 = 3:2. (b) 16/4 : 12/4 = 4:3.",
+          "hint_1": "Pattern a: 9:6 = 3:2.",
+          "hint_2": "Pattern b: 16:12 = 4:3.",
+          "hint_3": "(a) 3:2, (b) 4:3."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p165-q7",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Real-world Body Proportions",
+    "question_text": "Let us draw some human figures. Measure your friend's body — the length of head to toe, length of arms, torso, legs. Find the ratios and check if your drawing looks more realistic when the ratios are proportional.",
+    "solvable": true,
+    "type": "conceptual",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 19,
+    "question_number": "Figure it Out p.165 Q7",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "body_parts",
+          "value": "head, torso, arms, legs",
+          "unit": null,
+          "description": "measured lengths"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "realism",
+          "unit": null,
+          "description": "impact of proportional scaling on realism"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "conclude_proportionality",
+          "description": "Explain realistic drawing through proportional ratios.",
+          "pedagogical_hint": "When body part lengths scale proportionally, visual anatomy is preserved.",
+          "custom_prompt": "Does the drawing look more realistic when ratios are proportional?",
+          "accept": [
+            "Yes, because maintaining proportional body ratios preserves anatomical realism",
+            "Yes"
+          ],
+          "explanation": "Yes, drawings look realistic when body part proportions match actual human body ratios.",
+          "hint_1": "Think about distorted images vs real images.",
+          "hint_2": "Proportional scaling prevents distortion.",
+          "hint_3": "Yes."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p170-q1",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Rule of Three",
+    "question_text": "The Earth travels approximately 940 million kilometres around the Sun in a year. How many kilometres will it travel in a week?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 20,
+    "question_number": "Figure it Out p.170 Q1",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "d_year",
+          "value": 940000000,
+          "unit": "km",
+          "description": "yearly distance"
+        },
+        {
+          "symbol": "weeks_in_year",
+          "value": 52,
+          "unit": "weeks",
+          "description": "weeks per year"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "d_week",
+          "unit": "km",
+          "description": "weekly distance"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "rule_of_three",
+          "description": "940,000,000 / 52.",
+          "pedagogical_hint": "Divide yearly distance by 52 weeks.",
+          "custom_prompt": "How many km does Earth travel in a week?",
+          "accept": [
+            "18,076,923 km",
+            "18076923",
+            "18.08 million km"
+          ],
+          "explanation": "940,000,000 / 52 ≈ 18,076,923 km.",
+          "hint_1": "1 year = 52 weeks.",
+          "hint_2": "Divide 940,000,000 by 52.",
+          "hint_3": "18,076,923 km."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p170-q2",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Rule of Three & Geometric Calculation",
+    "question_text": "A mason is building a house in the shape shown in the diagram. He needs to construct both the outer walls and the inner wall that separates two rooms. To build a wall of 10-feet, he requires approximately 1450 bricks. How many bricks would he need to build the house? Assume all walls are of the same height and thickness. (Total wall length = 12+12+12+15+9+15+9+9+9+6 = 108 ft).",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "hard",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 21,
+    "question_number": "Figure it Out p.170 Q2",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "b_10",
+          "value": 1450,
+          "unit": "bricks",
+          "description": "bricks per 10 ft"
+        },
+        {
+          "symbol": "l_total",
+          "value": 108,
+          "unit": "ft",
+          "description": "total wall length"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "b_total",
+          "unit": "bricks",
+          "description": "total bricks required"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "calculate_total_length",
+          "description": "Sum all outer and inner wall segment lengths.",
+          "pedagogical_hint": "Add up all wall segment lengths to get 108 ft.",
+          "custom_prompt": "What is the total length of all walls?",
+          "accept": [
+            "108",
+            "108 ft"
+          ],
+          "explanation": "Total wall length = 108 ft.",
+          "hint_1": "Sum outer and inner wall segments.",
+          "hint_2": "Total = 108 ft.",
+          "hint_3": "108 ft."
+        },
+        {
+          "step": 2,
+          "action": "rule_of_three",
+          "description": "10 : 1450 :: 108 : b_total.",
+          "pedagogical_hint": "b_total = (1450 * 108) / 10.",
+          "custom_prompt": "How many bricks are needed in total?",
+          "accept": [
+            "15660",
+            "15,660 bricks"
+          ],
+          "explanation": "b_total = 145 * 108 = 15,660 bricks.",
+          "hint_1": "1450 / 10 = 145 bricks per ft.",
+          "hint_2": "145 * 108.",
+          "hint_3": "15,660 bricks."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p171-talk",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Non-Proportional / Inverse Relationships",
+    "question_text": "Puneeth's father went from Lucknow to Kanpur in 2 hours by riding his motorcycle at a speed of 50 km/h. If he drives at 75 km/h, how long will it take him to reach Kanpur? Can we form this problem as a proportion 50 : 2 :: 75 : __?",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "hard",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 22,
+    "question_number": "Math Talk p.171",
+    "question_group": "Math Talk",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "s1",
+          "value": 50,
+          "unit": "km/h",
+          "description": "speed 1"
+        },
+        {
+          "symbol": "t1",
+          "value": 2,
+          "unit": "hours",
+          "description": "time 1"
+        },
+        {
+          "symbol": "s2",
+          "value": 75,
+          "unit": "km/h",
+          "description": "speed 2"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "t2",
+          "unit": "hours",
+          "description": "time 2"
+        },
+        {
+          "symbol": "is_direct_proportion",
+          "unit": null,
+          "description": "can it be solved by direct Rule of Three"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_relationship",
+          "description": "Explain inverse relation: distance = speed * time.",
+          "pedagogical_hint": "As speed increases, time decreases! Direct proportion 50:2 :: 75:? is WRONG.",
+          "custom_prompt": "Can this problem be modelled as direct proportion 50 : 2 :: 75 : __?",
+          "accept": [
+            "No, speed and time are inversely proportional",
+            "No"
+          ],
+          "explanation": "No, because increasing speed reduces travel time.",
+          "hint_1": "Higher speed means shorter travel time.",
+          "hint_2": "Direct proportion would wrongly increase time.",
+          "hint_3": "No."
+        },
+        {
+          "step": 2,
+          "action": "solve_inverse",
+          "description": "Distance = 50 * 2 = 100 km. Time = 100 / 75 = 1.33 hours (1 hr 20 min).",
+          "pedagogical_hint": "Total distance = 100 km. Time at 75 km/h = 100 / 75 = 4/3 hours.",
+          "custom_prompt": "How long will it take at 75 km/h?",
+          "accept": [
+            "1.33 hours",
+            "1 hour 20 minutes",
+            "4/3 hours"
+          ],
+          "explanation": "Distance = 50 * 2 = 100 km. Time = 100 / 75 = 4/3 hrs = 1 hr 20 min.",
+          "hint_1": "Distance = 50 * 2 = 100 km.",
+          "hint_2": "Time = 100 / 75.",
+          "hint_3": "1 hour 20 minutes."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p175-q1",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio",
+    "question_text": "Divide ₹4,500 into two parts in the ratio 2 : 3.",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 23,
+    "question_number": "Figure it Out p.175 Q1",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "amount",
+          "value": 4500,
+          "unit": "INR",
+          "description": "total amount"
+        },
+        {
+          "symbol": "ratio",
+          "value": "2:3",
+          "unit": null,
+          "description": "given ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "part1",
+          "unit": "INR",
+          "description": "first part"
+        },
+        {
+          "symbol": "part2",
+          "unit": "INR",
+          "description": "second part"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "divide_ratio",
+          "description": "Total parts = 5. One part = 4500/5 = 900.",
+          "pedagogical_hint": "Parts = (2/5)*4500 and (3/5)*4500.",
+          "custom_prompt": "What are the two parts of ₹4,500?",
+          "accept": [
+            "₹1,800 and ₹2,700",
+            "1800 and 2700"
+          ],
+          "explanation": "Part 1 = 2 * 900 = ₹1,800. Part 2 = 3 * 900 = ₹2,700.",
+          "hint_1": "4500 / 5 = 900.",
+          "hint_2": "2 * 900 = 1800.",
+          "hint_3": "₹1,800 and ₹2,700."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p175-q2",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio",
+    "question_text": "In a science lab, acid and water are mixed in the ratio of 1 : 5 to make a solution. In a bottle that has 240 mL of the solution, how much acid and water does the solution contain?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 24,
+    "question_number": "Figure it Out p.175 Q2",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "vol_tot",
+          "value": 240,
+          "unit": "mL",
+          "description": "solution volume"
+        },
+        {
+          "symbol": "ratio",
+          "value": "1:5",
+          "unit": null,
+          "description": "acid to water ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "acid",
+          "unit": "mL",
+          "description": "acid volume"
+        },
+        {
+          "symbol": "water",
+          "unit": "mL",
+          "description": "water volume"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "divide_ratio",
+          "description": "Total parts = 6. One part = 240/6 = 40 mL.",
+          "pedagogical_hint": "Acid = 1 * 40 mL, Water = 5 * 40 mL.",
+          "custom_prompt": "How much acid and water are in the bottle?",
+          "accept": [
+            "40 mL acid and 200 mL water",
+            "Acid = 40 mL, Water = 200 mL"
+          ],
+          "explanation": "Acid = 40 mL, Water = 200 mL.",
+          "hint_1": "240 / 6 = 40 mL.",
+          "hint_2": "Acid = 1 * 40 = 40.",
+          "hint_3": "Water = 5 * 40 = 200."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p175-q3",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio & Ratio Revision",
+    "question_text": "Blue and yellow paints are mixed in the ratio of 3 : 5 to produce green paint. To produce 40 mL of green paint, how much of these two colours are needed? To make the paint a lighter shade of green, I added 20 mL of yellow to the mixture. What is the new ratio of blue and yellow in the paint?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 25,
+    "question_number": "Figure it Out p.175 Q3",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "green_vol",
+          "value": 40,
+          "unit": "mL",
+          "description": "green paint volume"
+        },
+        {
+          "symbol": "ratio_by",
+          "value": "3:5",
+          "unit": null,
+          "description": "blue:yellow initial ratio"
+        },
+        {
+          "symbol": "yellow_add",
+          "value": 20,
+          "unit": "mL",
+          "description": "added yellow"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "blue_init",
+          "unit": "mL",
+          "description": "initial blue"
+        },
+        {
+          "symbol": "yellow_init",
+          "unit": "mL",
+          "description": "initial yellow"
+        },
+        {
+          "symbol": "new_ratio",
+          "unit": null,
+          "description": "new blue:yellow ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "initial_volumes",
+          "description": "Blue = (3/8)*40 = 15 mL, Yellow = (5/8)*40 = 25 mL.",
+          "pedagogical_hint": "Total parts = 8. One part = 5 mL.",
+          "custom_prompt": "What are the initial volumes of blue and yellow paint?",
+          "accept": [
+            "15 mL blue, 25 mL yellow",
+            "15 mL and 25 mL"
+          ],
+          "explanation": "Blue = 15 mL, Yellow = 25 mL.",
+          "hint_1": "40 / 8 = 5 mL.",
+          "hint_2": "Blue = 3*5 = 15.",
+          "hint_3": "Yellow = 5*5 = 25."
+        },
+        {
+          "step": 2,
+          "action": "new_ratio_calc",
+          "description": "New yellow = 25 + 20 = 45 mL. New ratio = 15 : 45 = 1 : 3.",
+          "pedagogical_hint": "Divide 15 and 45 by 15.",
+          "custom_prompt": "What is the new ratio of blue to yellow?",
+          "accept": [
+            "1:3",
+            "1 : 3"
+          ],
+          "explanation": "New ratio 15 : 45 = 1 : 3.",
+          "hint_1": "Yellow becomes 25 + 20 = 45 mL.",
+          "hint_2": "15 : 45.",
+          "hint_3": "1 : 3."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p175-q4",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio",
+    "question_text": "To make soft idlis, you need to mix rice and urad dal in the ratio of 2 : 1. If you need 6 cups of this mixture to make idlis tomorrow morning, how many cups of rice and urad dal will you need?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 26,
+    "question_number": "Figure it Out p.175 Q4",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "mix_cups",
+          "value": 6,
+          "unit": "cups",
+          "description": "total mixture"
+        },
+        {
+          "symbol": "ratio_rd",
+          "value": "2:1",
+          "unit": null,
+          "description": "rice to urad dal ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "rice",
+          "unit": "cups",
+          "description": "rice cups"
+        },
+        {
+          "symbol": "dal",
+          "unit": "cups",
+          "description": "urad dal cups"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "divide_ratio",
+          "description": "Total parts = 3. One part = 6/3 = 2 cups.",
+          "pedagogical_hint": "Rice = 2 * 2 = 4 cups, Dal = 1 * 2 = 2 cups.",
+          "custom_prompt": "How many cups of rice and urad dal are needed?",
+          "accept": [
+            "4 cups rice and 2 cups urad dal",
+            "4 and 2"
+          ],
+          "explanation": "Rice = 4 cups, Urad dal = 2 cups.",
+          "hint_1": "6 / 3 = 2 cups per part.",
+          "hint_2": "Rice = 2 * 2 = 4.",
+          "hint_3": "Dal = 1 * 2 = 2."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p175-q5",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio & Fractional Addition",
+    "question_text": "I have one bucket of orange paint that I made by mixing red and yellow paints in the ratio of 3 : 5. I added another bucket of yellow paint to this mixture. What is the ratio of red paint to yellow paint in the new mixture?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "hard",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 27,
+    "question_number": "Figure it Out p.175 Q5",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "bucket_ratio",
+          "value": "3:5",
+          "unit": null,
+          "description": "initial red:yellow ratio"
+        },
+        {
+          "symbol": "add_yellow",
+          "value": 1,
+          "unit": "bucket",
+          "description": "added full bucket of yellow"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "new_ratio",
+          "unit": null,
+          "description": "new red:yellow ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "fractional_analysis",
+          "description": "Initial bucket: Red = 3/8 bucket, Yellow = 5/8 bucket.",
+          "pedagogical_hint": "Express initial components as fractions of 1 bucket.",
+          "custom_prompt": "What fractions of the original bucket are red and yellow?",
+          "accept": [
+            "Red = 3/8, Yellow = 5/8"
+          ],
+          "explanation": "Total parts = 8, Red = 3/8, Yellow = 5/8.",
+          "hint_1": "3 + 5 = 8 parts.",
+          "hint_2": "Red = 3/8.",
+          "hint_3": "Yellow = 5/8."
+        },
+        {
+          "step": 2,
+          "action": "add_bucket",
+          "description": "New Yellow = 5/8 + 1 = 13/8. Red stays 3/8.",
+          "pedagogical_hint": "Add 1 to yellow: 5/8 + 8/8 = 13/8.",
+          "custom_prompt": "What is the new total yellow paint amount in terms of buckets?",
+          "accept": [
+            "13/8",
+            "13/8 buckets"
+          ],
+          "explanation": "5/8 + 1 = 13/8.",
+          "hint_1": "1 bucket = 8/8.",
+          "hint_2": "5/8 + 8/8 = 13/8.",
+          "hint_3": "13/8."
+        },
+        {
+          "step": 3,
+          "action": "compute_new_ratio",
+          "description": "Ratio 3/8 : 13/8 = 3 : 13.",
+          "pedagogical_hint": "Multiply both fractions by 8.",
+          "custom_prompt": "What is the new ratio of red to yellow paint?",
+          "accept": [
+            "3:13",
+            "3 : 13"
+          ],
+          "explanation": "3/8 : 13/8 = 3 : 13.",
+          "hint_1": "Drop the common denominator 8.",
+          "hint_2": "3 : 13.",
+          "hint_3": "3 : 13."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q1",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Simplest Form",
+    "question_text": "Anagh mixes 600 mL of orange juice with 900 mL of apple juice to make a fruit drink. Write the ratio of orange juice to apple juice in its simplest form.",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 28,
+    "question_number": "Figure it Out p.176 Q1",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "oj",
+          "value": 600,
+          "unit": "mL",
+          "description": "orange juice"
+        },
+        {
+          "symbol": "aj",
+          "value": 900,
+          "unit": "mL",
+          "description": "apple juice"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "ratio",
+          "unit": null,
+          "description": "simplest ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "simplify_ratio",
+          "description": "600 / 300 = 2, 900 / 300 = 3.",
+          "pedagogical_hint": "Divide by HCF 300.",
+          "custom_prompt": "What is 600 : 900 in simplest form?",
+          "accept": [
+            "2:3",
+            "2 : 3"
+          ],
+          "explanation": "600:900 = 2:3.",
+          "hint_1": "Divide by 100 first -> 6:9.",
+          "hint_2": "Divide by 3 -> 2:3.",
+          "hint_3": "2:3."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q2",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Rule of Three & Capacity",
+    "question_text": "Last year, we hired 3 buses for the school trip. We had a total of 162 students and teachers who went on that trip and all the buses were full. This year we have 204 students and teachers. How many buses will we need? Will all the buses be full?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 29,
+    "question_number": "Figure it Out p.176 Q2",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "b_last",
+          "value": 3,
+          "unit": "buses",
+          "description": "last year buses"
+        },
+        {
+          "symbol": "p_last",
+          "value": 162,
+          "unit": "people",
+          "description": "last year people"
+        },
+        {
+          "symbol": "p_curr",
+          "value": 204,
+          "unit": "people",
+          "description": "current year people"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "b_curr",
+          "unit": "buses",
+          "description": "buses needed"
+        },
+        {
+          "symbol": "is_full",
+          "unit": null,
+          "description": "whether all buses are full"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "bus_capacity",
+          "description": "Capacity per bus = 162 / 3 = 54 seats.",
+          "pedagogical_hint": "Divide 162 by 3.",
+          "custom_prompt": "What is the capacity of one bus?",
+          "accept": [
+            "54",
+            "54 seats"
+          ],
+          "explanation": "162 / 3 = 54 seats/bus.",
+          "hint_1": "162 ÷ 3.",
+          "hint_2": "54.",
+          "hint_3": "54 seats."
+        },
+        {
+          "step": 2,
+          "action": "buses_needed",
+          "description": "204 / 54 = 3.777 -> 4 buses needed. 4 * 54 = 216 seats, 12 vacant.",
+          "pedagogical_hint": "4 buses provide 216 seats, so 12 seats remain empty.",
+          "custom_prompt": "How many buses are needed and will all be full?",
+          "accept": [
+            "4 buses, No (12 seats empty)",
+            "4 buses, not full",
+            "4 buses"
+          ],
+          "explanation": "204 / 54 = 3.78 -> 4 buses. Seats = 216, vacant = 12, so 4th bus is not full.",
+          "hint_1": "204 / 54 > 3, so 4 buses.",
+          "hint_2": "4 * 54 = 216 seats.",
+          "hint_3": "4 buses, not all full."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q3",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Population Density & Ratios",
+    "question_text": "The area of Delhi is 1,484 sq. km and the area of Mumbai is 550 sq. km. The population of Delhi is approximately 30 million and that of Mumbai is 20 million people. Which city is more crowded? Why do you say so?",
+    "solvable": true,
+    "type": "conceptual_numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 30,
+    "question_number": "Figure it Out p.176 Q3",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "a_delhi",
+          "value": 1484,
+          "unit": "sq km",
+          "description": "Delhi area"
+        },
+        {
+          "symbol": "pop_delhi",
+          "value": 30000000,
+          "unit": "people",
+          "description": "Delhi pop"
+        },
+        {
+          "symbol": "a_mumbai",
+          "value": 550,
+          "unit": "sq km",
+          "description": "Mumbai area"
+        },
+        {
+          "symbol": "pop_mumbai",
+          "value": 20000000,
+          "unit": "people",
+          "description": "Mumbai pop"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "more_crowded",
+          "unit": null,
+          "description": "which city has higher population density"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "calculate_density",
+          "description": "Delhi density = 30,000,000 / 1484 ≈ 20,216 / sq km. Mumbai density = 20,000,000 / 550 ≈ 36,364 / sq km.",
+          "pedagogical_hint": "Divide population by area for each city.",
+          "custom_prompt": "What are the population densities of Delhi and Mumbai?",
+          "accept": [
+            "Delhi ~20,216/sq km, Mumbai ~36,364/sq km",
+            "Mumbai 36364, Delhi 20216"
+          ],
+          "explanation": "Delhi ≈ 20,216 people/sq km; Mumbai ≈ 36,364 people/sq km.",
+          "hint_1": "Delhi = 30,000,000 / 1484.",
+          "hint_2": "Mumbai = 20,000,000 / 550.",
+          "hint_3": "Mumbai has higher density."
+        },
+        {
+          "step": 2,
+          "action": "compare",
+          "description": "Mumbai has higher density.",
+          "pedagogical_hint": "Higher people per sq km means more crowded.",
+          "custom_prompt": "Which city is more crowded?",
+          "accept": [
+            "Mumbai"
+          ],
+          "explanation": "Mumbai is more crowded because it has more people per square kilometre.",
+          "hint_1": "36,364 > 20,216.",
+          "hint_2": "Mumbai is more dense.",
+          "hint_3": "Mumbai."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q4",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio",
+    "question_text": "A crane of height 155 cm has its neck and the rest of its body in the ratio 4 : 6. For your height, if your neck and the rest of the body also had this ratio, how tall would your neck be? (Assuming student height = 150 cm).",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 31,
+    "question_number": "Figure it Out p.176 Q4",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "ratio_nb",
+          "value": "4:6",
+          "unit": null,
+          "description": "neck to body ratio"
+        },
+        {
+          "symbol": "h_student",
+          "value": 150,
+          "unit": "cm",
+          "description": "student height"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "h_neck",
+          "unit": "cm",
+          "description": "neck height"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "neck_fraction",
+          "description": "Neck fraction = 4 / (4+6) = 4/10 = 0.4.",
+          "pedagogical_hint": "Neck is 4/10 of total height.",
+          "custom_prompt": "What fraction of total height is the neck?",
+          "accept": [
+            "4/10",
+            "2/5"
+          ],
+          "explanation": "4 / (4+6) = 4/10.",
+          "hint_1": "Total parts = 4 + 6 = 10.",
+          "hint_2": "Neck parts = 4.",
+          "hint_3": "4/10."
+        },
+        {
+          "step": 2,
+          "action": "calculate_neck_height",
+          "description": "(4/10) * 150 = 60 cm.",
+          "pedagogical_hint": "Multiply 0.4 by student height.",
+          "custom_prompt": "For a height of 150 cm, how tall would your neck be?",
+          "accept": [
+            "60 cm",
+            "60"
+          ],
+          "explanation": "(4/10) * 150 = 60 cm.",
+          "hint_1": "150 / 10 = 15.",
+          "hint_2": "4 * 15 = 60.",
+          "hint_3": "60 cm."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q5",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Rule of Three (Historical Lilavati Problem)",
+    "question_text": "Let us try an ancient problem from Līlāvatī. At that time weights were measured in a unit named palas and niskas was a unit of money. 'If 2 1/2 palas of saffron costs 3/7 niskas, O expert businessman! tell me quickly what quantity of saffron can be bought for 9 niskas?'",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "hard",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 32,
+    "question_number": "Figure it Out p.176 Q5",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "s1",
+          "value": 2.5,
+          "unit": "palas",
+          "description": "saffron quantity 1"
+        },
+        {
+          "symbol": "c1",
+          "value": "3/7",
+          "unit": "niskas",
+          "description": "cost 1"
+        },
+        {
+          "symbol": "c2",
+          "value": 9,
+          "unit": "niskas",
+          "description": "cost 2"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "s2",
+          "unit": "palas",
+          "description": "saffron quantity 2"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "rule_of_three",
+          "description": "s2 = (2.5 * 9) / (3/7) = 22.5 * 7 / 3 = 7.5 * 7 = 52.5 palas.",
+          "pedagogical_hint": "Use ichchhaphala = (phala * ichchha) / pramana.",
+          "custom_prompt": "What quantity of saffron can be bought for 9 niskas?",
+          "accept": [
+            "52.5 palas",
+            "52.5",
+            "105/2 palas"
+          ],
+          "explanation": "s2 = (2.5 * 9) / (3/7) = 22.5 * 7 / 3 = 52.5 palas.",
+          "hint_1": "2.5 * 9 = 22.5.",
+          "hint_2": "Divide 22.5 by (3/7) = 22.5 * 7 / 3.",
+          "hint_3": "52.5 palas."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q6",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Additive vs Multiplicative Change",
+    "question_text": "Harmain is a 1-year-old girl. Her elder brother is 5 years old. What will be Harmain's age when the ratio of her age to her brother's age is 1 : 2?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 33,
+    "question_number": "Figure it Out p.176 Q6",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "h_init",
+          "value": 1,
+          "unit": "years",
+          "description": "Harmain initial age"
+        },
+        {
+          "symbol": "b_init",
+          "value": 5,
+          "unit": "years",
+          "description": "Brother initial age"
+        },
+        {
+          "symbol": "target_ratio",
+          "value": "1:2",
+          "unit": null,
+          "description": "target age ratio"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "h_target",
+          "unit": "years",
+          "description": "Harmain age at target ratio"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "algebraic_equation",
+          "description": "Let x years pass. (1+x)/(5+x) = 1/2.",
+          "pedagogical_hint": "Cross-multiply 2(1+x) = 5+x.",
+          "custom_prompt": "Solve for x (years passed) in 2(1+x) = 5+x.",
+          "accept": [
+            "x = 3",
+            "3 years"
+          ],
+          "explanation": "2 + 2x = 5 + x -> x = 3 years pass.",
+          "hint_1": "2 + 2x = 5 + x.",
+          "hint_2": "Subtract x from both sides: 2 + x = 5.",
+          "hint_3": "x = 3."
+        },
+        {
+          "step": 2,
+          "action": "target_age",
+          "description": "Harmain age = 1 + 3 = 4 years old.",
+          "pedagogical_hint": "Add x to Harmain's initial age.",
+          "custom_prompt": "What will Harmain's age be?",
+          "accept": [
+            "4 years old",
+            "4"
+          ],
+          "explanation": "Harmain age = 1 + 3 = 4 years old.",
+          "hint_1": "Initial age is 1.",
+          "hint_2": "3 years pass.",
+          "hint_3": "4 years old."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q7",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Rule of Three & Density",
+    "question_text": "The mass of equal volumes of gold and water are in the ratio 37 : 2. If 1 litre of water is 1 kg in mass, what is the mass of 1 litre of gold?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "easy",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 34,
+    "question_number": "Figure it Out p.176 Q7",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "ratio_gw",
+          "value": "37:2",
+          "unit": null,
+          "description": "gold to water mass ratio"
+        },
+        {
+          "symbol": "m_water",
+          "value": 1,
+          "unit": "kg",
+          "description": "mass of 1L water"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "m_gold",
+          "unit": "kg",
+          "description": "mass of 1L gold"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "rule_of_three",
+          "description": "37 : 2 :: m_gold : 1.",
+          "pedagogical_hint": "m_gold = (37 * 1) / 2.",
+          "custom_prompt": "What is the mass of 1 litre of gold?",
+          "accept": [
+            "18.5 kg",
+            "18.5"
+          ],
+          "explanation": "37 / 2 = 18.5 kg.",
+          "hint_1": "Divide 37 by 2.",
+          "hint_2": "37 / 2 = 18.5.",
+          "hint_3": "18.5 kg."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q8",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Unit Conversion & Rule of Three",
+    "question_text": "It is good farming practice to apply 10 tonnes of cow manure for 1 acre of land. A farmer is planning to grow tomatoes in a plot of size 200 ft by 500 ft. How much manure should he buy?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "hard",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 35,
+    "question_number": "Figure it Out p.176 Q8",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "rate",
+          "value": 10,
+          "unit": "tonnes/acre",
+          "description": "manure rate"
+        },
+        {
+          "symbol": "dim_l",
+          "value": 200,
+          "unit": "ft",
+          "description": "plot width"
+        },
+        {
+          "symbol": "dim_w",
+          "value": 500,
+          "unit": "ft",
+          "description": "plot length"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "manure_req",
+          "unit": "kg",
+          "description": "manure required in kg/tonnes"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "area_and_conversion",
+          "description": "Plot area = 200 * 500 = 100,000 sq ft. 1 acre = 43,560 sq ft. 10 tonnes = 10,000 kg.",
+          "pedagogical_hint": "Convert acre to sq ft (43,560 sq ft) and tonnes to kg (10,000 kg).",
+          "custom_prompt": "What is the plot area in sq ft?",
+          "accept": [
+            "100,000 sq ft",
+            "100000"
+          ],
+          "explanation": "200 * 500 = 100,000 sq ft.",
+          "hint_1": "200 * 500.",
+          "hint_2": "100,000.",
+          "hint_3": "100,000 sq ft."
+        },
+        {
+          "step": 2,
+          "action": "rule_of_three",
+          "description": "43,560 : 10,000 :: 100,000 : x.",
+          "pedagogical_hint": "x = (10,000 * 100,000) / 43,560.",
+          "custom_prompt": "How much manure in kg should the farmer buy?",
+          "accept": [
+            "22,956.8 kg",
+            "22956.8 kg",
+            "22.96 tonnes"
+          ],
+          "explanation": "x = 1,000,000,000 / 43,560 ≈ 22,956.8 kg (or ~22.96 tonnes).",
+          "hint_1": "10,000 * 100,000 = 1,000,000,000.",
+          "hint_2": "Divide by 43,560.",
+          "hint_3": "22,956.8 kg."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q9",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Unit Matching & Rule of Three",
+    "question_text": "A tap takes 15 seconds to fill a mug of water. The volume of the mug is 500 mL. How much time does the same tap take to fill a bucket of water if the bucket has a 10-litre capacity?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 36,
+    "question_number": "Figure it Out p.176 Q9",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "t_mug",
+          "value": 15,
+          "unit": "s",
+          "description": "mug fill time"
+        },
+        {
+          "symbol": "v_mug",
+          "value": 500,
+          "unit": "mL",
+          "description": "mug volume"
+        },
+        {
+          "symbol": "v_bucket",
+          "value": 10,
+          "unit": "L",
+          "description": "bucket volume"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "t_bucket",
+          "unit": "s",
+          "description": "bucket fill time"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "unit_conversion",
+          "description": "10 L = 10,000 mL.",
+          "pedagogical_hint": "Convert 10 L to mL by multiplying by 1000.",
+          "custom_prompt": "What is 10 litres in mL?",
+          "accept": [
+            "10,000 mL",
+            "10000"
+          ],
+          "explanation": "10 * 1000 = 10,000 mL.",
+          "hint_1": "1 L = 1000 mL.",
+          "hint_2": "10 * 1000.",
+          "hint_3": "10,000 mL."
+        },
+        {
+          "step": 2,
+          "action": "rule_of_three",
+          "description": "500 : 15 :: 10000 : t_bucket.",
+          "pedagogical_hint": "t_bucket = 15 * (10000 / 500).",
+          "custom_prompt": "How long will it take to fill the bucket?",
+          "accept": [
+            "300 seconds",
+            "5 minutes",
+            "300 s"
+          ],
+          "explanation": "10000 / 500 = 20. 15 * 20 = 300 seconds (5 minutes).",
+          "hint_1": "10000 / 500 = 20.",
+          "hint_2": "15 * 20 = 300 s.",
+          "hint_3": "300 seconds (5 minutes)."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q10",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Unit Matching & Land Valuation",
+    "question_text": "One acre of land costs ₹15,00,000. What is the cost of 2,400 square feet of the same land?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 37,
+    "question_number": "Figure it Out p.176 Q10",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "c_acre",
+          "value": 1500000,
+          "unit": "INR",
+          "description": "cost of 1 acre"
+        },
+        {
+          "symbol": "area_target",
+          "value": 2400,
+          "unit": "sq ft",
+          "description": "target plot area"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "cost_target",
+          "unit": "INR",
+          "description": "cost of 2400 sq ft"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "unit_conversion_and_proportion",
+          "description": "1 acre = 43,560 sq ft. 43,560 : 15,00,000 :: 2,400 : x.",
+          "pedagogical_hint": "x = (15,00,000 * 2,400) / 43,560.",
+          "custom_prompt": "What is the cost of 2,400 sq ft of land?",
+          "accept": [
+            "₹82,645",
+            "82645",
+            "Rs 82,645"
+          ],
+          "explanation": "x = (15,00,000 * 2400) / 43560 ≈ ₹82,645.",
+          "hint_1": "1 acre = 43,560 sq ft.",
+          "hint_2": "1,500,000 * 2400 / 43560.",
+          "hint_3": "₹82,645."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q11",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Rate & Time Comparison",
+    "question_text": "A tractor can plough the same area of a field 4 times faster than a pair of oxen. A farmer wants to plough his 20-acre field. A pair of oxen takes 6 hours to plough an acre of land. How much time would it take if the farmer used a pair of oxen to plough the field? How much time would it take him if he decides to use a tractor instead?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "medium",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 38,
+    "question_number": "Figure it Out p.176 Q11",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "speed_ratio",
+          "value": 4,
+          "unit": null,
+          "description": "tractor speed relative to oxen"
+        },
+        {
+          "symbol": "field_size",
+          "value": 20,
+          "unit": "acres",
+          "description": "field area"
+        },
+        {
+          "symbol": "oxen_rate",
+          "value": 6,
+          "unit": "hrs/acre",
+          "description": "oxen time per acre"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "t_oxen",
+          "unit": "hours",
+          "description": "total time with oxen"
+        },
+        {
+          "symbol": "t_tractor",
+          "unit": "hours",
+          "description": "total time with tractor"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "oxen_time",
+          "description": "Time with oxen = 20 acres * 6 hrs/acre = 120 hours.",
+          "pedagogical_hint": "Multiply 20 by 6.",
+          "custom_prompt": "How many hours would a pair of oxen take for 20 acres?",
+          "accept": [
+            "120 hours",
+            "120"
+          ],
+          "explanation": "20 * 6 = 120 hours.",
+          "hint_1": "20 * 6.",
+          "hint_2": "120.",
+          "hint_3": "120 hours."
+        },
+        {
+          "step": 2,
+          "action": "tractor_time",
+          "description": "Tractor is 4x faster -> Time = 120 / 4 = 30 hours.",
+          "pedagogical_hint": "Divide oxen time 120 by 4.",
+          "custom_prompt": "How many hours would a tractor take for 20 acres?",
+          "accept": [
+            "30 hours",
+            "30"
+          ],
+          "explanation": "120 / 4 = 30 hours.",
+          "hint_1": "Tractor takes 1/4th the time.",
+          "hint_2": "120 / 4 = 30.",
+          "hint_3": "30 hours."
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g08-hegp107-p176-q12",
+    "grade": 8,
+    "curriculum": "NCERT",
+    "curriculum_year": 2026,
+    "chapter_name": "Proportional Reasoning-1",
+    "chapter_number": 7,
+    "topic": "Proportional Reasoning",
+    "subtopic": "Sharing in a Ratio & Cost Analysis",
+    "question_text": "The ₹10 coin is an alloy of copper and nickel called 'cupro-nickel'. Copper and nickel are mixed in a 3 : 1 ratio to get this alloy. The mass of the coin is 7.74 grams. If the cost of copper is ₹906 per kg and the cost of nickel is ₹1,341 per kg, what is the cost of these metals in a ₹10 coin?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "math",
+    "difficulty": "hard",
+    "source": "Ganita Prakash Grade 8 NCERT Chapter 7 (hegp107)",
+    "chapter_question_number": 39,
+    "question_number": "Figure it Out p.176 Q12",
+    "question_group": "Figure it Out",
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "ratio_cn",
+          "value": "3:1",
+          "unit": null,
+          "description": "copper to nickel ratio"
+        },
+        {
+          "symbol": "coin_mass",
+          "value": 7.74,
+          "unit": "g",
+          "description": "coin mass"
+        },
+        {
+          "symbol": "cost_cu",
+          "value": 906,
+          "unit": "INR/kg",
+          "description": "copper cost per kg"
+        },
+        {
+          "symbol": "cost_ni",
+          "value": 1341,
+          "unit": "INR/kg",
+          "description": "nickel cost per kg"
+        }
+      ],
+      "find": [
+        {
+          "symbol": "cost_cu_coin",
+          "unit": "INR",
+          "description": "copper cost in coin"
+        },
+        {
+          "symbol": "cost_ni_coin",
+          "unit": "INR",
+          "description": "nickel cost in coin"
+        },
+        {
+          "symbol": "cost_total_coin",
+          "unit": "INR",
+          "description": "total metal cost in coin"
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "metal_masses",
+          "description": "Total parts = 4. Copper = (3/4)*7.74 = 5.805 g. Nickel = (1/4)*7.74 = 1.935 g.",
+          "pedagogical_hint": "Divide 7.74 by 4 = 1.935 g per part.",
+          "custom_prompt": "What are the masses of copper and nickel in the coin?",
+          "accept": [
+            "Copper 5.805 g, Nickel 1.935 g",
+            "5.805 g and 1.935 g"
+          ],
+          "explanation": "Copper = 3 * 1.935 = 5.805 g. Nickel = 1 * 1.935 = 1.935 g.",
+          "hint_1": "7.74 / 4 = 1.935 g.",
+          "hint_2": "Copper = 3 * 1.935 = 5.805 g.",
+          "hint_3": "Nickel = 1.935 g."
+        },
+        {
+          "step": 2,
+          "action": "metal_costs",
+          "description": "Copper cost = (5.805/1000) * 906 ≈ ₹5.26. Nickel cost = (1.935/1000) * 1341 ≈ ₹2.59. Total metal cost = 5.26 + 2.59 = ₹7.85.",
+          "pedagogical_hint": "Convert grams to kg by dividing by 1000, then multiply by per-kg rate.",
+          "custom_prompt": "What is the total cost of metals in the ₹10 coin?",
+          "accept": [
+            "₹7.85",
+            "7.85",
+            "Rs 7.85 (Copper ₹5.26, Nickel ₹2.59)"
+          ],
+          "explanation": "Copper cost = 5.805 * 0.906 = ₹5.26. Nickel cost = 1.935 * 1.341 = ₹2.59. Total = ₹7.85.",
+          "hint_1": "5.805 / 1000 * 906 = 5.26.",
+          "hint_2": "1.935 / 1000 * 1341 = 2.59.",
+          "hint_3": "5.26 + 2.59 = ₹7.85."
+        }
+      ]
+    }
+  }
+]

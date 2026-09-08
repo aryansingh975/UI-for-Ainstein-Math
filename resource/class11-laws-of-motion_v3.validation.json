@@ -1,0 +1,2205 @@
+[
+  {
+    "uuid": "g11-laws-of-motion-003",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Newton's Second Law",
+    "question_text": "If two objects of masses $2.5~kg$ and $100~kg$ experience the same force $5~N$, what is the acceleration experienced by each of them?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "easy",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 3,
+    "question_number": "Example 3.2",
+    "question_group": "Example",
+    "group_question_number": "3.2",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": 11,
+    "chapter_page_end": 11,
+    "figure_refs": [],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "m_1",
+          "value": 2.5,
+          "unit": "kg",
+          "source": "stated",
+          "description": "mass of the first object",
+          "synonyms": [
+            "m_1",
+            "mass_1"
+          ],
+          "unit_synonyms": [
+            "kilogram",
+            "kg",
+            "kilograms"
+          ]
+        },
+        {
+          "symbol": "m_2",
+          "value": 100,
+          "unit": "kg",
+          "source": "stated",
+          "description": "mass of the second object",
+          "synonyms": [
+            "m_2",
+            "mass_2"
+          ],
+          "unit_synonyms": [
+            "kilogram",
+            "kg",
+            "kilograms"
+          ]
+        },
+        {
+          "symbol": "F",
+          "value": 5,
+          "unit": "N",
+          "source": "stated",
+          "description": "same force acting on each object",
+          "synonyms": [
+            "F",
+            "force"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        }
+      ],
+      "find": [
+        {
+          "symbol": "a_1",
+          "unit": "m/s^2",
+          "description": "acceleration of the first object",
+          "synonyms": [
+            "a_1",
+            "acceleration_1"
+          ],
+          "unit_synonyms": [
+            "m/s^2",
+            "m/s²",
+            "meter per second squared",
+            "meters per second squared"
+          ]
+        },
+        {
+          "symbol": "a_2",
+          "unit": "m/s^2",
+          "description": "acceleration of the second object",
+          "synonyms": [
+            "a_2",
+            "acceleration_2"
+          ],
+          "unit_synonyms": [
+            "m/s^2",
+            "m/s²",
+            "meter per second squared",
+            "meters per second squared"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the given quantities for both objects.",
+          "pedagogical_hint": "Help the student separate the data for the two objects and note that the same force acts on each one.",
+          "custom_prompt": "What quantities are given in the problem for the two objects?",
+          "accept": [
+            "m_1 = 2.5 kg, m_2 = 100 kg, F = 5 N",
+            "mass_1 is 2.5 kg, mass_2 is 100 kg, force is 5 N",
+            "m1=2.5 kg, m2=100 kg, F=5 N"
+          ],
+          "explanation": "The problem gives the masses of two different objects and states that each experiences the same force. These values are enough to use Newton's second law separately for each object.",
+          "hint_1": "List the mass of the first object.",
+          "hint_2": "List the mass of the second object.",
+          "hint_3": "Note the common force acting on both objects.",
+          "value": "m_1 = 2.5 kg, m_2 = 100 kg, F = 5 N"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "Identify the accelerations to be found for both objects.",
+          "pedagogical_hint": "Encourage the student to assign separate acceleration symbols because the masses are different.",
+          "custom_prompt": "What are we asked to find?",
+          "accept": [
+            "a_1 and a_2",
+            "acceleration of both objects",
+            "a1 and a2"
+          ],
+          "explanation": "Since the objects have different masses, their accelerations must be found separately even though the applied force is the same.",
+          "hint_1": "Think about the effect of the same force on different masses.",
+          "hint_2": "Each object will have its own acceleration.",
+          "hint_3": "Name the required quantities as a_1 and a_2."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Select Newton's second law for the first object and rearrange it for acceleration.",
+          "pedagogical_hint": "Remind the student that force, mass, and acceleration are related directly by Newton's second law.",
+          "custom_prompt": "Which formula relates force, mass, and acceleration for the first object?",
+          "accept": [
+            "F = m_1 × a_1",
+            "a_1 = F/m_1"
+          ],
+          "explanation": "Newton's second law states that force equals mass times acceleration. For the first object, this becomes a relation between F, m_1, and a_1.",
+          "hint_1": "Use the law that connects force and acceleration.",
+          "hint_2": "Write it using the first object's mass symbol.",
+          "hint_3": "Then isolate acceleration.",
+          "formula_id": null,
+          "formula": "F = m_1 × a_1",
+          "sympy_expr": "Eq(F, m_1*a_1)"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Substitute the given values into the formula for the first object. No unit conversion is needed because all quantities are already in SI units.",
+          "pedagogical_hint": "Guide the student to place the correct mass with the correct object's acceleration formula.",
+          "custom_prompt": "Substitute the values of F and m_1 into the equation for the first object.",
+          "accept": [
+            "F = 5 N, m_1 = 2.5 kg",
+            "5 N and 2.5 kg",
+            "substitute F=5 N and m_1=2.5 kg"
+          ],
+          "explanation": "The applied force is 5 N and the mass of the first object is 2.5 kg. These fit directly into the SI form of Newton's second law.",
+          "hint_1": "Use the common force value.",
+          "hint_2": "Use the first mass, not the second one.",
+          "hint_3": "All values are already in standard units.",
+          "substitution": {
+            "F": 5,
+            "m_1": 2.5
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "Solve for the acceleration of the first object.",
+          "pedagogical_hint": "If needed, help the student rearrange the equation to acceleration equals force divided by mass.",
+          "custom_prompt": "What is the acceleration a_1 of the first object?",
+          "accept": [
+            "2 m/s^2",
+            "a_1 = 2 m/s^2",
+            "2 m/s²"
+          ],
+          "explanation": "Dividing the applied force by the mass gives the acceleration. A smaller mass produces a larger acceleration for the same force.",
+          "hint_1": "Rearrange the equation to make acceleration the subject.",
+          "hint_2": "Acceleration depends on the ratio of force to mass.",
+          "hint_3": "The first object's mass is relatively small, so its acceleration is larger.",
+          "substitution": {
+            "F": 5,
+            "m_1": 2.5
+          },
+          "target": "a_1",
+          "expected_result": 2,
+          "unit": "m/s^2",
+          "unit_synonyms": [
+            "m/s^2",
+            "m/s²",
+            "meter per second squared",
+            "meters per second squared"
+          ]
+        },
+        {
+          "step": 6,
+          "action": "select_formula",
+          "description": "Select Newton's second law for the second object and rearrange it for acceleration.",
+          "pedagogical_hint": "Emphasize that the same physical law is applied again, but now with the second object's mass and acceleration symbols.",
+          "custom_prompt": "Which formula relates force, mass, and acceleration for the second object?",
+          "accept": [
+            "F = m_2 × a_2",
+            "a_2 = F/m_2"
+          ],
+          "explanation": "The same law applies to the second object. Here, force is related to the mass m_2 and acceleration a_2.",
+          "hint_1": "Use the same force law as before.",
+          "hint_2": "Now write it for the second object's symbols.",
+          "hint_3": "Then isolate acceleration.",
+          "formula_id": null,
+          "formula": "F = m_2 × a_2",
+          "sympy_expr": "Eq(F, m_2*a_2)"
+        },
+        {
+          "step": 7,
+          "action": "substitute",
+          "description": "Substitute the given values into the formula for the second object. No unit conversion is needed because all quantities are already in SI units.",
+          "pedagogical_hint": "Make sure the student uses the larger mass here and keeps the same force value.",
+          "custom_prompt": "Substitute the values of F and m_2 into the equation for the second object.",
+          "accept": [
+            "F = 5 N, m_2 = 100 kg",
+            "5 N and 100 kg",
+            "substitute F=5 N and m_2=100 kg"
+          ],
+          "explanation": "The force is again 5 N, but now the mass is 100 kg for the second object. These values are substituted directly into Newton's second law.",
+          "hint_1": "Use the same force as before.",
+          "hint_2": "Use the second object's mass now.",
+          "hint_3": "No conversion is required.",
+          "substitution": {
+            "F": 5,
+            "m_2": 100
+          }
+        },
+        {
+          "step": 8,
+          "action": "solve",
+          "description": "Solve for the acceleration of the second object.",
+          "pedagogical_hint": "Help the student compare the effect of a much larger mass under the same force.",
+          "custom_prompt": "What is the acceleration a_2 of the second object?",
+          "accept": [
+            "0.05 m/s^2",
+            "a_2 = 0.05 m/s^2",
+            "0.05 m/s²"
+          ],
+          "explanation": "Using force divided by mass gives the acceleration. Because the second object's mass is much larger, its acceleration is much smaller under the same force.",
+          "hint_1": "Use the ratio of force to mass again.",
+          "hint_2": "A larger mass gives a smaller acceleration for the same force.",
+          "hint_3": "The answer is much less than the first object's acceleration.",
+          "substitution": {
+            "F": 5,
+            "m_2": 100
+          },
+          "target": "a_2",
+          "expected_result": 0.05,
+          "unit": "m/s^2",
+          "unit_synonyms": [
+            "m/s^2",
+            "m/s²",
+            "meter per second squared",
+            "meters per second squared"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g11-laws-of-motion-014",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Lami’s theorem",
+    "question_text": "A baby is playing in a swing which is hanging with the help of two identical chains is at rest. Identify the forces acting on the baby. Apply Lami’s theorem and find out the tension acting on the chain.",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "medium",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 14,
+    "question_number": "Example 3.14",
+    "question_group": "Example",
+    "group_question_number": "3.14",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": 25,
+    "chapter_page_end": 25,
+    "figure_refs": [
+      "images/class11-laws-of-motion/g11-laws-of-motion-014.png"
+    ],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "n_chains",
+          "value": 2,
+          "unit": null,
+          "source": "stated",
+          "description": "number of identical chains supporting the swing",
+          "synonyms": [
+            "n_chains",
+            "number_of_chains"
+          ],
+          "unit_synonyms": [
+            "count"
+          ]
+        },
+        {
+          "symbol": "state_rest",
+          "value": "at rest",
+          "unit": null,
+          "source": "stated",
+          "description": "the baby is at rest, so the system is in equilibrium",
+          "synonyms": [
+            "state_rest",
+            "equilibrium_state"
+          ],
+          "unit_synonyms": []
+        },
+        {
+          "symbol": "F_weight",
+          "value": "unknown",
+          "unit": "N",
+          "source": "context",
+          "description": "weight of the baby acting vertically downward",
+          "synonyms": [
+            "F_weight",
+            "W",
+            "weight"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        },
+        {
+          "symbol": "theta",
+          "value": 0,
+          "unit": "degree",
+          "source": "figure",
+          "description": "angle each chain makes with the vertical direction (0 degree for vertical chains)",
+          "synonyms": [
+            "theta",
+            "angle with vertical"
+          ],
+          "unit_synonyms": [
+            "deg",
+            "degrees"
+          ]
+        }
+      ],
+      "find": [
+        {
+          "symbol": "T_chain",
+          "unit": "N",
+          "description": "tension in each identical chain",
+          "synonyms": [
+            "T_chain",
+            "tension_each_chain"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the three concurrent coplanar forces on the baby: weight mg downward, and tensions T in each of the two chains.",
+          "pedagogical_hint": "Help the student interpret 'at rest' as equilibrium and note that identical chains imply equal tensions.",
+          "custom_prompt": "What facts are directly given about the chains and the motion of the baby?",
+          "accept": [
+            "weight mg down, two equal tensions T",
+            "mg downward and T along each chain",
+            "3 forces: mg and two T"
+          ],
+          "explanation": "The baby modelled as a particle has three forces: gravitational force mg acting vertically downward, and equal tension T acting along each of the two identical chains upward.",
+          "hint_1": "Look for the number of supporting chains.",
+          "hint_2": "Now note the condition of motion mentioned in the question.",
+          "hint_3": "A body at rest has balanced forces.",
+          "value": "F_weight = mg downward; T along chain 1; T along chain 2; theta = angle from vertical"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "We need to determine the tension in one chain.",
+          "pedagogical_hint": "Guide the student to identify the unknown force before applying equilibrium.",
+          "custom_prompt": "What quantity is the question asking you to find?",
+          "accept": [
+            "tension in each chain",
+            "T_chain",
+            "tension"
+          ],
+          "explanation": "Since the two chains are identical, the same tension acts in each one. The required quantity is the tension in a single chain.",
+          "hint_1": "Read the last line of the question.",
+          "hint_2": "The unknown is a force provided by the chain.",
+          "hint_3": "Name that force as the tension in each chain."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Apply Lami's theorem. For vertical identical chains (theta=0), the equilibrium simplifies to 2T = mg.",
+          "pedagogical_hint": "Use force balance for the symmetric support because no numerical angle is provided.",
+          "custom_prompt": "Which equilibrium relation connects the two equal tensions and the baby's weight?",
+          "accept": [
+            "2T = mg",
+            "2*T_chain = F_weight",
+            "T = mg/(2cos(theta))",
+            "vertical force balance: 2T = mg"
+          ],
+          "explanation": "By Lami's theorem: T/sin(180-theta) = mg/sin(2theta). Using sin(180-theta)=sin(theta) and sin(2theta)=2sin(theta)cos(theta): T/sin(theta) = mg/(2sin(theta)cos(theta)), so T = mg/(2cos(theta)). The textbook note states: when theta=0 deg (chains vertical), T = mg/2. This is also directly from vertical equilibrium: 2T = mg.",
+          "hint_1": "Identify the downward force on the baby.",
+          "hint_2": "There are two equal supporting forces upward.",
+          "hint_3": "Set the total upward support equal to the downward weight.",
+          "formula_id": null,
+          "formula": "2*T_chain = F_weight",
+          "sympy_expr": "Eq(2*T_chain, F_weight)"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Substitute theta=0 (vertical chains) or use symmetry: each identical chain carries half the total weight.",
+          "pedagogical_hint": "Encourage the student to use symmetry: identical supports share the load equally.",
+          "custom_prompt": "How does the total weight get shared between the two identical chains?",
+          "accept": [
+            "T = mg/2",
+            "each chain supports half the weight",
+            "T_chain = F_weight/2",
+            "cos(0)=1 so T = mg/2"
+          ],
+          "explanation": "For vertical identical chains theta=0, cos(0)=1, so T = mg/(2*1) = mg/2. Equivalently from 2T = mg: T = mg/2.",
+          "hint_1": "The supports are identical.",
+          "hint_2": "Balanced identical supports share the load equally.",
+          "hint_3": "So one chain carries W/2.",
+          "substitution": {
+            "theta": 0
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "The tension in each chain is T = mg/2.",
+          "pedagogical_hint": "Clarify that the problem data are insufficient for a numerical value in newtons; the result can only be expressed in terms of the baby's weight.",
+          "custom_prompt": "After rearranging the equilibrium equation, what is the tension in one chain?",
+          "accept": [
+            "T_chain = mg/2",
+            "T = mg/2",
+            "T_chain = F_weight/2",
+            "half the weight of the baby",
+            "T = W/2"
+          ],
+          "explanation": "From the equilibrium condition 2T = mg, solving for T: T = mg/2. Since the weight W is not given numerically, the answer is expressed as T = W/2.",
+          "hint_1": "Start with 2T = W.",
+          "hint_2": "Divide both sides by 2.",
+          "hint_3": "Express the tension in terms of the baby's weight W.",
+          "substitution": {},
+          "target": "T_chain",
+          "expected_result": "mg/2",
+          "unit": "N",
+          "unit_synonyms": [
+            "newton",
+            "newtons"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g11-laws-of-motion-018",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Impulse",
+    "question_text": "An object of mass $10~kg$ moving with a speed of $15~ms^{-1}$ hits the wall and comes to rest within \n (a) $0.03~second$ \n (b) $10~second$. \nCalculate the impulse and average force acting on the object in both the cases.",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "medium",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 18,
+    "question_number": "Example 3.16",
+    "question_group": "Example",
+    "group_question_number": "3.16",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": null,
+    "chapter_page_end": null,
+    "figure_refs": [],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "m",
+          "value": 10,
+          "unit": "kg",
+          "source": "stated",
+          "description": "mass of the object",
+          "synonyms": [
+            "m",
+            "mass"
+          ],
+          "unit_synonyms": [
+            "kilogram",
+            "kg",
+            "kilograms"
+          ]
+        },
+        {
+          "symbol": "u",
+          "value": 15,
+          "unit": "m/s",
+          "source": "stated",
+          "description": "initial speed of the object",
+          "synonyms": [
+            "u",
+            "v_initial",
+            "initial speed"
+          ],
+          "unit_synonyms": [
+            "m s^-1",
+            "m s-1",
+            "metre per second",
+            "meter per second",
+            "meters per second",
+            "metres per second"
+          ]
+        },
+        {
+          "symbol": "v",
+          "value": 0,
+          "unit": "m/s",
+          "source": "stated",
+          "description": "final speed of the object after hitting the wall",
+          "synonyms": [
+            "v",
+            "v_final",
+            "final speed"
+          ],
+          "unit_synonyms": [
+            "m s^-1",
+            "m s-1",
+            "metre per second",
+            "meter per second",
+            "meters per second",
+            "metres per second"
+          ]
+        },
+        {
+          "symbol": "t_1",
+          "value": 0.03,
+          "unit": "s",
+          "source": "stated",
+          "description": "time taken to come to rest in case (a)",
+          "synonyms": [
+            "t_1",
+            "time_a"
+          ],
+          "unit_synonyms": [
+            "second",
+            "s",
+            "sec",
+            "seconds"
+          ]
+        },
+        {
+          "symbol": "t_2",
+          "value": 10,
+          "unit": "s",
+          "source": "stated",
+          "description": "time taken to come to rest in case (b)",
+          "synonyms": [
+            "t_2",
+            "time_b"
+          ],
+          "unit_synonyms": [
+            "second",
+            "s",
+            "sec",
+            "seconds"
+          ]
+        }
+      ],
+      "find": [
+        {
+          "symbol": "J_1",
+          "unit": "N s",
+          "description": "impulse acting on the object in case (a)",
+          "synonyms": [
+            "J_1",
+            "impulse_a"
+          ],
+          "unit_synonyms": [
+            "kg m/s",
+            "newton second"
+          ]
+        },
+        {
+          "symbol": "F_avg_1",
+          "unit": "N",
+          "description": "average force acting on the object in case (a)",
+          "synonyms": [
+            "F_avg_1",
+            "average force_a"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        },
+        {
+          "symbol": "J_2",
+          "unit": "N s",
+          "description": "impulse acting on the object in case (b)",
+          "synonyms": [
+            "J_2",
+            "impulse_b"
+          ],
+          "unit_synonyms": [
+            "kg m/s",
+            "newton second"
+          ]
+        },
+        {
+          "symbol": "F_avg_2",
+          "unit": "N",
+          "description": "average force acting on the object in case (b)",
+          "synonyms": [
+            "F_avg_2",
+            "average force_b"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the known quantities from the question for both cases.",
+          "pedagogical_hint": "Help the student separate common data from case-specific times.",
+          "custom_prompt": "What quantities are given for the object and what are the two stopping times?",
+          "accept": [
+            "m = 10 kg, u = 15 m/s, v = 0 m/s, t_1 = 0.03 s, t_2 = 10 s",
+            "mass   is 10 kg, initial speed is 15 m/s, final speed is 0 m/s, stopping time is 0.03 s and 10 s"
+          ],
+          "explanation": "The mass, initial speed, and final speed are common to both parts. Only the stopping time changes between case (a) and case (b).",
+          "hint_1": "List the object's mass and its speeds before and after collision.",
+          "hint_2": "Notice that the object comes to rest, so the final speed is zero.",
+          "hint_3": "There are two separate time intervals, one for each case.",
+          "value": "m = 10 kg, u = 15 m/s, v = 0 m/s, t_1 = 0.03 s, t_2 = 10 s"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "Identify the quantities to be calculated in each case.",
+          "pedagogical_hint": "Emphasize that both impulse and average force are needed for each stopping time.",
+          "custom_prompt": "What are the four quantities we need to find for the two cases?",
+          "accept": [
+            "J_1, F_avg_1, J_2, F_avg_2",
+            "impulse and average force in both cases"
+          ],
+          "explanation": "For each stopping time, we must find two things: the impulse experienced by the object and the average force acting on it.",
+          "hint_1": "Think of one momentum-based quantity and one force-based quantity.",
+          "hint_2": "The same pair of quantities is required for case (a) and case (b).",
+          "hint_3": "So there will be four final answers altogether."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Choose the relation for impulse in case (a) using change in momentum.",
+          "pedagogical_hint": "Guide the student to connect impulse with momentum change during collision.",
+          "custom_prompt": "Which equation relates impulse to the change in momentum for case (a)?",
+          "accept": [
+            "J_1 = m × (v - u)",
+            "J_1 = m(v-u)"
+          ],
+          "explanation": "Impulse is equal to the change in momentum. Since the object stops, its momentum decreases from m × u to m × v.",
+          "hint_1": "Start from the idea that impulse measures how much momentum changes.",
+          "hint_2": "Use the mass and the initial and final velocities.",
+          "hint_3": "Write the expression specifically for case (a) with symbol J_1.",
+          "formula_id": null,
+          "formula": "J_1 = m × (v - u)",
+          "sympy_expr": "Eq(J_1, m*(v - u))"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Substitute the given mass, initial velocity, and final velocity into the impulse formula for case (a).",
+          "pedagogical_hint": "Remind the student that coming to rest means the final velocity is zero, making the change in momentum negative.",
+          "custom_prompt": "Substitute the known values into the equation for J_1.",
+          "accept": [
+            "m = 10, v = 0, u = 15",
+            "J_1 = 10 × (0 - 15)"
+          ],
+          "explanation": "All quantities are already in SI units, so we can directly substitute them into the impulse relation.",
+          "hint_1": "Use the same mass for both cases.",
+          "hint_2": "The final velocity is zero because the object stops.",
+          "hint_3": "Keep the sign of velocity change as final minus initial.",
+          "substitution": {
+            "m": 10,
+            "v": 0,
+            "u": 15
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "Calculate the impulse in case (a).",
+          "pedagogical_hint": "If the student is unsure about the sign, discuss that the negative sign indicates the impulse acts opposite to the initial motion.",
+          "custom_prompt": "What is the impulse J_1 on the object in case (a)?",
+          "accept": [
+            "150 N s",
+            "J_1 = 150 N s"
+          ],
+          "explanation": "The momentum changes from a positive value to zero, so the impulse is negative. This shows the impulse acts opposite to the initial direction of motion.",
+          "hint_1": "Find the velocity change first.",
+          "hint_2": "Multiply the mass by that change in velocity.",
+          "hint_3": "Include the sign to show direction relative to the initial motion.",
+          "substitution": {
+            "m": 10,
+            "v": 0,
+            "u": 15
+          },
+          "target": "J_1",
+          "expected_result": 150,
+          "unit": "N s",
+          "unit_synonyms": [
+            "kg m/s",
+            "newton second"
+          ]
+        },
+        {
+          "step": 6,
+          "action": "select_formula",
+          "description": "Choose the relation between average force and impulse for case (a).",
+          "pedagogical_hint": "Help the student see that average force is impulse distributed over the collision time.",
+          "custom_prompt": "Which equation gives average force in terms of impulse and time for case (a)?",
+          "accept": [
+            "F_avg_1 = J_1 / t_1",
+            "F_avg_1 = J_1 ÷ t_1"
+          ],
+          "explanation": "Average force is the rate of change of momentum. Since impulse equals change in momentum, average force can be found by dividing impulse by the time interval.",
+          "hint_1": "Average force depends on how quickly the momentum changes.",
+          "hint_2": "A shorter stopping time gives a larger force for the same impulse.",
+          "hint_3": "Use J_1 and the stopping time t_1.",
+          "formula_id": null,
+          "formula": "F_avg_1 = J_1 / t_1",
+          "sympy_expr": "Eq(F_avg_1, J_1/t_1)"
+        },
+        {
+          "step": 7,
+          "action": "substitute",
+          "description": "Substitute the impulse from case (a) and the stopping time 0.03 s into the average force formula.",
+          "pedagogical_hint": "Point out that the time is already in seconds, so no unit conversion is needed.",
+          "custom_prompt": "Substitute the known values into the equation for F_avg_1.",
+          "accept": [
+            "J_1 = -150, t_1 = 0.03",
+            "F_avg_1 = -150 / 0.03"
+          ],
+          "explanation": "The impulse from the previous step is used here, along with the given stopping time for case (a).",
+          "hint_1": "Take the impulse already found for case (a).",
+          "hint_2": "Use the smaller of the two stopping times here.",
+          "hint_3": "Divide impulse by time to get average force.",
+          "substitution": {
+            "J_1": -150,
+            "t_1": 0.03
+          }
+        },
+        {
+          "step": 8,
+          "action": "solve",
+          "description": "Calculate the average force in case (a).",
+          "pedagogical_hint": "Discuss how the very short stopping time leads to a large average force.",
+          "custom_prompt": "What is the average force F_avg_1 acting on the object in case (a)?",
+          "accept": [
+            "5000 N",
+            "F_avg_1 = 5000 N"
+          ],
+          "explanation": "The same momentum change occurring in a very short time produces a large average force. The negative sign shows the force acts opposite to the initial motion.",
+          "hint_1": "Use the impulse found for case (a).",
+          "hint_2": "Divide by the stopping time for case (a).",
+          "hint_3": "Keep the sign consistent with the direction of the impulse.",
+          "substitution": {
+            "J_1": -150,
+            "t_1": 0.03
+          },
+          "target": "F_avg_1",
+          "expected_result": 5000,
+          "unit": "N",
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        },
+        {
+          "step": 9,
+          "action": "select_formula",
+          "description": "Choose the relation for impulse in case (b) using change in momentum.",
+          "pedagogical_hint": "Reinforce that impulse depends only on momentum change, not on the time taken.",
+          "custom_prompt": "Which equation relates impulse to the change in momentum for case (b)?",
+          "accept": [
+            "J_2 = m × (v - u)",
+            "J_2 = m(v-u)"
+          ],
+          "explanation": "The initial and final velocities are the same as in case (a), so the impulse relation is identical. Only the stopping time changes later when finding force.",
+          "hint_1": "Impulse still comes from the change in momentum.",
+          "hint_2": "Use the same mass and velocities as before.",
+          "hint_3": "Write the equation specifically for J_2.",
+          "formula_id": null,
+          "formula": "J_2 = m × (v - u)",
+          "sympy_expr": "Eq(J_2, m*(v - u))"
+        },
+        {
+          "step": 10,
+          "action": "substitute",
+          "description": "Substitute the given mass, initial velocity, and final velocity into the impulse formula for case (b).",
+          "pedagogical_hint": "Ask the student whether the change in momentum is different in this case; it is not.",
+          "custom_prompt": "Substitute the known values into the equation for J_2.",
+          "accept": [
+            "m = 10, v = 0, u = 15",
+            "J_2 = 10 × (0 - 15)"
+          ],
+          "explanation": "Impulse depends on the same mass and velocities as before, so the substitution is unchanged from case (a).",
+          "hint_1": "Use the same object data again.",
+          "hint_2": "The object still comes to rest.",
+          "hint_3": "So the change in velocity is the same as before.",
+          "substitution": {
+            "m": 10,
+            "v": 0,
+            "u": 15
+          }
+        },
+        {
+          "step": 11,
+          "action": "solve",
+          "description": "Calculate the impulse in case (b).",
+          "pedagogical_hint": "Help the student notice that changing time does not change impulse when the initial and final velocities are unchanged.",
+          "custom_prompt": "What is the impulse J_2 on the object in case (b)?",
+          "accept": [
+            "150 N s",
+            "J_2 = 150 N s"
+          ],
+          "explanation": "Because the initial and final momenta are the same as in case (a), the impulse is also the same. Time affects average force, not the total impulse for the same momentum change.",
+          "hint_1": "The momentum change is the same as in case (a).",
+          "hint_2": "So the impulse must also be the same.",
+          "hint_3": "Express the answer with the correct sign and unit.",
+          "substitution": {
+            "m": 10,
+            "v": 0,
+            "u": 15
+          },
+          "target": "J_2",
+          "expected_result": 150,
+          "unit": "N s",
+          "unit_synonyms": [
+            "kg m/s",
+            "newton second"
+          ]
+        },
+        {
+          "step": 12,
+          "action": "select_formula",
+          "description": "Choose the relation between average force and impulse for case (b).",
+          "pedagogical_hint": "Encourage comparison with case (a) to predict whether the force will be larger or smaller.",
+          "custom_prompt": "Which equation gives average force in terms of impulse and time for case (b)?",
+          "accept": [
+            "F_avg_2 = J_2 / t_2",
+            "F_avg_2 = J_2 ÷ t_2"
+          ],
+          "explanation": "Average force is again found by dividing impulse by the time interval, now using the longer stopping time in case (b).",
+          "hint_1": "Use the impulse from case (b).",
+          "hint_2": "Pair it with the stopping time t_2.",
+          "hint_3": "Longer time means smaller average force for the same impulse.",
+          "formula_id": null,
+          "formula": "F_avg_2 = J_2 / t_2",
+          "sympy_expr": "Eq(F_avg_2, J_2/t_2)"
+        },
+        {
+          "step": 13,
+          "action": "substitute",
+          "description": "Substitute the impulse from case (b) and the stopping time 10 s into the average force formula.",
+          "pedagogical_hint": "Invite the student to compare this time with 0.03 s to anticipate the change in force magnitude.",
+          "custom_prompt": "Substitute the known values into the equation for F_avg_2.",
+          "accept": [
+            "J_2 = -150, t_2 = 10",
+            "F_avg_2 = -150 / 10"
+          ],
+          "explanation": "The impulse is the same as before, but the time interval is much larger in this case.",
+          "hint_1": "Use the impulse found for case (b).",
+          "hint_2": "Now use the longer stopping time.",
+          "hint_3": "Average force is obtained by dividing by time.",
+          "substitution": {
+            "J_2": 150,
+            "t_2": 10
+          }
+        },
+        {
+          "step": 14,
+          "action": "solve",
+          "description": "Calculate the average force in case (b).",
+          "pedagogical_hint": "Use this step to highlight the practical safety idea that increasing stopping time reduces force.",
+          "custom_prompt": "What is the average force F_avg_2 acting on the object in case (b)?",
+          "accept": [
+            "15 N",
+            "15 Newton",
+            "F_avg_2 = 15 N"
+          ],
+          "explanation": "The same impulse spread over a much longer time gives a much smaller average force. The negative sign indicates the force acts opposite to the initial direction of motion.",
+          "hint_1": "Take the impulse from case (b).",
+          "hint_2": "Divide it by the longer stopping time.",
+          "hint_3": "The magnitude should be much smaller than in case (a).",
+          "substitution": {
+            "J_2": 150,
+            "t_2": 10
+          },
+          "target": "F_avg_2",
+          "expected_result": 15,
+          "unit": "N",
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g11-laws-of-motion-019",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Static friction ",
+    "question_text": "Consider an object of mass $2~kg$ resting on the floor. The coefficient of static friction between the object and the floor is $\\mu_s = 0.8$. What force must be applied on the object to move it?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "easy",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 19,
+    "question_number": "Example 3.17",
+    "question_group": "Example",
+    "group_question_number": "3.17",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": 33,
+    "chapter_page_end": 33,
+    "figure_refs": [],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "m",
+          "value": 2,
+          "unit": "kg",
+          "source": "stated",
+          "description": "mass of the object",
+          "synonyms": [
+            "m",
+            "mass"
+          ],
+          "unit_synonyms": [
+            "kilogram",
+            "kilograms"
+          ]
+        },
+        {
+          "symbol": "mu_s",
+          "value": 0.8,
+          "unit": null,
+          "source": "stated",
+          "description": "coefficient of static friction",
+          "synonyms": [
+            "mu_s",
+            "coefficient of static friction"
+          ],
+          "unit_synonyms": []
+        },
+        {
+          "symbol": "g",
+          "value": 9.8,
+          "unit": "m/s^2",
+          "source": "context",
+          "description": "acceleration due to gravity",
+          "synonyms": [
+            "g",
+            "acceleration due to gravity"
+          ],
+          "unit_synonyms": [
+            "m/s²",
+            "meter per second squared",
+            "meters per second squared"
+          ]
+        }
+      ],
+      "find": [
+        {
+          "symbol": "F_applied",
+          "unit": "N",
+          "description": "minimum applied force required to just move the object",
+          "synonyms": [
+            "F_applied",
+            "applied force"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "newtons",
+            "Newton",
+            "Newtons"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the mass, coefficient of static friction, and acceleration due to gravity.",
+          "pedagogical_hint": "Help the student recognize that the force needed to start motion equals the limiting static friction on a horizontal surface.",
+          "custom_prompt": "What quantities are given in the problem?",
+          "accept": [
+            "m = 2 kg, mu_s = 0.8, g = 9.8 m/s^2",
+            "mass = 2 kg, coefficient of static friction = 0.8, g = 9.8 m/s^2",
+            "m=2 kg, mu_s=0.8, g=9.8 m/s^2",
+            "mass is 2kg, coefficient of static friction is 0.8, g is 9.8 m/s^2"
+          ],
+          "explanation": "The problem gives the object's mass and the coefficient of static friction. To compute frictional force, we also use the standard gravitational acceleration.",
+          "hint_1": "List the object's mass first.",
+          "hint_2": "Note the coefficient of static friction between the object and floor.",
+          "hint_3": "On Earth, weight and normal force involve gravitational acceleration.",
+          "value": "m = 2 kg, mu_s = 0.8, g = 9.8 m/s^2"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "Identify the force needed to just start moving the object.",
+          "pedagogical_hint": "Guide the student to interpret 'move it' as the minimum force required to overcome static friction.",
+          "custom_prompt": "What quantity must be found?",
+          "accept": [
+            "F_applied",
+            "applied force",
+            "minimum applied force",
+            "force required to move the object"
+          ],
+          "explanation": "The required quantity is the smallest applied force that can overcome the maximum static friction and initiate motion.",
+          "hint_1": "Think about what resists the start of motion.",
+          "hint_2": "The applied force must match the maximum static friction at the threshold of motion.",
+          "hint_3": "Name the force to be found as the minimum applied force."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Choose the formula for the limiting static friction, which equals the minimum applied force needed to start motion.",
+          "pedagogical_hint": "Remind the student that on a horizontal floor with no other vertical forces, the normal reaction equals the object's weight.",
+          "custom_prompt": "Which formula relates the minimum applied force to static friction here?",
+          "accept": [
+            "F_applied = mu_s × m × g",
+            "F_applied = mu_s m g"
+          ],
+          "explanation": "At the threshold of motion, the applied force must equal the limiting static friction. On a horizontal surface, the normal force is mg, so the required force becomes mu_s × m × g.",
+          "hint_1": "Start from the expression for maximum static friction.",
+          "hint_2": "Replace the normal reaction using the object's weight on a horizontal floor.",
+          "hint_3": "Write the force needed to start motion in terms of mu_s, m, and g.",
+          "formula_id": null,
+          "formula": "F_applied = mu_s × m × g",
+          "sympy_expr": "Eq(F_applied, mu_s*m*g)"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Substitute the given values into the formula. All values are already in SI units, so no conversion is needed.",
+          "pedagogical_hint": "Encourage careful substitution with units before calculating.",
+          "custom_prompt": "Substitute the known values for mu_s, m, and g.",
+          "accept": [
+            "F_applied = 0.8 × 2 × 9.8",
+            "0.8, 2, 9.8",
+            "mu_s = 0.8, m = 2, g = 9.8"
+          ],
+          "explanation": "Since the given values are already in SI units, we can directly substitute them into the expression for the minimum applied force.",
+          "hint_1": "Use the given coefficient of static friction.",
+          "hint_2": "Use the object's mass and gravitational acceleration.",
+          "hint_3": "Insert all three values into the expression from the previous step.",
+          "substitution": {
+            "mu_s": 0.8,
+            "m": 2,
+            "g": 9.8
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "Calculate the minimum applied force required to just move the object.",
+          "pedagogical_hint": "Help the student understand that this is the threshold force; any smaller force will not start motion.",
+          "custom_prompt": "What is the minimum applied force needed to move the object?",
+          "accept": [
+            "15.68 N",
+            "F_applied = 15.68 N",
+            "15.7 N"
+          ],
+          "explanation": "Multiplying the coefficient of static friction by the mass and gravitational acceleration gives the limiting static friction. The applied force must at least equal this value to initiate motion.",
+          "hint_1": "Multiply the three substituted quantities carefully.",
+          "hint_2": "The result is the threshold force that balances maximum static friction.",
+          "hint_3": "Express the final answer in newtons.",
+          "substitution": {
+            "mu_s": 0.8,
+            "m": 2,
+            "g": 9.8
+          },
+          "target": "F_applied",
+          "expected_result": 15.68,
+          "unit": "N",
+          "unit_synonyms": [
+            "newton",
+            "newtons",
+            "Newton",
+            "Newtons"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g11-laws-of-motion-020",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Static friction",
+    "question_text": "Consider an object of mass $50~kg$ at rest on the floor. A force of $5~N$ is applied on the object but it does not move. What is the frictional force that acts on the object?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "easy",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 20,
+    "question_number": "Example 3.18",
+    "question_group": "Example",
+    "group_question_number": "3.18",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": 34,
+    "chapter_page_end": 34,
+    "figure_refs": [],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "m",
+          "value": 50,
+          "unit": "kg",
+          "source": "stated",
+          "description": "mass of the object",
+          "synonyms": [
+            "m",
+            "mass"
+          ],
+          "unit_synonyms": [
+            "kilogram",
+            "kilograms"
+          ]
+        },
+        {
+          "symbol": "F_applied",
+          "value": 5,
+          "unit": "N",
+          "source": "stated",
+          "description": "applied horizontal force on the object",
+          "synonyms": [
+            "F_applied",
+            "applied force"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "newtons",
+            "Newton",
+            "Newtons"
+          ]
+        },
+        {
+          "symbol": "state",
+          "value": "at rest",
+          "unit": null,
+          "source": "stated",
+          "value_type": "algebraic",
+          "description": "the object remains at rest and does not move",
+          "synonyms": [
+            "state",
+            "rest condition"
+          ],
+          "unit_synonyms": []
+        }
+      ],
+      "find": [
+        {
+          "symbol": "f",
+          "unit": "N",
+          "description": "frictional force acting on the object",
+          "synonyms": [
+            "f",
+            "frictional force"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "newtons",
+            "Newton",
+            "Newtons"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the stated quantities and the motion condition from the problem.",
+          "pedagogical_hint": "Help the student notice that the object does not move, so the horizontal forces must balance.",
+          "custom_prompt": "What quantities are given in the question, and what is the motion condition of the object?",
+          "accept": [
+            "m = 50 kg, F_applied = 5 N, object is at rest",
+            "mass is 50 kg, applied force is 5 N, object is at rest",
+            "m = 50 kg, F_applied = 5 N, state = at rest"
+          ],
+          "explanation": "The problem gives the mass of the object, the applied force, and most importantly says that the object does not move. That rest condition tells us the net horizontal force is zero.",
+          "hint_1": "List the numerical values first.",
+          "hint_2": "Also note whether the object moves or remains at rest.",
+          "hint_3": "If it stays at rest, the forces along the floor must balance.",
+          "value": "m = 50 kg, F_applied = 5 N, state = at rest"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "Determine the quantity asked in the question.",
+          "pedagogical_hint": "Direct attention to the phrase asking for the frictional force acting on the object.",
+          "custom_prompt": "What physical quantity do we need to find?",
+          "accept": [
+            "f",
+            "frictional force",
+            "frictional force on the object",
+            "f in N"
+          ],
+          "explanation": "The question asks for the frictional force that acts on the object.",
+          "hint_1": "Read the last line of the question carefully.",
+          "hint_2": "The required quantity is a force.",
+          "hint_3": "It is the friction that opposes the applied push."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Use the equilibrium condition in the horizontal direction because the object remains at rest.",
+          "pedagogical_hint": "Remind the student that static friction adjusts to match the applied force as long as there is no motion.",
+          "custom_prompt": "Which relation connects the applied force and frictional force when the object is at rest?",
+          "accept": [
+            "f = F_applied"
+          ],
+          "explanation": "Since the object remains at rest, the net horizontal force must be zero. Therefore, the frictional force balances the applied force in magnitude.",
+          "hint_1": "Think about the net force for an object at rest.",
+          "hint_2": "Horizontal forces must cancel each other.",
+          "hint_3": "So the frictional force must match the applied force in magnitude.",
+          "formula_id": null,
+          "formula": "f = F_applied",
+          "sympy_expr": "Eq(f, F_applied)"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Substitute the given applied force into the equilibrium relation.",
+          "pedagogical_hint": "Point out that no unit conversion is needed because the force is already in newtons.",
+          "custom_prompt": "What value should be substituted for the applied force?",
+          "accept": [
+            "F_applied = 5 N",
+            "5 N",
+            "substitute 5 for F_applied"
+          ],
+          "explanation": "The applied force is directly given as 5 N, so we place that value into the relation for friction.",
+          "hint_1": "Look at the numerical value of the applied force.",
+          "hint_2": "Its SI unit is already given.",
+          "hint_3": "Use that value in place of F_applied.",
+          "substitution": {
+            "F_applied": 5
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "Solve for the frictional force acting on the object.",
+          "pedagogical_hint": "Emphasize that static friction is self-adjusting and equals the applied force here because the object does not move.",
+          "custom_prompt": "Using the substituted relation, what is the frictional force on the object?",
+          "accept": [
+            "5 N",
+            "f = 5 N",
+            "f = 5 Newtons"
+          ],
+          "explanation": "Because the object is still at rest, static friction exactly balances the 5 N applied force. Hence the frictional force has magnitude 5 N, acting opposite to the applied force.",
+          "hint_1": "Use the balance of horizontal forces.",
+          "hint_2": "The frictional force has the same magnitude as the applied force here.",
+          "hint_3": "Write the answer in newtons.",
+          "substitution": {
+            "F_applied": 5
+          },
+          "target": "f",
+          "expected_result": 5,
+          "unit": "N",
+          "unit_synonyms": [
+            "newton",
+            "newtons",
+            "Newton",
+            "Newtons"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g11-laws-of-motion-024",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Dynamics of circular motion",
+    "question_text": "If a stone of mass $0.25~kg$ tied to a string executes uniform circular motion with a speed of $2~m s^{-1}$ of radius $3~m$, what is the magnitude of tensional force acting on the stone?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "easy",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 24,
+    "question_number": "Example 3.22",
+    "question_group": "Example",
+    "group_question_number": "3.22",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": 46,
+    "chapter_page_end": 46,
+    "figure_refs": [],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "m",
+          "value": 0.25,
+          "unit": "kg",
+          "source": "stated",
+          "description": "mass of the stone",
+          "synonyms": [
+            "m",
+            "mass"
+          ],
+          "unit_synonyms": [
+            "kilogram",
+            "kg",
+            "kilograms"
+          ]
+        },
+        {
+          "symbol": "v",
+          "value": 2,
+          "unit": "m/s",
+          "source": "stated",
+          "description": "speed of the stone in uniform circular motion",
+          "synonyms": [
+            "v",
+            "speed"
+          ],
+          "unit_synonyms": [
+            "m s-1",
+            "m/s",
+            "meter per second",
+            "meters per second",
+            "metre per second",
+            "metres per second"
+          ]
+        },
+        {
+          "symbol": "r",
+          "value": 3,
+          "unit": "m",
+          "source": "stated",
+          "description": "radius of the circular path",
+          "synonyms": [
+            "r",
+            "radius"
+          ],
+          "unit_synonyms": [
+            "metre",
+            "meter",
+            "m",
+            "meters",
+            "metres"
+          ]
+        }
+      ],
+      "find": [
+        {
+          "symbol": "T",
+          "unit": "N",
+          "description": "tensional force acting on the stone",
+          "synonyms": [
+            "T",
+            "tension"
+          ],
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the quantities given in the question for uniform circular motion.",
+          "pedagogical_hint": "Help the student pick out mass, speed, and radius from the statement before choosing any formula.",
+          "custom_prompt": "What quantities are given for the stone's circular motion?",
+          "accept": [
+            "m = 0.25 kg, v = 2 m/s, r = 3 m",
+            "mass is 0.25 kg, speed is 2 m/s, radius is 3 m",
+            "m=0.25 kg; v=2 m/s; r=3 m"
+          ],
+          "explanation": "The question directly provides the mass of the stone, its speed, and the radius of the circular path. These are the standard quantities needed to find centripetal force.",
+          "hint_1": "List all numerical values mentioned in the problem.",
+          "hint_2": "For circular motion, pay attention to mass, speed, and radius.",
+          "hint_3": "These given quantities will be used to calculate the force toward the center.",
+          "value": "m = 0.25 kg, v = 2 m/s, r = 3 m"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "Identify the physical quantity to be calculated.",
+          "pedagogical_hint": "Guide the student to note that the string tension provides the centripetal force in this situation.",
+          "custom_prompt": "What quantity is the question asking you to find?",
+          "accept": [
+            "T",
+            "tension",
+            "tensional force",
+            "T in N"
+          ],
+          "explanation": "The problem asks for the magnitude of the tensional force acting on the stone. In uniform circular motion with a string, this tension provides the required centripetal force.",
+          "hint_1": "Look at the final phrase of the question.",
+          "hint_2": "The required quantity is a force due to the string.",
+          "hint_3": "This force is usually denoted by T."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Choose the formula for centripetal force, which equals the tension in the string here.",
+          "pedagogical_hint": "Remind the student that in uniform circular motion the inward force is m times speed squared divided by radius.",
+          "custom_prompt": "Which formula relates tension to mass, speed, and radius in this circular motion?",
+          "accept": [
+            "T = m v^2 / r",
+            "T = mv^2/r"
+          ],
+          "explanation": "Since the stone moves in a circle, it needs a centripetal force directed toward the center. The string provides this force, so the tension is given by the centripetal force expression.",
+          "hint_1": "Think of the force needed to keep an object moving in a circle.",
+          "hint_2": "This force depends on mass, speed, and radius.",
+          "hint_3": "The string tension is the inward force here.",
+          "formula_id": null,
+          "formula": "T = m × v^2 / r",
+          "sympy_expr": "Eq(T, m*v**2/r)"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Substitute the given SI values into the centripetal force formula. No unit conversion is needed because all values are already in SI units.",
+          "pedagogical_hint": "Encourage careful substitution, especially squaring the speed before dividing by the radius.",
+          "custom_prompt": "Substitute the values of m, v, and r into the formula for T.",
+          "accept": [
+            "T = (0.25 × 2^2)/3",
+            "substitute m=0.25, v=2, r=3",
+            "0.25, 2, 3 substituted into T = m v^2 / r"
+          ],
+          "explanation": "The values are already in SI units: kilograms, metres per second, and metres. So they can be directly substituted into the formula for tension.",
+          "hint_1": "Check whether any unit conversion is required first.",
+          "hint_2": "Replace each symbol with its given value.",
+          "hint_3": "Be careful with the squared speed term.",
+          "substitution": {
+            "m": 0.25,
+            "v": 2,
+            "r": 3
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "Compute the tension by evaluating the substituted expression.",
+          "pedagogical_hint": "Support the student in simplifying step by step: square the speed, multiply by mass, then divide by radius.",
+          "custom_prompt": "After substitution, what is the magnitude of the tension T?",
+          "accept": [
+            "0.33 N",
+            "T = 0.33 Newton",
+            "0.333 Newton"
+          ],
+          "explanation": "Evaluating the centripetal force expression gives the inward force needed for the circular motion. That inward force is supplied by the string, so it equals the tension.",
+          "hint_1": "First evaluate the speed squared term.",
+          "hint_2": "Then multiply by the mass of the stone.",
+          "hint_3": "Finally divide by the radius to get the force in newtons.",
+          "substitution": {
+            "m": 0.25,
+            "v": 2,
+            "r": 3
+          },
+          "target": "T",
+          "expected_result": 0.33,
+          "unit": "N",
+          "unit_synonyms": [
+            "newton",
+            "N",
+            "Newton",
+            "Newtons",
+            "newtons"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g11-laws-of-motion-025",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Centripetal force ",
+    "question_text": "The Moon orbits the Earth once in $27.3~days$ in an almost circular orbit. Calculate the centripetal acceleration experienced by the Moon? (Radius of the Earth is $6.4 \\times 10^6~m$)",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "medium",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 25,
+    "question_number": "Example 3.23",
+    "question_group": "Example",
+    "group_question_number": "3.23",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": 46,
+    "chapter_page_end": 46,
+    "figure_refs": [],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "T",
+          "value": 27.3,
+          "unit": null,
+          "source": "stated",
+          "description": "time period of Moon's orbit around Earth",
+          "synonyms": [
+            "T",
+            "time_period"
+          ],
+          "unit_synonyms": []
+        },
+        {
+          "symbol": "R_moon",
+          "value": 384000000.0,
+          "unit": "m",
+          "source": "context",
+          "description": "mean orbital radius of the Moon around Earth",
+          "synonyms": [
+            "R_moon",
+            "R",
+            "orbital radius"
+          ],
+          "unit_synonyms": [
+            "metre",
+            "meter",
+            "m"
+          ]
+        }
+      ],
+      "find": [
+        {
+          "symbol": "a_c",
+          "unit": "m/s^2",
+          "description": "centripetal acceleration of the Moon",
+          "synonyms": [
+            "a_c",
+            "centripetal_acceleration"
+          ],
+          "unit_synonyms": [
+            "m/s2",
+            "m s^-2",
+            "metre per second squared"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the given values: period T = 27.3 days and orbital radius R_moon = 3.84 x 10^8 m.",
+          "pedagogical_hint": "Remind the student to convert T to seconds before calculation.",
+          "custom_prompt": "What values are given in the problem?",
+          "accept": [
+            "T = 27.3 day, R_moon = 3.84e8 m",
+            "T = 27.3 days; R = 3.84 x 10^8 m",
+            "period is 27.3 days; orbital radius is 3.84e8 m"
+          ],
+          "explanation": "The orbital period T = 27.3 days and the mean orbital radius R_moon = 3.84 x 10^8 m are the given data.",
+          "hint_1": "Note the unit of T is days, not seconds.",
+          "hint_2": "R_moon is the distance from Earth's centre to the Moon.",
+          "hint_3": "Both values must be in SI units for calculation.",
+          "value": "T = 27.3 day; R_moon = 3.84e8 m"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "We need to find the centripetal acceleration of the Moon.",
+          "pedagogical_hint": "Identify the target variable and its SI unit.",
+          "custom_prompt": "What is the problem asking you to calculate?",
+          "accept": [
+            "a_c",
+            "centripetal acceleration",
+            "centripetal acceleration of the Moon"
+          ],
+          "explanation": "The required quantity is the centripetal acceleration a_c of the Moon in its orbit around Earth.",
+          "hint_1": "The word centripetal refers to directed toward the centre.",
+          "hint_2": "Centripetal acceleration has SI unit m/s^2.",
+          "hint_3": "It is the inward acceleration maintaining the Moon in circular orbit."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Use the centripetal acceleration formula in terms of orbital radius and period.",
+          "pedagogical_hint": "The formula a_c = 4*pi^2*R/T^2 connects orbital radius, period and centripetal acceleration.",
+          "custom_prompt": "Which formula gives centripetal acceleration using orbital radius and period?",
+          "accept": [
+            "a_c = 4*pi^2*R_moon/T^2",
+            "a_c = (4*pi^2*R)/T^2"
+          ],
+          "explanation": "For uniform circular motion, centripetal acceleration a_c = (4*pi^2 * R_moon) / T^2, where R_moon is the orbital radius and T is the period in seconds.",
+          "hint_1": "For circular motion with period T, the formula involves pi squared.",
+          "hint_2": "The orbital radius appears in the numerator.",
+          "hint_3": "The period squared appears in the denominator.",
+          "formula": "a_c = 4 * pi^2 * R_moon / T^2",
+          "sympy_expr": "Eq(a_c, 4*pi**2*R_moon / T**2)"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Convert T to seconds: T = 27.3 x 86400 = 2358720 s. Then substitute R_moon = 3.84e8 m and T = 2358720 s.",
+          "pedagogical_hint": "Always convert days to seconds before substituting into the formula.",
+          "custom_prompt": "After converting T to seconds, what values do you substitute?",
+          "accept": [
+            "R_moon = 3.84e8 m, T = 2358720 s",
+            "R = 3.84e8 m, T = 2358720 s",
+            "R = 3.84 x 10^8 m and T = 27.3 x 86400 s"
+          ],
+          "explanation": "T = 27.3 x 86400 = 2358720 s. Substituting into a_c = 4*pi^2*R/T^2: a_c = 4*pi^2*3.84e+08/2358720^2.",
+          "hint_1": "Multiply 27.3 by 86400 to get T in seconds.",
+          "hint_2": "R_moon stays in metres.",
+          "hint_3": "Both must be in SI units.",
+          "substitution": {
+            "R_moon": 384000000.0,
+            "T": 2358720.0
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "Evaluate to get the centripetal acceleration of the Moon.",
+          "pedagogical_hint": "Compute numerator and denominator separately, then divide.",
+          "custom_prompt": "What is the centripetal acceleration of the Moon?",
+          "accept": [
+            "2.73e-3 m/s^2",
+            "2.72e-3 m/s^2",
+            "0.00272 m/s^2",
+            "0.00273 m/s^2",
+            "a_c = 0.00272 m/s^2"
+          ],
+          "explanation": "a_c = 4*pi^2 * 3.84e+08 / (2358720)^2 = 1.5160e+10 / 5.5636e+12 = 2.7248e-03 m/s^2 approx 2.73 x 10^-3 m/s^2.",
+          "hint_1": "Compute 4*pi^2*R_moon first.",
+          "hint_2": "Then divide by T^2 (in seconds squared).",
+          "hint_3": "The answer is a very small number (thousandths of m/s^2).",
+          "substitution": {
+            "R_moon": 384000000.0,
+            "T": 2358720.0
+          },
+          "target": "a_c",
+          "expected_result": 0.00272,
+          "unit": "m/s^2",
+          "unit_synonyms": [
+            "m/s2",
+            "m s^-2",
+            "metre per second squared"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g11-laws-of-motion-026",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Centripetal force ",
+    "question_text": "Consider a circular leveled road of radius $10~m$ having coefficient of static friction 0.81. Three cars ($A$, $B$ and $C$) are travelling with speed $7~m s^{-1}$, $8~m s^{-1}$ and $10~ms^{-1}$ respectively. Which car will skid when it moves in the circular level road? ($g = 10~m s^{-2}$)",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "medium",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 26,
+    "question_number": "Example 3.24",
+    "question_group": "Example",
+    "group_question_number": "3.24",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": 47,
+    "chapter_page_end": 47,
+    "figure_refs": [
+      "images/class11-laws-of-motion/fig_3_43.png"
+    ],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "r",
+          "value": 10,
+          "unit": "m",
+          "source": "stated",
+          "description": "radius of the circular leveled road",
+          "synonyms": [
+            "r",
+            "radius"
+          ],
+          "unit_synonyms": [
+            "metre",
+            "meter",
+            "meters",
+            "metres"
+          ]
+        },
+        {
+          "symbol": "mu_s",
+          "value": 0.81,
+          "unit": null,
+          "source": "stated",
+          "description": "coefficient of static friction between tyre and road",
+          "synonyms": [
+            "mu_s",
+            "mu"
+          ],
+          "unit_synonyms": []
+        },
+        {
+          "symbol": "v_A",
+          "value": 7,
+          "unit": "m/s",
+          "source": "stated",
+          "description": "speed of car A",
+          "synonyms": [
+            "v_A",
+            "speed_A"
+          ],
+          "unit_synonyms": [
+            "m s-1",
+            "ms-1",
+            "meter per second",
+            "meters per second",
+            "metre per second",
+            "metres per second"
+          ]
+        },
+        {
+          "symbol": "v_B",
+          "value": 8,
+          "unit": "m/s",
+          "source": "stated",
+          "description": "speed of car B",
+          "synonyms": [
+            "v_B",
+            "speed_B"
+          ],
+          "unit_synonyms": [
+            "m s-1",
+            "ms-1",
+            "meter per second",
+            "meters per second",
+            "metre per second",
+            "metres per second"
+          ]
+        },
+        {
+          "symbol": "v_C",
+          "value": 10,
+          "unit": "m/s",
+          "source": "stated",
+          "description": "speed of car C",
+          "synonyms": [
+            "v_C",
+            "speed_C"
+          ],
+          "unit_synonyms": [
+            "m s-1",
+            "ms-1",
+            "meter per second",
+            "meters per second",
+            "metre per second",
+            "metres per second"
+          ]
+        },
+        {
+          "symbol": "g",
+          "value": 10,
+          "unit": "m/s^2",
+          "source": "stated",
+          "description": "acceleration due to gravity",
+          "synonyms": [
+            "g"
+          ],
+          "unit_synonyms": [
+            "m s-2",
+            "ms-2",
+            "m/s²",
+            "meter per second squared",
+            "meters per second squared"
+          ]
+        }
+      ],
+      "find": [
+        {
+          "symbol": "v_max",
+          "unit": "m/s",
+          "description": "maximum speed possible without skidding on the circular level road",
+          "synonyms": [
+            "v_max",
+            "maximum_safe_speed"
+          ],
+          "unit_synonyms": [
+            "m s-1",
+            "ms-1",
+            "meter per second",
+            "meters per second",
+            "metre per second",
+            "metres per second"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the quantities given in the problem for motion on a level circular road.",
+          "pedagogical_hint": "Help the student list radius, coefficient of static friction, the three car speeds, and gravitational acceleration before choosing a formula.",
+          "custom_prompt": "What values are given for the radius, coefficient of static friction, car speeds, and g?",
+          "accept": [
+            "r = 10 m, mu_s = 0.81, v_A = 7 m/s, v_B = 8 m/s, v_C = 10 m/s, g = 10 m/s^2",
+            "radius is 10 m, coefficient of static friction is 0.81, speed of car A is 7 m/s, speed of car B is 8 m/s, speed of car C is 10 m/s, g is 10 m/s^2"
+          ],
+          "explanation": "On a level circular road, static friction provides the required centripetal force. So the relevant givens are the radius, friction coefficient, speeds of the three cars, and g.",
+          "hint_1": "List all numerical values stated in the question.",
+          "hint_2": "Include the separate speeds for cars A, B, and C.",
+          "hint_3": "Do not forget the value of g given in the bracket.",
+          "value": "r = 10 m, mu_s = 0.81, v_A = 7 m/s, v_B = 8 m/s, v_C = 10 m/s, g = 10 m/s^2"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "Identify the quantity needed to decide which car skids.",
+          "pedagogical_hint": "Guide the student to find the maximum speed without skidding, then compare each car's speed with it.",
+          "custom_prompt": "What physical quantity should we calculate first to determine which car will skid?",
+          "accept": [
+            "v_max",
+            "maximum speed without skidding",
+            "safe maximum speed on the circular road"
+          ],
+          "explanation": "A car skids if its speed exceeds the maximum speed that friction can support on the curve. So we first find the maximum safe speed and then compare each car's speed with it.",
+          "hint_1": "Think about the speed limit set by friction on a curve.",
+          "hint_2": "If a car goes faster than this limit, it will skid.",
+          "hint_3": "So the key quantity is the maximum speed without skidding."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Select the formula for the maximum speed on a level circular road when static friction provides the centripetal force.",
+          "pedagogical_hint": "Remind the student that at the limiting condition, maximum static friction equals the required centripetal force.",
+          "custom_prompt": "Which relation connects maximum safe speed with mu_s, g, and r on a level circular road?",
+          "accept": [
+            "v_max = sqrt(mu_s × g × r)",
+            "v_max^2 = mu_s g r"
+          ],
+          "explanation": "For a car on a level curve, the centripetal force is supplied by static friction. At the threshold of skidding, the maximum static friction just equals the needed centripetal force, giving the speed limit formula.",
+          "hint_1": "Write the centripetal force needed for circular motion.",
+          "hint_2": "Write the maximum static friction available from the road.",
+          "hint_3": "Equate them at the limiting case and isolate the speed term.",
+          "formula_id": null,
+          "formula": "v_max = sqrt(mu_s × g × r)",
+          "sympy_expr": "Eq(v_max, sqrt(mu_s*g*r))"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Substitute the given values into the maximum-speed formula. All values are already in SI units.",
+          "pedagogical_hint": "Check that the student substitutes only the symbols appearing in the selected equation.",
+          "custom_prompt": "Substitute mu_s, g, and r into the chosen formula.",
+          "accept": [
+            "mu_s = 0.81, g = 10, r = 10",
+            "substitute 0.81, 10, 10",
+            "v_max = sqrt(0.81 × 10 × 10)"
+          ],
+          "explanation": "Since radius is in metres and g is in m/s^2, no unit conversion is required. We directly place the given values into the formula for the limiting speed.",
+          "hint_1": "Use the friction coefficient, gravity, and radius.",
+          "hint_2": "All the given units are already compatible.",
+          "hint_3": "Replace each symbol in the formula with its corresponding value.",
+          "substitution": {
+            "mu_s": 0.81,
+            "g": 10,
+            "r": 10
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "Calculate the maximum speed without skidding and compare it with the speeds of cars A, B, and C.",
+          "pedagogical_hint": "After obtaining the safe maximum speed, ask which of the listed car speeds are greater than this value.",
+          "custom_prompt": "Find the maximum safe speed and decide which car has speed greater than it.",
+          "accept": [
+            "9 m/s",
+            "v_max = 9 m/s",
+            "Car C",
+            "car C will skid",
+            "C"
+          ],
+          "explanation": "The limiting speed comes from the frictional condition for circular motion. Any car moving slower than or equal to this speed can negotiate the curve without skidding, while any car moving faster will skid. Comparing 7 m/s, 8 m/s, and 10 m/s with the safe speed shows that only car C exceeds it.",
+          "hint_1": "First evaluate the square root to get the limiting speed.",
+          "hint_2": "Then compare each car's speed with that limit.",
+          "hint_3": "The car with speed greater than the limit will skid.",
+          "substitution": {
+            "mu_s": 0.81,
+            "g": 10,
+            "r": 10
+          },
+          "target": "v_max",
+          "expected_result": 9,
+          "unit": "m/s",
+          "unit_synonyms": [
+            "m s^-1",
+            "ms^-1",
+            "meter per second",
+            "meters per second",
+            "metre per second",
+            "metres per second"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "uuid": "g11-laws-of-motion-027",
+    "grade": 11,
+    "curriculum": "Tamil Nadu State Board",
+    "curriculum_year": 2022,
+    "chapter_name": "Laws Of Motion",
+    "chapter_number": 3,
+    "topic": "Laws of Motion",
+    "subtopic": "Banking of Tracks",
+    "question_text": "Consider a circular road of radius $20~meter$ banked at an angle of $15^\\degree$. With what speed a car has to move on the turn so that it will have safe turn?",
+    "solvable": true,
+    "type": "numerical",
+    "domain": "physics",
+    "difficulty": "medium",
+    "source": "Tamil Nadu State Board Class 11 Physics Volume 1 Textbook",
+    "source_url": null,
+    "chapter_question_number": 27,
+    "question_number": "Example 3.25",
+    "question_group": "Example",
+    "group_question_number": "3.25",
+    "section_refs": null,
+    "section_headings": null,
+    "chapter_page_start": 49,
+    "chapter_page_end": 49,
+    "figure_refs": [],
+    "validationData": {
+      "givens": [
+        {
+          "symbol": "r",
+          "value": 20,
+          "unit": "m",
+          "source": "stated",
+          "description": "radius of the circular road",
+          "synonyms": [
+            "r",
+            "radius"
+          ],
+          "unit_synonyms": [
+            "meter",
+            "metre",
+            "meters",
+            "metres"
+          ]
+        },
+        {
+          "symbol": "theta",
+          "value": 15,
+          "unit": "degree",
+          "source": "stated",
+          "description": "banking angle of the road",
+          "synonyms": [
+            "theta",
+            "angle"
+          ],
+          "unit_synonyms": [
+            "deg"
+          ]
+        },
+        {
+          "symbol": "g",
+          "value": 9.8,
+          "unit": "m/s^2",
+          "source": "context",
+          "description": "acceleration due to gravity",
+          "synonyms": [
+            "g"
+          ],
+          "unit_synonyms": [
+            "m s^-2",
+            "m/s²",
+            "meter per second squared",
+            "meters per second squared"
+          ]
+        }
+      ],
+      "find": [
+        {
+          "symbol": "v",
+          "unit": "m/s",
+          "description": "safe speed of the car on the banked turn without relying on friction",
+          "synonyms": [
+            "v",
+            "speed"
+          ],
+          "unit_synonyms": [
+            "m s^-1",
+            "meter per second",
+            "meters per second",
+            "metre per second",
+            "metres per second"
+          ]
+        }
+      ],
+      "solution_steps": [
+        {
+          "step": 1,
+          "action": "identify_givens",
+          "description": "Identify the quantities given in the question.",
+          "pedagogical_hint": "Help the student pick out the road radius, banking angle, and the gravitational acceleration needed for motion on a banked road.",
+          "custom_prompt": "What quantities are given for the banked circular road problem?",
+          "accept": [
+            "r = 20 m, theta = 15 degree, g = 9.8 m/s^2",
+            "radius is 20 m, angle is 15 degree, g is 9.8 m/s^2",
+            "r=20 m, theta=15°, g=9.8 m/s^2"
+          ],
+          "explanation": "The problem states the radius and banking angle. For safe turning on a banked road without friction, gravitational acceleration is also required as a standard physical constant.",
+          "hint_1": "Look for the geometric quantity of the circular path.",
+          "hint_2": "Also note the inclination of the road surface.",
+          "hint_3": "Use the standard value of gravitational acceleration.",
+          "value": "r = 20 m, theta = 15 degree, g = 9.8 m/s^2"
+        },
+        {
+          "step": 2,
+          "action": "identify_to_find",
+          "description": "Identify the quantity to be calculated.",
+          "pedagogical_hint": "Guide the student to focus on the required safe speed for the turn.",
+          "custom_prompt": "What is the problem asking you to find?",
+          "accept": [
+            "v",
+            "speed of the car",
+            "safe speed",
+            "v in m/s"
+          ],
+          "explanation": "We need the speed at which the car can safely take the banked turn without depending on friction.",
+          "hint_1": "The answer is a motion quantity.",
+          "hint_2": "It tells how fast the car should move on the curve.",
+          "hint_3": "Represent it by v."
+        },
+        {
+          "step": 3,
+          "action": "select_formula",
+          "description": "Choose the formula for safe speed on a frictionless banked road.",
+          "pedagogical_hint": "Remind the student that for ideal banking, the horizontal component provides centripetal effect and the standard relation connects speed, radius, gravity, and banking angle.",
+          "custom_prompt": "Which formula relates safe speed on a banked road to r, g, and theta?",
+          "accept": [
+            "tan theta = v^2/(r g)",
+            "v^2 = r g tan theta",
+            "v = sqrt(r g tan theta)"
+          ],
+          "explanation": "For a safely banked road without friction, the banking angle alone provides the necessary centripetal force. This gives the relation tan(theta) = v^2/(r g), which can be rearranged to find the safe speed.",
+          "hint_1": "Think of the special case where friction is not needed.",
+          "hint_2": "The relation involves the tangent of the banking angle.",
+          "hint_3": "Rearrange the banking condition to isolate the speed.",
+          "formula_id": null,
+          "formula": "v = sqrt(r × g × tan(theta))",
+          "sympy_expr": "Eq(v, sqrt(r*g*tan(theta)))"
+        },
+        {
+          "step": 4,
+          "action": "substitute",
+          "description": "Substitute the given values into the safe-speed formula. The radius is already in SI unit, gravitational acceleration is in SI, and the angle is used as given in the trigonometric function.",
+          "pedagogical_hint": "Ensure the student substitutes into the correct rearranged formula and uses the angle in the tangent term carefully.",
+          "custom_prompt": "Substitute the known values of r, g, and theta into the formula for v.",
+          "accept": [
+            "v = sqrt(20 × 9.8 × tan 15 degree)",
+            "substitute r=20, g=9.8, theta=15",
+            "v = sqrt(r g tan theta) with given values"
+          ],
+          "explanation": "Substitution means replacing each symbol in the formula with its known value from the question and constants list.",
+          "hint_1": "Put the radius in place of r.",
+          "hint_2": "Use the standard value of g.",
+          "hint_3": "Keep the banking angle inside the tangent function.",
+          "substitution": {
+            "r": 20,
+            "g": 9.8,
+            "theta": 15
+          }
+        },
+        {
+          "step": 5,
+          "action": "solve",
+          "description": "Evaluate the expression to obtain the safe speed of the car.",
+          "pedagogical_hint": "If needed, help the student compute the tangent value first and then take the square root at the end.",
+          "custom_prompt": "After evaluating the substituted expression, what is the safe speed v of the car?",
+          "accept": [
+            "7.1 m/s",
+            "v = 7.1 m/s",
+            "7.1 m/s"
+          ],
+          "explanation": "Evaluating the banking relation gives the speed at which the car can negotiate the curve safely without requiring friction. This is the design speed for the given bank angle and radius.",
+          "hint_1": "First determine the trigonometric part from the angle.",
+          "hint_2": "Then combine it with the radius and gravitational acceleration.",
+          "hint_3": "Finally take the square root to get the speed.",
+          "substitution": {
+            "r": 20,
+            "g": 9.8,
+            "theta": 15
+          },
+          "target": "v",
+          "expected_result": 7.1,
+          "unit": "m/s",
+          "unit_synonyms": [
+            "m s^-1",
+            "meter per second",
+            "meters per second",
+            "metre per second",
+            "metres per second"
+          ]
+        }
+      ]
+    }
+  }
+]

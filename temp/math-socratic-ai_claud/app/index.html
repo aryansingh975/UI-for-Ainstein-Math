@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ratio & Proportion — Socratic Tutor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="frame">
+
+  <aside class="sidebar">
+    <header class="sidebar-head">
+      <span class="chapter-mark">Ch. 7</span>
+      <h1>Proportional<br/>Reasoning&#8209;1</h1>
+      <p class="sub">A question-first tutor. It won't hand you the answer &mdash; it'll ask the next useful question.</p>
+    </header>
+
+    <nav class="topics" id="topics">
+      <!-- populated by script.js -->
+    </nav>
+
+    <div class="progress" id="progress" aria-live="polite">
+      <div class="progress-label">solved <span id="ratio-text">0 : 0</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+
+    <button class="ghost-btn" id="settings-btn" type="button">API key &amp; model</button>
+    <button class="ghost-btn" id="reset-btn" type="button">Start a new session</button>
+  </aside>
+
+  <main class="chat-pane">
+    <div class="chat-scroll" id="chat-scroll">
+      <div class="empty-state" id="empty-state">
+        <p>Pick a topic on the left, or just ask a question about ratios and proportion to get started.</p>
+      </div>
+      <div class="messages" id="messages"></div>
+    </div>
+
+    <form class="composer" id="composer">
+      <textarea id="input" rows="1" placeholder="Type your answer or question…" aria-label="Message"></textarea>
+      <button type="submit" id="send-btn">Send</button>
+    </form>
+  </main>
+
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h2 id="modal-title">Connect your Claude API key</h2>
+    <p>This runs entirely in your browser — no server. Your key is kept only in this browser's local storage and sent directly to Anthropic's API. Don't use this on a shared or public computer.</p>
+    <label for="api-key-input">API key</label>
+    <input type="password" id="api-key-input" placeholder="sk-ant-…" autocomplete="off" />
+    <label for="model-select">Model</label>
+    <select id="model-select">
+      <option value="claude-sonnet-5">Claude Sonnet 5 (recommended)</option>
+      <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (faster, cheaper)</option>
+      <option value="claude-opus-5">Claude Opus 5 (slower, most capable)</option>
+    </select>
+    <div class="modal-actions">
+      <button type="button" class="ghost-btn" id="modal-cancel">Cancel</button>
+      <button type="button" class="primary-btn" id="modal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
