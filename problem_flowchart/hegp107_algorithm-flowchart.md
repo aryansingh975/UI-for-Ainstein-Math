@@ -20,7 +20,7 @@ The algorithm categorizes problems into **4 fundamental mathematical archetypes*
 
 ### **Visual Flowchart Diagram:**
 
-![PS Algorithm Flowchart](./ps_algorithm_flowchart.svg)
+![PS Algorithm Flowchart](./hegp107_algorithm-flowchart.svg)
 
 <details>
 <summary>Click to view Mermaid.js diagram source & Text Fallback</summary>
