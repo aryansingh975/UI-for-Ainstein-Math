@@ -1,0 +1,839 @@
+// Solution Graph for Problem 1 (g08-hegp107-ex001)
+// Embedded as JS to avoid file:// fetch restrictions
+// This graph captures all 8 valid solution methods for determining
+// whether 3:4 and 72:96 are proportional.
+const SOLUTION_GRAPH = {
+  "graph_meta": {
+    "graph_id": "sg-g08-hegp107-ex001",
+    "problem_uuid": "g08-hegp107-ex001",
+    "problem_text": "Are the ratios 3 : 4 and 72 : 96 proportional?",
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for Problem 1 — captures all valid solution methods (simplification, cross multiplication, scaling, decimal comparison, fraction simplification, prime factorization, equivalent fractions, step-by-step reduction). The tutor accepts any path through this graph as a valid solution.",
+    "created": "2026-09-13",
+    "total_methods": 8,
+    "total_nodes": 38,
+    "total_edges": 47
+  },
+
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Are the ratios 3 : 4 and 72 : 96 proportional?",
+      "prompt": "Read the problem. Are the ratios 3 : 4 and 72 : 96 proportional? Explain your reasoning.",
+      "accept": [],
+      "hints": [
+        "Think about what it means for two ratios to be proportional.",
+        "Two ratios are proportional if they represent the same relationship.",
+        "You can use any valid method: simplification, cross multiplication, scaling, decimal comparison, etc."
+      ]
+    },
+
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "Yes, 3 : 4 and 72 : 96 are proportional.",
+      "prompt": "State your final conclusion: Are 3 : 4 and 72 : 96 proportional?",
+      "accept": [
+        "yes",
+        "yes they are proportional",
+        "they are proportional",
+        "proportional",
+        "yes proportional",
+        "3:4 and 72:96 are proportional",
+        "yes, proportional"
+      ],
+      "hints": [
+        "Both ratios represent the same relationship.",
+        "3 : 4 and 72 : 96 are equivalent ratios.",
+        "Yes, they are proportional."
+      ]
+    },
+
+    {
+      "id": "m1_simplify",
+      "type": "method",
+      "label": "Method 1: Simplification (HCF)",
+      "description": "Simplify 72 : 96 to its simplest form using the Highest Common Factor (HCF), then compare with 3 : 4.",
+      "prompt": "Choose a method to solve this problem. You can simplify 72 : 96, cross multiply, scale, compare decimals, etc.",
+      "accept": [
+        "simplif",
+        "hcf",
+        "highest common factor",
+        "reduce",
+        "simplest form",
+        "divide"
+      ],
+      "hints": [
+        "You can simplify 72 : 96 by finding the HCF.",
+        "The HCF of 72 and 96 is 24.",
+        "Divide both terms by 24."
+      ]
+    },
+
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Find HCF of 72 and 96",
+      "description": "Determine the Highest Common Factor of 72 and 96.",
+      "prompt": "What is the HCF of 72 and 96?",
+      "accept": [
+        "24",
+        "hcf is 24",
+        "hcf = 24",
+        "highest common factor is 24",
+        "gcd is 24",
+        "gcd = 24"
+      ],
+      "hints": [
+        "List the factors of 72: 1, 2, 3, 4, 6, 8, 9, 12, 18, 24, 36, 72",
+        "List the factors of 96: 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 96",
+        "The largest common factor is 24."
+      ]
+    },
+
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Divide both terms by HCF",
+      "description": "Divide 72 and 96 by the HCF (24).",
+      "prompt": "Divide both 72 and 96 by the HCF (24). What do you get?",
+      "accept": [
+        "72/24=3 and 96/24=4",
+        "72/24 = 3, 96/24 = 4",
+        "3 and 4",
+        "72 divided by 24 is 3, 96 divided by 24 is 4",
+        "72÷24=3, 96÷24=4"
+      ],
+      "hints": [
+        "72 ÷ 24 = 3",
+        "96 ÷ 24 = 4",
+        "So 72 : 96 simplifies to 3 : 4."
+      ]
+    },
+
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Simplified ratio is 3 : 4",
+      "description": "72 : 96 simplifies to 3 : 4.",
+      "prompt": "What is 72 : 96 in simplest form?",
+      "accept": [
+        "3:4",
+        "3 : 4",
+        "3 to 4",
+        "3/4"
+      ],
+      "hints": [
+        "72 ÷ 24 = 3 and 96 ÷ 24 = 4",
+        "The simplified ratio is 3 : 4.",
+        "3 : 4"
+      ]
+    },
+
+    {
+      "id": "m1_s4",
+      "type": "step",
+      "label": "Compare simplified ratio with 3 : 4",
+      "description": "The simplified ratio 3 : 4 matches the first ratio 3 : 4.",
+      "prompt": "Compare the simplified ratio with the original first ratio 3 : 4. Are they the same?",
+      "accept": [
+        "same",
+        "equal",
+        "identical",
+        "3:4 equals 3:4",
+        "3:4 = 3:4",
+        "they are the same",
+        "both are 3:4"
+      ],
+      "hints": [
+        "The simplified ratio is 3 : 4.",
+        "The first ratio is also 3 : 4.",
+        "They are identical, so the ratios are proportional."
+      ]
+    },
+
+    {
+      "id": "m2_cross_multiply",
+      "type": "method",
+      "label": "Method 2: Cross Multiplication",
+      "description": "Check if 3 × 96 = 4 × 72. If the cross products are equal, the ratios are proportional.",
+      "prompt": "Choose a method to solve this problem. You can cross multiply to check proportionality.",
+      "accept": [
+        "cross multiply",
+        "cross multiplication",
+        "cross product",
+        "3*96",
+        "3×96",
+        "4*72",
+        "4×72"
+      ],
+      "hints": [
+        "For ratios a : b and c : d to be proportional, a × d must equal b × c.",
+        "Here, check if 3 × 96 = 4 × 72.",
+        "Compute both cross products."
+      ]
+    },
+
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Set up cross multiplication",
+      "description": "Set up the proportion 3 : 4 :: 72 : 96 and prepare to cross multiply.",
+      "prompt": "Set up the cross multiplication. What two products do you need to compare?",
+      "accept": [
+        "3*96 and 4*72",
+        "3×96 and 4×72",
+        "3 times 96 and 4 times 72",
+        "3*96 = 4*72",
+        "3×96 = 4×72"
+      ],
+      "hints": [
+        "For a : b :: c : d, cross multiply: a × d and b × c.",
+        "Here: 3 × 96 and 4 × 72.",
+        "Compare these two products."
+      ]
+    },
+
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Compute 3 × 96",
+      "description": "Calculate the first cross product: 3 × 96.",
+      "prompt": "What is 3 × 96?",
+      "accept": [
+        "288",
+        "3*96=288",
+        "3×96=288",
+        "3 times 96 is 288"
+      ],
+      "hints": [
+        "3 × 90 = 270",
+        "3 × 6 = 18",
+        "270 + 18 = 288"
+      ]
+    },
+
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Compute 4 × 72",
+      "description": "Calculate the second cross product: 4 × 72.",
+      "prompt": "What is 4 × 72?",
+      "accept": [
+        "288",
+        "4*72=288",
+        "4×72=288",
+        "4 times 72 is 288"
+      ],
+      "hints": [
+        "4 × 70 = 280",
+        "4 × 2 = 8",
+        "280 + 8 = 288"
+      ]
+    },
+
+    {
+      "id": "m2_s4",
+      "type": "step",
+      "label": "Compare cross products",
+      "description": "3 × 96 = 288 and 4 × 72 = 288. Since they are equal, the ratios are proportional.",
+      "prompt": "Are the cross products equal? What does this tell you?",
+      "accept": [
+        "288 = 288",
+        "equal",
+        "they are equal",
+        "3*96 = 4*72 = 288",
+        "3×96 = 4×72 = 288",
+        "both are 288"
+      ],
+      "hints": [
+        "3 × 96 = 288",
+        "4 × 72 = 288",
+        "Since 288 = 288, the ratios are proportional."
+      ]
+    },
+
+    {
+      "id": "m3_scale",
+      "type": "method",
+      "label": "Method 3: Scaling",
+      "description": "Check if 3 : 4 can be scaled by a common factor to get 72 : 96.",
+      "prompt": "Choose a method to solve this problem. You can check if one ratio is a scaled version of the other.",
+      "accept": [
+        "scale",
+        "scaling",
+        "multiply by",
+        "factor",
+        "3*24",
+        "4*24"
+      ],
+      "hints": [
+        "Check if 3 : 4 can be multiplied by a common factor to get 72 : 96.",
+        "Find the scaling factor: 72 ÷ 3 = ?",
+        "Then check if 4 × that factor = 96."
+      ]
+    },
+
+    {
+      "id": "m3_s1",
+      "type": "step",
+      "label": "Find scaling factor for first term",
+      "description": "Determine the factor that scales 3 to 72.",
+      "prompt": "What factor do you multiply 3 by to get 72?",
+      "accept": [
+        "24",
+        "3*24=72",
+        "3×24=72",
+        "multiply by 24",
+        "factor is 24"
+      ],
+      "hints": [
+        "72 ÷ 3 = 24",
+        "The scaling factor is 24.",
+        "3 × 24 = 72"
+      ]
+    },
+
+    {
+      "id": "m3_s2",
+      "type": "step",
+      "label": "Verify scaling factor for second term",
+      "description": "Check if 4 × 24 = 96.",
+      "prompt": "Does 4 × 24 = 96?",
+      "accept": [
+        "yes",
+        "4*24=96",
+        "4×24=96",
+        "4 times 24 is 96",
+        "yes, 4*24=96"
+      ],
+      "hints": [
+        "4 × 20 = 80",
+        "4 × 4 = 16",
+        "80 + 16 = 96, so yes!"
+      ]
+    },
+
+    {
+      "id": "m3_s3",
+      "type": "step",
+      "label": "Both terms scale by same factor",
+      "description": "Since 3 × 24 = 72 and 4 × 24 = 96, both terms scale by the same factor 24, so the ratios are proportional.",
+      "prompt": "Since both terms scale by the same factor, what can you conclude?",
+      "accept": [
+        "proportional",
+        "same factor",
+        "both scale by 24",
+        "3:4 = 72:96",
+        "they are proportional"
+      ],
+      "hints": [
+        "3 × 24 = 72 and 4 × 24 = 96",
+        "Both terms scale by the same factor 24",
+        "This means 3 : 4 and 72 : 96 are proportional."
+      ]
+    },
+
+    {
+      "id": "m4_decimal",
+      "type": "method",
+      "label": "Method 4: Decimal Comparison",
+      "description": "Convert both ratios to decimals and compare.",
+      "prompt": "Choose a method to solve this problem. You can convert both ratios to decimals and compare.",
+      "accept": [
+        "decimal",
+        "0.75",
+        "divide 3 by 4",
+        "divide 72 by 96",
+        "convert to decimal"
+      ],
+      "hints": [
+        "Convert 3 : 4 to a decimal: 3 ÷ 4 = ?",
+        "Convert 72 : 96 to a decimal: 72 ÷ 96 = ?",
+        "Compare the two decimal values."
+      ]
+    },
+
+    {
+      "id": "m4_s1",
+      "type": "step",
+      "label": "Convert 3 : 4 to decimal",
+      "description": "3 ÷ 4 = 0.75",
+      "prompt": "What is 3 ÷ 4 as a decimal?",
+      "accept": [
+        "0.75",
+        "0.75",
+        "3/4 = 0.75",
+        "three quarters",
+        "0.75"
+      ],
+      "hints": [
+        "3 ÷ 4 = 0.75",
+        "3/4 is three quarters",
+        "0.75"
+      ]
+    },
+
+    {
+      "id": "m4_s2",
+      "type": "step",
+      "label": "Convert 72 : 96 to decimal",
+      "description": "72 ÷ 96 = 0.75",
+      "prompt": "What is 72 ÷ 96 as a decimal?",
+      "accept": [
+        "0.75",
+        "72/96 = 0.75",
+        "0.75",
+        "72 divided by 96 is 0.75"
+      ],
+      "hints": [
+        "72 ÷ 96 = 0.75",
+        "You can simplify 72/96 to 3/4 first, then 3/4 = 0.75",
+        "0.75"
+      ]
+    },
+
+    {
+      "id": "m4_s3",
+      "type": "step",
+      "label": "Compare decimal values",
+      "description": "0.75 = 0.75, so the ratios are proportional.",
+      "prompt": "Are the decimal values equal? What does this tell you?",
+      "accept": [
+        "0.75 = 0.75",
+        "equal",
+        "same",
+        "both 0.75",
+        "they are equal"
+      ],
+      "hints": [
+        "3 ÷ 4 = 0.75",
+        "72 ÷ 96 = 0.75",
+        "Since both equal 0.75, the ratios are proportional."
+      ]
+    },
+
+    {
+      "id": "m5_fraction",
+      "type": "method",
+      "label": "Method 5: Fraction Simplification",
+      "description": "Write 72 : 96 as a fraction 72/96 and simplify it to compare with 3/4.",
+      "prompt": "Choose a method to solve this problem. You can write the ratio as a fraction and simplify.",
+      "accept": [
+        "fraction",
+        "72/96",
+        "72 over 96",
+        "simplify fraction"
+      ],
+      "hints": [
+        "Write 72 : 96 as the fraction 72/96.",
+        "Simplify 72/96 by dividing numerator and denominator by their HCF.",
+        "Compare the simplified fraction with 3/4."
+      ]
+    },
+
+    {
+      "id": "m5_s1",
+      "type": "step",
+      "label": "Write as fraction",
+      "description": "72 : 96 can be written as the fraction 72/96.",
+      "prompt": "How do you write the ratio 72 : 96 as a fraction?",
+      "accept": [
+        "72/96",
+        "72 over 96",
+        "72 divided by 96"
+      ],
+      "hints": [
+        "A ratio a : b can be written as the fraction a/b.",
+        "So 72 : 96 = 72/96.",
+        "72/96"
+      ]
+    },
+
+    {
+      "id": "m5_s2",
+      "type": "step",
+      "label": "Simplify the fraction",
+      "description": "72/96 simplifies to 3/4 by dividing both by 24.",
+      "prompt": "What is 72/96 simplified?",
+      "accept": [
+        "3/4",
+        "3 over 4",
+        "72/96 = 3/4",
+        "simplifies to 3/4"
+      ],
+      "hints": [
+        "Divide both 72 and 96 by 24.",
+        "72 ÷ 24 = 3 and 96 ÷ 24 = 4",
+        "72/96 = 3/4"
+      ]
+    },
+
+    {
+      "id": "m5_s3",
+      "type": "step",
+      "label": "Compare simplified fraction with 3/4",
+      "description": "3/4 = 3/4, so the ratios are proportional.",
+      "prompt": "Compare 3/4 with the simplified fraction. Are they equal?",
+      "accept": [
+        "3/4 = 3/4",
+        "equal",
+        "same",
+        "both 3/4",
+        "they are equal"
+      ],
+      "hints": [
+        "The simplified fraction is 3/4.",
+        "The first ratio 3 : 4 is also 3/4.",
+        "Since they are equal, the ratios are proportional."
+      ]
+    },
+
+    {
+      "id": "m6_prime",
+      "type": "method",
+      "label": "Method 6: Prime Factorization",
+      "description": "Factorize 72 and 96 into primes, cancel common factors, and compare the result with 3/4.",
+      "prompt": "Choose a method to solve this problem. You can use prime factorization.",
+      "accept": [
+        "prime",
+        "factorization",
+        "prime factor",
+        "2^3",
+        "2³",
+        "2^5"
+      ],
+      "hints": [
+        "Factorize 72 into prime factors.",
+        "Factorize 96 into prime factors.",
+        "Cancel common factors to simplify 72/96."
+      ]
+    },
+
+    {
+      "id": "m6_s1",
+      "type": "step",
+      "label": "Prime factorize 72",
+      "description": "72 = 2³ × 3²",
+      "prompt": "What is the prime factorization of 72?",
+      "accept": [
+        "2^3 * 3^2",
+        "2³ × 3²",
+        "2*2*2*3*3",
+        "2×2×2×3×3",
+        "8*9",
+        "2^3 × 3^2"
+      ],
+      "hints": [
+        "72 = 8 × 9",
+        "8 = 2³ and 9 = 3²",
+        "72 = 2³ × 3²"
+      ]
+    },
+
+    {
+      "id": "m6_s2",
+      "type": "step",
+      "label": "Prime factorize 96",
+      "description": "96 = 2⁵ × 3",
+      "prompt": "What is the prime factorization of 96?",
+      "accept": [
+        "2^5 * 3",
+        "2⁵ × 3",
+        "2*2*2*2*2*3",
+        "2×2×2×2×2×3",
+        "32*3",
+        "2^5 × 3"
+      ],
+      "hints": [
+        "96 = 32 × 3",
+        "32 = 2⁵",
+        "96 = 2⁵ × 3"
+      ]
+    },
+
+    {
+      "id": "m6_s3",
+      "type": "step",
+      "label": "Cancel common factors",
+      "description": "72/96 = (2³ × 3²)/(2⁵ × 3) = 3/4 after canceling 2³ and 3.",
+      "prompt": "After canceling common prime factors, what is 72/96 simplified to?",
+      "accept": [
+        "3/4",
+        "3 over 4",
+        "3:4",
+        "3/4 after canceling",
+        "3/4"
+      ],
+      "hints": [
+        "72/96 = (2³ × 3²)/(2⁵ × 3)",
+        "Cancel 2³ from both: 3²/(2² × 3)",
+        "Cancel 3 from both: 3/(2²) = 3/4"
+      ]
+    },
+
+    {
+      "id": "m6_s4",
+      "type": "step",
+      "label": "Compare with 3/4",
+      "description": "The prime factorization simplifies to 3/4, which matches the first ratio.",
+      "prompt": "Does the simplified result match 3/4? What does this tell you?",
+      "accept": [
+        "3/4 = 3/4",
+        "yes",
+        "matches",
+        "same",
+        "equal"
+      ],
+      "hints": [
+        "The simplified result is 3/4.",
+        "The first ratio is 3 : 4 = 3/4.",
+        "They match, so the ratios are proportional."
+      ]
+    },
+
+    {
+      "id": "m7_equivalent",
+      "type": "method",
+      "label": "Method 7: Equivalent Fraction",
+      "description": "Show that 3 : 4 is equivalent to 72 : 96 by multiplying both terms by 24.",
+      "prompt": "Choose a method to solve this problem. You can show that one ratio is an equivalent fraction of the other.",
+      "accept": [
+        "equivalent",
+        "multiply 3:4 by 24",
+        "3*24 : 4*24",
+        "3×24 : 4×24",
+        "equivalent fraction"
+      ],
+      "hints": [
+        "Multiply both terms of 3 : 4 by the same number.",
+        "3 × 24 = 72 and 4 × 24 = 96",
+        "This shows 3 : 4 = 72 : 96."
+      ]
+    },
+
+    {
+      "id": "m7_s1",
+      "type": "step",
+      "label": "Multiply 3 : 4 by 24",
+      "description": "3 × 24 = 72 and 4 × 24 = 96, so 3 : 4 = 72 : 96.",
+      "prompt": "What do you get when you multiply both terms of 3 : 4 by 24?",
+      "accept": [
+        "72:96",
+        "72 : 96",
+        "3*24=72, 4*24=96",
+        "3×24=72, 4×24=96",
+        "72 and 96"
+      ],
+      "hints": [
+        "3 × 24 = 72",
+        "4 × 24 = 96",
+        "So 3 : 4 multiplied by 24 gives 72 : 96."
+      ]
+    },
+
+    {
+      "id": "m7_s2",
+      "type": "step",
+      "label": "Recognize equivalence",
+      "description": "Since 3 : 4 × 24 = 72 : 96, the ratios are equivalent and therefore proportional.",
+      "prompt": "Since 3 : 4 scaled by 24 gives exactly 72 : 96, what can you conclude?",
+      "accept": [
+        "proportional",
+        "equivalent",
+        "same ratio",
+        "3:4 = 72:96",
+        "they are proportional"
+      ],
+      "hints": [
+        "3 : 4 and 72 : 96 are equivalent ratios.",
+        "Equivalent ratios are proportional.",
+        "Yes, they are proportional."
+      ]
+    },
+
+    {
+      "id": "m8_reduce",
+      "type": "method",
+      "label": "Method 8: Step-by-Step Reduction",
+      "description": "Reduce 72 : 96 step by step by dividing both terms by common factors until reaching 3 : 4.",
+      "prompt": "Choose a method to solve this problem. You can reduce 72 : 96 step by step.",
+      "accept": [
+        "reduce step by step",
+        "36:48",
+        "36 : 48",
+        "18:24",
+        "18 : 24",
+        "9:12",
+        "9 : 12"
+      ],
+      "hints": [
+        "Divide both terms of 72 : 96 by 2 to get 36 : 48.",
+        "Continue dividing by common factors.",
+        "Keep going until you reach the simplest form."
+      ]
+    },
+
+    {
+      "id": "m8_s1",
+      "type": "step",
+      "label": "Divide by 2: 72 : 96 → 36 : 48",
+      "description": "72 ÷ 2 = 36 and 96 ÷ 2 = 48.",
+      "prompt": "Divide both 72 and 96 by 2. What ratio do you get?",
+      "accept": [
+        "36:48",
+        "36 : 48",
+        "36 to 48",
+        "36/48"
+      ],
+      "hints": [
+        "72 ÷ 2 = 36",
+        "96 ÷ 2 = 48",
+        "The ratio becomes 36 : 48."
+      ]
+    },
+
+    {
+      "id": "m8_s2",
+      "type": "step",
+      "label": "Divide by 2: 36 : 48 → 18 : 24",
+      "description": "36 ÷ 2 = 18 and 48 ÷ 2 = 24.",
+      "prompt": "Divide both 36 and 48 by 2. What ratio do you get?",
+      "accept": [
+        "18:24",
+        "18 : 24",
+        "18 to 24",
+        "18/24"
+      ],
+      "hints": [
+        "36 ÷ 2 = 18",
+        "48 ÷ 2 = 24",
+        "The ratio becomes 18 : 24."
+      ]
+    },
+
+    {
+      "id": "m8_s3",
+      "type": "step",
+      "label": "Divide by 2: 18 : 24 → 9 : 12",
+      "description": "18 ÷ 2 = 9 and 24 ÷ 2 = 12.",
+      "prompt": "Divide both 18 and 24 by 2. What ratio do you get?",
+      "accept": [
+        "9:12",
+        "9 : 12",
+        "9 to 12",
+        "9/12"
+      ],
+      "hints": [
+        "18 ÷ 2 = 9",
+        "24 ÷ 2 = 12",
+        "The ratio becomes 9 : 12."
+      ]
+    },
+
+    {
+      "id": "m8_s4",
+      "type": "step",
+      "label": "Divide by 3: 9 : 12 → 3 : 4",
+      "description": "9 ÷ 3 = 3 and 12 ÷ 3 = 4.",
+      "prompt": "Divide both 9 and 12 by 3. What ratio do you get?",
+      "accept": [
+        "3:4",
+        "3 : 4",
+        "3 to 4",
+        "3/4"
+      ],
+      "hints": [
+        "9 ÷ 3 = 3",
+        "12 ÷ 3 = 4",
+        "The ratio becomes 3 : 4."
+      ]
+    },
+
+    {
+      "id": "m8_s5",
+      "type": "step",
+      "label": "Compare final reduced ratio with 3 : 4",
+      "description": "After step-by-step reduction, 72 : 96 reduces to 3 : 4, which matches the first ratio.",
+      "prompt": "After reducing step by step, what is the final ratio? Does it match 3 : 4?",
+      "accept": [
+        "3:4",
+        "3 : 4",
+        "matches",
+        "same",
+        "3:4 = 3:4",
+        "equal"
+      ],
+      "hints": [
+        "72 : 96 → 36 : 48 → 18 : 24 → 9 : 12 → 3 : 4",
+        "The final reduced ratio is 3 : 4.",
+        "This matches the first ratio, so they are proportional."
+      ]
+    }
+  ],
+
+  "edges": [
+    { "from": "start", "to": "m1_simplify", "label": "Method 1: Simplification" },
+    { "from": "start", "to": "m2_cross_multiply", "label": "Method 2: Cross Multiplication" },
+    { "from": "start", "to": "m3_scale", "label": "Method 3: Scaling" },
+    { "from": "start", "to": "m4_decimal", "label": "Method 4: Decimal Comparison" },
+    { "from": "start", "to": "m5_fraction", "label": "Method 5: Fraction Simplification" },
+    { "from": "start", "to": "m6_prime", "label": "Method 6: Prime Factorization" },
+    { "from": "start", "to": "m7_equivalent", "label": "Method 7: Equivalent Fraction" },
+    { "from": "start", "to": "m8_reduce", "label": "Method 8: Step-by-Step Reduction" },
+
+    { "from": "m1_simplify", "to": "m1_s1", "label": "Find HCF" },
+    { "from": "m1_s1", "to": "m1_s2", "label": "Divide by HCF" },
+    { "from": "m1_s2", "to": "m1_s3", "label": "Simplified ratio" },
+    { "from": "m1_s3", "to": "m1_s4", "label": "Compare" },
+    { "from": "m1_s4", "to": "conclusion", "label": "Proportional" },
+
+    { "from": "m2_cross_multiply", "to": "m2_s1", "label": "Set up" },
+    { "from": "m2_s1", "to": "m2_s2", "label": "Compute 3×96" },
+    { "from": "m2_s1", "to": "m2_s3", "label": "Compute 4×72" },
+    { "from": "m2_s2", "to": "m2_s4", "label": "Compare products" },
+    { "from": "m2_s3", "to": "m2_s4", "label": "Compare products" },
+    { "from": "m2_s4", "to": "conclusion", "label": "Proportional" },
+
+    { "from": "m3_scale", "to": "m3_s1", "label": "Find scaling factor" },
+    { "from": "m3_s1", "to": "m3_s2", "label": "Verify second term" },
+    { "from": "m3_s2", "to": "m3_s3", "label": "Same factor" },
+    { "from": "m3_s3", "to": "conclusion", "label": "Proportional" },
+
+    { "from": "m4_decimal", "to": "m4_s1", "label": "Convert 3:4" },
+    { "from": "m4_decimal", "to": "m4_s2", "label": "Convert 72:96" },
+    { "from": "m4_s1", "to": "m4_s3", "label": "Compare decimals" },
+    { "from": "m4_s2", "to": "m4_s3", "label": "Compare decimals" },
+    { "from": "m4_s3", "to": "conclusion", "label": "Proportional" },
+
+    { "from": "m5_fraction", "to": "m5_s1", "label": "Write as fraction" },
+    { "from": "m5_s1", "to": "m5_s2", "label": "Simplify" },
+    { "from": "m5_s2", "to": "m5_s3", "label": "Compare" },
+    { "from": "m5_s3", "to": "conclusion", "label": "Proportional" },
+
+    { "from": "m6_prime", "to": "m6_s1", "label": "Factorize 72" },
+    { "from": "m6_prime", "to": "m6_s2", "label": "Factorize 96" },
+    { "from": "m6_s1", "to": "m6_s3", "label": "Cancel common factors" },
+    { "from": "m6_s2", "to": "m6_s3", "label": "Cancel common factors" },
+    { "from": "m6_s3", "to": "m6_s4", "label": "Compare" },
+    { "from": "m6_s4", "to": "conclusion", "label": "Proportional" },
+
+    { "from": "m7_equivalent", "to": "m7_s1", "label": "Multiply by 24" },
+    { "from": "m7_s1", "to": "m7_s2", "label": "Recognize equivalence" },
+    { "from": "m7_s2", "to": "conclusion", "label": "Proportional" },
+
+    { "from": "m8_reduce", "to": "m8_s1", "label": "Divide by 2" },
+    { "from": "m8_s1", "to": "m8_s2", "label": "Divide by 2" },
+    { "from": "m8_s2", "to": "m8_s3", "label": "Divide by 2" },
+    { "from": "m8_s3", "to": "m8_s4", "label": "Divide by 3" },
+    { "from": "m8_s4", "to": "m8_s5", "label": "Compare" },
+    { "from": "m8_s5", "to": "conclusion", "label": "Proportional" }
+  ]
+};

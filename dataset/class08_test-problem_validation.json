@@ -1,0 +1,193 @@
+{
+  "artifact_type": "test_case",
+  "uuid": "g08-hegp107-ex001",
+
+  "question_text": "Are the ratios 3 : 4 and 72 : 96 proportional?",
+  "solvable": true,
+    
+  "validation_data": {
+    "givens": [
+      {
+      "symbol": "r1",
+      "value": "3:4",
+      "unit": null,
+      "description": "first ratio"
+      },
+      {
+      "symbol": "r2",
+      "value": "72:96",
+      "unit": null,
+      "description": "second ratio"
+      }
+    ],
+        
+    "goals": [
+      {
+      "symbol": "is_proportional",
+      "unit": null,
+      "description": "whether the two given ratios are proportional"
+      }
+    ],
+
+    "answer": {
+        "symbol":"is_proportional",
+        "value": true,
+        "display": "Yes, the given ratios are proportional."
+    },
+
+    "methods": [
+      {
+      "id": "cross_multiplication",
+      "name": "Method of cross multiplication",
+      "description": "Multiply the extremes and means of the two ratios and compare the results.",
+      "path": ["node_001", "node_002", "node_003", "node_crs-mul_001", "node_crs-mul_002"]
+      },
+      {
+        "id": "simplification",
+        "name": "Method of simplification",
+        "description": "Reduce both ratios to their simplest form and check if they are equal.",
+        "path": ["node_001", "node_002", "node_003", "node_sim_001", "node_sim_002"]
+      },
+      {
+        "id": "scaling",
+        "name": "Method of scaling",
+        "description": "Multiply both the terms of a ratio by a same number to see if it matches the other ratio.",
+        "path": ["node_001", "node_002", "node_003", "node_scale_001", "node_scale_002"]
+      }
+    ],
+
+    "solution_nodes": [
+      {
+      "id": "node_001",
+      "type": "extraction",
+      "operation": "identify_givens",
+      "prompt": "What quantities are given in the problem?",
+      "accept": [
+        "r1 = 3:4 and r2 = 72:96",
+        "the two ratios are 3:4 and 72:96"
+      ],
+      "establishes": [
+        "r1",
+        "r2"
+      ]
+      },
+      {
+      "id": "node_002",
+      "type": "extraction",
+      "operation": "identify_goals",
+      "prompt": "What do we need to find out?",
+      "accept": [
+        "determine if the two ratios are proportional",
+        "check if 3:4 is proportional to 72:96",
+        "whether the two ratios are proportional",
+        "whether 3:4 is proportional to 72:96"
+      ],
+      "establishes": [
+        "goal:is_proportional"
+      ]
+      },
+      {
+      "id": "node_003",
+      "type": "method_selection",
+      "operation": "select_method",
+      "prompt": "Which method should we use to determine if the ratios are proportional?",
+      "accept": [
+        "cross multiplication",
+        "simplification",
+        "scaling"
+      ],
+      "establishes": [
+        "method:selected_method"
+      ]
+      },
+      {
+      "id": "node_crs-mul_001",
+      "type": "computation",
+      "operation": "perform_cross_multiplication",
+      "prompt": "Let's perform cross multiplication on the two ratios.",
+      "accept": [
+        "3 * 96 = 288 and 4 * 72 = 288",
+        "the products of the extremes and means are equal"
+      ],
+      "establishes": [
+        "3 * 96 = 4 * 72",
+        "cross_products_are_equal"
+      ]
+      },
+      {
+      "id": "node_crs-mul_002",
+      "type": "conclusion",
+      "operation": "draw_conclusion",
+      "prompt": "What conclusion follows from the equal products?",
+      "accept": [
+        "since 3 * 96 = 4 * 72, the ratios are proportional",
+        "the ratios are proportional because the cross products are equal",
+        "yes, they are proportional"
+      ],
+      "establishes": [
+        "goal:is_proportional"
+      ]
+      },
+      {
+      "id": "node_sim_001",
+      "type": "computation",
+      "operation": "simplify_ratios",
+      "prompt": "Simplify the second ratio to its simplest form.",
+      "accept": [
+        "hcf(72, 96) = 24, so we divide both terms by 24 to get 3:4",
+        "72:96 simplifies to 3:4",
+        "divide both terms of 72:96 by 24 to get 3:4",
+        "the second ratio simplifies to 3:4"
+      ],
+      "establishes": [
+        "r2:simplified",
+        "r1 = r2"
+      ]
+      },
+      {
+      "id": "node_sim_002",
+      "type": "conclusion",
+      "operation": "draw_conclusion",
+      "prompt": "What conclusion can be drawn after simplifying both ratios?",
+      "accept": [
+        "both ratios simplify to 3:4, so they are proportional",
+        "since 3:4 = 3:4, the ratios are proportional",
+        "yes, the ratios are proportional"
+      ],
+      "establishes": [
+        "goal:is_proportional"
+      ]
+      },
+      {
+      "id": "node_scale_001",
+      "type": "computation",
+      "operation": "scale_ratio",
+      "prompt": "Scale-up the first ratio with a number before comparing the two ratios.",
+      "accept": [
+        "multiply 3 and 4 by 24 to get 72 and 96",
+        "3 * 24 = 72 and 4 * 24 = 96",
+        "the second ratio is obtained by multiplying the first ratio by 24"
+      ],
+      "establishes": [
+        "ratio:scaled",
+        "r2 = 24 * r1"
+      ]
+      },
+      {
+      "id": "node_scale_002",
+      "type": "conclusion",
+      "operation": "draw_conclusion",
+      "prompt": "What conclusion follows from the scaling comparison?",
+      "accept": [
+        "since 3:4 is scaled by 24 to 72:96, the ratios are proportional",
+        "the ratios are proportional because one is a scaled version of the other",
+        "yes, they are proportional"
+      ],
+      "establishes": [
+        "goal:is_proportional"
+      ]
+      }
+    ]  
+  }
+}
+

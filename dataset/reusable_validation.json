@@ -1,0 +1,399 @@
+{
+  "artifact_type": "test_case",
+  "uuid": "g08-hegp107-ex002",
+
+  "question_text": "Are the ratios 84 : 126 and 4 : 6 proportional?",
+  "solvable": true,
+
+  "generic_ratio_problem": {
+    "input_format": "Are the ratios a:b and c:d proportional?",
+    "variables": {
+      "a": "first term of the first ratio",
+      "b": "second term of the first ratio",
+      "c": "first term of the second ratio",
+      "d": "second term of the second ratio"
+    },
+    "ratio_symbols": {
+      "r1": "{a}:{b}",
+      "r2": "{c}:{d}"
+    },
+    "validation_rules": [
+      "a, b, c, and d must be integers",
+      "b and d must not be zero because a ratio cannot have a zero denominator"
+    ],
+    "proportionality_rule": {
+      "expression": "a * d = b * c",
+      "meaning": "The ratios are proportional when the cross products are equal."
+    },
+    "methods": {
+      "cross_multiplication": {
+        "description": "Compare the cross products of the two ratios.",
+        "steps": [
+          {
+            "operation": "multiply_cross_terms",
+            "expression": "{a} * {d}"
+          },
+          {
+            "operation": "multiply_cross_terms",
+            "expression": "{b} * {c}"
+          },
+          {
+            "operation": "compare_products",
+            "condition": "{a} * {d} = {b} * {c}",
+            "conclusion_if_true": "The ratios are proportional.",
+            "conclusion_if_false": "The ratios are not proportional."
+          }
+        ]
+      },
+      "hcf_simplification": {
+        "description": "Reduce both ratios to their simplest forms using the reusable HCF function.",
+        "steps": [
+          {
+            "operation": "call_hcf",
+            "function": "hcf",
+            "arguments": ["{a}", "{b}"],
+            "assign_to": "hcf_r1"
+          },
+          {
+            "operation": "call_hcf",
+            "function": "hcf",
+            "arguments": ["{c}", "{d}"],
+            "assign_to": "hcf_r2"
+          },
+          {
+            "operation": "simplify_ratio",
+            "expression": "({a}/hcf_r1):({b}/hcf_r1)",
+            "assign_to": "simplified_r1"
+          },
+          {
+            "operation": "simplify_ratio",
+            "expression": "({c}/hcf_r2):({d}/hcf_r2)",
+            "assign_to": "simplified_r2"
+          },
+          {
+            "operation": "compare_simplified_ratios",
+            "condition": "simplified_r1 = simplified_r2",
+            "conclusion_if_true": "The ratios are proportional.",
+            "conclusion_if_false": "The ratios are not proportional."
+          }
+        ]
+      },
+      "scaling": {
+        "description": "Check whether one ratio is obtained by multiplying the other ratio by the same factor.",
+        "steps": [
+          {
+            "operation": "calculate_scale_factor",
+            "expression": "scale_factor = {c}/{a}"
+          },
+          {
+            "operation": "apply_scale_factor",
+            "expression": "{b} * scale_factor"
+          },
+          {
+            "operation": "compare_scaled_term",
+            "condition": "{b} * scale_factor = {d}",
+            "conclusion_if_true": "The ratios are proportional.",
+            "conclusion_if_false": "The ratios are not proportional."
+          }
+        ]
+      }
+    },
+    "solution_template": {
+      "givens": "r1 = {a}:{b} and r2 = {c}:{d}",
+      "hcf_simplification": [
+        {
+          "operation": "call_hcf",
+          "function": "hcf",
+          "arguments": ["{a}", "{b}"],
+          "result": "hcf({a}, {b})"
+        },
+        {
+          "operation": "call_hcf",
+          "function": "hcf",
+          "arguments": ["{c}", "{d}"],
+          "result": "hcf({c}, {d})"
+        },
+        {
+          "operation": "simplify_ratio",
+          "expression": "({a}/hcf({a},{b})):({b}/hcf({a},{b}))"
+        },
+        {
+          "operation": "simplify_ratio",
+          "expression": "({c}/hcf({c},{d})):({d}/hcf({c},{d}))"
+        }
+      ],
+      "conclusion": "The ratios are proportional if their simplified forms are equal."
+    }
+  },
+
+  "node_catalog": {
+    "general_nodes": [
+      {
+        "id": "general_identify_givens",
+        "scope": "general",
+        "type": "extraction",
+        "operation": "identify_givens",
+        "prompt": "What quantities are given in the problem?",
+        "template": "The two ratios are {a}:{b} and {c}:{d}.",
+        "establishes": ["r1", "r2"]
+      },
+      {
+        "id": "general_identify_goal",
+        "scope": "general",
+        "type": "extraction",
+        "operation": "identify_goals",
+        "prompt": "What do we need to find out?",
+        "template": "Determine whether {a}:{b} is proportional to {c}:{d}.",
+        "establishes": ["goal:is_proportional"]
+      },
+      {
+        "id": "general_select_method",
+        "scope": "general",
+        "type": "method_selection",
+        "operation": "select_method",
+        "prompt": "Which method should we use to determine if the ratios are proportional?",
+        "available_methods": [
+          "cross_multiplication",
+          "hcf_simplification",
+          "scaling"
+        ],
+        "establishes": ["method:selected_method"]
+      }
+    ],
+    "specific_nodes": {
+      "scope": "problem_specific",
+      "problem_uuid": "g08-hegp107-ex002",
+      "values": {
+        "a": 84,
+        "b": 126,
+        "c": 4,
+        "d": 6
+      },
+      "instantiated_general_nodes": [
+        {
+          "id": "node_001",
+          "template_id": "general_identify_givens",
+          "resolved_prompt": "The two ratios are 84:126 and 4:6."
+        },
+        {
+          "id": "node_002",
+          "template_id": "general_identify_goal",
+          "resolved_prompt": "Determine whether 84:126 is proportional to 4:6."
+        },
+        {
+          "id": "node_003",
+          "template_id": "general_select_method",
+          "resolved_prompt": "Choose cross multiplication, HCF simplification, or scaling."
+        }
+      ],
+      "method_node_ids": {
+        "cross_multiplication": [
+          "node_crs-mul_001",
+          "node_crs-mul_002"
+        ],
+        "hcf_simplification": [
+          "node_sim_001",
+          "node_sim_002",
+          "node_sim_003"
+        ],
+        "scaling": [
+          "node_scale_001",
+          "node_scale_002"
+        ]
+      }
+    }
+  },
+
+  "reusable_functions": {
+    "hcf": {
+      "module": "ainstein_math.reusable_functions",
+      "callable": "hcf",
+      "description": "Return the highest common factor of two or more integers.",
+      "example": "hcf(84, 126) = 42"
+    }
+  },
+
+  "validation_data": {
+    "givens": [
+      {
+        "symbol": "r1",
+        "value": "84:126",
+        "unit": null,
+        "description": "first ratio"
+      },
+      {
+        "symbol": "r2",
+        "value": "4:6",
+        "unit": null,
+        "description": "second ratio"
+      }
+    ],
+
+    "goals": [
+      {
+        "symbol": "is_proportional",
+        "unit": null,
+        "description": "whether the two given ratios are proportional"
+      }
+    ],
+
+    "answer": {
+      "symbol": "is_proportional",
+      "value": true,
+      "display": "Yes, the given ratios are proportional."
+    },
+
+    "methods": [
+      {
+        "id": "cross_multiplication",
+        "name": "Method of cross multiplication",
+        "description": "Multiply the extremes and means of the two ratios and compare the results.",
+        "path": ["node_001", "node_002", "node_003", "node_crs-mul_001", "node_crs-mul_002"]
+      },
+      {
+        "id": "simplification",
+        "name": "Method of simplification using reusable HCF",
+        "description": "Reduce both ratios to their simplest form using the reusable hcf function and check if they are equal.",
+        "path": ["node_001", "node_002", "node_003", "node_sim_001", "node_sim_002", "node_sim_003"]
+      },
+      {
+        "id": "scaling",
+        "name": "Method of scaling",
+        "description": "Multiply both terms of a ratio by the same number to see if it matches the other ratio.",
+        "path": ["node_001", "node_002", "node_003", "node_scale_001", "node_scale_002"]
+      }
+    ],
+
+    "solution_nodes": [
+      {
+        "id": "node_001",
+        "type": "extraction",
+        "operation": "identify_givens",
+        "prompt": "What quantities are given in the problem?",
+        "accept": [
+          "r1 = 84:126 and r2 = 4:6",
+          "the two ratios are 84:126 and 4:6"
+        ],
+        "establishes": ["r1", "r2"]
+      },
+      {
+        "id": "node_002",
+        "type": "extraction",
+        "operation": "identify_goals",
+        "prompt": "What do we need to find out?",
+        "accept": [
+          "determine if the two ratios are proportional",
+          "check if 84:126 is proportional to 4:6",
+          "whether the two ratios are proportional",
+          "whether 84:126 is proportional to 4:6"
+        ],
+        "establishes": ["goal:is_proportional"]
+      },
+      {
+        "id": "node_003",
+        "type": "method_selection",
+        "operation": "select_method",
+        "prompt": "Which method should we use to determine if the ratios are proportional?",
+        "accept": ["cross multiplication", "simplification", "scaling"],
+        "establishes": ["method:selected_method"]
+      },
+      {
+        "id": "node_crs-mul_001",
+        "type": "computation",
+        "operation": "perform_cross_multiplication",
+        "prompt": "Let's perform cross multiplication on the two ratios.",
+        "accept": [
+          "84 * 6 = 504 and 126 * 4 = 504",
+          "the products of the extremes and means are equal"
+        ],
+        "establishes": ["84 * 6 = 126 * 4", "cross_products_are_equal"]
+      },
+      {
+        "id": "node_crs-mul_002",
+        "type": "conclusion",
+        "operation": "draw_conclusion",
+        "prompt": "What conclusion follows from the equal products?",
+        "accept": [
+          "since 84 * 6 = 126 * 4, the ratios are proportional",
+          "the ratios are proportional because the cross products are equal",
+          "yes, they are proportional"
+        ],
+        "establishes": ["goal:is_proportional"]
+      },
+      {
+        "id": "node_sim_001",
+        "type": "computation",
+        "operation": "call_hcf",
+        "function": "ainstein_math.reusable_functions.hcf",
+        "prompt": "Use the reusable HCF function for each ratio. What HCF values do you get?",
+        "calls": [
+          {
+            "function": "hcf",
+            "arguments": [84, 126],
+            "result": 42
+          },
+          {
+            "function": "hcf",
+            "arguments": [4, 6],
+            "result": 2
+          }
+        ],
+        "accept": [
+          "hcf(84, 126) = 42 and hcf(4, 6) = 2",
+          "hcf of 84 and 126 is 42, and hcf of 4 and 6 is 2",
+          "the HCFs are 42 and 2"
+        ],
+        "establishes": ["hcf(84,126) = 42", "hcf(4,6) = 2"]
+      },
+      {
+        "id": "node_sim_002",
+        "type": "computation",
+        "operation": "simplify_ratios",
+        "prompt": "Divide each ratio by its HCF. What are their simplest forms?",
+        "uses": ["hcf(84,126)", "hcf(4,6)"],
+        "accept": [
+          "84/42=2 and 126/42=3; 4/2=2 and 6/2=3",
+          "84:126 simplifies to 2:3 and 4:6 simplifies to 2:3",
+          "both ratios simplify to 2:3"
+        ],
+        "establishes": ["r1:simplified", "r2:simplified", "r1 = r2"]
+      },
+      {
+        "id": "node_sim_003",
+        "type": "conclusion",
+        "operation": "draw_conclusion",
+        "prompt": "What conclusion can be drawn after simplifying both ratios?",
+        "accept": [
+          "both ratios simplify to 2:3, so they are proportional",
+          "since 2:3 = 2:3, the ratios are proportional",
+          "yes, the ratios are proportional"
+        ],
+        "establishes": ["goal:is_proportional"]
+      },
+      {
+        "id": "node_scale_001",
+        "type": "computation",
+        "operation": "scale_ratio",
+        "prompt": "Scale-up the second ratio with a number before comparing the two ratios.",
+        "accept": [
+          "multiply 4 and 6 by 21 to get 84 and 126",
+          "4 * 21 = 84 and 6 * 21 = 126",
+          "the first ratio is obtained by multiplying the second ratio by 21"
+        ],
+        "establishes": ["ratio:scaled", "r1 = 21 * r2"]
+      },
+      {
+        "id": "node_scale_002",
+        "type": "conclusion",
+        "operation": "draw_conclusion",
+        "prompt": "What conclusion follows from the scaling comparison?",
+        "accept": [
+          "since 4:6 is scaled by 21 to 84:126, the ratios are proportional",
+          "the ratios are proportional because one is a scaled version of the other",
+          "yes, they are proportional"
+        ],
+        "establishes": ["goal:is_proportional"]
+      }
+    ]
+  }
+}

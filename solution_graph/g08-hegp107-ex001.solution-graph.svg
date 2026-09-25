@@ -1,0 +1,266 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1100" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap');
+      text { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+      .title { font-size: 16px; font-weight: 800; fill: #f8fafc; }
+      .sub { font-size: 11px; font-weight: 400; fill: #94a3b8; }
+      .node-label { font-size: 11px; font-weight: 600; fill: #e2e8f0; }
+      .node-sub { font-size: 9px; font-weight: 400; fill: #94a3b8; }
+      .edge-label { font-size: 8px; font-weight: 500; fill: #64748b; }
+      .box { rx: 8px; ry: 8px; stroke-width: 1.5px; }
+      .line { stroke: #38bdf8; stroke-width: 1.5px; marker-end: url(#arrow); }
+      .line-green { stroke: #34d399; stroke-width: 1.5px; marker-end: url(#arrow-green); }
+      .line-coral { stroke: #f1785e; stroke-width: 1.5px; marker-end: url(#arrow-coral); }
+    </style>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399" />
+    </marker>
+    <marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f1785e" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="1100" rx="16" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+
+  <!-- Header -->
+  <text x="700" y="35" text-anchor="middle" font-size="18" font-weight="800" fill="#f1f5f9" letter-spacing="1">SOLUTION GRAPH (DAG) — g08-hegp107-ex001</text>
+  <text x="700" y="55" text-anchor="middle" font-size="11" fill="#64748b">Are the ratios 3 : 4 and 72 : 96 proportional? — All Valid Solution Methods</text>
+
+  <!-- START Node -->
+  <rect x="550" y="75" width="300" height="55" class="box" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+  <text x="700" y="98" text-anchor="middle" class="title">🚀 START</text>
+  <text x="700" y="116" text-anchor="middle" class="sub">Are 3:4 and 72:96 proportional?</text>
+
+  <!-- Edges from START to all 8 methods -->
+  <line x1="700" y1="130" x2="700" y2="155" class="line"/>
+  <line x1="700" y1="155" x2="100" y2="155" class="line"/>
+  <line x1="100" y1="155" x2="100" y2="180" class="line"/>
+  <line x1="700" y1="155" x2="1300" y2="155" class="line"/>
+  <line x1="1300" y1="155" x2="1300" y2="180" class="line"/>
+
+  <!-- Method 1: Simplification -->
+  <rect x="30" y="180" width="170" height="50" class="box" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="115" y="200" text-anchor="middle" class="node-label">M1: Simplification</text>
+  <text x="115" y="216" text-anchor="middle" class="node-sub">HCF Method</text>
+  <line x1="115" y1="230" x2="115" y2="255" class="line"/>
+
+  <!-- M1 Steps -->
+  <rect x="30" y="255" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="272" text-anchor="middle" class="node-label">Find HCF(72,96)</text>
+  <text x="115" y="286" text-anchor="middle" class="node-sub">HCF = 24</text>
+  <line x1="115" y1="295" x2="115" y2="320" class="line"/>
+
+  <rect x="30" y="320" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="337" text-anchor="middle" class="node-label">Divide by 24</text>
+  <text x="115" y="351" text-anchor="middle" class="node-sub">72÷24=3, 96÷24=4</text>
+  <line x1="115" y1="360" x2="115" y2="385" class="line"/>
+
+  <rect x="30" y="385" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="402" text-anchor="middle" class="node-label">Simplified: 3:4</text>
+  <text x="115" y="416" text-anchor="middle" class="node-sub">72:96 → 3:4</text>
+  <line x1="115" y1="425" x2="115" y2="450" class="line"/>
+
+  <rect x="30" y="450" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="467" text-anchor="middle" class="node-label">Compare with 3:4</text>
+  <text x="115" y="481" text-anchor="middle" class="node-sub">3:4 = 3:4 ✓</text>
+  <line x1="115" y1="490" x2="115" y2="520" class="line-green"/>
+
+  <!-- Method 2: Cross Multiplication -->
+  <rect x="230" y="180" width="170" height="50" class="box" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="315" y="200" text-anchor="middle" class="node-label">M2: Cross Multiply</text>
+  <text x="315" y="216" text-anchor="middle" class="node-sub">3×96 vs 4×72</text>
+  <line x1="315" y1="230" x2="315" y2="255" class="line"/>
+
+  <rect x="230" y="255" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="315" y="272" text-anchor="middle" class="node-label">Set up proportion</text>
+  <text x="315" y="286" text-anchor="middle" class="node-sub">3:4 :: 72:96</text>
+  <line x1="315" y1="295" x2="280" y2="320" class="line"/>
+  <line x1="315" y1="295" x2="350" y2="320" class="line"/>
+
+  <rect x="230" y="320" width="100" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="280" y="337" text-anchor="middle" class="node-label">3 × 96</text>
+  <text x="280" y="351" text-anchor="middle" class="node-sub">= 288</text>
+
+  <rect x="350" y="320" width="100" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="400" y="337" text-anchor="middle" class="node-label">4 × 72</text>
+  <text x="400" y="351" text-anchor="middle" class="node-sub">= 288</text>
+
+  <line x1="280" y1="360" x2="315" y2="385" class="line"/>
+  <line x1="400" y1="360" x2="315" y2="385" class="line"/>
+
+  <rect x="230" y="385" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="315" y="402" text-anchor="middle" class="node-label">Compare products</text>
+  <text x="315" y="416" text-anchor="middle" class="node-sub">288 = 288 ✓</text>
+  <line x1="315" y1="425" x2="315" y2="520" class="line-green"/>
+
+  <!-- Method 3: Scaling -->
+  <rect x="430" y="180" width="170" height="50" class="box" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="515" y="200" text-anchor="middle" class="node-label">M3: Scaling</text>
+  <text x="515" y="216" text-anchor="middle" class="node-sub">3:4 → 72:96</text>
+  <line x1="515" y1="230" x2="515" y2="255" class="line"/>
+
+  <rect x="430" y="255" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="515" y="272" text-anchor="middle" class="node-label">Find factor</text>
+  <text x="515" y="286" text-anchor="middle" class="node-sub">72÷3 = 24</text>
+  <line x1="515" y1="295" x2="515" y2="320" class="line"/>
+
+  <rect x="430" y="320" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="515" y="337" text-anchor="middle" class="node-label">Verify 4×24</text>
+  <text x="515" y="351" text-anchor="middle" class="node-sub">4×24 = 96 ✓</text>
+  <line x1="515" y1="360" x2="515" y2="385" class="line"/>
+
+  <rect x="430" y="385" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="515" y="402" text-anchor="middle" class="node-label">Same factor</text>
+  <text x="515" y="416" text-anchor="middle" class="node-sub">Both ×24 ✓</text>
+  <line x1="515" y1="425" x2="515" y2="520" class="line-green"/>
+
+  <!-- Method 4: Decimal Comparison -->
+  <rect x="630" y="180" width="170" height="50" class="box" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="715" y="200" text-anchor="middle" class="node-label">M4: Decimal</text>
+  <text x="715" y="216" text-anchor="middle" class="node-sub">Compare decimals</text>
+  <line x1="715" y1="230" x2="715" y2="255" class="line"/>
+
+  <rect x="630" y="255" width="80" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="670" y="272" text-anchor="middle" class="node-label">3÷4</text>
+  <text x="670" y="286" text-anchor="middle" class="node-sub">= 0.75</text>
+
+  <rect x="720" y="255" width="80" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="760" y="272" text-anchor="middle" class="node-label">72÷96</text>
+  <text x="760" y="286" text-anchor="middle" class="node-sub">= 0.75</text>
+
+  <line x1="670" y1="295" x2="715" y2="320" class="line"/>
+  <line x1="760" y1="295" x2="715" y2="320" class="line"/>
+
+  <rect x="630" y="320" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="715" y="337" text-anchor="middle" class="node-label">Compare decimals</text>
+  <text x="715" y="351" text-anchor="middle" class="node-sub">0.75 = 0.75 ✓</text>
+  <line x1="715" y1="360" x2="715" y2="520" class="line-green"/>
+
+  <!-- Method 5: Fraction Simplification -->
+  <rect x="830" y="180" width="170" height="50" class="box" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="915" y="200" text-anchor="middle" class="node-label">M5: Fraction</text>
+  <text x="915" y="216" text-anchor="middle" class="node-sub">Simplify 72/96</text>
+  <line x1="915" y1="230" x2="915" y2="255" class="line"/>
+
+  <rect x="830" y="255" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="915" y="272" text-anchor="middle" class="node-label">Write as fraction</text>
+  <text x="915" y="286" text-anchor="middle" class="node-sub">72:96 = 72/96</text>
+  <line x1="915" y1="295" x2="915" y2="320" class="line"/>
+
+  <rect x="830" y="320" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="915" y="337" text-anchor="middle" class="node-label">Simplify</text>
+  <text x="915" y="351" text-anchor="middle" class="node-sub">72/96 = 3/4</text>
+  <line x1="915" y1="360" x2="915" y2="385" class="line"/>
+
+  <rect x="830" y="385" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="915" y="402" text-anchor="middle" class="node-label">Compare with 3/4</text>
+  <text x="915" y="416" text-anchor="middle" class="node-sub">3/4 = 3/4 ✓</text>
+  <line x1="915" y1="425" x2="915" y2="520" class="line-green"/>
+
+  <!-- Method 6: Prime Factorization -->
+  <rect x="1030" y="180" width="170" height="50" class="box" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="1115" y="200" text-anchor="middle" class="node-label">M6: Prime Factor</text>
+  <text x="1115" y="216" text-anchor="middle" class="node-sub">Factorization</text>
+  <line x1="1115" y1="230" x2="1115" y2="255" class="line"/>
+
+  <rect x="1030" y="255" width="80" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="1070" y="272" text-anchor="middle" class="node-label">72 = 2³×3²</text>
+  <text x="1070" y="286" text-anchor="middle" class="node-sub">8×9</text>
+
+  <rect x="1120" y="255" width="80" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="1160" y="272" text-anchor="middle" class="node-label">96 = 2⁵×3</text>
+  <text x="1160" y="286" text-anchor="middle" class="node-sub">32×3</text>
+
+  <line x1="1070" y1="295" x2="1115" y2="320" class="line"/>
+  <line x1="1160" y1="295" x2="1115" y2="320" class="line"/>
+
+  <rect x="1030" y="320" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="1115" y="337" text-anchor="middle" class="node-label">Cancel common</text>
+  <text x="1115" y="351" text-anchor="middle" class="node-sub">→ 3/4</text>
+  <line x1="1115" y1="360" x2="1115" y2="385" class="line"/>
+
+  <rect x="1030" y="385" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="1115" y="402" text-anchor="middle" class="node-label">Compare with 3/4</text>
+  <text x="1115" y="416" text-anchor="middle" class="node-sub">3/4 = 3/4 ✓</text>
+  <line x1="1115" y1="425" x2="1115" y2="520" class="line-green"/>
+
+  <!-- Method 7: Equivalent Fraction -->
+  <rect x="1230" y="180" width="170" height="50" class="box" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="1315" y="200" text-anchor="middle" class="node-label">M7: Equivalent</text>
+  <text x="1315" y="216" text-anchor="middle" class="node-sub">3:4 × 24</text>
+  <line x1="1315" y1="230" x2="1315" y2="255" class="line"/>
+
+  <rect x="1230" y="255" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="1315" y="272" text-anchor="middle" class="node-label">Multiply by 24</text>
+  <text x="1315" y="286" text-anchor="middle" class="node-sub">3×24:4×24</text>
+  <line x1="1315" y1="295" x2="1315" y2="320" class="line"/>
+
+  <rect x="1230" y="320" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="1315" y="337" text-anchor="middle" class="node-label">Result: 72:96</text>
+  <text x="1315" y="351" text-anchor="middle" class="node-sub">3:4 = 72:96 ✓</text>
+  <line x1="1315" y1="360" x2="1315" y2="520" class="line-green"/>
+
+  <!-- Method 8: Step-by-Step Reduction -->
+  <rect x="30" y="550" width="170" height="50" class="box" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="115" y="570" text-anchor="middle" class="node-label">M8: Step-by-Step</text>
+  <text x="115" y="586" text-anchor="middle" class="node-sub">Reduce 72:96</text>
+  <line x1="115" y1="600" x2="115" y2="625" class="line"/>
+
+  <rect x="30" y="625" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="642" text-anchor="middle" class="node-label">÷2 → 36:48</text>
+  <text x="115" y="656" text-anchor="middle" class="node-sub">72÷2=36, 96÷2=48</text>
+  <line x1="115" y1="665" x2="115" y2="690" class="line"/>
+
+  <rect x="30" y="690" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="707" text-anchor="middle" class="node-label">÷2 → 18:24</text>
+  <text x="115" y="721" text-anchor="middle" class="node-sub">36÷2=18, 48÷2=24</text>
+  <line x1="115" y1="730" x2="115" y2="755" class="line"/>
+
+  <rect x="30" y="755" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="772" text-anchor="middle" class="node-label">÷2 → 9:12</text>
+  <text x="115" y="786" text-anchor="middle" class="node-sub">18÷2=9, 24÷2=12</text>
+  <line x1="115" y1="795" x2="115" y2="820" class="line"/>
+
+  <rect x="30" y="820" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="837" text-anchor="middle" class="node-label">÷3 → 3:4</text>
+  <text x="115" y="851" text-anchor="middle" class="node-sub">9÷3=3, 12÷3=4</text>
+  <line x1="115" y1="860" x2="115" y2="885" class="line"/>
+
+  <rect x="30" y="885" width="170" height="40" class="box" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="115" y="902" text-anchor="middle" class="node-label">Compare: 3:4</text>
+  <text x="115" y="916" text-anchor="middle" class="node-sub">3:4 = 3:4 ✓</text>
+  <line x1="115" y1="925" x2="115" y2="960" class="line-green"/>
+
+  <!-- CONCLUSION Node -->
+  <rect x="400" y="500" width="600" height="60" class="box" fill="#064e3b" stroke="#34d399" stroke-width="2.5"/>
+  <text x="700" y="525" text-anchor="middle" class="title">✅ CONCLUSION</text>
+  <text x="700" y="545" text-anchor="middle" class="sub">Yes, 3 : 4 and 72 : 96 are proportional — all 8 methods converge here</text>
+
+  <!-- Legend -->
+  <rect x="900" y="620" width="450" height="180" rx="10" fill="#0b1329" stroke="#334155"/>
+  <text x="920" y="645" font-size="13" font-weight="700" fill="#60a5fa">LEGEND</text>
+  <rect x="920" y="660" width="20" height="14" rx="3" fill="#1e1b4b" stroke="#818cf8"/>
+  <text x="950" y="672" font-size="10" fill="#94a3b8">Method Node — A distinct solution approach</text>
+  <rect x="920" y="685" width="20" height="14" rx="3" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="950" y="697" font-size="10" fill="#94a3b8">Step Node — An intermediate calculation</text>
+  <rect x="920" y="710" width="20" height="14" rx="3" fill="#064e3b" stroke="#34d399"/>
+  <text x="950" y="722" font-size="10" fill="#94a3b8">Conclusion — Final answer (all paths converge)</text>
+  <line x1="920" y1="745" x2="950" y2="745" class="line"/>
+  <text x="960" y="749" font-size="10" fill="#94a3b8">Edge — Valid transition between steps</text>
+  <line x1="920" y1="765" x2="950" y2="765" class="line-green"/>
+  <text x="960" y="769" font-size="10" fill="#94a3b8">Path to Conclusion — Valid solution path</text>
+
+  <!-- Stats -->
+  <rect x="900" y="820" width="450" height="120" rx="10" fill="#0b1329" stroke="#334155"/>
+  <text x="920" y="845" font-size="13" font-weight="700" fill="#60a5fa">GRAPH STATS</text>
+  <text x="920" y="870" font-size="11" fill="#94a3b8">• 8 Solution Methods</text>
+  <text x="920" y="890" font-size="11" fill="#94a3b8">• 38 Total Nodes</text>
+  <text x="920" y="910" font-size="11" fill="#94a3b8">• 47 Total Edges</text>
+  <text x="920" y="930" font-size="11" fill="#94a3b8">• Any path from START → CONCLUSION is valid</text>
+</svg>

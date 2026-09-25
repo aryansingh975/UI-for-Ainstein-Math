@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ainstein | Socratic Maths Tutor (Problem 1 Test Bench)</title>
+    <meta name="description" content="A focused Socratic workspace for Grade 8 proportional reasoning." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- KaTeX for LaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="." aria-label="Ainstein home"><span class="brand-mark">a</span><span>ainstein</span></a>
+        <div class="side-label">Socratic Lab</div>
+        <nav class="nav-list" aria-label="Main navigation">
+          <a class="nav-item is-active" href="#workspace"><span class="nav-icon">⌁</span>Problem 1</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="coverage-card">
+            <div class="coverage-kicker">CURRENT ACTIVITY</div>
+            <strong>Guided Problem Solving</strong>
+            <span>NCERT Grade 8 · Example 1</span>
+          </div>
+          <div class="status"><span class="status-dot"></span>Dataset loaded</div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumb">Workspace <span>/</span> Grade 8 <span>/</span> Chapter 7 <span>/</span> Example 1</div>
+          <div class="chapter-chip"><span class="chip-dot"></span>Guided Practice</div>
+        </header>
+
+        <section class="hero" id="workspace">
+          <div class="eyebrow">Ainstein Socratic Lab <span></span> 01</div>
+          <h1>The student solves.<br /><em>The tutor guides.</em></h1>
+          <p class="hero-copy">Work through the problem one step at a time and use hints when you need them.</p>
+        </section>
+
+        <!-- Problem Statement Card -->
+        <article class="problem-card" aria-label="Current Problem">
+          <div class="problem-badge">NCERT Grade 8 · Chapter 7 · Example 1 (g08-hegp107-ex001)</div>
+          <div class="problem-text">Are the ratios 3 : 4 and 72 : 96 proportional? Explain your reasoning.</div>
+          <div class="problem-meta">Expected concept: Ratio equivalence &amp; proportionality · Core invariant: 3/4 = 72/96</div>
+        </article>
+
+        <!-- Student Workspace Panel -->
+        <section class="query-panel" aria-label="Student reasoning input">
+          <div class="panel-top">
+            <div>
+              <span class="panel-label">YOUR STEP / REASONING</span>
+              <span class="panel-hint">Supports LaTeX or plain math notation</span>
+            </div>
+            <div class="step-indicator-bar" id="step-indicator">
+              <span>ACTIVE:</span>
+              <span class="step-dot-active" id="step-dot-1"></span>
+              <span id="step-label">Step 1</span>
+            </div>
+          </div>
+
+          <!-- LaTeX Math Toolbar Helper -->
+          <div class="math-toolbar">
+            <span class="math-toolbar-label">Math Palette:</span>
+            <button type="button" class="math-btn" data-insert="\times">\times</button>
+            <button type="button" class="math-btn" data-insert="\div">\div</button>
+            <button type="button" class="math-btn" data-insert="\frac{a}{b}">\frac{a}{b}</button>
+            <button type="button" class="math-btn" data-insert=" : ">:</button>
+            <button type="button" class="math-btn" data-insert=" = ">=</button>
+            <button type="button" class="math-btn" data-insert="\neq">\neq</button>
+            <button type="button" class="math-btn" data-insert="\implies">\implies</button>
+            <button type="button" class="math-btn" data-insert="\text{proportional}">\text{proportional}</button>
+          </div>
+
+          <textarea id="question-input" rows="3" placeholder="Type your first step here..." spellcheck="false"></textarea>
+
+          <!-- Live LaTeX Render Preview Box -->
+          <div class="latex-preview-wrap">
+            <div class="latex-preview-header">
+              <span>Live Rendered LaTeX Math</span>
+              <span id="preview-mode-tag">KaTeX Auto-render</span>
+            </div>
+            <div id="latex-preview" class="latex-preview-body empty">Type math above to see rendered LaTeX here...</div>
+          </div>
+
+          <div class="query-footer">
+            <div class="example-prompt">
+              <button type="button" class="example-link" id="reset-flow-btn">↺ Reset Problem State</button>
+            </div>
+            <button id="solve-button" class="solve-button" type="button">Check Step <span>→</span></button>
+          </div>
+        </section>
+
+        <!-- Socratic Tutor Feedback Display Area -->
+        <section id="result" class="result-area" aria-live="polite"></section>
+
+      </main>
+    </div>
+    <script src="solution_graph/g08-hegp107-ex001.solution-graph.js"></script>
+    <script src="tutor-engine.js?v=engine-1"></script>
+    <script src="app.js?v=engine-1"></script>
+  </body>
+</html>

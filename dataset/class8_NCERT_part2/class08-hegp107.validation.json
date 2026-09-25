@@ -47,7 +47,7 @@
           "pedagogical_hint": "Reduce 72:96 to simplest form.",
           "custom_prompt": "What is 72:96 in simplest form?",
           "accept": [
-            "3:4"
+            "x,y=3:4"
           ],
           "explanation": "72/24 = 3 and 96/24 = 4.",
           "hint_1": "Find HCF(72,96).",

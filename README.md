@@ -29,8 +29,8 @@ A collection of math resources, validation data, and AI‑assisted problem‑sol
 ## Getting started
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/your‑username/ainstein-math.git
-   cd ainstein-math
+   git clone https://github.com/aryansingh975/UI-for-Ainstein-Math.git
+   cd UI-for-Ainstein-Math
    ```
 2. **Install Antigravity** (if not already installed)
    ```bash
