@@ -108,7 +108,7 @@ check('B2 conclusion right', step('3:4 and 72:96 are proportional', s).verdict, 
 // Flow C: decimal method via value
 s = TutorEngine.newSession();
 check('C1 0.75 accepted', step('0.75', s).verdict, 'ACCEPT');
-check('C2 decimal method inferred silently', s.methodId, 'm4');
+check('C2 decimal method inferred silently', s.methodId, 'm7');
 check('C3 second decimal accepted', step('72/96 = 0.75', s).verdict, 'ACCEPT');
 check('C4 comparison accepted', step('0.75 = 0.75', s).verdict, 'ACCEPT');
 check('C5 conclusion right', step('yes', s).verdict, 'CONCLUSION_RIGHT');
@@ -116,7 +116,7 @@ check('C5 conclusion right', step('yes', s).verdict, 'CONCLUSION_RIGHT');
 // Flow D: cross multiplication with immediate correction
 s = TutorEngine.newSession();
 check('D1 288 accepted', step('288', s).verdict, 'ACCEPT');
-check('D2 cross method inferred', s.methodId, 'm2');
+check('D2 cross method inferred', s.methodId, 'm5');
 check('D3 wrong product corrected', step('287', s).verdict, 'WRONG_CLAIM');
 check('D4 corrected value accepted', step('288', s).verdict, 'ACCEPT');
 check('D5 both products equal accepted', step('288 = 288', s).verdict, 'ACCEPT');
@@ -125,7 +125,7 @@ check('D6 conclusion right', step('they are proportional', s).verdict, 'CONCLUSI
 // Flow E: step-by-step reduction
 s = TutorEngine.newSession();
 check('E1 36:48 accepted', step('36:48', s).verdict, 'ACCEPT');
-check('E2 reduce method inferred', s.methodId, 'm8');
+check('E2 reduce method inferred', s.methodId, 'm4');
 check('E3 18:24 accepted', step('18:24', s).verdict, 'ACCEPT');
 check('E4 9:12 accepted', step('9:12', s).verdict, 'ACCEPT');
 check('E5 3:4 accepted', step('3:4', s).verdict, 'ACCEPT');
@@ -158,7 +158,7 @@ s = TutorEngine.newSession();
 const rI = step('cross multiply', s);
 check('I1 keyword approach accepted', rI.verdict, 'ACCEPT');
 check('I2 approachOnly flag set', rI.approachOnly, true);
-check('I3 method locked silently', s.methodId, 'm2');
+check('I3 method locked silently', s.methodId, 'm5');
 check('I4 first step accepted', step('3*96 and 4*72', s).verdict, 'ACCEPT');
 check('I5 product accepted', step('3*96=288', s).verdict, 'ACCEPT');
 
@@ -181,6 +181,40 @@ check('L1 wrong HCF value flagged', rL.verdict, 'WRONG_CLAIM');
 check('L2 fail streak incremented', s.failStreak, 1);
 check('L3 corrected value accepted', step('24', s).verdict, 'ACCEPT');
 check('L4 fail streak reset', s.failStreak, 0);
+
+// Shared comparison convergence for reduction-based methods
+const sharedComparisonFlows = [
+  {
+    name: 'simplification',
+    methodId: 'm1',
+    steps: ['simplify', '24', '72/24=3 and 96/24=4', '3:4']
+  },
+  {
+    name: 'fraction simplification',
+    methodId: 'm2',
+    steps: ['fraction', '72/96', '3/4']
+  },
+  {
+    name: 'prime factorization',
+    methodId: 'm3',
+    steps: ['prime factorization', '2^3*3^2', '3/4']
+  },
+  {
+    name: 'step-by-step reduction',
+    methodId: 'm4',
+    steps: ['reduce step by step', '36:48', '18:24', '9:12', '3:4']
+  }
+];
+
+for (const flow of sharedComparisonFlows) {
+  const session = TutorEngine.newSession();
+  for (const input of flow.steps) step(input, session);
+  check(`${flow.name} reaches shared comparison`, session.currentNodeId, 'shared_ratio_comparison');
+  check(`${flow.name} method retained at shared comparison`, session.methodId, flow.methodId);
+  check(`${flow.name} comparison accepted`, step('3:4 = 3:4', session).verdict, 'ACCEPT');
+  check(`${flow.name} advances to conclusion`, session.currentNodeId, 'conclusion');
+  check(`${flow.name} completes successfully`, step('yes', session).verdict, 'CONCLUSION_RIGHT');
+}
 
 console.log(`\n=== RESULTS: ${passed} passed, ${failed} failed ===`);
 process.exit(failed > 0 ? 1 : 0);

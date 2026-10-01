@@ -1,0 +1,216 @@
+JEV INTEGRATION PLAN — SOCRATIC TUTOR
+Today’s Plan / Project Integration Proposal
+
+Objective
+---------
+Integrate Jev into the Socratic Tutor as an interpretation layer for student responses, while keeping the existing solution, solution graph, and tutor-engine deterministic.
+
+Core Principle
+--------------
+Jev will NOT become the brain of the tutor.
+
+Jev's responsibility:
+    Student natural-language response
+            ↓
+    Interpret / structure the response
+            ↓
+    Return structured mathematical information
+
+Our deterministic code's responsibility:
+    Validate whether that structured information is mathematically correct.
+
+The solution graph's responsibility:
+    Define the valid solution paths and determine the next step.
+
+Current Architecture
+--------------------
+Student
+   ↓
+app.js
+   ↓
+tutor-engine.js (brain)
+   ↓
+solution_graph JSON
+   ↓
+next step / response
+
+Current limitation:
+The tutor currently relies on accepted-response lists in the JSON. A student may provide a mathematically valid response whose wording is not present in the accepted list.
+
+Proposed Architecture
+---------------------
+Student response
+        ↓
+   tutor-engine.js
+        ↓
+  Is the response already
+  deterministically understood?
+       /                         YES                     NO / ambiguous
+      ↓                           ↓
+Deterministic validation        Jev
+      ↓                           ↓
+Correct / incorrect       Structured interpretation
+      \___________________________/
+                    ↓
+        Deterministic validation
+                    ↓
+          Solution graph/path
+                    ↓
+              Next tutor step
+
+Important:
+The existing solution graph will NOT be modified initially.
+The existing tutor-engine.js and app.js will also remain unchanged during the proof-of-concept stage.
+
+Integration Phases
+------------------
+
+Phase 1 — Standalone Jev Proof of Concept
+1. Keep the current project untouched.
+2. Create a separate Jev module.
+3. Connect to Jev through OpenRouter.
+4. Use the existing OpenRouter API key through .env.
+5. Test Jev independently with student-style mathematical responses.
+
+Phase 2 — Define a Structured Output
+Jev should convert natural-language responses into structured claims.
+
+Example:
+
+Student:
+"The greatest common divisor of 72 and 96 is 24."
+
+Jev output:
+{
+    "concept": "HCF",
+    "value": 24
+}
+
+Jev is interpreting the response; it is NOT deciding mathematical correctness.
+
+Phase 3 — Test Natural-Language Variations
+Test different valid responses such as:
+- "24"
+- "HCF is 24"
+- "The greatest common divisor is 24"
+- "24 is the largest number that divides both"
+- "Both numbers are divisible by 24"
+
+The goal is to see whether different valid phrasings can be mapped to the same structured claim.
+
+Also test incorrect and ambiguous responses.
+
+Phase 4 — Deterministic Validation
+Pass Jev's structured output to deterministic mathematical logic.
+
+Example:
+
+Jev:
+    concept = HCF
+    value = 24
+
+Deterministic engine:
+    GCD(72, 96) = 24
+
+Comparison:
+    24 == 24 → CORRECT
+
+Jev does NOT determine the mathematical truth.
+
+Phase 5 — Integration with Tutor Engine
+Only after the standalone POC works reliably:
+
+1. Add Jev as an optional interpretation layer around the tutor engine.
+2. Keep tutor-engine.js as the central controller/brain.
+3. Keep the solution graph as the source of truth for solution paths.
+4. Use Jev only when the student's natural-language response cannot be confidently interpreted by the deterministic parser.
+5. Feed Jev's structured interpretation back into the deterministic validator.
+6. Use the validator's result to continue through the existing solution path.
+
+Phase 6 — Gradual Migration
+Do NOT remove the existing accepted lists immediately.
+
+First:
+- Run the new Jev-based interpretation alongside the existing mechanism.
+- Compare results.
+- Test many valid student responses.
+- Identify cases where accepted-list matching fails but Jev + deterministic validation succeeds.
+- Once confidence is established, gradually reduce dependence on accepted lists.
+
+Example Final Flow
+------------------
+Student:
+"The largest common factor of 72 and 96 is 24."
+
+        ↓
+
+Jev
+        ↓
+{
+    "concept": "HCF",
+    "value": 24
+}
+
+        ↓
+
+Deterministic validator
+        ↓
+GCD(72, 96) = 24
+        ↓
+CORRECT
+        ↓
+Existing solution graph
+        ↓
+Next node
+
+Responsibilities
+----------------
+app.js
+    UI only — collects input and displays responses.
+
+tutor-engine.js
+    Main brain/orchestrator.
+
+solution_graph JSON
+    Deterministic definition of solution steps and paths.
+
+Jev
+    Natural-language interpretation / structured extraction only.
+
+Deterministic validator
+    Mathematical truth/correctness.
+
+Design Goals
+------------
+- Deterministic mathematical reasoning.
+- Deterministic solution paths.
+- No LLM/AI deciding the mathematical answer.
+- No AI-generated solution paths.
+- Support valid student responses without manually listing every possible wording.
+- Keep Jev isolated and replaceable.
+- Minimize API calls by using deterministic parsing first.
+- Preserve the existing project while testing the new approach.
+
+What We Have Already Verified
+-----------------------------
+Jev is successfully accessible through OpenRouter.
+
+Tested model:
+typesafe/jev-1.13
+
+The API returned a valid Noul response:
+noul = 0.99
+
+This confirms that the OpenRouter → Jev → TypeSafe connection is working.
+
+Immediate Next Step
+-------------------
+Build the standalone Jev interpreter POC.
+
+No changes to:
+- solution_graph
+- existing graph JSON
+- tutor-engine.js
+- app.js
+
+After the POC is validated, design the exact integration point with tutor-engine.js.

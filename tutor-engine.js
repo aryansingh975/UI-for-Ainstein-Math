@@ -487,7 +487,7 @@
   }
 
   function firstStepOf(methodId) {
-    // Accepts a prefix ("m2") or a full method node id ("m2_cross_multiply")
+    // Accepts a method prefix (for example, "m5") or a full method node id.
     let src = null;
     const direct = NODE_MAP.get(methodId);
     if (direct && direct.type === 'method') {

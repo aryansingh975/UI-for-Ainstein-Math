@@ -12,3 +12,4 @@ __pycache__/
 # Other common artifacts you may want to ignore
 *.log
 *.sqlite3
+.env

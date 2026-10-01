@@ -187,11 +187,11 @@ const tests = [
   ["24", "m1_s1", true, "Simple number match"],
   ["hcf is 24", "m1_s1", true, "Number with light context"],
   ["i love paris 24", "m1_s1", false, "Garbage sentence with number should be REJECTED"],
-  ["72/96", "m5_s1", true, "Fraction match"],
-  ["3/4", "m5_s2", true, "Simplified fraction"],
-  ["i love 3/4", "m5_s2", false, "Garbage with fraction should be REJECTED"],
-  ["288", "m2_s2", true, "Cross product result"],
-  ["3*96=288", "m2_s2", true, "Expression with result"],
+  ["72/96", "m2_s1", true, "Fraction match"],
+  ["3/4", "m2_s2", true, "Simplified fraction"],
+  ["i love 3/4", "m2_s2", false, "Garbage with fraction should be REJECTED"],
+  ["288", "m5_s2", true, "Cross product result"],
+  ["3*96=288", "m5_s2", true, "Expression with result"],
   ["72/24=3 and 96/24=4", "m1_s2", true, "Division expression"],
   ["i love paris 72/24=3 and 96/24=4", "m1_s2", false, "Garbage around expression should be REJECTED"],
   ["yes", "conclusion", true, "Conclusion yes"],
@@ -200,25 +200,29 @@ const tests = [
   ["no", "conclusion", false, "Wrong conclusion"],
   ["i love paris yes", "conclusion", false, "Garbage around conclusion should be REJECTED"],
   ["hello world", "conclusion", false, "Off-topic sentence should be REJECTED"],
-  ["cross multiply", "m2_cross_multiply", true, "Method detection"],
+  ["cross multiply", "m5_cross_multiply", true, "Method detection"],
   ["simplify", "m1_simplify", true, "Method detection simplify"],
   ["i want to simplify", "m1_simplify", true, "Natural phrasing with keyword accepted"],
   ["i love paris simplify", "m1_simplify", false, "Keyword buried in garbage should be REJECTED"],
-  ["scale", "m3_scale", true, "Method detection scale"],
-  ["decimal", "m4_decimal", true, "Method detection decimal"],
-  ["fraction", "m5_fraction", true, "Method detection fraction"],
-  ["prime", "m6_prime", true, "Method detection prime"],
-  ["equivalent", "m7_equivalent", true, "Method detection equivalent"],
-  ["reduce step by step", "m8_reduce", true, "Method detection reduce"],
+  ["scale", "m6_scale", true, "Method detection scale"],
+  ["decimal", "m7_decimal", true, "Method detection decimal"],
+  ["fraction", "m2_fraction", true, "Method detection fraction"],
+  ["prime", "m3_prime", true, "Method detection prime"],
+  ["equivalent", "m8_equivalent", true, "Method detection equivalent"],
+  ["reduce step by step", "m4_reduce", true, "Method detection reduce"],
   ["reduction", "m1_simplify", true, "Method detection reduce synonym"],
-  ["36:48", "m8_s1", true, "Step-by-step reduction step 1"],
-  ["18:24", "m8_s2", true, "Step-by-step reduction step 2"],
-  ["9:12", "m8_s3", true, "Step-by-step reduction step 3"],
-  ["3:4", "m8_s4", true, "Step-by-step reduction step 4"],
+  ["36:48", "m4_s1", true, "Step-by-step reduction step 1"],
+  ["18:24", "m4_s2", true, "Step-by-step reduction step 2"],
+  ["9:12", "m4_s3", true, "Step-by-step reduction step 3"],
+  ["3:4", "m4_s4", true, "Step-by-step reduction step 4"],
+  ["3:4 = 3:4", "shared_ratio_comparison", true, "Shared comparison accepts equal ratios"],
+  ["3/4 = 3/4", "shared_ratio_comparison", true, "Shared comparison accepts equal fractions"],
+  ["they match", "shared_ratio_comparison", true, "Shared comparison accepts equivalent result wording"],
+  ["3:4", "shared_ratio_comparison", false, "Shared comparison requires a comparison, not only the reduced ratio"],
   // ─── Regression tests for reported bug: garbage must never match steps ───
-  ["i love paris , #:4", "m4_s1", false, "Garbage '#:4' at decimal step 1 should be REJECTED"],
-  ["i love paris , #:4", "m4_s2", false, "Garbage '#:4' at decimal step 2 should be REJECTED"],
-  ["i love paris , #:4", "m4_s3", false, "Garbage '#:4' at decimal step 3 should be REJECTED"],
+  ["i love paris , #:4", "m7_s1", false, "Garbage '#:4' at decimal step 1 should be REJECTED"],
+  ["i love paris , #:4", "m7_s2", false, "Garbage '#:4' at decimal step 2 should be REJECTED"],
+  ["i love paris , #:4", "m7_s3", false, "Garbage '#:4' at decimal step 3 should be REJECTED"],
   ["i love paris , #:4", "m1_s3", false, "Garbage '#:4' at simplify step should be REJECTED"],
 ];
 
@@ -226,14 +230,14 @@ const tests = [
 const methodTests = [
   ["simplify", "m1_simplify", "Keyword selects simplify method"],
   ["hcf", "m1_simplify", "Keyword hcf selects simplify method"],
-  ["cross multiply", "m2_cross_multiply", "Keyword selects cross multiply method"],
-  ["cross multiplication", "m2_cross_multiply", "Keyword selects cross multiply method"],
-  ["scale", "m3_scale", "Keyword selects scale method"],
-  ["decimal", "m4_decimal", "Keyword selects decimal method"],
-  ["fraction", "m5_fraction", "Keyword selects fraction method"],
-  ["prime factorization", "m6_prime", "Keyword selects prime method"],
-  ["equivalent", "m7_equivalent", "Keyword selects equivalent method"],
-  ["reduce step by step", "m8_reduce", "Keyword selects reduce method"],
+  ["cross multiply", "m5_cross_multiply", "Keyword selects cross multiply method"],
+  ["cross multiplication", "m5_cross_multiply", "Keyword selects cross multiply method"],
+  ["scale", "m6_scale", "Keyword selects scale method"],
+  ["decimal", "m7_decimal", "Keyword selects decimal method"],
+  ["fraction", "m2_fraction", "Keyword selects fraction method"],
+  ["prime factorization", "m3_prime", "Keyword selects prime method"],
+  ["equivalent", "m8_equivalent", "Keyword selects equivalent method"],
+  ["reduce step by step", "m4_reduce", "Keyword selects reduce method"],
   // ─── Regression tests for reported bug: math input must NOT select a method ───
   ["3:4", null, "Ratio '3:4' must NOT be misread as decimal method"],
   ["0.75", null, "Number '0.75' must NOT select a method"],
@@ -267,6 +271,66 @@ for (const [input, expected, desc] of methodTests) {
   if (result === expected) passed++; else failed++;
   console.log(`${status} | "${input}" -> expected=${expected} got=${result} | ${desc}`);
 }
+
+const sharedIncoming = graph.edges
+  .filter(edge => edge.to === "shared_ratio_comparison")
+  .map(edge => edge.from)
+  .sort();
+function checkStructure(name, actual, expected) {
+  const ok = JSON.stringify(actual) === JSON.stringify(expected);
+  if (ok) passed++; else failed++;
+  console.log(`${ok ? "PASS" : "FAIL"} | ${name} | expected=${JSON.stringify(expected)} got=${JSON.stringify(actual)}`);
+}
+
+checkStructure(
+  "four reduction methods converge at shared comparison",
+  sharedIncoming,
+  ["m1_s3", "m2_s2", "m3_s3", "m4_s4"]
+);
+checkStructure(
+  "shared comparison leads to conclusion",
+  graph.edges.filter(edge => edge.from === "shared_ratio_comparison").map(edge => edge.to),
+  ["conclusion"]
+);
+checkStructure(
+  "duplicate terminal comparison nodes removed",
+  ["m1_s4", "m2_s3", "m3_s4", "m4_s5"].every(id => !getNode(id)),
+  true
+);
+checkStructure("updated graph node count", graph.nodes.length, 35);
+checkStructure("updated graph edge count", graph.edges.length, 44);
+checkStructure(
+  "displayed start method order",
+  graph.edges.filter(edge => edge.from === "start").map(edge => edge.label),
+  [
+    "Method 1: Simplification",
+    "Method 2: Fraction Simplification",
+    "Method 3: Prime Factorization",
+    "Method 4: Step-by-Step Reduction",
+    "Method 5: Cross Multiplication",
+    "Method 6: Scaling",
+    "Method 7: Decimal Comparison",
+    "Method 8: Equivalent Fraction"
+  ]
+);
+const nodeMethodOrder = graph.nodes
+  .filter(node => /^m\d+_/.test(node.id))
+  .map(node => node.id.split("_")[0])
+  .filter((methodId, index, ordered) => index === 0 || methodId !== ordered[index - 1]);
+checkStructure(
+  "node definitions follow displayed M1-M8 order",
+  nodeMethodOrder,
+  ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8"]
+);
+const sharedNodeIndex = graph.nodes.findIndex(node => node.id === "shared_ratio_comparison");
+const lastM4NodeIndex = graph.nodes.reduce((lastIndex, node, index) =>
+  node.id.startsWith("m4_") ? index : lastIndex, -1);
+const firstM5NodeIndex = graph.nodes.findIndex(node => node.id.startsWith("m5_"));
+checkStructure(
+  "shared comparison follows M4 and precedes M5",
+  sharedNodeIndex > lastM4NodeIndex && sharedNodeIndex < firstM5NodeIndex,
+  true
+);
 
 console.log(`\n=== RESULTS: ${passed} passed, ${failed} failed ===`);
 process.exit(failed > 0 ? 1 : 0);

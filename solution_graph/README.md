@@ -32,29 +32,32 @@ The **solution graph** solves this by representing the problem's solution space 
 
 ## Graph Structure
 
-```
-                    ┌─────────────────────────────┐
-                    │          START              │
-                    │  "Are 3:4 and 72:96         │
-                    │   proportional?"            │
-                    └─────────────┬───────────────┘
-                                  │
-        ┌──────────┬──────────┬───┴────┬──────────┬──────────┬──────────┬──────────┐
-        ▼          ▼          ▼        ▼          ▼          ▼          ▼          ▼
-   ┌─────────┐ ┌─────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
-   │ Method 1│ │ Method 2│ │Method 3│ │Method 4│ │Method 5│ │Method 6│ │Method 7│ │Method 8│
-   │Simplify │ │Cross    │ │Scaling │ │Decimal │ │Fraction│ │Prime   │ │Equiv.  │ │Step-by-│
-   │ (HCF)   │ │Multiply │ │        │ │Compare │ │Simplify│ │Factor  │ │Fraction│ │Step    │
-   └────┬────┘ └────┬────┘ └───┬────┘ └───┬────┘ └───┬────┘ └───┬────┘ └───┬────┘ └───┬────┘
-        │           │          │          │          │          │          │          │
-        ▼           ▼          ▼          ▼          ▼          ▼          ▼          ▼
-   ┌─────────────────────────────────────────────────────────────────────────────────────┐
-   │                              CONCLUSION                                              │
-   │                    "Yes, 3:4 and 72:96 are proportional"                             │
-   └─────────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    start[START] --> m1[M1 Simplification]
+    start --> m2[M2 Fraction simplification]
+    start --> m3[M3 Prime factorization]
+    start --> m4[M4 Step-by-step reduction]
+    start --> m5[M5 Cross multiplication]
+    start --> m6[M6 Scaling]
+    start --> m7[M7 Decimal comparison]
+    start --> m8[M8 Equivalent fraction]
+
+    m1 --> s1[Find HCF] --> s2[Divide both terms] --> s3[Get 3:4]
+    s3 --> compare[Shared comparison with 3:4]
+    m2 --> f1[Write 72/96] --> f2[Simplify to 3/4] --> compare
+    m3 --> p1[Factorize 72 and 96] --> p2[Cancel common factors] --> compare
+    m4 --> r1[Reduce through 36:48, 18:24, 9:12] --> r2[Reach 3:4] --> compare
+
+    compare --> conclusion[Conclusion]
+    m5 --> conclusion
+    m6 --> conclusion
+    m7 --> conclusion
+    m8 --> conclusion
 ```
 
-Each method has its own sub-path of steps that lead to the conclusion.
+The first four methods are adjacent because they converge at the shared
+comparison step. The remaining four methods retain their own conclusion paths.
 
 ---
 
@@ -62,14 +65,26 @@ Each method has its own sub-path of steps that lead to the conclusion.
 
 | Method | ID | Description | Key Steps |
 | :--- | :--- | :--- | :--- |
-| **1. Simplification (HCF)** | `m1_simplify` | Find HCF of 72 and 96, divide both terms, compare with 3:4 | Find HCF → Divide → Compare |
-| **2. Cross Multiplication** | `m2_cross_multiply` | Check if 3×96 = 4×72 | Set up → Compute 3×96 → Compute 4×72 → Compare |
-| **3. Scaling** | `m3_scale` | Check if 3:4 scales to 72:96 by a common factor | Find factor → Verify second term → Conclude |
-| **4. Decimal Comparison** | `m4_decimal` | Convert both ratios to decimals and compare | Convert 3:4 → Convert 72:96 → Compare |
-| **5. Fraction Simplification** | `m5_fraction` | Write 72:96 as fraction, simplify, compare with 3/4 | Write fraction → Simplify → Compare |
-| **6. Prime Factorization** | `m6_prime` | Factorize 72 and 96, cancel common factors | Factorize 72 → Factorize 96 → Cancel → Compare |
-| **7. Equivalent Fraction** | `m7_equivalent` | Show 3:4 × 24 = 72:96 | Multiply by 24 → Recognize equivalence |
-| **8. Step-by-Step Reduction** | `m8_reduce` | Reduce 72:96 step by step (÷2, ÷2, ÷2, ÷3) | 72:96 → 36:48 → 18:24 → 9:12 → 3:4 |
+| **1. Simplification (HCF)** | `m1_simplify` | Find HCF of 72 and 96, divide both terms, compare with 3:4 | Find HCF → Divide → Shared comparison |
+| **2. Fraction Simplification** | `m2_fraction` | Write 72:96 as a fraction and simplify it to 3/4 | Write fraction → Simplify → Shared comparison |
+| **3. Prime Factorization** | `m3_prime` | Factorize 72 and 96, then cancel common factors | Factorize → Cancel → Shared comparison |
+| **4. Step-by-Step Reduction** | `m4_reduce` | Reduce 72:96 by common factors until reaching 3:4 | 72:96 → 36:48 → 18:24 → 9:12 → 3:4 → Shared comparison |
+| **5. Cross Multiplication** | `m5_cross_multiply` | Check if 3×96 = 4×72 | Set up → Compute both products → Compare |
+| **6. Scaling** | `m6_scale` | Check if 3:4 scales to 72:96 by a common factor | Find factor → Verify second term → Conclude |
+| **7. Decimal Comparison** | `m7_decimal` | Convert both ratios to decimals and compare | Convert 3:4 → Convert 72:96 → Compare |
+| **8. Equivalent Fraction** | `m8_equivalent` | Show 3:4 × 24 = 72:96 | Multiply by 24 → Recognize equivalence |
+
+Displayed method numbers group the four methods that share a comparison step
+first. Internal node IDs remain stable so existing tutor references are not
+disrupted.
+
+## Shared Comparison Step
+
+The simplification, fraction simplification, prime factorization, and
+step-by-step reduction paths converge on `shared_ratio_comparison`. This shared
+step checks that the result matches the original ratio `3 : 4`, then leads to
+the existing `conclusion` node. The earlier method-specific calculation steps
+remain separate.
 
 ---
 
@@ -136,7 +151,7 @@ Each edge represents a valid transition between nodes:
 
 | File | Description |
 | :--- | :--- |
-| `g08-hegp107-ex001.solution-graph.json` | The solution graph DAG data (38 nodes, 47 edges) |
+| `g08-hegp107-ex001.solution-graph.json` | The solution graph DAG data (35 nodes, 44 edges) |
 | `g08-hegp107-ex001.solution-graph.svg` | Visual representation of the graph |
 | `README.md` | This documentation |
 

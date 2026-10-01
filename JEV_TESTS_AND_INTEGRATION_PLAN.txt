@@ -1,0 +1,330 @@
+JEV + SOCRATIC TUTOR
+TEST RESULTS AND PROPOSED INTEGRATION PLAN
+==========================================
+
+Project context
+---------------
+Project: Socratic Tutor / Ainstein Math UI
+
+Current architecture:
+- app.js = UI
+- tutor-engine.js = main deterministic tutor engine / brain
+- solution_graph/ = solution graphs and JSON solution paths
+- Jev = proposed interpretation layer only
+- ainstein_math/ and reusable_functions.py are outside the current scope
+
+IMPORTANT DESIGN PRINCIPLE
+--------------------------
+Jev should interpret the student's natural-language response.
+
+Jev should NOT:
+- decide mathematical truth
+- generate the solution path
+- replace tutor-engine.js
+- modify the existing solution graph logic
+
+Deterministic code should:
+- validate mathematical correctness
+- calculate the expected answer
+- select the next node/path
+- preserve the existing deterministic solution graph
+
+TESTS COMPLETED
+===============
+
+TEST 1 — Basic Jev Noul test
+----------------------------
+Student/context:
+"The student says: HCF of 72 and 96 is 24."
+
+Question:
+"Is the student claiming that the HCF of 72 and 96 is 24?"
+
+Output:
+model: typesafe/jev-1.13-20260917
+correct:
+  type: noul
+  noul: 0.99
+
+Result: PASS
+
+TEST 2 — GCD wording instead of HCF
+------------------------------------
+Student:
+"The greatest common divisor of 72 and 96 is 24."
+
+Question:
+"Does the student claim that the answer to the problem is 24?"
+
+Output:
+correct:
+  type: noul
+  noul: 0.99
+
+Result: PASS
+
+TEST 3 — Definition-style wording
+----------------------------------
+Student:
+"24 is the largest number that divides both 72 and 96."
+
+Question:
+"Does the student's response mean that the answer to the HCF problem is 24?"
+
+Output:
+claim:
+  type: noul
+  noul: 0.99
+
+Result: PASS
+
+TEST 4 — Incorrect student answer
+---------------------------------
+Student:
+"The HCF of 72 and 96 is 12."
+
+Question:
+"Is the student claiming that the answer to the problem is 12?"
+
+Output:
+claim:
+  type: noul
+  noul: 0.99
+
+Result: PASS
+
+Important:
+This does NOT mean 12 is mathematically correct.
+It means Jev correctly identified the student's claim as 12.
+Deterministic validation must calculate GCD(72,96) = 24.
+
+TEST 5 — Indirect reasoning
+---------------------------
+Student:
+"I divided 72 by 24 and got 3, and 96 by 24 and got 4."
+
+Question:
+"Does the student's response indicate that they are proposing 24 as the answer to the HCF problem?"
+
+Output:
+claim:
+  type: noul
+  noul: 0.91
+
+Result: PASS / LOWER CONFIDENCE
+
+Interpretation:
+Jev recognized the intended claim, but with lower confidence than explicit answers.
+
+TEST 6 — Hedged answer
+----------------------
+Student:
+"I think it's 24."
+
+Question:
+"Does the student propose 24 as their answer to the HCF problem?"
+
+Output:
+claim:
+  type: noul
+  noul: 0.99
+
+Result: PASS
+
+TEST 7 — Distinguishing 12 vs 24
+---------------------------------
+Student:
+"I think the HCF is 12."
+
+Questions:
+"Is the student proposing 12 as their answer?"
+"Is the student proposing 24 as their answer?"
+
+Output:
+answer12:
+  type: noul
+  noul: 0.99
+answer24:
+  type: noul
+  noul: 0.01
+
+Result: PASS
+
+Interpretation:
+Jev identified the student's proposed answer as 12.
+It did NOT judge 12 to be mathematically correct.
+
+TEST 8 — Jev Choice question
+-----------------------------
+Student:
+"I think the HCF is 24."
+
+Choices:
+12, 24, 36
+
+Output:
+student_answer:
+  type: choice
+  choice: answer_24
+  probabilities:
+    answer_12: 0
+    answer_36: 0
+    answer_24: 1
+  confidence: 1
+
+Result: PASS — PERFECT CONFIDENCE
+
+Interpretation:
+Choice works very well when possible answers are predefined.
+Limitation: this does not directly solve arbitrary numerical answers.
+
+TEST 9 — Simple deterministic number extraction
+-----------------------------------------------
+Inputs and outputs:
+
+"24" -> 24
+"HCF is 24" -> 24
+"I think the HCF is 24" -> 24
+"The HCF of 72 and 96 is 24" -> 72  [WRONG FOR OUR PURPOSE]
+"24 is the largest number that divides both 72 and 96" -> 24
+"I got 24 after finding the common factors" -> 24
+
+Result: PARTIAL
+
+Interpretation:
+A basic regex extracts numbers but cannot understand their semantic role.
+
+TEST 10 — Deterministic answer-pattern parser
+-----------------------------------------------
+"HCF is 24" -> 24
+"HCF = 24" -> 24
+"The answer is 24" -> 24
+"I think the HCF is 24" -> 24
+"I think it is 24" -> NEEDS JEV
+"I got 24" -> 24
+"The HCF of 72 and 96 is 24" -> NEEDS JEV
+"24 is the largest number that divides both 72 and 96" -> NEEDS JEV
+
+Result: PASS / PARTIAL
+
+Interpretation:
+Common explicit patterns can be handled cheaply and deterministically.
+Ambiguous/natural-language cases can be passed to Jev.
+
+TEST 11 — Distinguishing answer from problem numbers
+-----------------------------------------------------
+Student:
+"I calculated the HCF of 72 and 96. I got 24."
+
+Questions:
+"Is the student claiming that their answer to the problem is 24?"
+"Is the student claiming that their answer to the problem is 72?"
+"Is the student claiming that their answer to the problem is 96?"
+
+Output:
+answer_24:
+  type: noul
+  noul: 0.99
+answer_72:
+  type: noul
+  noul: 0.01
+answer_96:
+  type: noul
+  noul: 0.01
+
+Result: PASS
+
+Interpretation:
+Jev correctly identified 24 as the student's answer and did not confuse 72 or 96 with it.
+
+WHAT WE HAVE LEARNED
+====================
+
+1. Jev is effective at semantic interpretation.
+2. Jev understands different ways students express the same mathematical claim.
+3. Jev can distinguish a student's claim from the mathematically correct answer.
+4. Jev can distinguish the answer from numbers appearing elsewhere in the sentence.
+5. Noul works well for binary semantic checks.
+6. Choice works well when possible answers are predefined.
+7. A deterministic parser can handle many obvious cases without an API call.
+8. Regex alone is not enough for natural-language mathematical responses.
+9. We have not established a direct free-form arbitrary-number extraction primitive through the tested Jev endpoint.
+10. Jev should therefore remain an interpretation layer, not the mathematical brain.
+
+PROPOSED ARCHITECTURE
+=====================
+
+                    STUDENT INPUT
+                          |
+                          v
+                   +--------------+
+                   |  app.js      |
+                   |  UI layer    |
+                   +--------------+
+                          |
+                          v
+                   +--------------+
+                   | tutor-engine |
+                   | deterministic|
+                   | controller   |
+                   +--------------+
+                          |
+               +----------+----------+
+               |                     |
+               v                     v
+       Deterministic parser      Jev interpretation
+       (cheap / local)           (semantic layer)
+               |                     |
+               +----------+----------+
+                          |
+                          v
+                   +--------------+
+                   | validator    |
+                   | arithmetic + |
+                   | correctness  |
+                   +--------------+
+                          |
+                          v
+                   +--------------+
+                   | solution     |
+                   | graph / next |
+                   | node         |
+                   +--------------+
+
+CORE INTEGRATION LOGIC
+======================
+
+1. First, run the existing deterministic parser.
+2. If the pattern is clear and valid, use it directly.
+3. Otherwise, send a focused semantic question to Jev.
+4. Jev returns a structured claim or answer candidate.
+5. Deterministic validation checks whether the claim is mathematically true.
+6. The existing solution graph decides the next tutor step.
+7. The deterministic path stays as the source of truth.
+
+WHY THIS STRATEGY
+=================
+
+- Keeps the current project stable.
+- Uses Jev only where deterministic parsing is insufficient.
+- Prevents AI from controlling the solution path.
+- Preserves the current tutor architecture.
+- Makes testing easier and safer.
+- Allows gradual migration without breaking the current UI.
+
+PROPOSED NEXT STEPS
+==================
+
+1. Build a standalone Jev POC module in the project.
+2. Use Jev only for semantic interpretation of natural-language responses.
+3. Add a deterministic validator that compares Jev output against actual math.
+4. Keep app.js and tutor-engine.js working exactly as before.
+5. Run the POC against several valid and invalid student phrasing variations.
+6. After confidence improves, integrate the Jev call at a narrow, controlled point.
+
+CONCLUSION
+==========
+Jev is not the brain of the tutor. It is a semantic front-end for natural-language interpretation.
+The deterministic engine remains responsible for mathematical validation and the solution graph remains responsible for correct tutoring flow.
+
+This gives us a low-risk, testable path to improve student-language support without destabilizing the current system.
