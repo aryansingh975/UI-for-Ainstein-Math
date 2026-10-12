@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="900" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">Solution Graph: Find the cube root of 3375 using prime factorisation</text>
+
+  <!-- ═══ START NODE ═══ -->
+  <rect x="280" y="60" width="240" height="50" rx="8" fill="#4CAF50"/>
+  <text x="400" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="white">START</text>
+  <text x="400" y="102" text-anchor="middle" font-size="11" fill="white">Find the cube root of 3375</text>
+
+  <!-- ═══ EXTRACTION NODES ═══ -->
+  <rect x="280" y="140" width="240" height="50" rx="8" fill="#FF9800"/>
+  <text x="400" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Identify Given Information</text>
+  <text x="400" y="182" text-anchor="middle" font-size="10" fill="white">What number are we finding the cube root of? [optional]</text>
+
+  <rect x="280" y="210" width="240" height="50" rx="8" fill="#FF9800"/>
+  <text x="400" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Identify the Goal</text>
+  <text x="400" y="252" text-anchor="middle" font-size="10" fill="white">What do we need to find? [optional]</text>
+
+  <!-- ═══ METHOD 1 NODE ═══ -->
+  <rect x="50" y="300" width="300" height="50" rx="8" fill="#2196F3"/>
+  <text x="200" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 1: Prime Factorisation</text>
+  <text x="200" y="342" text-anchor="middle" font-size="10" fill="white">Express 3375 as product of primes and group triples</text>
+
+  <!-- ═══ M1 STEP 1 ═══ -->
+  <rect x="50" y="380" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="200" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 1: Divide by Primes</text>
+  <text x="200" y="422" text-anchor="middle" font-size="10" fill="white">Repeatedly divide 3375 by primes</text>
+
+  <!-- ═══ M1 STEP 2 ═══ -->
+  <rect x="50" y="460" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="200" y="485" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 2: Group Factors</text>
+  <text x="200" y="502" text-anchor="middle" font-size="10" fill="white">Group prime factors as perfect cubes</text>
+
+  <!-- ═══ M1 STEP 3 ═══ -->
+  <rect x="50" y="540" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="200" y="565" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 3: Take Cube Root</text>
+  <text x="200" y="582" text-anchor="middle" font-size="10" fill="white">Extract cube root from perfect cube</text>
+
+  <!-- ═══ METHOD 2 NODE ═══ -->
+  <rect x="450" y="300" width="300" height="50" rx="8" fill="#2196F3"/>
+  <text x="600" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 2: Estimation & Verification</text>
+  <text x="600" y="342" text-anchor="middle" font-size="10" fill="white">Test nearby perfect cubes</text>
+
+  <!-- ═══ M2 STEP 1 ═══ -->
+  <rect x="450" y="380" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="600" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 1: Test 15³ = 3375</text>
+  <text x="600" y="422" text-anchor="middle" font-size="10" fill="white">Verify 15³ equals 3375</text>
+
+  <!-- ═══ M2 STEP 2 ═══ -->
+  <rect x="450" y="460" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="600" y="485" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 2: Confirm ∛3375 = 15</text>
+  <text x="600" y="502" text-anchor="middle" font-size="10" fill="white">State final answer from estimation</text>
+
+  <!-- ═══ CONCLUSION NODE ═══ -->
+  <rect x="280" y="640" width="240" height="50" rx="8" fill="#9C27B0"/>
+  <text x="400" y="665" text-anchor="middle" font-size="12" font-weight="bold" fill="white">CONCLUSION</text>
+  <text x="400" y="682" text-anchor="middle" font-size="11" fill="white">The cube root of 3375 is 15</text>
+
+  <!-- ═══ CONNECTIONS ═══ -->
+  <!-- Start to extractions -->
+  <line x1="400" y1="110" x2="400" y2="140" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="110" x2="400" y2="210" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Extractions to methods -->
+  <line x1="400" y1="190" x2="200" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="190" x2="600" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="260" x2="200" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="260" x2="600" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Direct leaps from start to methods -->
+  <line x1="340" y1="110" x2="200" y2="300" stroke="#888" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <line x1="460" y1="110" x2="600" y2="300" stroke="#888" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+
+  <!-- Method 1 steps -->
+  <line x1="200" y1="350" x2="200" y2="380" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="200" y1="430" x2="200" y2="460" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="200" y1="510" x2="200" y2="540" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Method 2 steps -->
+  <line x1="600" y1="350" x2="600" y2="380" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="600" y1="430" x2="600" y2="460" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="600" y1="510" x2="600" y2="540" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Steps to conclusion -->
+  <line x1="200" y1="590" x2="340" y2="640" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="600" y1="590" x2="460" y2="640" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Legend -->
+  <rect x="20" y="720" width="18" height="18" fill="#4CAF50" rx="2"/>
+  <text x="42" y="735" font-size="10" fill="#555">Start</text>
+  <rect x="20" y="745" width="18" height="18" fill="#2196F3" rx="2"/>
+  <text x="42" y="760" font-size="10" fill="#555">Method</text>
+  <rect x="20" y="770" width="18" height="18" fill="#FF9800" rx="2"/>
+  <text x="42" y="785" font-size="10" fill="#555">Step/Extraction</text>
+  <rect x="20" y="795" width="18" height="18" fill="#9C27B0" rx="2"/>
+  <text x="42" y="810" font-size="10" fill="#555">Conclusion</text>
+</svg>

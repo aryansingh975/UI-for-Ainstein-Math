@@ -1,0 +1,213 @@
+{
+    "graph_meta": {
+        "graph_id": "sg-7f8e9d0c-1b2a-3456-cdef-789012345678",
+        "problem_uuid": "g08-hegp201-ex010",
+        "problem_text": "A TV set was bought for ₹21,000. Its value depreciates at 5% per annum. Find its value after 1 year.",
+        "navigation_label": "TV Depreciation",
+        "problem_context": {
+            "chapter": 9,
+            "topic": "Percentages / Fractions in Disguise",
+            "difficulty": "Moderate",
+            "subject": "Mathematics",
+            "grade": 8
+        },
+        "graph_type": "directed_acyclic_graph",
+        "version": "1.0.0",
+        "description": "Solution graph for finding the depreciated value of a TV after 1 year using two methods: direct reduction and multiplier method.",
+        "created": "2026-10-12",
+        "total_methods": 2,
+        "total_nodes": 10,
+        "total_edges": 10
+    },
+    "start_node": "start",
+    "conclusion_node": "conclusion",
+    "nodes": [
+        {
+            "id": "start",
+            "type": "start",
+            "label": "Problem Statement",
+            "description": "A TV set was bought for ₹21,000. Its value depreciates at 5% per annum. Find its value after 1 year.",
+            "prompt": "A TV set was bought for ₹21,000. Its value depreciates at 5% per annum. Find its value after 1 year. How will you approach this problem?",
+            "accept": [],
+            "hints": [
+                "Depreciation means the value decreases over time.",
+                "The TV loses a percentage of its value each year.",
+                "Identify the original price, the rate of depreciation, and the time period."
+            ]
+        },
+        {
+            "id": "given_extraction",
+            "type": "extraction",
+            "label": "Extract Given Information",
+            "description": "Identify the original value, depreciation rate, and time period.",
+            "prompt": "What information is given in the problem? List the original value, rate, and time.",
+            "accept": [
+                "Original value = ₹21000, Rate = 5%, Time = 1 year",
+                "Cost = ₹21,000, Depreciation rate = 5% per annum, Time = 1 year",
+                "P = 21000, R = 5%, T = 1 year",
+                "Bought for 21000, depreciates at 5% per annum for 1 year",
+                "₹21000, 5%, 1 year",
+                "21000 rupees, 5 percent per year, 1 year"
+            ],
+            "hints": [
+                "The problem gives three key pieces of information.",
+                "Look for the purchase price, the percentage rate, and the duration.",
+                "Original value = ₹21,000; Rate of depreciation = 5% per annum; Time = 1 year."
+            ]
+        },
+        {
+            "id": "goal_extraction",
+            "type": "extraction",
+            "label": "Identify the Goal",
+            "description": "Determine what needs to be found: the value of the TV after 1 year.",
+            "prompt": "What do we need to find?",
+            "accept": [
+                "Value after 1 year",
+                "Value of TV after 1 year",
+                "Depreciated value after 1 year",
+                "Find the value of the TV set after 1 year",
+                "New value after depreciation",
+                "Price after 1 year"
+            ],
+            "hints": [
+                "Read the question part of the problem statement.",
+                "We want to know the TV's worth after it has depreciated.",
+                "We need to find: the value of the TV set after 1 year of depreciation."
+            ]
+        },
+        {
+            "id": "method1",
+            "type": "method",
+            "label": "Method 1: Depreciation Formula",
+            "description": "Calculate the depreciation amount first, then subtract from the original value.",
+            "prompt": "Using Method 1, we first find the depreciation amount. What formula gives us the depreciation for 1 year?",
+            "accept": [
+                "Depreciation = Original value × Rate/100",
+                "Depreciation = 21000 × 5/100",
+                "Reduction = P × R/100",
+                "21000 × 0.05",
+                "Depreciation amount = value × rate ÷ 100"
+            ],
+            "hints": [
+                "Depreciation is a percentage of the original value.",
+                "For 1 year: Depreciation = Original Value × (Rate/100).",
+                "Depreciation = 21000 × 5/100 = 21000 × 0.05."
+            ]
+        },
+        {
+            "id": "m1_step1",
+            "type": "step",
+            "label": "Calculate Depreciation Amount",
+            "description": "Find 5% of ₹21,000.",
+            "prompt": "Calculate the depreciation: 21000 × 5/100 = ?",
+            "accept": [
+                "₹1050",
+                "1050",
+                "Rs 1050",
+                "Depreciation = ₹1050",
+                "Depreciation = 1050",
+                "1050 rupees",
+                "₹1,050"
+            ],
+            "hints": [
+                "Find 5% of 21,000.",
+                "5% of 21,000 = 21,000 × 5 ÷ 100.",
+                "21,000 × 5 ÷ 100 = 1,05,000 ÷ 100 = ₹1,050."
+            ]
+        },
+        {
+            "id": "m1_step2",
+            "type": "step",
+            "label": "Subtract Depreciation from Original Value",
+            "description": "Value after 1 year = Original value − Depreciation amount.",
+            "prompt": "Now subtract the depreciation from the original value: 21000 − 1050 = ?",
+            "accept": [
+                "₹19,950",
+                "19950",
+                "₹19950",
+                "Rs 19,950",
+                "Value = ₹19,950",
+                "19,950 rupees",
+                "Value after 1 year = ₹19,950"
+            ],
+            "hints": [
+                "Subtract the depreciation amount from the original price.",
+                "21,000 − 1,050 = ?",
+                "21,000 − 1,050 = ₹19,950."
+            ]
+        },
+        {
+            "id": "method2",
+            "type": "method",
+            "label": "Method 2: Multiplier Method",
+            "description": "Multiply the original value by (1 − Rate/100) to get the depreciated value directly.",
+            "prompt": "Using Method 2 (Multiplier), what multiplier do we use when depreciation is 5%?",
+            "accept": [
+                "0.95",
+                "1 - 0.05",
+                "1 - 5/100",
+                "95/100",
+                "95%",
+                "Multiplier = 0.95"
+            ],
+            "hints": [
+                "If value decreases by 5%, we retain 95% of it.",
+                "The multiplier is (1 − 5/100) = (1 − 0.05).",
+                "Multiplier = 0.95 (or 95/100)."
+            ]
+        },
+        {
+            "id": "m2_step1",
+            "type": "step",
+            "label": "Apply Multiplier",
+            "description": "Compute 21000 × 0.95 directly.",
+            "prompt": "Apply the multiplier: 21000 × 0.95 = ?",
+            "accept": [
+                "₹19,950",
+                "19950",
+                "₹19950",
+                "Rs 19,950",
+                "19,950",
+                "21000 × 0.95 = 19950",
+                "Value = ₹19,950"
+            ],
+            "hints": [
+                "Multiply 21,000 by 0.95.",
+                "21,000 × 0.95 = 21,000 × (95/100).",
+                "21,000 × 95 ÷ 100 = 19,95,000 ÷ 100 = ₹19,950."
+            ]
+        },
+        {
+            "id": "conclusion",
+            "type": "conclusion",
+            "label": "Final Answer",
+            "description": "The value of the TV set after 1 year of 5% depreciation is ₹19,950.",
+            "prompt": "What is the final value of the TV set after 1 year?",
+            "accept": [
+                "₹19,950",
+                "19950",
+                "Rs 19,950",
+                "₹19950",
+                "Value after 1 year = ₹19,950",
+                "19,950 rupees",
+                "The TV is worth ₹19,950 after 1 year"
+            ],
+            "hints": [
+                "Both methods should give the same answer.",
+                "After subtracting the 5% depreciation from ₹21,000:",
+                "Final value = ₹19,950."
+            ]
+        }
+    ],
+    "edges": [
+        { "from": "start", "to": "given_extraction" },
+        { "from": "given_extraction", "to": "goal_extraction" },
+        { "from": "goal_extraction", "to": "method1" },
+        { "from": "goal_extraction", "to": "method2" },
+        { "from": "method1", "to": "m1_step1" },
+        { "from": "m1_step1", "to": "m1_step2" },
+        { "from": "m1_step2", "to": "conclusion" },
+        { "from": "method2", "to": "m2_step1" },
+        { "from": "m2_step1", "to": "conclusion" }
+    ]
+}

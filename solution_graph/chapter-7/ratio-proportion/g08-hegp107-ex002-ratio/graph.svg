@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1620" width="100%" height="100%">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 24px; font-weight: 700; fill: #f1f5f9; }
+      .subtitle { font-size: 14px; fill: #94a3b8; }
+      .method { font-size: 17px; font-weight: 700; fill: #e2e8f0; }
+      .step { font-size: 14px; font-weight: 600; fill: #e2e8f0; }
+      .detail { font-size: 12px; fill: #aab6c5; }
+      .connector { fill: none; stroke: #38bdf8; stroke-width: 2; marker-end: url(#arrow); }
+      .branch { fill: none; stroke: #38bdf8; stroke-width: 2; }
+      .success { fill: none; stroke: #34d399; stroke-width: 2.5; marker-end: url(#arrow-green); }
+      .success-branch { fill: none; stroke: #34d399; stroke-width: 2.5; }
+      .method-box { fill: #1e1b4b; stroke: #818cf8; stroke-width: 1.5; rx: 8; }
+      .step-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.2; rx: 7; }
+      .shared-box { fill: #123b36; stroke: #34d399; stroke-width: 2; rx: 10; }
+      .conclusion-box { fill: #064e3b; stroke: #34d399; stroke-width: 2.5; rx: 10; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <rect width="1920" height="1620" rx="18" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+  <text x="960" y="42" text-anchor="middle" class="title">SOLUTION GRAPH - g08-hegp107-ex002</text>
+  <text x="960" y="68" text-anchor="middle" class="subtitle">Are the ratios 6 : 8 and 72 : 96 proportional?</text>
+
+  <rect x="760" y="88" width="400" height="60" class="method-box"/>
+  <text x="960" y="113" text-anchor="middle" class="method">START</text>
+  <text x="960" y="134" text-anchor="middle" class="detail">Choose a valid method</text>
+
+  <path d="M960 148 V172 H230 M960 172 H1580" class="branch"/>
+  <path d="M230 172 V198 M680 172 V198 M1130 172 V198 M1580 172 V198" class="connector"/>
+  <path d="M1160 118 H1870 V840 H230 M1870 840 H1580" class="branch"/>
+  <path d="M230 840 V850 M680 840 V850 M1130 840 V850 M1580 840 V850" class="connector"/>
+
+  <rect x="30" y="198" width="400" height="50" class="method-box"/>
+  <text x="230" y="229" text-anchor="middle" class="method">M1 - Simplification (HCF)</text>
+  <rect x="45" y="268" width="370" height="52" class="step-box"/>
+  <text x="230" y="290" text-anchor="middle" class="step">Find HCF of 6 and 8: 2</text>
+  <text x="230" y="308" text-anchor="middle" class="detail">First ratio</text>
+  <path d="M230 320 V338" class="connector"/>
+  <rect x="45" y="338" width="370" height="52" class="step-box"/>
+  <text x="230" y="360" text-anchor="middle" class="step">6:8 divided by 2 = 3:4</text>
+  <text x="230" y="378" text-anchor="middle" class="detail">Simplify first ratio</text>
+  <path d="M230 390 V408" class="connector"/>
+  <rect x="45" y="408" width="370" height="52" class="step-box"/>
+  <text x="230" y="430" text-anchor="middle" class="step">Find HCF of 72 and 96: 24</text>
+  <text x="230" y="448" text-anchor="middle" class="detail">Second ratio</text>
+  <path d="M230 460 V478" class="connector"/>
+  <rect x="45" y="478" width="370" height="52" class="step-box"/>
+  <text x="230" y="500" text-anchor="middle" class="step">72:96 divided by 24 = 3:4</text>
+  <text x="230" y="518" text-anchor="middle" class="detail">Simplify second ratio</text>
+  <path d="M230 530 C230 615 610 650 800 690" class="success"/>
+
+  <rect x="480" y="198" width="400" height="50" class="method-box"/>
+  <text x="680" y="229" text-anchor="middle" class="method">M2 - Fraction Simplification</text>
+  <rect x="495" y="268" width="370" height="52" class="step-box"/>
+  <text x="680" y="290" text-anchor="middle" class="step">Write both ratios as fractions</text>
+  <text x="680" y="308" text-anchor="middle" class="detail">6/8 and 72/96</text>
+  <path d="M680 320 V348" class="connector"/>
+  <rect x="495" y="348" width="370" height="52" class="step-box"/>
+  <text x="680" y="370" text-anchor="middle" class="step">Simplify 6/8 to 3/4</text>
+  <text x="680" y="388" text-anchor="middle" class="detail">First ratio</text>
+  <path d="M680 400 V428" class="connector"/>
+  <rect x="495" y="428" width="370" height="52" class="step-box"/>
+  <text x="680" y="450" text-anchor="middle" class="step">Simplify 72/96 to 3/4</text>
+  <text x="680" y="468" text-anchor="middle" class="detail">Second ratio</text>
+  <path d="M680 480 C680 570 770 640 900 690" class="success"/>
+
+  <rect x="930" y="198" width="400" height="50" class="method-box"/>
+  <text x="1130" y="229" text-anchor="middle" class="method">M3 - Prime Factorization</text>
+  <rect x="945" y="268" width="370" height="52" class="step-box"/>
+  <text x="1130" y="290" text-anchor="middle" class="step">Factorize 6 and 8</text>
+  <text x="1130" y="308" text-anchor="middle" class="detail">6=2x3; 8=2^3</text>
+  <path d="M1130 320 V348" class="connector"/>
+  <rect x="945" y="348" width="370" height="52" class="step-box"/>
+  <text x="1130" y="370" text-anchor="middle" class="step">Factorize 72 and 96</text>
+  <text x="1130" y="388" text-anchor="middle" class="detail">72=2^3x3^2; 96=2^5x3</text>
+  <path d="M1130 400 V428" class="connector"/>
+  <rect x="945" y="428" width="370" height="52" class="step-box"/>
+  <text x="1130" y="450" text-anchor="middle" class="step">Cancel common factors</text>
+  <text x="1130" y="468" text-anchor="middle" class="detail">Both ratios simplify to 3/4</text>
+  <path d="M1130 480 C1130 570 1050 640 960 690" class="success"/>
+
+  <rect x="1380" y="198" width="400" height="50" class="method-box"/>
+  <text x="1580" y="229" text-anchor="middle" class="method">M4 - Step-by-Step Reduction</text>
+  <rect x="1395" y="268" width="370" height="52" class="step-box"/>
+  <text x="1580" y="290" text-anchor="middle" class="step">6:8 divided by 2 = 3:4</text>
+  <text x="1580" y="308" text-anchor="middle" class="detail">Reduce first ratio</text>
+  <path d="M1580 320 V338" class="connector"/>
+  <rect x="1395" y="338" width="370" height="52" class="step-box"/>
+  <text x="1580" y="360" text-anchor="middle" class="step">72:96 divided by 2 = 36:48</text>
+  <text x="1580" y="378" text-anchor="middle" class="detail">Start reducing second ratio</text>
+  <path d="M1580 390 V408" class="connector"/>
+  <rect x="1395" y="408" width="370" height="52" class="step-box"/>
+  <text x="1580" y="430" text-anchor="middle" class="step">36:48 divided by 2 = 18:24</text>
+  <path d="M1580 460 V478" class="connector"/>
+  <rect x="1395" y="478" width="370" height="52" class="step-box"/>
+  <text x="1580" y="500" text-anchor="middle" class="step">18:24 divided by 2 = 9:12</text>
+  <path d="M1580 530 V548" class="connector"/>
+  <rect x="1395" y="548" width="370" height="52" class="step-box"/>
+  <text x="1580" y="570" text-anchor="middle" class="step">9:12 divided by 3 = 3:4</text>
+  <path d="M1580 600 C1580 650 1330 665 1120 690" class="success"/>
+
+  <rect x="650" y="690" width="620" height="72" class="shared-box"/>
+  <text x="960" y="719" text-anchor="middle" class="method">SHARED COMPARISON</text>
+  <text x="960" y="742" text-anchor="middle" class="detail">Both original ratios simplify to 3:4</text>
+
+  <rect x="30" y="850" width="400" height="50" class="method-box"/>
+  <text x="230" y="881" text-anchor="middle" class="method">M5 - Cross Multiplication</text>
+  <rect x="45" y="920" width="370" height="50" class="step-box"/>
+  <text x="230" y="950" text-anchor="middle" class="step">Set up 6x96 and 8x72</text>
+  <path d="M230 970 V985" class="connector"/>
+  <rect x="45" y="985" width="370" height="50" class="step-box"/>
+  <text x="230" y="1015" text-anchor="middle" class="step">Compute 6x96 = 576</text>
+  <path d="M230 1035 V1050" class="connector"/>
+  <rect x="45" y="1050" width="370" height="50" class="step-box"/>
+  <text x="230" y="1080" text-anchor="middle" class="step">Compute 8x72 = 576</text>
+  <path d="M230 1100 V1115" class="connector"/>
+  <rect x="45" y="1115" width="370" height="50" class="step-box"/>
+  <text x="230" y="1145" text-anchor="middle" class="step">Compare: 576 = 576</text>
+  <path d="M230 1165 V1300" class="success"/>
+
+  <rect x="480" y="850" width="400" height="50" class="method-box"/>
+  <text x="680" y="881" text-anchor="middle" class="method">M6 - Scaling</text>
+  <rect x="495" y="920" width="370" height="50" class="step-box"/>
+  <text x="680" y="950" text-anchor="middle" class="step">Scale factor from 6 to 72: 12</text>
+  <path d="M680 970 V985" class="connector"/>
+  <rect x="495" y="985" width="370" height="50" class="step-box"/>
+  <text x="680" y="1015" text-anchor="middle" class="step">Verify 8x12 = 96</text>
+  <path d="M680 1035 V1050" class="connector"/>
+  <rect x="495" y="1050" width="370" height="50" class="step-box"/>
+  <text x="680" y="1080" text-anchor="middle" class="step">Same factor scales both terms</text>
+  <path d="M680 1100 V1300" class="success"/>
+
+  <rect x="930" y="850" width="400" height="50" class="method-box"/>
+  <text x="1130" y="881" text-anchor="middle" class="method">M7 - Decimal Comparison</text>
+  <rect x="945" y="920" width="370" height="50" class="step-box"/>
+  <text x="1130" y="950" text-anchor="middle" class="step">6/8 = 0.75</text>
+  <path d="M1130 970 V985" class="connector"/>
+  <rect x="945" y="985" width="370" height="50" class="step-box"/>
+  <text x="1130" y="1015" text-anchor="middle" class="step">72/96 = 0.75</text>
+  <path d="M1130 1035 V1050" class="connector"/>
+  <rect x="945" y="1050" width="370" height="50" class="step-box"/>
+  <text x="1130" y="1080" text-anchor="middle" class="step">Compare equal decimal values</text>
+  <path d="M1130 1100 V1300" class="success"/>
+
+  <rect x="1380" y="850" width="400" height="50" class="method-box"/>
+  <text x="1580" y="881" text-anchor="middle" class="method">M8 - Equivalent Ratio</text>
+  <rect x="1395" y="920" width="370" height="50" class="step-box"/>
+  <text x="1580" y="950" text-anchor="middle" class="step">Multiply 6:8 by 12</text>
+  <path d="M1580 970 V985" class="connector"/>
+  <rect x="1395" y="985" width="370" height="50" class="step-box"/>
+  <text x="1580" y="1015" text-anchor="middle" class="step">Get 72:96; ratios equivalent</text>
+  <path d="M1580 1035 V1300" class="success"/>
+
+  <path d="M230 1300 H1580 M960 1300 V1370" class="success-branch"/>
+  <path d="M1270 726 H1870 V1370 H960" class="success-branch"/>
+  <path d="M960 1370 V1450" class="success"/>
+
+  <rect x="760" y="1450" width="400" height="72" class="conclusion-box"/>
+  <text x="960" y="1479" text-anchor="middle" class="method">CONCLUSION</text>
+  <text x="960" y="1502" text-anchor="middle" class="detail">6:8 and 72:96 are proportional</text>
+  <text x="960" y="1560" text-anchor="middle" class="detail">8 methods - 38 nodes - 44 edges</text>
+</svg>

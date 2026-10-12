@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font: 700 26px 'Segoe UI', Arial, sans-serif; fill: #f8fafc; }
+      .subtitle { font: 600 14px 'Segoe UI', Arial, sans-serif; fill: #cbd5e1; }
+      .method { font: 700 16px 'Segoe UI', Arial, sans-serif; fill: #e2e8f0; }
+      .step { font: 600 13px 'Segoe UI', Arial, sans-serif; fill: #e2e8f0; }
+      .detail { font: 12px 'Segoe UI', Arial, sans-serif; fill: #a5b4c8; }
+      .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 10; }
+      .green { fill: #052e2b; stroke: #34d399; stroke-width: 2; rx: 10; }
+      .arrow { stroke: #38bdf8; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .success { stroke: #34d399; stroke-width: 2.2; fill: none; marker-end: url(#arrowgreen); }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowgreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#34d399"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="720" fill="#0b1120"/>
+  <text x="640" y="42" text-anchor="middle" class="title">SOLUTION GRAPH - g08-hegp107-ex006</text>
+  <text x="640" y="70" text-anchor="middle" class="subtitle">Neelima age-ratio problem</text>
+
+  <rect x="500" y="90" width="280" height="48" class="box"/>
+  <text x="640" y="120" text-anchor="middle" class="method">START</text>
+
+  <rect x="70" y="170" width="260" height="52" class="box"/>
+  <text x="200" y="201" text-anchor="middle" class="method">M1 Simplify</text>
+  <rect x="80" y="236" width="240" height="52" class="box"/>
+  <text x="200" y="267" text-anchor="middle" class="step">3:30 → 1:10</text>
+  <rect x="80" y="302" width="240" height="52" class="box"/>
+  <text x="200" y="333" text-anchor="middle" class="step">12:39 → 4:13</text>
+  <path d="M200 354 L200 390" class="arrow"/>
+  <rect x="80" y="390" width="240" height="52" class="green"/>
+  <text x="200" y="421" text-anchor="middle" class="step">1:10 ≠ 4:13</text>
+
+  <rect x="430" y="170" width="300" height="52" class="box"/>
+  <text x="580" y="201" text-anchor="middle" class="method">M2 Add same number</text>
+  <rect x="445" y="236" width="270" height="52" class="box"/>
+  <text x="580" y="267" text-anchor="middle" class="step">3+9 = 12; 30+9 = 39</text>
+  <rect x="445" y="302" width="270" height="52" class="box"/>
+  <text x="580" y="333" text-anchor="middle" class="step">Ratio changes</text>
+  <path d="M580 354 L580 390" class="arrow"/>
+  <rect x="445" y="390" width="270" height="52" class="green"/>
+  <text x="580" y="421" text-anchor="middle" class="step">Addition does not preserve ratio</text>
+
+  <rect x="840" y="170" width="300" height="52" class="box"/>
+  <text x="990" y="201" text-anchor="middle" class="method">M3 Compare values</text>
+  <rect x="855" y="236" width="270" height="52" class="box"/>
+  <text x="990" y="267" text-anchor="middle" class="step">3/30 = 1/10</text>
+  <rect x="855" y="302" width="270" height="52" class="box"/>
+  <text x="990" y="333" text-anchor="middle" class="step">12/39 = 4/13</text>
+  <path d="M990 354 L990 390" class="arrow"/>
+  <rect x="855" y="390" width="270" height="52" class="green"/>
+  <text x="990" y="421" text-anchor="middle" class="step">1/10 ≠ 4/13</text>
+
+  <path d="M640 138 L640 170" class="arrow"/>
+  <path d="M200 442 L200 560 L1080 560 L1080 442" class="success"/>
+  <rect x="470" y="560" width="340" height="72" class="green"/>
+  <text x="640" y="590" text-anchor="middle" class="method">CONCLUSION</text>
+  <text x="640" y="611" text-anchor="middle" class="detail">No — the ratio does not remain the same</text>
+</svg>

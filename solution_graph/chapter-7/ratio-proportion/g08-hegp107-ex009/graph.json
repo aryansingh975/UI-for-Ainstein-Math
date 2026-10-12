@@ -1,0 +1,152 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g08-hegp107-ex009",
+    "problem_uuid": "g08-hegp107-ex009",
+    "problem_text": "A car travels 90 km in 150 minutes. If it continues at the same speed, what distance will it cover in 4 hours?",
+    "navigation_label": "Car travel distance",
+    "problem_context": { "first": [150, 90], "second": [240, 144] },
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for the car-distance proportion. It converts 4 hours to 240 minutes, sets up a proportional ratio, and solves by cross multiplication.",
+    "created": "2026-10-11",
+    "total_methods": 2,
+    "total_nodes": 10,
+    "total_edges": 10
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "A car travels 90 km in 150 minutes. Find the distance in 4 hours at the same speed.",
+      "prompt": "Convert 4 hours to minutes and set up a correct proportional relation.",
+      "accept": [],
+      "hints": [
+        "4 hours = 240 minutes.",
+        "The ratio of time and distance should stay the same.",
+        "Write a proportion using time and distance."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "The car will cover 144 km in 4 hours.",
+      "prompt": "State the final distance covered in 4 hours.",
+      "accept": [
+        "144 km",
+        "144",
+        "the distance is 144 km",
+        "144 kilometres",
+        "the car covers 144 km",
+        "it will travel 144 km"
+      ],
+      "hints": [
+        "Use the proportion 150 : 90 :: 240 : x.",
+        "Cross multiply and solve for x.",
+        "x = 144, so the distance is 144 km."
+      ]
+    },
+    {
+      "id": "m1_convert",
+      "type": "method",
+      "label": "Method 1: Convert time units",
+      "description": "Convert 4 hours into 240 minutes so both time values use the same unit.",
+      "prompt": "Convert the time to the same unit as in the given ratio.",
+      "accept": ["4 hours = 240 minutes", "4 hours is 240 minutes", "240 minutes", "4 hours = 240 min"],
+      "hints": [
+        "1 hour = 60 minutes.",
+        "4 × 60 = 240.",
+        "So 4 hours = 240 minutes."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Convert 4 hours to minutes",
+      "description": "4 hours = 240 minutes.",
+      "prompt": "How many minutes are in 4 hours?",
+      "accept": ["240 minutes", "240", "4 hours = 240 minutes", "4 hours is 240 minutes"],
+      "hints": [
+        "Multiply 4 by 60.",
+        "4 × 60 = 240.",
+        "So the time is 240 minutes."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Set up the proportion",
+      "description": "The correct proportion is 150 : 90 :: 240 : x.",
+      "prompt": "Write the proportion in the same units.",
+      "accept": [
+        "150:90 :: 240:x",
+        "150 : 90 :: 240 : x",
+        "150:90 = 240:x",
+        "150 : 90 = 240 : x",
+        "150 : 90 :: 240 : ?"
+      ],
+      "hints": [
+        "Use the same units for time in both ratios.",
+        "150 minutes to 90 km is the first ratio.",
+        "240 minutes to x km is the second ratio."
+      ]
+    },
+    {
+      "id": "m2_cross",
+      "type": "method",
+      "label": "Method 2: Cross multiplication",
+      "description": "Solve the proportion by cross multiplication: 150 × x = 240 × 90.",
+      "prompt": "Cross multiply to solve for the unknown distance.",
+      "accept": ["cross multiplication", "cross multiply", "150 × x = 240 × 90", "150*x = 240*90", "150 x = 240 × 90"],
+      "hints": [
+        "Multiply 240 by 90.",
+        "Then divide by 150.",
+        "This gives the missing distance."
+      ]
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Write the cross product equation",
+      "description": "150 × x = 240 × 90.",
+      "prompt": "What equation do you get after cross multiplication?",
+      "accept": [
+        "150 × x = 240 × 90",
+        "150*x = 240*90",
+        "150 x = 240 × 90",
+        "150x = 240×90",
+        "150 x = 240 x 90"
+      ],
+      "hints": [
+        "Cross multiply the terms of the proportion.",
+        "150 × x = 240 × 90.",
+        "Then solve for x."
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Solve for x",
+      "description": "x = 240 × 90 ÷ 150 = 144.",
+      "prompt": "Solve the equation to find x.",
+      "accept": ["x = 144", "x=144", "distance = 144 km", "the answer is 144", "144 km"],
+      "hints": [
+        "240 × 90 = 21600.",
+        "21600 ÷ 150 = 144.",
+        "So x = 144."
+      ]
+    }
+  ],
+  "edges": [
+    { "from": "start", "to": "m1_convert", "label": "Convert time" },
+    { "from": "m1_convert", "to": "m1_s1", "label": "Get minutes" },
+    { "from": "m1_s1", "to": "m1_s2", "label": "Set the ratio" },
+    { "from": "m1_s2", "to": "m2_cross", "label": "Cross multiply" },
+    { "from": "m2_cross", "to": "m2_s1", "label": "Write equation" },
+    { "from": "m2_s1", "to": "m2_s2", "label": "Solve for x" },
+    { "from": "m2_s2", "to": "conclusion", "label": "State the distance" }
+  ]
+}

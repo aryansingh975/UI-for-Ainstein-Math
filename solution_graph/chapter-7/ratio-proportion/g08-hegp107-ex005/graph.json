@@ -1,0 +1,139 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g08-hegp107-ex005",
+    "problem_uuid": "g08-hegp107-ex005",
+    "problem_text": "Measure the width and height (to the nearest cm) of the blackboard in your classroom. What is the ratio of width to height of the blackboard? Can you draw a rectangle in your notebook whose width and height are proportional to the ratio of the blackboard? Compare the rectangle you have drawn to those drawn by your classmates. Do they all look the same?",
+    "navigation_label": "Blackboard proportion",
+    "problem_context": { "first": [120, 90], "second": [8, 6] },
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for the blackboard ratio problem. It shows that a rectangle retains the same shape when width and height are scaled by the same factor, so similar rectangles all look the same.",
+    "created": "2026-10-11",
+    "total_methods": 2,
+    "total_nodes": 10,
+    "total_edges": 10
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Measure the blackboard and compare its width-height ratio with a proportional rectangle.",
+      "prompt": "Write the width-to-height ratio of the blackboard and then use that same ratio to draw a similar rectangle.",
+      "accept": [],
+      "hints": [
+        "Use the measured blackboard dimensions.",
+        "Write width : height.",
+        "Simplify the ratio if possible."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "All the rectangles look the same when their width and height are in the same proportion, such as 4:3.",
+      "prompt": "Do all the proportional rectangles look the same?",
+      "accept": [
+        "yes",
+        "yes, they all look the same",
+        "they look the same because the ratio is the same",
+        "same shape",
+        "all rectangles with the same ratio look alike",
+        "yes, same proportion"
+      ],
+      "hints": [
+        "If the ratio is the same, the rectangle keeps the same shape.",
+        "For example, 120:90 simplifies to 4:3.",
+        "A scaled version such as 8:6 or 12:9 still has the same shape."
+      ]
+    },
+    {
+      "id": "m1_measure",
+      "type": "method",
+      "label": "Method 1: Measure and simplify",
+      "description": "Measure the blackboard and write its width-to-height ratio in simplest form.",
+      "prompt": "Write the ratio of the blackboard width to its height.",
+      "accept": ["measure the blackboard", "write width:height", "ratio of width to height", "width : height"],
+      "hints": [
+        "If the board is 120 cm wide and 90 cm high, write 120:90.",
+        "Divide both by 30.",
+        "The simplified ratio is 4:3."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Measure the dimensions",
+      "description": "A typical blackboard could be 120 cm wide and 90 cm high, so the ratio is 120:90.",
+      "prompt": "What is the board ratio if width = 120 cm and height = 90 cm?",
+      "accept": ["120:90", "120 : 90", "120 to 90", "width:height = 120:90", "width height ratio is 120:90"],
+      "hints": [
+        "Use the actual measured values.",
+        "The ratio is width : height.",
+        "120:90 is the direct ratio."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Simplify the ratio",
+      "description": "120:90 simplifies to 4:3 by dividing by 30.",
+      "prompt": "Reduce 120:90 to its simplest form.",
+      "accept": ["4:3", "4 : 3", "four to three", "120/90 = 4/3", "120:90 = 4:3", "120:90 simplifies to 4:3", "120 : 90 = 4 : 3", "120:90 is proportional to 4:3"],
+      "hints": [
+        "Divide both numbers by 30.",
+        "120 ÷ 30 = 4 and 90 ÷ 30 = 3.",
+        "So the simplified ratio is 4:3."
+      ]
+    },
+    {
+      "id": "m2_draw",
+      "type": "method",
+      "label": "Method 2: Draw a similar rectangle",
+      "description": "Draw a rectangle whose sides match the same 4:3 proportion.",
+      "prompt": "Use the same ratio to draw a rectangle with proportional sides.",
+      "accept": ["draw a similar rectangle", "same proportion", "use 4:3"],
+      "hints": [
+        "Multiply both width and height by the same factor.",
+        "Examples include 8:6, 12:9, or 16:12.",
+        "These are all the same shape."
+      ]
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Scale the rectangle",
+      "description": "Any rectangle with sides in the ratio 4:3 is similar to the blackboard rectangle.",
+      "prompt": "What happens if you multiply both dimensions by the same number?",
+      "accept": ["same shape", "same proportion", "it remains proportional", "scale factor"],
+      "hints": [
+        "If both sides are multiplied by the same number, the ratio stays the same.",
+        "The shape stays the same even when the size changes.",
+        "So rectangles with ratio 4:3 look alike."
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Compare with classmates",
+      "description": "If all drawings use the same 4:3 ratio, they all look the same shape even if their sizes differ.",
+      "prompt": "Do the rectangles drawn by different classmates look the same?",
+      "accept": ["yes", "yes, they all look the same", "same shape"],
+      "hints": [
+        "Same ratio means same shape.",
+        "Different sizes are still proportional rectangles."
+      ]
+    }
+  ],
+  "edges": [
+    { "from": "start", "to": "m1_measure", "label": "Measure the board" },
+    { "from": "m1_measure", "to": "m1_s1", "label": "Write width:height" },
+    { "from": "m1_s1", "to": "m1_s2", "label": "Simplify the ratio" },
+    { "from": "m1_s2", "to": "m2_draw", "label": "Build a proportional rectangle" },
+    { "from": "m2_draw", "to": "m2_s1", "label": "Use a scale factor" },
+    { "from": "m2_s1", "to": "m2_s2", "label": "Compare with classmates" },
+    { "from": "m2_s2", "to": "conclusion", "label": "Same shape" }
+  ]
+}

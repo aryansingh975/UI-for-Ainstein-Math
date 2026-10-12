@@ -30,6 +30,7 @@ incorrect or irrelevant steps, and guides the student toward a conclusion.
 ├── index.html                         Browser tutor page
 ├── styles.css                         Browser tutor styles
 ├── app.js                             Browser UI and feedback logic
+├── server.js                          Local static server and Jev proxy
 ├── tutor-engine.js                    JavaScript tutor and validation engine
 ├── ainstein_math/
 │   ├── terminal_tutor.py              Interactive Python terminal tutor
@@ -43,27 +44,36 @@ incorrect or irrelevant steps, and guides the student toward a conclusion.
 ├── resource/                           Supporting learning resources
 ├── test_tutor_engine.js                JavaScript tutor tests
 ├── test_solution_graph.js              Solution graph matching tests
+├── test_jev_server.js                  Jev response and method mapping tests
 └── README.md                           Project documentation
 ```
 
 ## Requirements
 
 - Python 3.9 or newer for the terminal tutor.
-- Node.js 16 or newer for the JavaScript tests.
+- Node.js 20.6 or newer for the Jev-enabled browser tutor and JavaScript tests.
 - A modern web browser for the browser tutor.
 
-The browser tutor has no npm dependencies. The Python tutor uses only the
-standard library.
+The browser tutor and local Jev endpoint use Node.js built-ins and have no npm
+dependencies. The Python tutor uses only the standard library.
 
 ## Run the Browser Tutor
 
-From the project folder, start a local web server:
+From the project folder, create a `.env` file with your OpenRouter key if one
+does not already exist:
 
 ```powershell
-python -m http.server 8000
+OPENROUTER_API_KEY=your-openrouter-api-key
 ```
 
-Open <http://localhost:8000> in a browser and use the tutor interface.
+Start the app and its same-origin Jev endpoint:
+
+```powershell
+node --env-file=.env .\server.js
+```
+
+Open <http://127.0.0.1:3000> in a browser. Jev is used to select a method for
+the Grade 10 quadratic problem; the tutor engine still checks each step.
 
 Stop the server with `Ctrl+C`.
 
@@ -85,6 +95,7 @@ Run the JavaScript tutor and solution graph tests from the project folder:
 ```powershell
 node .\test_tutor_engine.js
 node .\test_solution_graph.js
+node .\test_jev_server.js
 ```
 
 Compile-check the Python tutor with:

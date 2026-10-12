@@ -4,7 +4,8 @@
 // Run: node test_tutor_engine.js
 // ─────────────────────────────────────────────────────────────────────────────
 const TutorEngine = require('./tutor-engine.js');
-const graph = require('./solution_graph/g08-hegp107-ex001.solution-graph.json');
+const graph = require('./solution_graph/chapter-7/ratio-proportion/g08-hegp107-ex001/graph.json');
+const ex011Graph = require('./solution_graph/chapter-7/ratio-proportion/g08-hegp107-ex011/graph.json');
 
 TutorEngine.init(graph);
 
@@ -80,12 +81,27 @@ check('negated ratio claim false', claims.map(c => c.isTrue), [false]);
 
 // ─── 3. Dialogue flow tests (processStep + applyResult) ───
 console.log('\n=== DIALOGUE FLOW TESTS ===');
+check('Example 11 graph loads', !!ex011Graph, true);
 
 function step(input, session) {
   const r = TutorEngine.processStep(input, session);
   TutorEngine.applyResult(session, r);
   return r;
 }
+
+console.log('\n=== JEV METHOD ROUTE TESTS ===');
+const quadraticGraph = require('./solution_graph/chapter-10/quadratic-equation/g10-quad-ex001/graph.json');
+TutorEngine.init(quadraticGraph);
+let jevSession = TutorEngine.newSession();
+check('Jev starts the factoring route', TutorEngine.beginMethod(jevSession, 'm1_factor'), true);
+check('factoring route begins at its first step', jevSession.currentNodeId, 'm1_s1');
+const factoringWork = step('(x - 2)(x - 3) = 0', jevSession);
+check('original factoring response is accepted', factoringWork.verdict, 'ACCEPT');
+check('original factoring response maps to its graph step', factoringWork.nodeId, 'm1_s4');
+check('selected method stays locked', jevSession.methodId, 'm1');
+check('route cannot switch after work begins', TutorEngine.beginMethod(jevSession, 'm2_formula'), false);
+check('non-method graph nodes cannot start a route', TutorEngine.beginMethod(TutorEngine.newSession(), 'start'), false);
+TutorEngine.init(graph);
 
 // Flow A: clean HCF path → auto-completion
 let s = TutorEngine.newSession();
@@ -214,6 +230,49 @@ for (const flow of sharedComparisonFlows) {
   check(`${flow.name} comparison accepted`, step('3:4 = 3:4', session).verdict, 'ACCEPT');
   check(`${flow.name} advances to conclusion`, session.currentNodeId, 'conclusion');
   check(`${flow.name} completes successfully`, step('yes', session).verdict, 'CONCLUSION_RIGHT');
+}
+
+const chapterGraphs = [
+  graph,
+  require('./solution_graph/chapter-7/ratio-proportion/g08-hegp107-ex002-lemonade/graph.json'),
+  require('./solution_graph/chapter-7/ratio-proportion/g08-hegp107-ex002-ratio/graph.json'),
+  require('./solution_graph/chapter-7/ratio-proportion/g08-hegp107-ex003/graph.json'),
+  require('./solution_graph/chapter-7/ratio-proportion/g08-hegp107-ex006/graph.json'),
+  require('./solution_graph/chapter-7/ratio-proportion/g08-hegp107-ex008/graph.json')
+];
+
+for (const problemGraph of chapterGraphs) {
+  TutorEngine.init(problemGraph);
+  const session = TutorEngine.newSession();
+  const startId = problemGraph.start_node || 'start';
+  const conclusionId = problemGraph.conclusion_node || 'conclusion';
+  const queue = [[startId]];
+  const visited = new Set([startId]);
+  let path = null;
+
+  while (queue.length) {
+    const currentPath = queue.shift();
+    const currentId = currentPath[currentPath.length - 1];
+    if (currentId === conclusionId) {
+      path = currentPath;
+      break;
+    }
+    for (const edge of problemGraph.edges.filter(item => item.from === currentId)) {
+      if (!visited.has(edge.to)) {
+        visited.add(edge.to);
+        queue.push([...currentPath, edge.to]);
+      }
+    }
+  }
+
+  for (const nodeId of (path || []).slice(1)) {
+    const node = problemGraph.nodes.find(item => item.id === nodeId);
+    if (!node || !node.accept || !node.accept.length) continue;
+    step(node.accept[0], session);
+    if (session.completed) break;
+  }
+
+  check(`${problemGraph.graph_meta.problem_uuid} first solution path completes`, session.completed, true);
 }
 
 console.log(`\n=== RESULTS: ${passed} passed, ${failed} failed ===`);

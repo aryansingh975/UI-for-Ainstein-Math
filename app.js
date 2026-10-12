@@ -1,44 +1,311 @@
-// Ainstein Socratic Tutor - Problem 1
-// Target: NCERT Grade 8 Chapter 7 Example 1 (g08-hegp107-ex001)
+// Ainstein Math Tutor - Simple Chapter/Problem Selector
 //
-// ─── FREE-FLOW TUTOR LOOP ───
-// The student types math steps freely. The tutor-engine (tutor-engine.js)
-// silently infers the method, verifies every step's mathematical truth,
-// corrects mistakes immediately, and decides on its own when the problem
-// is solved. The method is NEVER announced to the student.
+// Application State:
+//   - currentGrade: selected grade (extracted from chapter ID)
+//   - currentChapter: selected chapter identifier
+//   - currentProblem: selected problem identifier
+//   - currentProblemUuid: UUID of the selected problem
+//   - availableChapters: chapters and their available problems
 
-const inputEl = document.querySelector('#question-input');
-const resultEl = document.querySelector('#result');
-const solveBtn = document.querySelector('#solve-button');
-const previewEl = document.querySelector('#latex-preview');
-const resetBtn = document.querySelector('#reset-flow-btn');
-const stepIndicatorLabel = document.querySelector('#step-label');
-const stepDot1 = document.querySelector('#step-dot-1');
+// DOM Elements
+const chapterSelect = document.getElementById('chapter-select');
+const problemSelect = document.getElementById('problem-select');
+const loadProblemBtn = document.getElementById('load-problem');
+const problemTitleEl = document.getElementById('problem-title');
+const problemDescriptionEl = document.getElementById('problem-description');
 
-// ─── Engine init (graph loaded from solution_graph/*.solution-graph.js) ───
-TutorEngine.init(SOLUTION_GRAPH);
+// Problem Statement Elements
+const problemBadge = document.getElementById('problem-badge');
+const problemText = document.getElementById('problem-text');
 
-// Session state (managed by the engine's applyResult)
-let session = TutorEngine.newSession();
+// UI Controls
+const questionInput = document.getElementById('question-input');
+const solveButton = document.getElementById('solve-button');
+const resetFlowBtn = document.getElementById('reset-flow-btn');
+const resultArea = document.getElementById('result');
+const methodIndicator = document.getElementById('method-indicator');
 
-// ─── UI Update ───
-function updateStepUI() {
-  if (session.completed) {
-    stepIndicatorLabel.textContent = '✓ Solved';
-    stepDot1.className = 'step-dot-done';
-    inputEl.placeholder = 'Problem solved — press "↺ Reset Problem State" to try again.';
-  } else if (session.trail.length === 0 && !session.methodId) {
-    stepIndicatorLabel.textContent = 'Step 1';
-    stepDot1.className = 'step-dot-active';
-    inputEl.placeholder = 'Type your first step… e.g., 72÷24 = 3 and 96÷24 = 4';
-  } else {
-    stepIndicatorLabel.textContent = 'Step ' + (session.trail.length + 1);
-    stepDot1.className = 'step-dot-active';
-    inputEl.placeholder = 'Type your next step…';
+// Application State
+let state = {
+  currentGrade: null,
+  currentChapter: null,
+  currentProblem: null,
+  currentProblemUuid: null,
+  availableChapters: [
+    {
+      id: 'proportional-reasoning',
+      title: 'Proportional Reasoning',
+      grade: 8,
+      description: 'Grade 8 · 14 problems',
+      problems: [
+        { id: 'g08-hegp107-ex001', title: 'Proportional Ratios: 3:4 and 72:96', uuid: 'g08-hegp107-ex001' },
+        { id: 'g08-hegp107-ex002-lemonade', title: 'Lemonade Stand Sugar Ratios', uuid: 'g08-hegp107-ex002' },
+        { id: 'g08-hegp107-ex002-ratio', title: 'Proportional Ratios: 6:8 and 72:96', uuid: 'g08-hegp107-ex002-ratio' },
+        { id: 'g08-hegp107-ex003', title: 'Compound Wall Strength', uuid: 'g08-hegp107-ex003' },
+        { id: 'g08-hegp107-ex004', title: 'Teacher-to-Student Ratio Comparison', uuid: 'g08-hegp107-ex004' },
+        { id: 'g08-hegp107-ex005', title: 'Blackboard Width-Height Ratio', uuid: 'g08-hegp107-ex005' },
+        { id: 'g08-hegp107-ex006', title: 'Age Ratios: Neelima and Her Mother', uuid: 'g08-hegp107-ex006' },
+        { id: 'g08-hegp107-ex007', title: 'Ratio Fill-ins: 14:21', uuid: 'g08-hegp107-ex007' },
+        { id: 'g08-hegp107-ex008', title: 'Rice for 80 Students', uuid: 'g08-hegp107-ex008' },
+        { id: 'g08-hegp107-ex009', title: 'Car Travels 90 km in 150 minutes', uuid: 'g08-hegp107-ex009' },
+        { id: 'g08-hegp107-ex010', title: 'Tea Cost Comparison: Himachal vs Meghalaya', uuid: 'g08-hegp107-ex010' },
+        { id: 'g08-hegp107-ex011', title: 'Profit Sharing: Prashanti and Bhuvan', uuid: 'g08-hegp107-ex011' },
+        { id: 'g08-hegp107-ex012', title: 'Sand and Cement Ratio Adjustment', uuid: 'g08-hegp107-ex012' },
+        { id: 'g08-hegp107-p176-q1', title: 'Figure it Out p.176 Q1', uuid: 'g08-hegp107-p176-q1' },
+        { id: 'g08-hegp107-p176-q2', title: 'Figure it Out p.176 Q2', uuid: 'g08-hegp107-p176-q2' },
+        { id: 'g08-hegp107-p176-q3', title: 'Figure it Out p.176 Q3', uuid: 'g08-hegp107-p176-q3' }
+      ]
+    },
+    {
+      id: 'squares-and-cubes',
+      title: 'Squares and Cubes',
+      grade: 8,
+      description: 'Grade 8 · 3 problems',
+      problems: [
+        { id: 'g08-hegp101-sqrt-324', title: 'Square Root of 324', uuid: 'g08-hegp101-sqrt-324' },
+        { id: 'g08-hegp101-cbrt-3375', title: 'Cube Root of 3375', uuid: 'g08-hegp101-cbrt-3375' },
+        { id: 'g08-hegp101-ex-p10-q6', title: 'Smallest Number for Perfect Square', uuid: 'g08-hegp101-ex-p10-q6' }
+      ]
+    },
+    {
+      id: 'power-play',
+      title: 'Power Play',
+      grade: 8,
+      description: 'Grade 8 · 3 problems',
+      problems: [
+        { id: 'g08-hegp102-ex-p11-q1', title: 'Simplify 2⁻⁴ × 2⁷', uuid: 'g08-hegp102-ex-p11-q1' },
+        { id: 'g08-hegp102-ex-p26-q5v', title: 'Simplify m⁵n¹²/(mn)⁹', uuid: 'g08-hegp102-ex-p26-q5v' },
+        { id: 'g08-hegp102-ex-p26-q1', title: 'Units Digit of 2²²⁴ ÷ 4³²', uuid: 'g08-hegp102-ex-p26-q1' }
+      ]
+    },
+    {
+      id: 'inverse-proportion',
+      title: 'Inverse Proportion',
+      grade: 8,
+      description: 'Grade 8 · 3 problems',
+      problems: [
+        { id: 'g08-hegp203-ex003', title: 'Workers and Road Laying', uuid: 'g08-hegp203-ex003' },
+        { id: 'g08-hegp203-ex005', title: 'School Provisions Problem', uuid: 'g08-hegp203-ex005' },
+        { id: 'g08-hegp203-ex006', title: 'Ram and Shyam Working Together', uuid: 'g08-hegp203-ex006' }
+      ]
+    },
+    {
+      id: 'percentages',
+      title: 'Percentages',
+      grade: 8,
+      description: 'Grade 8 · 3 problems',
+      problems: [
+        { id: 'g08-hegp201-ex-p19-q1', title: 'Geometry Box Profit and Loss', uuid: 'g08-hegp201-ex-p19-q1' },
+        { id: 'g08-hegp201-ex010', title: 'TV Depreciation Problem', uuid: 'g08-hegp201-ex010' },
+        { id: 'g08-hegp201-ex-p22-q1', title: 'Simple vs Compound Interest', uuid: 'g08-hegp201-ex-p22-q1' }
+      ]
+    },
+    {
+      id: 'algebra-play',
+      title: 'Algebra Play',
+      grade: 8,
+      description: 'Grade 8 · 3 problems',
+      problems: [
+        { id: 'g08-hegp206-grid-eq', title: 'Grid Intersection Points', uuid: 'g08-hegp206-grid-eq' },
+        { id: 'g08-hegp206-age-q7', title: 'Mother and Daughter Age Problem', uuid: 'g08-hegp206-age-q7' },
+        { id: 'g08-hegp206-heads-legs', title: 'Horses and Hens Problem', uuid: 'g08-hegp206-heads-legs' }
+      ]
+    },
+    {
+      id: 'linear-equation',
+      title: 'Linear Equation',
+      grade: 10,
+      description: 'Grade 10 · Latest problem',
+      problems: [
+        { id: 'g10-quad-ex001', title: 'Quadratic Equation: x² - 5x + 6 = 0', uuid: 'g10-quad-ex001' }
+      ]
+    }
+  ]
+};
+
+// Initialize Application
+function initApp() {
+  setupEventListeners();
+  populateChapterSelector();
+  loadInitialData();
+  console.log('Ainstein Math Tutor initialized');
+}
+
+// Setup Event Listeners
+function setupEventListeners() {
+  // Chapter Selection
+  chapterSelect.addEventListener('change', () => {
+    updateProblemSelector();
+  });
+
+  // Problem Selection
+  problemSelect.addEventListener('change', () => {
+    // Just update UI, don't load yet
+  });
+
+  // Load Problem Button
+  loadProblemBtn.addEventListener('click', loadSelectedProblem);
+
+  // Problem Solver Controls
+  resetFlowBtn.addEventListener('click', resetProblem);
+  solveButton.addEventListener('click', evaluateStep);
+
+  // Keyboard Shortcuts
+  questionInput.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      evaluateStep();
+    }
+  });
+}
+
+// Populate Chapter Selector
+function populateChapterSelector() {
+  chapterSelect.innerHTML = '<option value="">Select a chapter...</option>';
+
+  state.availableChapters.forEach(chapter => {
+    const option = document.createElement('option');
+    option.value = chapter.id;
+    option.textContent = `${chapter.title} (${chapter.description})`;
+    chapterSelect.appendChild(option);
+  });
+
+  chapterSelect.value = state.availableChapters[0].id;
+  updateProblemSelector();
+}
+
+// Update Problem Selector based on selected chapter
+function updateProblemSelector() {
+  const chapterId = chapterSelect.value;
+  const chapter = state.availableChapters.find(item => item.id === chapterId);
+  problemSelect.innerHTML = '<option value="">Select a problem...</option>';
+
+  if (chapter) {
+    chapter.problems.forEach(problem => {
+      const option = document.createElement('option');
+      option.value = problem.id;
+      option.textContent = problem.title;
+      problemSelect.appendChild(option);
+    });
   }
 }
 
-// ─── LaTeX preview (unchanged) ───
+// Load Selected Problem
+function loadSelectedProblem() {
+  const chapterId = chapterSelect.value;
+  const problemId = problemSelect.value;
+
+  if (!chapterId || !problemId) {
+    alert('Please select both a chapter and a problem.');
+    return;
+  }
+
+  // Find the problem to get its UUID
+  const chapter = state.availableChapters.find(item => item.id === chapterId);
+  const problem = chapter && chapter.problems.find(item => item.id === problemId);
+  if (!problem) {
+    alert('Problem not found.');
+    return;
+  }
+
+  // Update state
+  state.currentChapter = chapterId;
+  state.currentProblem = problemId;
+  state.currentProblemUuid = problem.uuid;
+
+  state.currentGrade = chapter.grade;
+
+  // Update problem info display
+  updateProblemInfoDisplay();
+
+  // Load the problem's solution graph
+  loadSolutionGraph(state.currentProblemUuid);
+}
+
+// Update Problem Info Display
+function updateProblemInfoDisplay() {
+  const chapter = state.availableChapters.find(c => c.id === state.currentChapter);
+  const problem = chapter && chapter.problems.find(p => p.id === state.currentProblem);
+
+  if (chapter && problem) {
+    problemTitleEl.textContent = problem.title;
+    problemDescriptionEl.textContent = `${chapter.title} - ${chapter.description}`;
+  }
+}
+
+// Load Solution Graph (similar to original but simplified)
+function loadSolutionGraph(problemUuid) {
+  // Find the graph data from already loaded scripts
+  // The graph data should be available in window.SOLUTION_GRAPHS
+  // after all the graph.js files have been loaded
+
+  const problemGraphs = Object.values(window.SOLUTION_GRAPHS || {});
+  const activeGraph = problemGraphs.find(graph => graph.graph_meta.problem_uuid === problemUuid);
+
+  if (!activeGraph) {
+    console.error(`No solution graph found for problem ${problemUuid}`);
+    showErrorState(`Problem data not found: ${problemUuid}`);
+    return;
+  }
+
+  // Initialize the tutor engine with this graph
+  TutorEngine.init(activeGraph);
+
+  // Update problem statement
+  const chapter = state.availableChapters.find(item => item.id === state.currentChapter);
+  problemBadge.textContent = `NCERT Grade ${state.currentGrade} · ${chapter.title} · Problem ${getProblemNumber(state.currentProblem)} (${activeGraph.graph_meta.problem_uuid})`;
+  problemText.textContent = activeGraph.graph_meta.problem_text;
+
+  // Reset session and UI
+  resetProblem();
+}
+
+// Helper Functions
+function getProblemNumber(problemId) {
+  // Extract number from problem ID like g08-hegp107-ex001 or g08-hegp107-p176-q1
+  const exMatch = problemId.match(/ex(\d+)/);
+  if (exMatch) return exMatch[1].padStart(2, '0');
+
+  const qMatch = problemId.match(/q(\d+)/i);
+  if (qMatch) return qMatch[1].padStart(2, '0');
+
+  return '01';
+}
+
+// Reset Problem
+function resetProblem() {
+  state.session = TutorEngine.newSession();
+  questionInput.value = '';
+  resultArea.innerHTML = '';
+  methodIndicator.textContent = '';
+  methodIndicator.hidden = true;
+  updateLatexPreview();
+  updateStepUI();
+}
+
+// Update Step UI
+function updateStepUI() {
+  const stepIndicator = document.getElementById('step-indicator');
+  const stepLabel = document.getElementById('step-label');
+  const stepDotActive = document.getElementById('step-dot-1');
+
+  if (!state.session) return;
+
+  if (state.session.completed) {
+    stepLabel.textContent = '✓ Solved';
+    stepDotActive.className = 'step-dot-done';
+    questionInput.placeholder = 'Problem solved — press "↺ Reset Problem State" to try again.';
+  } else if (state.session.trail.length === 0 && !state.session.methodId) {
+    stepLabel.textContent = 'Step 1';
+    stepDotActive.className = 'step-dot-active';
+    questionInput.placeholder = 'Type your first step for this problem…';
+  } else {
+    stepLabel.textContent = `Step ${state.session.trail.length + 1}`;
+    stepDotActive.className = 'step-dot-active';
+    questionInput.placeholder = 'Type your next step…';
+  }
+}
+
+// Update LaTeX Preview
 function formatLatexString(raw) {
   let text = raw.trim();
   if (!text) return '';
@@ -49,14 +316,18 @@ function formatLatexString(raw) {
 }
 
 function updateLatexPreview() {
-  const raw = inputEl.value.trim();
+  const raw = questionInput.value.trim();
+  const previewEl = document.getElementById('latex-preview');
+
   if (!raw) {
     previewEl.className = 'latex-preview-body empty';
     previewEl.textContent = 'Type math above to see rendered LaTeX here...';
     return;
   }
+
   const latex = formatLatexString(raw);
   previewEl.className = 'latex-preview-body';
+
   try {
     if (window.katex) {
       window.katex.render(latex, previewEl, { throwOnError: false, displayMode: true });
@@ -72,28 +343,247 @@ function updateLatexPreview() {
 document.querySelectorAll('.math-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const insertText = btn.dataset.insert;
-    const start = inputEl.selectionStart || 0;
-    const end = inputEl.selectionEnd || 0;
-    const current = inputEl.value;
-    inputEl.value = current.substring(0, start) + insertText + current.substring(end);
-    inputEl.focus();
-    inputEl.setSelectionRange(start + insertText.length, start + insertText.length);
+    const start = questionInput.selectionStart || 0;
+    const end = questionInput.selectionEnd || 0;
+    const current = questionInput.value;
+    questionInput.value = current.substring(0, start) + insertText + current.substring(end);
+    questionInput.focus();
+    questionInput.setSelectionRange(start + insertText.length, start + insertText.length);
     updateLatexPreview();
   });
 });
 
-// ─── Reset ───
-function resetProblem() {
-  session = TutorEngine.newSession();
-  inputEl.value = '';
-  resultEl.innerHTML = '';
-  updateLatexPreview();
-  updateStepUI();
+// Main evaluation
+async function evaluateStep() {
+  const rawInput = questionInput.value.trim();
+  if (!rawInput) {
+    alert('Please write your step or reasoning in the box before checking.');
+    return;
+  }
+  if (!state.session) {
+    alert('Please load a problem first.');
+    return;
+  }
+  if (state.session.completed) {
+    alert('Problem already solved — press "↺ Reset Problem State" to start again.');
+    return;
+  }
+
+  const buttonMarkup = solveButton.innerHTML;
+  solveButton.disabled = true;
+
+  try {
+    if (state.currentProblemUuid === 'g10-quad-ex001' && !state.session.methodId) {
+      solveButton.textContent = 'Identifying method...';
+      await evaluateWithJev(rawInput);
+    } else {
+      const result = TutorEngine.processStep(rawInput, state.session);
+      TutorEngine.applyResult(state.session, result);
+      renderResult(result);
+    }
+  } catch (error) {
+    renderJevMessage('JEV REQUEST FAILED', error.message || 'Jev could not classify this response. Please try again.', 'failure-state');
+  } finally {
+    solveButton.disabled = false;
+    solveButton.innerHTML = buttonMarkup;
+    updateStepUI();
+  }
 }
 
-resetBtn.addEventListener('click', resetProblem);
+async function evaluateWithJev(rawInput) {
+  const response = await fetch('/api/jev/method', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ problemId: state.currentProblemUuid, studentWork: rawInput })
+  });
+  const classification = await response.json();
 
-// ─── Feedback rendering ───
+  if (!response.ok) {
+    throw new Error(classification.message || 'Jev could not classify this response. Please try again.');
+  }
+
+  if (classification.status === 'off_graph') {
+    renderJevMessage('METHOD NOT IN THIS GRAPH', 'Jev could not match this work to one of the supported methods. Try explaining your approach or choose another method.');
+    return;
+  }
+
+  if (classification.status !== 'selected') {
+    renderJevMessage('METHOD UNCLEAR', 'Jev is not confident which method you are using. Add another line or explain your approach, then try again.');
+    return;
+  }
+
+  if (!TutorEngine.beginMethod(state.session, classification.methodId)) {
+    throw new Error('The selected method is not available in this problem graph.');
+  }
+
+  const methodNode = TutorEngine.getNode(classification.methodId);
+  methodIndicator.textContent = `· ${methodNode.label}`;
+  methodIndicator.hidden = false;
+
+  const result = TutorEngine.processStep(rawInput, state.session);
+  if (result.verdict === 'GARBAGE' || result.verdict === 'UNPARSED') {
+    const nextNode = TutorEngine.getNode(state.session.currentNodeId);
+    renderJevMessage('METHOD SELECTED · STEP NOT VERIFIED', `Jev identified ${methodNode.label.toLowerCase()}, but the tutor could not verify that line as a correct step. ${nextNode.prompt}`);
+    return;
+  }
+
+  TutorEngine.applyResult(state.session, result);
+  renderResult(result);
+}
+
+function renderJevMessage(label, message, stateClass = 'warn-state') {
+  resultArea.innerHTML = `
+    <article class="answer-card ${stateClass}">
+      <div class="answer-meta">${escapeHtml(label)}</div>
+      <div class="tutor-bubble">
+        <div class="tutor-speech">${escapeHtml(message)}</div>
+      </div>
+    </article>`;
+  resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Render Result (simplified from original)
+function renderResult(result) {
+  if (!state.session) return;
+
+  const v = result.verdict;
+  const questionText = state.session.rawInput;
+  const conclusionNodeId = state.session.conclusion_node || 'conclusion';
+  const conclusion = typeof TutorEngine.getNode === 'function' ?
+    TutorEngine.getNode(state.session.conclusion_node || 'conclusion') :
+    { prompt: 'State your conclusion', description: 'Problem solved' };
+
+  if (v === 'ACCEPT') {
+    if (result.approachOnly) {
+      resultArea.innerHTML = `
+        <article class="answer-card success-state">
+          <div class="answer-meta">🟢 GOOD APPROACH</div>
+          <h3>Good approach!</h3>
+          <div class="tutor-bubble">
+            <div class="tutor-speech">"Great — now show me your first step. Work it out one calculation at a time."</div>
+          </div>
+          <p class="retry-prompt">Type your first calculation above.</p>
+        </article>`;
+    } else {
+      const nextIsConclusion = state.session.currentNodeId === conclusionNodeId;
+      resultArea.innerHTML = `
+        <article class="answer-card success-state">
+          <div class="answer-meta">🟢 STEP VERIFIED</div>
+          <h3>${praiseText()}</h3>
+          <div class="tutor-bubble">
+            <div class="tutor-speech">"${escapeHtml(result.parsed.raw)}" — that's correct.</div>
+          </div>
+          <p>${nextIsConclusion
+            ? `Now give your final conclusion: <strong>${escapeHtml(conclusion.prompt)}</strong>`
+            : 'What\'s your next step?'}</p>
+        </article>`;
+    }
+    resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  if (v === 'CONCLUSION_RIGHT') {
+    const emptyNote = state.session.trail.length === 0
+      ? '<p class="answer-note">You stated the conclusion directly — for practice, try showing the steps too!</p>'
+      : '';
+    resultArea.innerHTML = `
+      <article class="answer-card success-state">
+        <div class="answer-meta">🟢 PROBLEM COMPLETED · VALID SOLUTION</div>
+        <h3>Excellent — solved!</h3>
+        <div class="tutor-bubble">
+          <div class="tutor-speech">${escapeHtml(conclusion.description)} Your solution is complete.</div>
+        </div>
+        ${renderTrailSummary()}
+        ${emptyNote}
+        <div style="margin-top:14px;">
+          <button type="button" class="preset-chip" onclick="document.querySelector('#reset-flow-btn').click();">
+            ↺ Start Again
+          </button>
+        </div>
+      </article>`;
+    resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  if (v === 'CONCLUSION_WRONG') {
+    const hint = typeof TutorEngine.hintFor === 'function' ?
+      (TutorEngine.hintFor(state.session, conclusionNodeId) || 'Review the quantities and compare them once more.') :
+      'Review your conclusion.';
+    resultArea.innerHTML = `
+      <article class="answer-card failure-state">
+        <div class="answer-meta">🔴 CONCLUSION DOESN'T HOLD</div>
+        <h3>That conclusion isn't right.</h3>
+        <div class="tutor-bubble">
+          <div class="tutor-speech">Your conclusion does not match this problem. Recheck your reasoning and try again.</div>
+        </div>
+        <p class="tutor-hint-text">Hint: ${escapeHtml(hint)}</p>
+        <p class="retry-prompt">Recheck your steps above, then state your conclusion again.</p>
+      </article>`;
+    resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  if (v === 'WRONG_CLAIM') {
+    const explanation = typeof TutorEngine.explainClaim === 'function' ?
+      TutorEngine.explainClaim(result.claim) : 'This step contains an error.';
+    const hint = typeof TutorEngine.hintFor === 'function' ?
+      TutorEngine.hintFor(state.session, result.nodeId) : null;
+    resultArea.innerHTML = `
+      <article class="answer-card failure-state">
+        <div class="answer-meta">🔴 MISTAKE IN THIS STEP</div>
+        <h3>This step has a mistake.</h3>
+        <div class="tutor-bubble">
+          <div class="tutor-speech">"🔴 ${escapeHtml(explanation)} Fix this step and try it again."</div>
+        </div>
+        ${hint ? `<p class="tutor-hint-text">Hint: ${escapeHtml(hint)}</p>` : ''}
+        <p class="retry-prompt">Correct this step — the tutor will continue from here.</p>
+      </article>`;
+    resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  if (v === 'IRRELEVANT_TRUE') {
+    resultArea.innerHTML = `
+      <article class="answer-card warn-state">
+        <div class="answer-meta">🟡 TRUE — BUT NOT WHAT WE NEED</div>
+        <h3>That's correct math, but it doesn't answer the question.</h3>
+        <div class="tutor-bubble">
+          <div class="tutor-speech">"${escapeHtml(result.parsed.raw)} is true, but it does not yet help answer this question. Connect your step to the quantities in the problem."</div>
+        </div>
+        <p class="retry-prompt">Return to the question: ${escapeHtml(questionText)}</p>
+      </article>`;
+    resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  if (v === 'GARBAGE') {
+    resultArea.innerHTML = `
+      <article class="answer-card failure-state">
+        <div class="answer-meta">🔴 NOT A MATH STEP</div>
+        <h3>I need an actual math step.</h3>
+        <div class="tutor-bubble">
+          <div class="tutor-speech">"That does not look related to this problem. Try a calculation or explain a method for the question above."</div>
+        </div>
+        <p class="retry-prompt">Type a calculation or an approach above.</p>
+      </article>`;
+    resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  // UNPARSED
+  resultArea.innerHTML = `
+    <article class="answer-card warn-state">
+      <div class="answer-meta">🟡 COULDN'T FOLLOW THAT</div>
+      <h3>I couldn't follow that as a math step.</h3>
+      <div class="tutor-bubble">
+        <div class="tutor-speech">"Try writing a calculation or mathematical relationship that helps answer this question."</div>
+      </div>
+      <p class="retry-prompt">Type your step as a calculation above.</p>
+    </article>`;
+  resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Helper Functions for Feedback
 const PRAISE = [
   'Right step!',
   'Correct — keep going!',
@@ -106,180 +596,43 @@ function praiseText() {
 }
 
 function renderTrailSummary() {
-  if (session.trail.length === 0) return '';
-  const items = session.trail.map(t =>
+  if (!state.session || !state.session.trail || state.session.trail.length === 0) return '';
+  const items = state.session.trail.map(t =>
     `<div class="step"><b>✓</b>${escapeHtml(t.input)}</div>`
   ).join('');
   return `<div class="steps">${items}</div>`;
 }
 
 function escapeHtml(s) {
-  // \u0026 is "&" — keeps entity names intact regardless of source formatting
   return String(s)
-    .replace(/&/g, '\u0026amp;')
-    .replace(/</g, '\u0026lt;')
-    .replace(/>/g, '\u0026gt;')
-    .replace(/"/g, '\u0026quot;');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
-function renderResult(result) {
-  const v = result.verdict;
+// Load Initial Data
+function loadInitialData() {
+  // For now, we use the hardcoded data in state
+  // In future, this could fetch from a backend API
+  console.log('Initial data loaded');
+}
 
-  if (v === 'ACCEPT') {
-    if (result.approachOnly) {
-      // Silent method lock-in — never announce the method name.
-      resultEl.innerHTML = `
-        <article class="answer-card success-state">
-          <div class="answer-meta">🟢 GOOD APPROACH</div>
-          <h3>Good approach!</h3>
-          <div class="tutor-bubble">
-            <div class="tutor-speech">"Great — now show me your first step. Work it out one calculation at a time."</div>
-          </div>
-          <p class="retry-prompt">Type your first calculation above.</p>
-        </article>`;
-    } else {
-      const nextIsConclusion = session.currentNodeId === 'conclusion';
-      resultEl.innerHTML = `
-        <article class="answer-card success-state">
-          <div class="answer-meta">🟢 STEP VERIFIED</div>
-          <h3>${praiseText()}</h3>
-          <div class="tutor-bubble">
-            <div class="tutor-speech">"${escapeHtml(result.parsed.raw)}" — that's correct.</div>
-          </div>
-          <p>${nextIsConclusion
-            ? 'Now give your final conclusion: <strong>are 3 : 4 and 72 : 96 proportional?</strong>'
-            : 'What\'s your next step?'}</p>
-        </article>`;
-    }
-    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    return;
-  }
-
-  if (v === 'CONCLUSION_RIGHT') {
-    const emptyNote = session.trail.length === 0
-      ? '<p class="answer-note">You stated the conclusion directly — for practice, try showing the steps too!</p>'
-      : '';
-    resultEl.innerHTML = `
-      <article class="answer-card success-state">
-        <div class="answer-meta">🟢 PROBLEM COMPLETED · VALID SOLUTION</div>
-        <h3>Excellent — solved!</h3>
-        <div class="tutor-bubble">
-          <div class="tutor-speech">"🟢 3 : 4 and 72 : 96 express the same relationship (3 × 96 = 4 × 72 = 288), so they are proportional. Every step you showed checked out."</div>
-        </div>
-        ${renderTrailSummary()}
-        ${emptyNote}
-        <div style="margin-top:14px;">
-          <button type="button" class="preset-chip" onclick="document.querySelector('#reset-flow-btn').click();">
-            ↺ Start Again
-          </button>
-        </div>
-      </article>`;
-    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    return;
-  }
-
-  if (v === 'CONCLUSION_WRONG') {
-    const hint = TutorEngine.hintFor(session, 'conclusion') || 'Compare the two ratios once more.';
-    resultEl.innerHTML = `
-      <article class="answer-card failure-state">
-        <div class="answer-meta">🔴 CONCLUSION DOESN'T HOLD</div>
-        <h3>That conclusion isn't right.</h3>
-        <div class="tutor-bubble">
-          <div class="tutor-speech">"🔴 3 : 4 and 72 : 96 ARE proportional — check: 3 × 96 = 288 and 4 × 72 = 288. Recheck your reasoning and give the conclusion again."</div>
-        </div>
-        <p class="tutor-hint-text">Hint: ${escapeHtml(hint)}</p>
-        <p class="retry-prompt">Recheck your steps above, then state your conclusion again.</p>
-      </article>`;
-    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    return;
-  }
-
-  if (v === 'WRONG_CLAIM') {
-    const explanation = TutorEngine.explainClaim(result.claim);
-    const hint = TutorEngine.hintFor(session, result.nodeId);
-    resultEl.innerHTML = `
-      <article class="answer-card failure-state">
-        <div class="answer-meta">🔴 MISTAKE IN THIS STEP</div>
-        <h3>This step has a mistake.</h3>
-        <div class="tutor-bubble">
-          <div class="tutor-speech">"🔴 ${escapeHtml(explanation)} Fix this step and try it again."</div>
-        </div>
-        ${hint ? `<p class="tutor-hint-text">Hint: ${escapeHtml(hint)}</p>` : ''}
-        <p class="retry-prompt">Correct this step — the tutor will continue from here.</p>
-      </article>`;
-    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    return;
-  }
-
-  if (v === 'IRRELEVANT_TRUE') {
-    resultEl.innerHTML = `
-      <article class="answer-card warn-state">
-        <div class="answer-meta">🟡 TRUE — BUT NOT WHAT WE NEED</div>
-        <h3>That's correct math, but it doesn't answer the question.</h3>
-        <div class="tutor-bubble">
-          <div class="tutor-speech">"🟡 ${escapeHtml(result.parsed.raw)} is true, but it doesn't help decide whether 3 : 4 and 72 : 96 are proportional. Show me a step that compares the two ratios."</div>
-        </div>
-        <p class="retry-prompt">Try a step like 72÷24 = 3, or 3 × 96 = 288.</p>
-      </article>`;
-    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    return;
-  }
-
-  if (v === 'GARBAGE') {
-    resultEl.innerHTML = `
-      <article class="answer-card failure-state">
-        <div class="answer-meta">🔴 NOT A MATH STEP</div>
-        <h3>I need an actual math step.</h3>
-        <div class="tutor-bubble">
-          <div class="tutor-speech">"🔴 That doesn't look like math related to this problem. Write a step like 72÷24 = 3, or tell me your approach (simplify, cross multiply…)."</div>
-        </div>
-        <p class="retry-prompt">Type a calculation or an approach above.</p>
-      </article>`;
-    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    return;
-  }
-
-  // UNPARSED
-  resultEl.innerHTML = `
-    <article class="answer-card warn-state">
-      <div class="answer-meta">🟡 COULDN'T FOLLOW THAT</div>
-      <h3>I couldn't follow that as a math step.</h3>
+// Show Error State
+function showErrorState(message) {
+  problemTitleEl.textContent = 'Error Loading Problem';
+  problemDescriptionEl.textContent = message;
+  problemBadge.textContent = '';
+  problemText.textContent = 'Unable to load problem data. Please check your selection and try again.';
+  resultArea.innerHTML = `
+    <article class="answer-card failure-state">
+      <div class="answer-meta">🔴 LOADING ERROR</div>
+      <h3>Problem Data Unavailable</h3>
       <div class="tutor-bubble">
-        <div class="tutor-speech">"🟡 Write it as an equation — e.g., 72÷24 = 3, 3 × 96 = 288, or 3:4 = 72:96 — and I'll check it."</div>
+        <div class="tutor-speech">We couldn't load the data for this problem. Please try selecting a different problem or refresh the page.</div>
       </div>
-      <p class="retry-prompt">Type your step as a calculation above.</p>
     </article>`;
-  resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// ─── Main evaluation ───
-function evaluateStep() {
-  const rawInput = inputEl.value.trim();
-  if (!rawInput) {
-    alert('Please write your step or reasoning in the box before checking.');
-    return;
-  }
-  if (session.completed) {
-    alert('Problem already solved — press "↺ Reset Problem State" to start again.');
-    return;
-  }
-
-  const result = TutorEngine.processStep(rawInput, session);
-  TutorEngine.applyResult(session, result);
-  renderResult(result);
-  updateStepUI();
-}
-
-// ─── Event Listeners ───
-inputEl.addEventListener('input', updateLatexPreview);
-solveBtn.addEventListener('click', evaluateStep);
-inputEl.addEventListener('keydown', (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-    evaluateStep();
-  }
-});
-
-window.addEventListener('load', () => {
-  resetProblem();
-  updateLatexPreview();
-});
+// Initialize the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', initApp);

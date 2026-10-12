@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 760" width="100vw" height="100vh" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 23px; font-weight: 700; fill: #f1f5f9; }
+      .subtitle { font-size: 14px; fill: #94a3b8; }
+      .method { font-size: 16px; font-weight: 700; fill: #e2e8f0; }
+      .step { font-size: 14px; font-weight: 600; fill: #e2e8f0; }
+      .detail { font-size: 12px; fill: #aab6c5; }
+      .connector { fill: none; stroke: #38bdf8; stroke-width: 2; marker-end: url(#arrow); }
+      .branch { fill: none; stroke: #38bdf8; stroke-width: 2; }
+      .success { fill: none; stroke: #34d399; stroke-width: 2.5; marker-end: url(#arrow-green); }
+      .success-branch { fill: none; stroke: #34d399; stroke-width: 2.5; }
+      .method-box { fill: #1e1b4b; stroke: #818cf8; stroke-width: 1.5; rx: 8; }
+      .step-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.2; rx: 7; }
+      .conclusion-box { fill: #064e3b; stroke: #34d399; stroke-width: 2.5; rx: 10; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <rect width="1800" height="760" rx="18" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+  <text x="900" y="38" text-anchor="middle" class="title">SOLUTION GRAPH - NCERT EXAMPLE 2 (LEMONADE)</text>
+  <text x="900" y="63" text-anchor="middle" class="subtitle">6 glasses use 10 spoons; find sugar for 18 more glasses at the same sweetness</text>
+
+  <rect x="700" y="82" width="400" height="62" class="method-box"/>
+  <text x="900" y="108" text-anchor="middle" class="method">START</text>
+  <text x="900" y="130" text-anchor="middle" class="detail">Account for 18 more: 6 + 18 = 24 glasses total</text>
+
+  <path d="M900 144 V166 H230 M900 166 H1550" class="branch"/>
+  <path d="M230 166 V190 M670 166 V190 M1110 166 V190 M1550 166 V190" class="connector"/>
+
+  <rect x="30" y="190" width="400" height="50" class="method-box"/>
+  <text x="230" y="221" text-anchor="middle" class="method">M1 - Unit Rate</text>
+  <rect x="45" y="260" width="370" height="50" class="step-box"/>
+  <text x="230" y="290" text-anchor="middle" class="step">Total glasses: 6 + 18 = 24</text>
+  <path d="M230 310 V330" class="connector"/>
+  <rect x="45" y="330" width="370" height="50" class="step-box"/>
+  <text x="230" y="360" text-anchor="middle" class="step">Rate: 10 / 6 = 5/3 spoons per glass</text>
+  <path d="M230 380 V400" class="connector"/>
+  <rect x="45" y="400" width="370" height="50" class="step-box"/>
+  <text x="230" y="430" text-anchor="middle" class="step">For 24 glasses: 24 x 5/3 = 40 spoons</text>
+  <path d="M230 450 V470" class="connector"/>
+  <rect x="45" y="470" width="370" height="50" class="step-box"/>
+  <text x="230" y="500" text-anchor="middle" class="step">Additional sugar: 40 - 10 = 30</text>
+  <path d="M230 520 V565" class="success"/>
+
+  <rect x="470" y="190" width="400" height="50" class="method-box"/>
+  <text x="670" y="221" text-anchor="middle" class="method">M2 - Proportional Scaling</text>
+  <rect x="485" y="260" width="370" height="50" class="step-box"/>
+  <text x="670" y="290" text-anchor="middle" class="step">Total glasses: 6 + 18 = 24</text>
+  <path d="M670 310 V330" class="connector"/>
+  <rect x="485" y="330" width="370" height="50" class="step-box"/>
+  <text x="670" y="360" text-anchor="middle" class="step">Scale factor: 24 / 6 = 4</text>
+  <path d="M670 380 V400" class="connector"/>
+  <rect x="485" y="400" width="370" height="50" class="step-box"/>
+  <text x="670" y="430" text-anchor="middle" class="step">Total sugar: 10 x 4 = 40 spoons</text>
+  <path d="M670 450 V470" class="connector"/>
+  <rect x="485" y="470" width="370" height="50" class="step-box"/>
+  <text x="670" y="500" text-anchor="middle" class="step">Additional sugar: 40 - 10 = 30</text>
+  <path d="M670 520 V565" class="success"/>
+
+  <rect x="910" y="190" width="400" height="50" class="method-box"/>
+  <text x="1110" y="221" text-anchor="middle" class="method">M3 - Equivalent Ratios</text>
+  <rect x="925" y="260" width="370" height="50" class="step-box"/>
+  <text x="1110" y="290" text-anchor="middle" class="step">Total glasses: 6 + 18 = 24</text>
+  <path d="M1110 310 V330" class="connector"/>
+  <rect x="925" y="330" width="370" height="50" class="step-box"/>
+  <text x="1110" y="360" text-anchor="middle" class="step">Simplify 6:10 to 3:5</text>
+  <path d="M1110 380 V400" class="connector"/>
+  <rect x="925" y="400" width="370" height="50" class="step-box"/>
+  <text x="1110" y="430" text-anchor="middle" class="step">Scale 3:5 by 8 to get 24:40</text>
+  <path d="M1110 450 V470" class="connector"/>
+  <rect x="925" y="470" width="370" height="50" class="step-box"/>
+  <text x="1110" y="500" text-anchor="middle" class="step">Additional sugar: 40 - 10 = 30</text>
+  <path d="M1110 520 V565" class="success"/>
+
+  <rect x="1350" y="190" width="400" height="50" class="method-box"/>
+  <text x="1550" y="221" text-anchor="middle" class="method">M4 - Cross Multiplication</text>
+  <rect x="1365" y="260" width="370" height="50" class="step-box"/>
+  <text x="1550" y="290" text-anchor="middle" class="step">Total glasses: 6 + 18 = 24</text>
+  <path d="M1550 310 V330" class="connector"/>
+  <rect x="1365" y="330" width="370" height="50" class="step-box"/>
+  <text x="1550" y="360" text-anchor="middle" class="step">Set up: 6:10 :: 24:s</text>
+  <path d="M1550 380 V400" class="connector"/>
+  <rect x="1365" y="400" width="370" height="50" class="step-box"/>
+  <text x="1550" y="430" text-anchor="middle" class="step">6s = 240, so total s = 40</text>
+  <path d="M1550 450 V470" class="connector"/>
+  <rect x="1365" y="470" width="370" height="50" class="step-box"/>
+  <text x="1550" y="500" text-anchor="middle" class="step">Additional sugar: 40 - 10 = 30</text>
+  <path d="M1550 520 V565" class="success"/>
+
+  <path d="M230 565 H1550 M900 565 V610" class="success-branch"/>
+  <path d="M900 610 V625" class="success"/>
+  <rect x="570" y="625" width="660" height="82" class="conclusion-box"/>
+  <text x="900" y="654" text-anchor="middle" class="method">CONCLUSION</text>
+  <text x="900" y="678" text-anchor="middle" class="detail">Add 30 spoons for the 18 more glasses; 40 spoons total for 24 glasses</text>
+  <text x="900" y="738" text-anchor="middle" class="detail">4 methods - 22 nodes - 24 edges</text>
+</svg>

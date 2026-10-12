@@ -1,5 +1,5 @@
 // Test the solution graph matching logic (synced with app.js)
-const graph = require('./solution_graph/g08-hegp107-ex001.solution-graph.json');
+const graph = require('./solution_graph/chapter-7/ratio-proportion/g08-hegp107-ex001/graph.json');
 
 // Replicate the matching functions from app.js
 function normalizeText(value) {

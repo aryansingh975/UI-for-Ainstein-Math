@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="740" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">Solution Graph: Simplify 2⁻⁴ × 2⁷</text>
+
+  <!-- ═══ START NODE ═══ -->
+  <rect x="285" y="45" width="250" height="52" rx="8" fill="#4CAF50"/>
+  <text x="410" y="66" text-anchor="middle" font-size="12" font-weight="bold" fill="white">START</text>
+  <text x="410" y="84" text-anchor="middle" font-size="11" fill="white">Problem: Simplify 2⁻⁴ × 2⁷</text>
+
+  <!-- ═══ EXTRACTION NODE ═══ -->
+  <rect x="285" y="140" width="250" height="52" rx="8" fill="#FF9800"/>
+  <text x="410" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Identify the Expression</text>
+  <text x="410" y="179" text-anchor="middle" font-size="10" fill="white">Base=2, Exponents: −4 and 7  [optional]</text>
+
+  <!-- start → extraction -->
+  <line x1="410" y1="97" x2="410" y2="138" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- start → method1 (direct leap, left) -->
+  <line x1="330" y1="97" x2="175" y2="248" stroke="#888" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <!-- start → method2 (direct leap, right) -->
+  <line x1="490" y1="97" x2="645" y2="248" stroke="#888" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+
+  <!-- extraction → method1 -->
+  <line x1="320" y1="192" x2="175" y2="248" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- extraction → method2 -->
+  <line x1="500" y1="192" x2="645" y2="248" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══ METHOD 1 NODE ═══ -->
+  <rect x="55" y="250" width="240" height="52" rx="8" fill="#2196F3"/>
+  <text x="175" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 1: Product Rule</text>
+  <text x="175" y="289" text-anchor="middle" font-size="10" fill="white">aᵐ × aⁿ = aᵐ⁺ⁿ  →  add exponents</text>
+
+  <!-- ═══ METHOD 2 NODE ═══ -->
+  <rect x="525" y="250" width="240" height="52" rx="8" fill="#2196F3"/>
+  <text x="645" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 2: Expand &amp; Cancel</text>
+  <text x="645" y="289" text-anchor="middle" font-size="10" fill="white">2⁻⁴ = 1/16,  2⁷ = 128</text>
+
+  <!-- method1 → m1_step1 -->
+  <line x1="175" y1="302" x2="175" y2="388" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══ M1 STEP 1 ═══ -->
+  <rect x="55" y="390" width="240" height="52" rx="8" fill="#FF9800"/>
+  <text x="175" y="411" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Add the Exponents</text>
+  <text x="175" y="429" text-anchor="middle" font-size="10" fill="white">−4 + 7 = 3  →  2³</text>
+
+  <!-- m1_step1 → m1_step2 -->
+  <line x1="175" y1="442" x2="175" y2="528" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══ M1 STEP 2 ═══ -->
+  <rect x="55" y="530" width="240" height="52" rx="8" fill="#FF9800"/>
+  <text x="175" y="551" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Evaluate 2³</text>
+  <text x="175" y="569" text-anchor="middle" font-size="10" fill="white">2 × 2 × 2 = 8</text>
+
+  <!-- method2 → m2_step1 -->
+  <line x1="645" y1="302" x2="645" y2="388" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══ M2 STEP 1 ═══ -->
+  <rect x="525" y="390" width="240" height="52" rx="8" fill="#FF9800"/>
+  <text x="645" y="411" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Expand 2⁷</text>
+  <text x="645" y="429" text-anchor="middle" font-size="10" fill="white">2⁷ = 128</text>
+
+  <!-- m2_step1 → m2_step2 -->
+  <line x1="645" y1="442" x2="645" y2="528" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══ M2 STEP 2 ═══ -->
+  <rect x="525" y="530" width="240" height="52" rx="8" fill="#FF9800"/>
+  <text x="645" y="551" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Divide 128 ÷ 16</text>
+  <text x="645" y="569" text-anchor="middle" font-size="10" fill="white">128 ÷ 16 = 8</text>
+
+  <!-- m1_step2 → conclusion -->
+  <line x1="175" y1="582" x2="340" y2="668" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- m2_step2 → conclusion -->
+  <line x1="645" y1="582" x2="480" y2="668" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══ CONCLUSION NODE ═══ -->
+  <rect x="285" y="670" width="250" height="52" rx="8" fill="#9C27B0"/>
+  <text x="410" y="691" text-anchor="middle" font-size="12" font-weight="bold" fill="white">CONCLUSION</text>
+  <text x="410" y="709" text-anchor="middle" font-size="11" fill="white">2⁻⁴ × 2⁷ = 2³ = 8</text>
+
+  <!-- Legend -->
+  <rect x="20" y="670" width="14" height="14" fill="#4CAF50" rx="2"/>
+  <text x="38" y="682" font-size="10" fill="#555">Start</text>
+  <rect x="20" y="690" width="14" height="14" fill="#2196F3" rx="2"/>
+  <text x="38" y="702" font-size="10" fill="#555">Method</text>
+  <rect x="20" y="710" width="14" height="14" fill="#FF9800" rx="2"/>
+  <text x="38" y="722" font-size="10" fill="#555">Step/Extraction</text>
+  <rect x="20" y="728" width="14" height="14" fill="#9C27B0" rx="2"/>
+  <text x="38" y="740" font-size="10" fill="#555">Conclusion</text>
+</svg>

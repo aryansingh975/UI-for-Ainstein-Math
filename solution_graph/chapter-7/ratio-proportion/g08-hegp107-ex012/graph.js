@@ -1,0 +1,180 @@
+// Standalone solution graph for NCERT Example 12 (sand-cement mixture)
+window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
+window.SOLUTION_GRAPHS["g08-hegp107-ex012"] = {
+  "graph_meta": {
+    "graph_id": "sg-g08-hegp107-ex012",
+    "problem_uuid": "g08-hegp107-ex012",
+    "problem_text": "A mixture of 40 kg contains sand and cement in the ratio of 3 : 1. How much cement should be added to the mixture to make the ratio of sand to cement 5 : 2?",
+    "navigation_label": "Sand-cement ratio adjustment",
+    "problem_context": { "first": [3, 1], "second": [5, 2] },
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for adjusting a sand-cement mixture from 3:1 to 5:2 by finding the original mass and required cement amount.",
+    "created": "2026-10-11",
+    "total_methods": 2,
+    "total_nodes": 10,
+    "total_edges": 10
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "A 40 kg mixture has sand and cement in the ratio 3 : 1. Find extra cement so the new ratio becomes 5 : 2.",
+      "prompt": "Find the original sand and cement amounts, then determine how much cement is needed for the new ratio.",
+      "accept": [],
+      "hints": [
+        "The original mixture is 3 + 1 = 4 parts.",
+        "40 kg total means each part is 10 kg.",
+        "The sand is 30 kg and the cement is 10 kg."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "2 kg of cement must be added so the sand-to-cement ratio becomes 5 : 2.",
+      "prompt": "State how much cement should be added.",
+      "accept": [
+        "2 kg of cement",
+        "2 kg",
+        "add 2 kg",
+        "need to add 2 kg",
+        "the answer is 2 kg",
+        "2 kilograms",
+        "2 kg cement"
+      ],
+      "hints": [
+        "The new required cement amount is 12 kg.",
+        "There is already 10 kg cement.",
+        "So the extra amount is 12 - 10 = 2 kg."
+      ]
+    },
+    {
+      "id": "m1_original",
+      "type": "method",
+      "label": "Method 1: Find the original quantities",
+      "description": "Use the original ratio 3 : 1 and total weight 40 kg to find how much sand and cement are already present.",
+      "prompt": "Split 40 kg into 4 equal parts and identify the sand and cement amounts.",
+      "accept": ["3:1 ratio", "split into 4 parts", "find original quantities", "original mixture"],
+      "hints": [
+        "Each part is 40 ÷ 4 = 10 kg.",
+        "Sand = 3 × 10 = 30 kg.",
+        "Cement = 1 × 10 = 10 kg."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Find the part size",
+      "description": "40 ÷ (3 + 1) = 10 kg per part.",
+      "prompt": "What is the size of each part in the original mixture?",
+      "accept": [
+        "40/4=10",
+        "40 ÷ 4 = 10",
+        "10 kg",
+        "each part is 10 kg",
+        "4 parts means 10 kg each"
+      ],
+      "hints": [
+        "The total mixture is 40 kg and the ratio has 4 parts.",
+        "So each part is 10 kg."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Compute original sand and cement",
+      "description": "Sand = 3 × 10 = 30 kg, cement = 1 × 10 = 10 kg.",
+      "prompt": "How much sand and cement are in the original mixture?",
+      "accept": [
+        "sand = 30 kg and cement = 10 kg",
+        "30 kg sand and 10 kg cement",
+        "sand 30 kg, cement 10 kg",
+        "30 kg, 10 kg"
+      ],
+      "hints": [
+        "The sand is 3 parts, so 3 × 10 = 30.",
+        "The cement is 1 part, so 1 × 10 = 10."
+      ]
+    },
+    {
+      "id": "m2_newratio",
+      "type": "method",
+      "label": "Method 2: Solve for the new cement amount",
+      "description": "Keep the sand fixed at 30 kg and let the new ratio 5 : 2 determine the total required cement amount.",
+      "prompt": "If sand remains 30 kg and the ratio becomes 5 : 2, find the cement needed.",
+      "accept": ["new ratio", "5:2", "find new cement amount", "same sand"],
+      "hints": [
+        "A 5 : 2 ratio means the sand is 5 parts and cement is 2 parts.",
+        "If sand stays 30 kg, then each part is 30 ÷ 5 = 6 kg.",
+        "Cement = 2 × 6 = 12 kg."
+      ]
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Find the new part size",
+      "description": "If sand is 30 kg and 5 parts correspond to 30 kg, then each part is 6 kg.",
+      "prompt": "What is the value of one part in the new ratio?",
+      "accept": [
+        "30/5=6",
+        "30 ÷ 5 = 6",
+        "each part is 6 kg",
+        "6 kg"
+      ],
+      "hints": [
+        "The sand is 5 parts and equals 30 kg.",
+        "So each part is 30 ÷ 5 = 6 kg."
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Compute required cement",
+      "description": "Cement required = 2 × 6 = 12 kg.",
+      "prompt": "What is the new cement amount in the ratio 5 : 2?",
+      "accept": [
+        "2 × 6 = 12",
+        "12 kg",
+        "cement should be 12 kg",
+        "new cement amount is 12 kg"
+      ],
+      "hints": [
+        "The cement is 2 parts.",
+        "2 × 6 = 12.",
+        "So the new mixture needs 12 kg of cement."
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Subtract the existing cement",
+      "description": "12 - 10 = 2, so 2 kg of cement must be added.",
+      "prompt": "How much cement must be added beyond what is already there?",
+      "accept": [
+        "12 - 10 = 2",
+        "2 kg",
+        "need to add 2 kg",
+        "2 kilograms"
+      ],
+      "hints": [
+        "There are already 10 kg of cement.",
+        "The required amount is 12 kg.",
+        "The extra amount is 12 - 10 = 2 kg."
+      ]
+    }
+  ],
+  "edges": [
+    { "from": "start", "to": "m1_original", "label": "Find original split" },
+    { "from": "m1_original", "to": "m1_s1", "label": "Part size" },
+    { "from": "m1_s1", "to": "m1_s2", "label": "Original amounts" },
+    { "from": "m1_s2", "to": "m2_newratio", "label": "New ratio" },
+    { "from": "m2_newratio", "to": "m2_s1", "label": "Part size" },
+    { "from": "m2_s1", "to": "m2_s2", "label": "Required cement" },
+    { "from": "m2_s2", "to": "m2_s3", "label": "Extra cement" },
+    { "from": "m2_s3", "to": "conclusion", "label": "Final answer" }
+  ]
+};

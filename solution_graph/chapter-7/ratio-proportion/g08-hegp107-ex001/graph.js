@@ -1,8 +1,15 @@
-{
+// Solution Graph for Problem 1 (g08-hegp107-ex001)
+// Embedded as JS to avoid file:// fetch restrictions
+// This graph captures all 8 valid solution methods for determining
+// whether 3:4 and 72:96 are proportional.
+window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
+window.SOLUTION_GRAPHS["g08-hegp107-ex001"] = {
     "graph_meta":  {
                        "graph_id":  "sg-g08-hegp107-ex001",
                        "problem_uuid":  "g08-hegp107-ex001",
                        "problem_text":  "Are the ratios 3 : 4 and 72 : 96 proportional?",
+                       "navigation_label":  "Ratios 3:4 and 72:96",
+                       "problem_context":  { "first": [3, 4], "second": [72, 96] },
                        "graph_type":  "directed_acyclic_graph",
                        "version":  "1.0.0",
                        "description":  "Solution DAG for Problem 1 â€” captures all valid solution methods, with simplification, fraction simplification, prime factorization, and step-by-step reduction grouped first because they share a comparison step.",
@@ -906,4 +913,4 @@
                       "label":  "Proportional"
                   }
               ]
-}
+};

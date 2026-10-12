@@ -1,0 +1,245 @@
+// Standalone solution graph for NCERT Example 3 (wall strength problem)
+window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
+window.SOLUTION_GRAPHS["g08-hegp107-ex003"] = {
+  "graph_meta": {
+    "graph_id": "sg-g08-hegp107-ex003",
+    "problem_uuid": "g08-hegp107-ex003",
+    "problem_text": "Nitin and Hari were constructing a compound wall. Nitin built a 60 ft wall using 3 bags of cement, and Hari built a 40 ft wall using 2 bags of cement. Is Nitin correct that Hari's wall is weaker?",
+    "navigation_label": "Compound wall strength",
+    "problem_context": { "first": [60, 3], "second": [40, 2] },
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for the compound wall proportionality example. The valid reasoning compares length-to-cement ratios and shows that both ratios simplify to 20:1.",
+    "created": "2026-10-07",
+    "total_methods": 4,
+    "total_nodes": 20,
+    "total_edges": 24
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Nitin and Hari are comparing wall length to cement used.",
+      "prompt": "Compare the ratio of wall length to cement used for both walls. Is Nitin correct?",
+      "accept": [],
+      "hints": [
+        "Compare the wall length and cement used in each case.",
+        "Look at the ratio of length to cement for each wall.",
+        "Check whether these ratios are equal after simplification."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "No, Nitin is not correct. Both walls are equally strong because the ratios simplify to the same value.",
+      "prompt": "State your conclusion: Is Nitin correct?",
+      "accept": [
+        "no",
+        "no, nitin is not correct",
+        "nitin is not correct",
+        "no, both are equally strong",
+        "both are equally strong",
+        "they are proportional",
+        "the ratios are equal",
+        "no, he should not worry"
+      ],
+      "hints": [
+        "Compare the ratios 60:3 and 40:2.",
+        "Both simplify to 20:1.",
+        "So the walls are equally strong."
+      ]
+    },
+    {
+      "id": "m1_simplify",
+      "type": "method",
+      "label": "Method 1: Simplification",
+      "description": "Simplify each length-to-cement ratio to see whether they are proportional.",
+      "prompt": "Choose a method. You can simplify both ratios.",
+      "accept": ["simplify", "reduce", "hcf", "divide", "simplest form"],
+      "hints": [
+        "Find the simplest form of 60:3.",
+        "Find the simplest form of 40:2.",
+        "Compare the two simplified ratios."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Simplify Nitin's ratio",
+      "description": "60:3 simplifies to 20:1.",
+      "prompt": "What is the simplest form of 60:3?",
+      "accept": ["20:1", "20 : 1", "20 to 1", "60/3=20", "60 divided by 3 is 20"],
+      "hints": [
+        "Divide both 60 and 3 by 3.",
+        "60 ÷ 3 = 20 and 3 ÷ 3 = 1.",
+        "So 60:3 simplifies to 20:1."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Simplify Hari's ratio",
+      "description": "40:2 simplifies to 20:1.",
+      "prompt": "What is the simplest form of 40:2?",
+      "accept": ["20:1", "20 : 1", "20 to 1", "40/2=20", "40 divided by 2 is 20"],
+      "hints": [
+        "Divide both 40 and 2 by 2.",
+        "40 ÷ 2 = 20 and 2 ÷ 2 = 1.",
+        "So 40:2 simplifies to 20:1."
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Compare the simplified ratios",
+      "description": "20:1 = 20:1, so the ratios are proportional.",
+      "prompt": "Do the simplified ratios match?",
+      "accept": ["yes", "they match", "20:1 = 20:1", "both are 20:1", "equal"],
+      "hints": [
+        "The simplified ratios are both 20:1.",
+        "That means the ratios are proportional.",
+        "Therefore, the walls are equally strong."
+      ]
+    },
+    {
+      "id": "m2_fraction",
+      "type": "method",
+      "label": "Method 2: Fraction Comparison",
+      "description": "Write the ratios as fractions and compare their value.",
+      "prompt": "Write each ratio as a fraction and compare the values.",
+      "accept": ["fraction", "fractions", "divide", "ratio as fraction"],
+      "hints": [
+        "Write 60:3 as 60/3.",
+        "Write 40:2 as 40/2.",
+        "Both fractions equal 20."
+      ]
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Write fractions",
+      "description": "60/3 and 40/2 represent the ratios.",
+      "prompt": "How can the ratios be written as fractions?",
+      "accept": ["60/3 and 40/2", "60/3, 40/2", "60 over 3 and 40 over 2"],
+      "hints": [
+        "A ratio a:b can be written as a/b.",
+        "So 60:3 is 60/3 and 40:2 is 40/2.",
+        "Now simplify the fractions."
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Evaluate the fractions",
+      "description": "60/3 = 20 and 40/2 = 20.",
+      "prompt": "What do these fractions equal?",
+      "accept": ["20 and 20", "both are 20", "60/3=20 and 40/2=20"],
+      "hints": [
+        "60 ÷ 3 = 20.",
+        "40 ÷ 2 = 20.",
+        "The values are equal."
+      ]
+    },
+    {
+      "id": "m3_scale",
+      "type": "method",
+      "label": "Method 3: Scaling",
+      "description": "Check whether one ratio is a scaled version of the other.",
+      "prompt": "Find a scale factor that links the two ratios.",
+      "accept": ["scale", "scaling", "factor", "same factor"],
+      "hints": [
+        "Check whether 60 and 40 are both multiplied by the same factor to reach 3 and 2.",
+        "Or compare the ratio of length to cement directly.",
+        "A common factor shows proportionality."
+      ]
+    },
+    {
+      "id": "m3_s1",
+      "type": "step",
+      "label": "Find the factor for the first ratio",
+      "description": "60:3 has factor 20 because 60/3 = 20.",
+      "prompt": "What is the factor that describes 60:3?",
+      "accept": ["20", "20:1", "60 divided by 3 is 20"],
+      "hints": [
+        "Divide the first quantity by the second.",
+        "60 ÷ 3 = 20.",
+        "The ratio value is 20."
+      ]
+    },
+    {
+      "id": "m3_s2",
+      "type": "step",
+      "label": "Find the factor for the second ratio",
+      "description": "40:2 has factor 20 because 40/2 = 20.",
+      "prompt": "What is the factor that describes 40:2?",
+      "accept": ["20", "20:1", "40 divided by 2 is 20"],
+      "hints": [
+        "Divide the first quantity by the second.",
+        "40 ÷ 2 = 20.",
+        "The ratio value is 20."
+      ]
+    },
+    {
+      "id": "m4_cross",
+      "type": "method",
+      "label": "Method 4: Cross Multiplication",
+      "description": "Check whether 60 x 2 = 40 x 3.",
+      "prompt": "Use cross multiplication to compare the ratios.",
+      "accept": ["cross multiply", "cross multiplication", "product"],
+      "hints": [
+        "Compare 60 x 2 and 40 x 3.",
+        "If the products are equal, the ratios are proportional.",
+        "If they are equal, Nitin is wrong."
+      ]
+    },
+    {
+      "id": "m4_s1",
+      "type": "step",
+      "label": "Set up cross multiplication",
+      "description": "Compare 60 x 2 and 40 x 3.",
+      "prompt": "What two products do you compare?",
+      "accept": ["60*2 and 40*3", "60 x 2 and 40 x 3", "60x2=40x3"],
+      "hints": [
+        "For a:b and c:d, compare a*d and b*c.",
+        "Here it is 60 × 2 and 40 × 3.",
+        "Now compute both products."
+      ]
+    },
+    {
+      "id": "m4_s2",
+      "type": "step",
+      "label": "Evaluate the products",
+      "description": "60 x 2 = 120 and 40 x 3 = 120.",
+      "prompt": "What do the products equal?",
+      "accept": ["120 and 120", "both are 120", "60*2=120 and 40*3=120"],
+      "hints": [
+        "60 × 2 = 120.",
+        "40 × 3 = 120.",
+        "Equal products mean the ratios are proportional."
+      ]
+    }
+  ],
+  "edges": [
+    { "from": "start", "to": "m1_simplify", "label": "Simplify both ratios" },
+    { "from": "start", "to": "m2_fraction", "label": "Use fractions" },
+    { "from": "start", "to": "m3_scale", "label": "Look for a scale factor" },
+    { "from": "start", "to": "m4_cross", "label": "Use cross multiplication" },
+    { "from": "m1_simplify", "to": "m1_s1", "label": "Simplify Nitin's ratio" },
+    { "from": "m1_s1", "to": "m1_s2", "label": "Simplify Hari's ratio" },
+    { "from": "m1_s2", "to": "m1_s3", "label": "Compare results" },
+    { "from": "m1_s3", "to": "conclusion", "label": "Conclude Nitin is wrong" },
+    { "from": "m2_fraction", "to": "m2_s1", "label": "Write as fractions" },
+    { "from": "m2_s1", "to": "m2_s2", "label": "Evaluate fractions" },
+    { "from": "m2_s2", "to": "conclusion", "label": "Equal values" },
+    { "from": "m3_scale", "to": "m3_s1", "label": "Find first ratio value" },
+    { "from": "m3_s1", "to": "m3_s2", "label": "Find second ratio value" },
+    { "from": "m3_s2", "to": "conclusion", "label": "Same factor" },
+    { "from": "m4_cross", "to": "m4_s1", "label": "Set up products" },
+    { "from": "m4_s1", "to": "m4_s2", "label": "Compute products" },
+    { "from": "m4_s2", "to": "conclusion", "label": "Equal products" }
+  ]
+};

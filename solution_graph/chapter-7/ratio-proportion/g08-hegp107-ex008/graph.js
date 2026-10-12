@@ -1,0 +1,185 @@
+// Standalone solution graph for NCERT Example 8 (school rice problem)
+window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
+window.SOLUTION_GRAPHS["g08-hegp107-ex008"] = {
+  "graph_meta": {
+    "graph_id": "sg-g08-hegp107-ex008",
+    "problem_uuid": "g08-hegp107-ex008",
+    "problem_text": "For 120 students, the cook makes 15 kg of rice. On a rainy day, only 80 students come. How much rice should be made so that the food is not wasted?",
+    "navigation_label": "Rice for 80 students",
+    "problem_context": { "first": [120, 15], "second": [80, 10] },
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for the proportional rice-allocation example. It uses the proportional ratio 120:15 :: 80:x and solves for x = 10.",
+    "created": "2026-10-07",
+    "total_methods": 3,
+    "total_nodes": 18,
+    "total_edges": 18
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "The cook uses 15 kg of rice for 120 students. On a rainy day, 80 students come. How much rice should be cooked?",
+      "prompt": "Set up a proportional relation and solve for the amount of rice for 80 students.",
+      "accept": [],
+      "hints": [
+        "Use the idea that the ratio of students to rice is proportional.",
+        "Set up 120:15 :: 80:x.",
+        "Solve for x."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "The cook should make 10 kg of rice for 80 students.",
+      "prompt": "State the amount of rice required.",
+      "accept": [
+        "10 kg",
+        "10 kilograms",
+        "10 kg of rice",
+        "the cook should make 10 kg",
+        "10",
+        "10 kg rice"
+      ],
+      "hints": [
+        "The scale factor is 2/3.",
+        "15 × 2/3 = 10.",
+        "So the correct amount is 10 kg."
+      ]
+    },
+    {
+      "id": "m1_ratio",
+      "type": "method",
+      "label": "Method 1: Proportional scaling",
+      "description": "Use the same factor of change in the number of students and the rice amount.",
+      "prompt": "Choose a method. You can compare the factors of change.",
+      "accept": ["scale", "scaling", "same factor", "proportion"],
+      "hints": [
+        "Find the factor from 120 to 80.",
+        "80/120 = 2/3.",
+        "Multiply the original rice by 2/3."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Find the scale factor",
+      "description": "80/120 = 2/3.",
+      "prompt": "What factor changes 120 students to 80 students?",
+      "accept": ["2/3", "two thirds", "80/120=2/3", "80 divided by 120 is 2/3"],
+      "hints": [
+        "Divide 80 by 120.",
+        "80/120 simplifies to 2/3.",
+        "The scale factor is 2/3."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Apply the factor to the rice",
+      "description": "15 × 2/3 = 10.",
+      "prompt": "Multiply 15 kg by the same factor 2/3.",
+      "accept": ["10", "10 kg", "15*2/3=10", "15 x 2/3 = 10"],
+      "hints": [
+        "15 × 2 = 30.",
+        "30 ÷ 3 = 10.",
+        "So the correct rice amount is 10 kg."
+      ]
+    },
+    {
+      "id": "m2_unit_rate",
+      "type": "method",
+      "label": "Method 2: Unit rate",
+      "description": "Find the rice per student and multiply by the smaller number of students.",
+      "prompt": "Find how much rice is used per student and then for 80 students.",
+      "accept": ["unit rate", "per student", "rate"],
+      "hints": [
+        "Compute 15/120.",
+        "Then multiply by 80.",
+        "This also gives 10 kg."
+      ]
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Find rice per student",
+      "description": "15/120 = 1/8 kg per student.",
+      "prompt": "How much rice is used per student?",
+      "accept": ["1/8 kg", "0.125 kg", "15/120=1/8"],
+      "hints": [
+        "Divide 15 by 120.",
+        "15/120 simplifies to 1/8.",
+        "Each student gets 1/8 kg of rice."
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Multiply by 80 students",
+      "description": "80 × 1/8 = 10.",
+      "prompt": "Use the per-student amount for 80 students.",
+      "accept": ["10", "10 kg", "80/8=10", "80 * 1/8 = 10"],
+      "hints": [
+        "80 ÷ 8 = 10.",
+        "So 80 students need 10 kg of rice."
+      ]
+    },
+    {
+      "id": "m3_cross",
+      "type": "method",
+      "label": "Method 3: Cross multiplication",
+      "description": "Solve 120:15 :: 80:x by cross multiplication.",
+      "prompt": "Set up the proportion and cross multiply to find x.",
+      "accept": ["cross multiply", "cross multiplication"],
+      "hints": [
+        "Use 120:15 :: 80:x.",
+        "Cross multiply: 120x = 15 × 80.",
+        "Then solve for x."
+      ]
+    },
+    {
+      "id": "m3_s1",
+      "type": "step",
+      "label": "Set up the proportion",
+      "description": "120:15 :: 80:x or 120/15 = 80/x.",
+      "prompt": "How do you write the proportion for this case?",
+      "accept": ["120:15::80:x", "120/15=80/x", "120:15 = 80:x"],
+      "hints": [
+        "The student-to-rice ratio is proportional.",
+        "So 120:15 :: 80:x.",
+        "Now cross multiply."
+      ]
+    },
+    {
+      "id": "m3_s2",
+      "type": "step",
+      "label": "Solve the equation",
+      "description": "120x = 15 × 80 = 1200, so x = 10.",
+      "prompt": "Solve the equation to find x.",
+      "accept": ["10", "x=10", "120x=1200, x=10", "10 kg"],
+      "hints": [
+        "15 × 80 = 1200.",
+        "120x = 1200.",
+        "Divide both sides by 120: x = 10."
+      ]
+    }
+  ],
+  "edges": [
+    { "from": "start", "to": "m1_ratio", "label": "Use proportional scaling" },
+    { "from": "start", "to": "m2_unit_rate", "label": "Use unit rate" },
+    { "from": "start", "to": "m3_cross", "label": "Use cross multiplication" },
+    { "from": "m1_ratio", "to": "m1_s1", "label": "Find scale factor" },
+    { "from": "m1_s1", "to": "m1_s2", "label": "Apply factor" },
+    { "from": "m1_s2", "to": "conclusion", "label": "Compute answer" },
+    { "from": "m2_unit_rate", "to": "m2_s1", "label": "Find rice per student" },
+    { "from": "m2_s1", "to": "m2_s2", "label": "For 80 students" },
+    { "from": "m2_s2", "to": "conclusion", "label": "Compute answer" },
+    { "from": "m3_cross", "to": "m3_s1", "label": "Set up equation" },
+    { "from": "m3_s1", "to": "m3_s2", "label": "Solve equation" },
+    { "from": "m3_s2", "to": "conclusion", "label": "Final amount" }
+  ]
+};

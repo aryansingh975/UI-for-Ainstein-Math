@@ -44,6 +44,9 @@
   }
 
   function parseContextFromGraph(graph) {
+    const context = graph.graph_meta && graph.graph_meta.problem_context;
+    if (context && Array.isArray(context.first) && Array.isArray(context.second)) return context;
+
     const text = (graph.graph_meta && graph.graph_meta.problem_text) || '';
     const m = text.match(/(\d+(?:\.\d+)?)\s*:\s*(\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)\s*:\s*(\d+(?:\.\d+)?)/);
     if (m) return { first: [+m[1], +m[2]], second: [+m[3], +m[4]] };
@@ -56,6 +59,20 @@
 
   function newSession() {
     return { trail: [], currentNodeId: null, methodId: null, failStreak: 0, completed: false };
+  }
+
+  function beginMethod(session, methodNodeId) {
+    const node = getNode(methodNodeId);
+    if (!session || session.completed || session.methodId || session.trail.length > 0 || !node || node.type !== 'method') {
+      return false;
+    }
+
+    const firstStepId = firstStepOf(methodNodeId);
+    if (firstStepId === CONCLUSION_ID) return false;
+
+    session.methodId = methodOf(methodNodeId);
+    session.currentNodeId = firstStepId;
+    return true;
   }
 
   // ─── Text normalization (synced with the accept-list matcher) ───
@@ -641,7 +658,7 @@
       const noCurrent = !session.currentNodeId;
       const hasProgress = session.trail.length > 0;
       if (atConcl || (noCurrent && hasProgress)) {
-        return { detected: true, correct: !/^(no|nope)\b/.test(norm) };
+        return { detected: true, correct: matchesAcceptAny(parsed.raw, concl.accept) };
       }
       return null; // mid-step yes/no → not a conclusion
     }
@@ -680,7 +697,7 @@
   // ─── Global step search (silent method inference / skip-ahead) ───
   function findGlobalStepMatch(parsed, session) {
     if (isBareYesNo(parsed)) return null; // bare yes/no only matches the current node
-    const steps = GRAPH.nodes.filter(n => n.type === 'step');
+    const steps = GRAPH.nodes.filter(n => n.type === 'step' && (!session.methodId || methodOf(n.id) === session.methodId));
     const scored = steps.map(n => {
       let score = 0;
       const nm = methodOf(n.id);
@@ -720,17 +737,24 @@
     const parsed = parseStep(rawInput);
     const result = { verdict: null, parsed, nodeId: null, methodId: null, claim: null, approachOnly: false };
 
-    // 1. Garbage gate
-    if (isGarbage(parsed)) { result.verdict = 'GARBAGE'; return result; }
+    const normalizedInput = normalizeText(parsed.raw);
+    const exactGraphAnswer = GRAPH.nodes.some(node =>
+      ['method', 'step', 'conclusion'].includes(node.type) &&
+      (node.accept || []).some(answer => normalizeText(answer) === normalizedInput)
+    );
+    if (isGarbage(parsed) && !exactGraphAnswer) {
+      result.verdict = 'GARBAGE';
+      return result;
+    }
 
-    // 2. Conclusion detection (tutor decides completion on its own)
+    // Conclusion answers may be short or numeric, so check graph acceptance before the garbage gate.
     const concl = detectConclusion(parsed, session);
     if (concl && concl.detected) {
       result.verdict = concl.correct ? 'CONCLUSION_RIGHT' : 'CONCLUSION_WRONG';
       return result;
     }
 
-    // 3. Current-node match (context wins — includes immediate wrong-claim detection)
+    // Current-node match (context wins — includes immediate wrong-claim detection)
     if (session.currentNodeId) {
       const node = getNode(session.currentNodeId);
       if (node && node.type === 'step') {
@@ -870,7 +894,7 @@
 
   // ─── Public API ───
   return {
-    init, newSession, processStep, applyResult,
+    init, newSession, beginMethod, processStep, applyResult,
     parseStep, extractClaims, evalArithmetic,
     matchesAccept, normalizeText, getNode,
     explainClaim, hintFor, methodOf, successorOf,

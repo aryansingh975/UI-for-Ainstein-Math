@@ -1,0 +1,797 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-quad-ex001",
+    "problem_uuid": "g10-quad-ex001",
+    "problem_text": "Solve the quadratic equation x² − 5x + 6 = 0.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for x² − 5x + 6 = 0 — captures all valid solution methods (factoring by splitting the middle term, quadratic formula, completing the square, graphical, sum and product of roots, trial and factor theorem). The tutor accepts any path through this graph as a valid solution.",
+    "created": "2026-10-08",
+    "total_methods": 6,
+    "total_nodes": 30,
+    "total_edges": 38
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Solve the quadratic equation x² − 5x + 6 = 0.",
+      "prompt": "Read the problem. Solve x² − 5x + 6 = 0 and find all values of x.",
+      "accept": [],
+      "hints": [
+        "A quadratic equation has the form ax² + bx + c = 0.",
+        "Here a = 1, b = −5 and c = 6.",
+        "You can use any valid method: factoring, the quadratic formula, completing the square, graphing, etc."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "x = 2 or x = 3. The solution set is {2, 3}.",
+      "prompt": "State your final answer: what are the solutions of x² − 5x + 6 = 0?",
+      "accept": [
+        "x = 2 or x = 3",
+        "x=2, x=3",
+        "x = 3 or x = 2",
+        "2 and 3",
+        "3 and 2",
+        "{2, 3}",
+        "{2,3}",
+        "roots are 2 and 3",
+        "x = 2, 3"
+      ],
+      "hints": [
+        "The equation has two real roots.",
+        "Check: 2² − 5(2) + 6 = 0 and 3² − 5(3) + 6 = 0.",
+        "x = 2 or x = 3."
+      ]
+    },
+    {
+      "id": "m1_factor",
+      "type": "method",
+      "label": "Method 1: Factoring (Splitting the Middle Term)",
+      "description": "Split −5x into two terms whose coefficients multiply to 6 and add to −5, group, and factor the quadratic into two linear factors.",
+      "prompt": "Choose a method to solve this problem. You can factor, use the quadratic formula, complete the square, graph, etc.",
+      "accept": [
+        "factor",
+        "factoris",
+        "factoriz",
+        "split the middle term",
+        "splitting",
+        "middle term",
+        "(x-2)(x-3)",
+        "(x - 2)(x - 3)"
+      ],
+      "hints": [
+        "Look for two numbers whose product is 6 and whose sum is −5.",
+        "The numbers are −2 and −3.",
+        "Split −5x into −2x − 3x and factor by grouping."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Find two numbers: product 6, sum −5",
+      "description": "The two numbers are −2 and −3, since (−2) × (−3) = 6 and (−2) + (−3) = −5.",
+      "prompt": "Which two numbers multiply to 6 and add to −5?",
+      "accept": [
+        "-2 and -3",
+        "−2 and −3",
+        "-3 and -2",
+        "−3 and −2",
+        "-2, -3",
+        "−2, −3"
+      ],
+      "hints": [
+        "List factor pairs of 6: (1, 6), (2, 3), (−1, −6), (−2, −3).",
+        "Which pair adds up to −5?",
+        "−2 + (−3) = −5, so the numbers are −2 and −3."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Split the middle term",
+      "description": "x² − 5x + 6 = x² − 2x − 3x + 6.",
+      "prompt": "Rewrite −5x using −2 and −3. What do you get?",
+      "accept": [
+        "x^2 - 2x - 3x + 6",
+        "x² − 2x − 3x + 6",
+        "x^2-2x-3x+6",
+        "x² - 2x - 3x + 6",
+        "x^2 - 3x - 2x + 6"
+      ],
+      "hints": [
+        "−5x = −2x − 3x",
+        "Substitute into the equation.",
+        "x² − 2x − 3x + 6 = 0"
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Factor by grouping",
+      "description": "x(x − 2) − 3(x − 2) = (x − 2)(x − 3).",
+      "prompt": "Group the terms and factor. What are the two factors?",
+      "accept": [
+        "(x-2)(x-3)",
+        "(x - 2)(x - 3)",
+        "(x-3)(x-2)",
+        "(x − 2)(x − 3)",
+        "x(x-2)-3(x-2)"
+      ],
+      "hints": [
+        "Group: (x² − 2x) + (−3x + 6).",
+        "Take out common factors: x(x − 2) − 3(x − 2).",
+        "Factor out (x − 2): (x − 2)(x − 3)."
+      ]
+    },
+    {
+      "id": "m1_s4",
+      "type": "step",
+      "label": "Apply the zero-product rule",
+      "description": "If (x − 2)(x − 3) = 0, then x − 2 = 0 or x − 3 = 0, so x = 2 or x = 3.",
+      "prompt": "If (x − 2)(x − 3) = 0, what are the values of x?",
+      "accept": [
+        "x = 2 or x = 3",
+        "x=2, x=3",
+        "x-2=0 or x-3=0",
+        "2 and 3",
+        "x = 2, 3"
+      ],
+      "hints": [
+        "If a product is zero, at least one factor is zero.",
+        "Set x − 2 = 0 and x − 3 = 0.",
+        "x = 2 or x = 3."
+      ]
+    },
+    {
+      "id": "m2_formula",
+      "type": "method",
+      "label": "Method 2: Quadratic Formula",
+      "description": "Identify a, b, c and substitute into x = (−b ± √(b² − 4ac)) / 2a.",
+      "prompt": "Choose a method to solve this problem. You can use the quadratic formula.",
+      "accept": [
+        "quadratic formula",
+        "formula",
+        "discriminant",
+        "b^2-4ac",
+        "b² − 4ac",
+        "b^2 - 4ac",
+        "sqrt",
+        "√",
+        "±",
+        "-b"
+      ],
+      "hints": [
+        "The quadratic formula is x = (−b ± √(b² − 4ac)) / 2a.",
+        "Identify a, b and c from x² − 5x + 6 = 0.",
+        "Start by computing the discriminant b² − 4ac."
+      ]
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Identify a, b and c",
+      "description": "a = 1, b = −5, c = 6.",
+      "prompt": "What are the values of a, b and c in x² − 5x + 6 = 0?",
+      "accept": [
+        "a=1, b=-5, c=6",
+        "a = 1, b = −5, c = 6",
+        "1, -5, 6",
+        "a=1 b=-5 c=6"
+      ],
+      "hints": [
+        "Compare with ax² + bx + c = 0.",
+        "The coefficient of x² is 1 and of x is −5.",
+        "a = 1, b = −5, c = 6."
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Compute the discriminant",
+      "description": "D = b² − 4ac = (−5)² − 4(1)(6) = 25 − 24 = 1.",
+      "prompt": "What is the discriminant b² − 4ac?",
+      "accept": [
+        "1",
+        "D = 1",
+        "25 - 24 = 1",
+        "25 − 24 = 1",
+        "b^2-4ac = 1",
+        "discriminant is 1"
+      ],
+      "hints": [
+        "(−5)² = 25",
+        "4 × 1 × 6 = 24",
+        "25 − 24 = 1"
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Substitute into the formula",
+      "description": "x = (5 ± √1) / 2 = (5 ± 1) / 2.",
+      "prompt": "Substitute into the quadratic formula. What expression do you get for x?",
+      "accept": [
+        "(5 ± 1)/2",
+        "(5+-1)/2",
+        "(5 ± √1)/2",
+        "x = (5 ± 1) / 2",
+        "(5 +/- 1)/2"
+      ],
+      "hints": [
+        "−b = −(−5) = 5",
+        "√1 = 1 and 2a = 2",
+        "x = (5 ± 1) / 2"
+      ]
+    },
+    {
+      "id": "m2_s4",
+      "type": "step",
+      "label": "Take the + sign",
+      "description": "x = (5 + 1) / 2 = 6 / 2 = 3.",
+      "prompt": "Using the + sign, what is x?",
+      "accept": [
+        "3",
+        "x = 3",
+        "6/2 = 3",
+        "(5+1)/2 = 3"
+      ],
+      "hints": [
+        "5 + 1 = 6",
+        "6 ÷ 2 = 3",
+        "x = 3"
+      ]
+    },
+    {
+      "id": "m2_s5",
+      "type": "step",
+      "label": "Take the − sign",
+      "description": "x = (5 − 1) / 2 = 4 / 2 = 2.",
+      "prompt": "Using the − sign, what is x?",
+      "accept": [
+        "2",
+        "x = 2",
+        "4/2 = 2",
+        "(5-1)/2 = 2"
+      ],
+      "hints": [
+        "5 − 1 = 4",
+        "4 ÷ 2 = 2",
+        "x = 2"
+      ]
+    },
+    {
+      "id": "m3_square",
+      "type": "method",
+      "label": "Method 3: Completing the Square",
+      "description": "Move the constant to the right side, add (b/2)² to both sides to form a perfect square, then take square roots.",
+      "prompt": "Choose a method to solve this problem. You can complete the square.",
+      "accept": [
+        "complete the square",
+        "completing the square",
+        "perfect square",
+        "25/4",
+        "(x-5/2)",
+        "(x - 5/2)",
+        "(x-2.5)",
+        "6.25"
+      ],
+      "hints": [
+        "Move 6 to the right side: x² − 5x = −6.",
+        "Add (5/2)² = 25/4 to both sides.",
+        "Write the left side as (x − 5/2)²."
+      ]
+    },
+    {
+      "id": "m3_s1",
+      "type": "step",
+      "label": "Move the constant term",
+      "description": "x² − 5x = −6.",
+      "prompt": "Move the constant term to the right side. What do you get?",
+      "accept": [
+        "x^2 - 5x = -6",
+        "x² − 5x = −6",
+        "x^2-5x=-6",
+        "x² - 5x = -6"
+      ],
+      "hints": [
+        "Subtract 6 from both sides.",
+        "x² − 5x = −6",
+        "Now the left side has only x terms."
+      ]
+    },
+    {
+      "id": "m3_s2",
+      "type": "step",
+      "label": "Add (b/2)² to both sides",
+      "description": "(5/2)² = 25/4, so x² − 5x + 25/4 = −6 + 25/4 = 1/4.",
+      "prompt": "What do you add to both sides to complete the square, and what does the equation become?",
+      "accept": [
+        "25/4",
+        "6.25",
+        "x^2 - 5x + 25/4 = 1/4",
+        "x² − 5x + 25/4 = 1/4",
+        "add 25/4"
+      ],
+      "hints": [
+        "Half of the x-coefficient: −5 / 2 = −5/2.",
+        "Square it: (−5/2)² = 25/4.",
+        "−6 + 25/4 = −24/4 + 25/4 = 1/4."
+      ]
+    },
+    {
+      "id": "m3_s3",
+      "type": "step",
+      "label": "Write as a perfect square",
+      "description": "(x − 5/2)² = 1/4.",
+      "prompt": "Write the left side as a perfect square. What is the equation now?",
+      "accept": [
+        "(x-5/2)^2 = 1/4",
+        "(x − 5/2)² = 1/4",
+        "(x-2.5)^2 = 0.25",
+        "(x - 5/2)^2 = 1/4"
+      ],
+      "hints": [
+        "x² − 5x + 25/4 = (x − 5/2)²",
+        "So (x − 5/2)² = 1/4.",
+        "Next, take the square root of both sides."
+      ]
+    },
+    {
+      "id": "m3_s4",
+      "type": "step",
+      "label": "Take square roots",
+      "description": "x − 5/2 = ± 1/2, so x = 5/2 ± 1/2, giving x = 3 or x = 2.",
+      "prompt": "Take the square root of both sides and solve for x.",
+      "accept": [
+        "x - 5/2 = ±1/2",
+        "x − 5/2 = ± 1/2",
+        "x = 5/2 ± 1/2",
+        "x = 3 or x = 2",
+        "x=2, x=3",
+        "2 and 3"
+      ],
+      "hints": [
+        "√(1/4) = 1/2, and remember the ±.",
+        "x = 5/2 + 1/2 = 3 or x = 5/2 − 1/2 = 2.",
+        "x = 2 or x = 3."
+      ]
+    },
+    {
+      "id": "m4_graph",
+      "type": "method",
+      "label": "Method 4: Graphical",
+      "description": "Plot y = x² − 5x + 6 and read the x-intercepts, where the parabola crosses the x-axis.",
+      "prompt": "Choose a method to solve this problem. You can plot the graph and find the x-intercepts.",
+      "accept": [
+        "graph",
+        "plot",
+        "parabola",
+        "x-intercept",
+        "x intercept",
+        "crosses the x-axis",
+        "vertex",
+        "table of values"
+      ],
+      "hints": [
+        "Plot y = x² − 5x + 6.",
+        "The solutions are the x-values where y = 0.",
+        "Look for where the parabola crosses the x-axis."
+      ]
+    },
+    {
+      "id": "m4_s1",
+      "type": "step",
+      "label": "Make a table of values",
+      "description": "x: 0, 1, 2, 2.5, 3, 4, 5 → y: 6, 2, 0, −0.25, 0, 2, 6.",
+      "prompt": "Make a table of values for y = x² − 5x + 6 for x from 0 to 5.",
+      "accept": [
+        "0 1 2 3 4 5",
+        "6, 2, 0, 0, 2, 6",
+        "y = 6, 2, 0, 0, 2, 6",
+        "(2, 0)",
+        "(3, 0)"
+      ],
+      "hints": [
+        "At x = 0: y = 6. At x = 1: y = 1 − 5 + 6 = 2.",
+        "At x = 2: y = 4 − 10 + 6 = 0.",
+        "At x = 3: y = 9 − 15 + 6 = 0."
+      ]
+    },
+    {
+      "id": "m4_s2",
+      "type": "step",
+      "label": "Find the vertex",
+      "description": "Vertex at x = −b/2a = 5/2 = 2.5, y = −0.25, so the vertex is (2.5, −0.25).",
+      "prompt": "What is the vertex of the parabola?",
+      "accept": [
+        "(2.5, -0.25)",
+        "(5/2, -1/4)",
+        "(2.5, −0.25)",
+        "x = 2.5",
+        "vertex (2.5,-0.25)"
+      ],
+      "hints": [
+        "The axis of symmetry is x = −b / 2a = 5/2.",
+        "y at x = 2.5: 6.25 − 12.5 + 6 = −0.25.",
+        "Vertex: (2.5, −0.25)."
+      ]
+    },
+    {
+      "id": "m4_s3",
+      "type": "step",
+      "label": "Plot and read the x-intercepts",
+      "description": "The parabola crosses the x-axis at (2, 0) and (3, 0), so x = 2 or x = 3.",
+      "prompt": "Where does the parabola cross the x-axis?",
+      "accept": [
+        "x = 2 and x = 3",
+        "(2,0) and (3,0)",
+        "(2, 0), (3, 0)",
+        "2 and 3",
+        "at 2 and 3"
+      ],
+      "hints": [
+        "The x-intercepts are points where y = 0.",
+        "From the table, y = 0 at x = 2 and x = 3.",
+        "The parabola crosses at (2, 0) and (3, 0)."
+      ]
+    },
+    {
+      "id": "m5_vieta",
+      "type": "method",
+      "label": "Method 5: Sum and Product of Roots",
+      "description": "Use α + β = −b/a and αβ = c/a to find two numbers with sum 5 and product 6.",
+      "prompt": "Choose a method to solve this problem. You can use the sum and product of roots.",
+      "accept": [
+        "sum and product",
+        "sum of roots",
+        "product of roots",
+        "vieta",
+        "α + β",
+        "alpha + beta",
+        "-b/a",
+        "c/a"
+      ],
+      "hints": [
+        "For ax² + bx + c = 0, sum of roots = −b/a and product = c/a.",
+        "Here the sum is 5 and the product is 6.",
+        "Which two numbers add to 5 and multiply to 6?"
+      ]
+    },
+    {
+      "id": "m5_s1",
+      "type": "step",
+      "label": "Sum of roots",
+      "description": "α + β = −b/a = −(−5)/1 = 5.",
+      "prompt": "What is the sum of the roots?",
+      "accept": [
+        "5",
+        "α + β = 5",
+        "sum = 5",
+        "-b/a = 5",
+        "alpha + beta = 5"
+      ],
+      "hints": [
+        "Sum of roots = −b/a.",
+        "b = −5 and a = 1.",
+        "−(−5)/1 = 5."
+      ]
+    },
+    {
+      "id": "m5_s2",
+      "type": "step",
+      "label": "Product of roots",
+      "description": "αβ = c/a = 6/1 = 6.",
+      "prompt": "What is the product of the roots?",
+      "accept": [
+        "6",
+        "αβ = 6",
+        "product = 6",
+        "c/a = 6",
+        "alpha*beta = 6"
+      ],
+      "hints": [
+        "Product of roots = c/a.",
+        "c = 6 and a = 1.",
+        "6/1 = 6."
+      ]
+    },
+    {
+      "id": "m5_s3",
+      "type": "step",
+      "label": "Find the two numbers",
+      "description": "The numbers with sum 5 and product 6 are 2 and 3.",
+      "prompt": "Which two numbers have a sum of 5 and a product of 6?",
+      "accept": [
+        "2 and 3",
+        "3 and 2",
+        "2, 3",
+        "α = 2, β = 3",
+        "x = 2 or x = 3"
+      ],
+      "hints": [
+        "Try factor pairs of 6: (1, 6) sums to 7, (2, 3) sums to 5.",
+        "2 + 3 = 5 and 2 × 3 = 6.",
+        "The roots are 2 and 3."
+      ]
+    },
+    {
+      "id": "m6_trial",
+      "type": "method",
+      "label": "Method 6: Trial and Factor Theorem",
+      "description": "Substitute factors of the constant term (±1, ±2, ±3, ±6) to find a root, then use the product of roots or division to find the other.",
+      "prompt": "Choose a method to solve this problem. You can try values of x to find a root.",
+      "accept": [
+        "trial",
+        "try",
+        "substitute",
+        "guess",
+        "factor theorem",
+        "f(2)",
+        "put x = 2",
+        "plug in",
+        "p(2)"
+      ],
+      "hints": [
+        "Possible integer roots are factors of 6: ±1, ±2, ±3, ±6.",
+        "Substitute each value into x² − 5x + 6.",
+        "A value that gives 0 is a root."
+      ]
+    },
+    {
+      "id": "m6_s1",
+      "type": "step",
+      "label": "Test x = 1",
+      "description": "f(1) = 1 − 5 + 6 = 2 ≠ 0, so x = 1 is not a root.",
+      "prompt": "Substitute x = 1. Is it a root?",
+      "accept": [
+        "2",
+        "f(1) = 2",
+        "no",
+        "not a root",
+        "1 - 5 + 6 = 2"
+      ],
+      "hints": [
+        "f(1) = 1² − 5(1) + 6",
+        "= 1 − 5 + 6 = 2",
+        "2 ≠ 0, so x = 1 is not a root."
+      ]
+    },
+    {
+      "id": "m6_s2",
+      "type": "step",
+      "label": "Test x = 2",
+      "description": "f(2) = 4 − 10 + 6 = 0, so x = 2 is a root and (x − 2) is a factor.",
+      "prompt": "Substitute x = 2. Is it a root?",
+      "accept": [
+        "0",
+        "f(2) = 0",
+        "yes",
+        "x = 2 is a root",
+        "4 - 10 + 6 = 0"
+      ],
+      "hints": [
+        "f(2) = 2² − 5(2) + 6",
+        "= 4 − 10 + 6 = 0",
+        "So x = 2 is a root."
+      ]
+    },
+    {
+      "id": "m6_s3",
+      "type": "step",
+      "label": "Find the other root",
+      "description": "Product of roots is 6, so the other root is 6 ÷ 2 = 3. Check: f(3) = 9 − 15 + 6 = 0.",
+      "prompt": "You found x = 2. How do you find the other root?",
+      "accept": [
+        "3",
+        "x = 3",
+        "6/2 = 3",
+        "f(3) = 0",
+        "(x-2)(x-3)"
+      ],
+      "hints": [
+        "The product of the roots is c/a = 6.",
+        "6 ÷ 2 = 3.",
+        "Check: f(3) = 9 − 15 + 6 = 0."
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "m1_factor",
+      "label": "Method 1: Factoring"
+    },
+    {
+      "from": "m1_factor",
+      "to": "m1_s1",
+      "label": "Find numbers"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Split middle term"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3",
+      "label": "Group and factor"
+    },
+    {
+      "from": "m1_s3",
+      "to": "m1_s4",
+      "label": "Zero-product rule"
+    },
+    {
+      "from": "m1_s4",
+      "to": "conclusion",
+      "label": "x = 2 or x = 3"
+    },
+    {
+      "from": "start",
+      "to": "m2_formula",
+      "label": "Method 2: Quadratic Formula"
+    },
+    {
+      "from": "m2_formula",
+      "to": "m2_s1",
+      "label": "Identify coefficients"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Discriminant"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3",
+      "label": "Substitute"
+    },
+    {
+      "from": "m2_s3",
+      "to": "m2_s4",
+      "label": "+ root"
+    },
+    {
+      "from": "m2_s3",
+      "to": "m2_s5",
+      "label": "− root"
+    },
+    {
+      "from": "m2_s4",
+      "to": "conclusion",
+      "label": "x = 3"
+    },
+    {
+      "from": "m2_s5",
+      "to": "conclusion",
+      "label": "x = 2"
+    },
+    {
+      "from": "start",
+      "to": "m3_square",
+      "label": "Method 3: Completing the Square"
+    },
+    {
+      "from": "m3_square",
+      "to": "m3_s1",
+      "label": "Move constant"
+    },
+    {
+      "from": "m3_s1",
+      "to": "m3_s2",
+      "label": "Add (b/2)²"
+    },
+    {
+      "from": "m3_s2",
+      "to": "m3_s3",
+      "label": "Perfect square"
+    },
+    {
+      "from": "m3_s3",
+      "to": "m3_s4",
+      "label": "Square root"
+    },
+    {
+      "from": "m3_s4",
+      "to": "conclusion",
+      "label": "x = 2 or x = 3"
+    },
+    {
+      "from": "start",
+      "to": "m4_graph",
+      "label": "Method 4: Graphical"
+    },
+    {
+      "from": "m4_graph",
+      "to": "m4_s1",
+      "label": "Table of values"
+    },
+    {
+      "from": "m4_graph",
+      "to": "m4_s2",
+      "label": "Find vertex"
+    },
+    {
+      "from": "m4_s1",
+      "to": "m4_s3",
+      "label": "Plot"
+    },
+    {
+      "from": "m4_s2",
+      "to": "m4_s3",
+      "label": "Plot"
+    },
+    {
+      "from": "m4_s3",
+      "to": "conclusion",
+      "label": "x = 2 or x = 3"
+    },
+    {
+      "from": "start",
+      "to": "m5_vieta",
+      "label": "Method 5: Sum & Product of Roots"
+    },
+    {
+      "from": "m5_vieta",
+      "to": "m5_s1",
+      "label": "Sum of roots"
+    },
+    {
+      "from": "m5_vieta",
+      "to": "m5_s2",
+      "label": "Product of roots"
+    },
+    {
+      "from": "m5_s1",
+      "to": "m5_s3",
+      "label": "Find numbers"
+    },
+    {
+      "from": "m5_s2",
+      "to": "m5_s3",
+      "label": "Find numbers"
+    },
+    {
+      "from": "m5_s3",
+      "to": "conclusion",
+      "label": "x = 2 or x = 3"
+    },
+    {
+      "from": "start",
+      "to": "m6_trial",
+      "label": "Method 6: Trial & Factor Theorem"
+    },
+    {
+      "from": "m6_trial",
+      "to": "m6_s1",
+      "label": "Test x = 1"
+    },
+    {
+      "from": "m6_s1",
+      "to": "m6_s2",
+      "label": "Test x = 2"
+    },
+    {
+      "from": "m6_trial",
+      "to": "m6_s2",
+      "label": "Test x = 2 directly"
+    },
+    {
+      "from": "m6_s2",
+      "to": "m6_s3",
+      "label": "Other root"
+    },
+    {
+      "from": "m6_s3",
+      "to": "conclusion",
+      "label": "x = 2 or x = 3"
+    }
+  ]
+}

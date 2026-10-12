@@ -1,0 +1,15 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="#f9fbf8" stroke="#d1dcce" stroke-width="1" rx="6" ry="6"/>
+  <text x="200" y="50" text-anchor="middle" font-family="Manrope, sans-serif" font-size="18" fill="#18221d" font-weight="700">
+    x² − 5x + 6 = 0
+  </text>
+  <text x="200" y="90" text-anchor="middle" font-family="Manrope, sans-serif" font-size="16" fill="#173c2c">
+    Solutions: x = 2 or x = 3
+  </text>
+  <text x="200" y="130" text-anchor="middle" font-family="Manrope, sans-serif" font-size="14" fill="#68736d">
+    (x - 2)(x - 3) = 0
+  </text>
+  <text x="200" y="170" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" fill="#68736d">
+    Quadratic Equation - Grade 10
+  </text>
+</svg>

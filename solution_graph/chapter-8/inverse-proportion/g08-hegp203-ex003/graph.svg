@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="750" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Solution Graph: Workers & Road (Inverse)</text>
+
+  <!-- ═══ START NODE ═══ -->
+  <rect x="280" y="60" width="240" height="50" rx="8" fill="#4CAF50"/>
+  <text x="400" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="white">START</text>
+  <text x="400" y="102" text-anchor="middle" font-size="11" fill="white">20 workers lay road in 4 days</text>
+
+  <!-- ═══ EXTRACTION NODES ═══ -->
+  <rect x="280" y="140" width="240" height="50" rx="8" fill="#FF9800"/>
+  <text x="400" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Identify the Givens</text>
+  <text x="400" y="182" text-anchor="middle" font-size="10" fill="white">What information is given? [optional]</text>
+
+  <rect x="280" y="210" width="240" height="50" rx="8" fill="#FF9800"/>
+  <text x="400" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Identify the Goal</text>
+  <text x="400" y="252" text-anchor="middle" font-size="10" fill="white">What do we need to find? [optional]</text>
+
+  <!-- ═══ METHOD 1 NODE ═══ -->
+  <rect x="50" y="300" width="300" height="50" rx="8" fill="#2196F3"/>
+  <text x="200" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 1: Inverse Proportion Formula</text>
+  <text x="200" y="342" text-anchor="middle" font-size="10" fill="white">Use workers × days = constant</text>
+
+  <!-- ═══ M1 STEP 1 ═══ -->
+  <rect x="50" y="380" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="200" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 1: Calculate Constant</text>
+  <text x="200" y="422" text-anchor="middle" font-size="10" fill="white">What is 20 × 4?</text>
+
+  <!-- ═══ M1 STEP 2 ═══ -->
+  <rect x="50" y="460" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="200" y="485" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 2: Find Days for 10 Workers</text>
+  <text x="200" y="502" text-anchor="middle" font-size="10" fill="white">Using constant 80, days for 10 workers?</text>
+
+  <!-- ═══ METHOD 2 NODE ═══ -->
+  <rect x="450" y="300" width="300" height="50" rx="8" fill="#2196F3"/>
+  <text x="600" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 2: Ratio Method</text>
+  <text x="600" y="342" text-anchor="middle" font-size="10" fill="white">Use ratio of workers to find inverse ratio</text>
+
+  <!-- ═══ M2 STEP 1 ═══ -->
+  <rect x="450" y="380" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="600" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 1: Find Inverse Days Ratio</text>
+  <text x="600" y="422" text-anchor="middle" font-size="10" fill="white">What is the days ratio?</text>
+
+  <!-- ═══ M2 STEP 2 ═══ -->
+  <rect x="450" y="460" width="300" height="50" rx="8" fill="#FF9800"/>
+  <text x="600" y="485" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Step 2: Calculate New Days</text>
+  <text x="600" y="502" text-anchor="middle" font-size="10" fill="white">Apply days ratio to original days</text>
+
+  <!-- ═══ CONCLUSION NODE ═══ -->
+  <rect x="280" y="580" width="240" height="50" rx="8" fill="#9C27B0"/>
+  <text x="400" y="605" text-anchor="middle" font-size="12" font-weight="bold" fill="white">CONCLUSION</text>
+  <text x="400" y="622" text-anchor="middle" font-size="11" fill="white">10 workers take 8 days</text>
+
+  <!-- ═══ CONNECTIONS ═══ -->
+  <!-- Start to extractions -->
+  <line x1="400" y1="110" x2="400" y2="140" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="110" x2="400" y2="210" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Extractions to methods -->
+  <line x1="400" y1="190" x2="200" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="190" x2="600" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="260" x2="200" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="260" x2="600" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Direct leaps from start to methods -->
+  <line x1="340" y1="110" x2="200" y2="300" stroke="#888" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <line x1="460" y1="110" x2="600" y2="300" stroke="#888" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+
+  <!-- Method 1 steps -->
+  <line x1="200" y1="350" x2="200" y2="380" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="200" y1="430" x2="200" y2="460" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Method 2 steps -->
+  <line x1="600" y1="350" x2="600" y2="380" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="600" y1="430" x2="600" y2="460" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Steps to conclusion -->
+  <line x1="200" y1="510" x2="340" y2="580" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="600" y1="510" x2="460" y2="580" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Legend -->
+  <rect x="20" y="660" width="18" height="18" fill="#4CAF50" rx="2"/>
+  <text x="42" y="675" font-size="10" fill="#555">Start</text>
+  <rect x="20" y="675" width="18" height="18" fill="#2196F3" rx="2"/>
+  <text x="42" y="690" font-size="10" fill="#555">Method</text>
+  <rect x="20" y="690" width="18" height="18" fill="#FF9800" rx="2"/>
+  <text x="42" y="705" font-size="10" fill="#555">Step/Extraction</text>
+  <rect x="20" y="705" width="18" height="18" fill="#9C27B0" rx="2"/>
+  <text x="42" y="720" font-size="10" fill="#555">Conclusion</text>
+</svg>
