@@ -1,4 +1,4 @@
-// Standalone solution graph for NCERT Example 9 (car travel distance)
+// Solution graph for g08-hegp107-ex009 (generated from graph.json — do not hand-edit).
 window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
 window.SOLUTION_GRAPHS["g08-hegp107-ex009"] = {
   "graph_meta": {
@@ -6,7 +6,16 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex009"] = {
     "problem_uuid": "g08-hegp107-ex009",
     "problem_text": "A car travels 90 km in 150 minutes. If it continues at the same speed, what distance will it cover in 4 hours?",
     "navigation_label": "Car travel distance",
-    "problem_context": { "first": [150, 90], "second": [240, 144] },
+    "problem_context": {
+      "first": [
+        150,
+        90
+      ],
+      "second": [
+        240,
+        144
+      ]
+    },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for the car-distance proportion. It converts 4 hours to 240 minutes, sets up a proportional ratio, and solves by cross multiplication.",
@@ -18,6 +27,34 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex009"] = {
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify the Goal",
+      "description": "Identify the quantity or decision the problem asks for.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "the distance covered in 4 hours"
+      ],
+      "hints": [
+        "State clearly what the question asks you to determine."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify Given Information",
+      "description": "Identify the facts and quantities provided in this word problem.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "a car travels 90 km in 150 minutes and continues for 4 hours"
+      ],
+      "hints": [
+        "Read the problem carefully and identify the quantities and relationships."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -57,7 +94,12 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex009"] = {
       "label": "Method 1: Convert time units",
       "description": "Convert 4 hours into 240 minutes so both time values use the same unit.",
       "prompt": "Convert the time to the same unit as in the given ratio.",
-      "accept": ["4 hours = 240 minutes", "4 hours is 240 minutes", "240 minutes", "4 hours = 240 min"],
+      "accept": [
+        "4 hours = 240 minutes",
+        "4 hours is 240 minutes",
+        "240 minutes",
+        "4 hours = 240 min"
+      ],
       "hints": [
         "1 hour = 60 minutes.",
         "4 × 60 = 240.",
@@ -70,7 +112,12 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex009"] = {
       "label": "Convert 4 hours to minutes",
       "description": "4 hours = 240 minutes.",
       "prompt": "How many minutes are in 4 hours?",
-      "accept": ["240 minutes", "240", "4 hours = 240 minutes", "4 hours is 240 minutes"],
+      "accept": [
+        "240 minutes",
+        "240",
+        "4 hours = 240 minutes",
+        "4 hours is 240 minutes"
+      ],
       "hints": [
         "Multiply 4 by 60.",
         "4 × 60 = 240.",
@@ -102,7 +149,13 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex009"] = {
       "label": "Method 2: Cross multiplication",
       "description": "Solve the proportion by cross multiplication: 150 × x = 240 × 90.",
       "prompt": "Cross multiply to solve for the unknown distance.",
-      "accept": ["cross multiplication", "cross multiply", "150 × x = 240 × 90", "150*x = 240*90", "150 x = 240 × 90"],
+      "accept": [
+        "cross multiplication",
+        "cross multiply",
+        "150 × x = 240 × 90",
+        "150*x = 240*90",
+        "150 x = 240 × 90"
+      ],
       "hints": [
         "Multiply 240 by 90.",
         "Then divide by 150.",
@@ -134,7 +187,13 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex009"] = {
       "label": "Solve for x",
       "description": "x = 240 × 90 ÷ 150 = 144.",
       "prompt": "Solve the equation to find x.",
-      "accept": ["x = 144", "x=144", "distance = 144 km", "the answer is 144", "144 km"],
+      "accept": [
+        "x = 144",
+        "x=144",
+        "distance = 144 km",
+        "the answer is 144",
+        "144 km"
+      ],
       "hints": [
         "240 × 90 = 21600.",
         "21600 ÷ 150 = 144.",
@@ -143,12 +202,55 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex009"] = {
     }
   ],
   "edges": [
-    { "from": "start", "to": "m1_convert", "label": "Convert time" },
-    { "from": "m1_convert", "to": "m1_s1", "label": "Get minutes" },
-    { "from": "m1_s1", "to": "m1_s2", "label": "Set the ratio" },
-    { "from": "m1_s2", "to": "m2_cross", "label": "Cross multiply" },
-    { "from": "m2_cross", "to": "m2_s1", "label": "Write equation" },
-    { "from": "m2_s1", "to": "m2_s2", "label": "Solve for x" },
-    { "from": "m2_s2", "to": "conclusion", "label": "State the distance" }
+    {
+      "from": "m1_convert",
+      "to": "m1_s1",
+      "label": "Get minutes"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Set the ratio"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m2_cross",
+      "label": "Cross multiply"
+    },
+    {
+      "from": "m2_cross",
+      "to": "m2_s1",
+      "label": "Write equation"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Solve for x"
+    },
+    {
+      "from": "m2_s2",
+      "to": "conclusion",
+      "label": "State the distance"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_convert",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_cross",
+      "label": "Choose a solution method"
+    }
   ]
 };

@@ -287,6 +287,7 @@ function updateStepUI() {
   const stepIndicator = document.getElementById('step-indicator');
   const stepLabel = document.getElementById('step-label');
   const stepDotActive = document.getElementById('step-dot-1');
+  const problemDescriptionEl = document.getElementById('problem-description');
 
   if (!state.session) return;
 
@@ -294,14 +295,75 @@ function updateStepUI() {
     stepLabel.textContent = '✓ Solved';
     stepDotActive.className = 'step-dot-done';
     questionInput.placeholder = 'Problem solved — press "↺ Reset Problem State" to try again.';
-  } else if (state.session.trail.length === 0 && !state.session.methodId) {
-    stepLabel.textContent = 'Step 1';
+    // Show normal problem description when completed
+    const chapter = state.availableChapters.find(c => c.id === state.currentChapter);
+    const problem = chapter && chapter.problems.find(p => p.id === state.currentProblem);
+    if (chapter && problem) {
+      problemDescriptionEl.textContent = `${chapter.title} - ${chapter.description}`;
+    }
+    return;
+  }
+
+  // Get current node if we have one
+  let currentNode = null;
+  if (state.session.currentNodeId) {
+    currentNode = TutorEngine.getNode(state.session.currentNodeId);
+  }
+
+  // Handle special case: beginning of problem (no trail, no method, no current node)
+  const isBeginning = state.session.trail.length === 0 && !state.session.methodId && !state.session.currentNodeId;
+
+  // Update step label
+  if (isBeginning) {
+    stepLabel.textContent = 'Start';
     stepDotActive.className = 'step-dot-active';
     questionInput.placeholder = 'Type your first step for this problem…';
+    // Show normal problem description
+    const chapter = state.availableChapters.find(c => c.id === state.currentChapter);
+    const problem = chapter && chapter.problems.find(p => p.id === state.currentProblem);
+    if (chapter && problem) {
+      problemDescriptionEl.textContent = `${chapter.title} - ${chapter.description}`;
+    }
+    return;
+  }
+
+  // Count only actual solution/calculation steps (exclude extraction nodes from step count)
+  const calculationStepCount = state.session.trail.filter(t => {
+    const node = TutorEngine.getNode(t.nodeId);
+    return node ? node.type !== 'extraction' : (t.nodeId !== 'given_extraction' && t.nodeId !== 'goal_extraction');
+  }).length;
+
+  // Update step label with actual node label or fallback to step number
+  if (currentNode && currentNode.label) {
+    stepLabel.textContent = currentNode.label;
   } else {
-    stepLabel.textContent = `Step ${state.session.trail.length + 1}`;
-    stepDotActive.className = 'step-dot-active';
+    stepLabel.textContent = `Step ${calculationStepCount + 1}`;
+  }
+
+  stepDotActive.className = 'step-dot-active';
+
+  // Update placeholder and problem description based on current node
+  if (currentNode && currentNode.prompt) {
+    questionInput.placeholder = currentNode.prompt;
+    // Show extraction prompt in problem description for extraction nodes
+    if (currentNode.id === 'given_extraction' || currentNode.id === 'goal_extraction') {
+      problemDescriptionEl.textContent = currentNode.prompt;
+    } else {
+      // Show normal problem description for non-extraction nodes
+      const chapter = state.availableChapters.find(c => c.id === state.currentChapter);
+      const problem = chapter && chapter.problems.find(p => p.id === state.currentProblem);
+      if (chapter && problem) {
+        problemDescriptionEl.textContent = `${chapter.title} - ${chapter.description}`;
+      }
+    }
+  } else {
     questionInput.placeholder = 'Type your next step…';
+    // Show normal problem description
+    const chapter = state.availableChapters.find(c => c.id === state.currentChapter);
+    const problem = chapter && chapter.problems.find(p => p.id === state.currentProblem);
+    if (chapter && problem) {
+      problemDescriptionEl.textContent = `${chapter.title} - ${chapter.description}`;
+    }
   }
 }
 

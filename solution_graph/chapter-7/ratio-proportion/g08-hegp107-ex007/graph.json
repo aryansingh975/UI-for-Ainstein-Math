@@ -5,20 +5,58 @@
     "problem_text": "Fill in the missing numbers for ratios proportional to 14 : 21. __ : 42, 6 : __, 2 : __",
     "navigation_label": "Ratio fill-ins: 14:21",
     "problem_context": {
-      "first": [14, 21],
-      "second": [42, 9]
+      "first": [
+        14,
+        21
+      ],
+      "second": [
+        42,
+        9
+      ]
     },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for the missing-number ratio example. It shows that 14:21 simplifies to 2:3, and then the missing values are found by scaling the simplified ratio.",
     "created": "2026-10-11",
-    "total_methods": 2,
-    "total_nodes": 12,
-    "total_edges": 12
+    "total_methods": 1,
+    "total_nodes": 9,
+    "total_edges": 9
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Base Ratio",
+      "description": "Identify the ratio and incomplete proportional ratios.",
+      "prompt": "What ratio is given, and what must be completed?",
+      "accept": [
+        "14:21 and missing proportional ratios",
+        "14 : 21 with blanks",
+        "the ratio is 14:21"
+      ],
+      "hints": [
+        "All the incomplete ratios must be proportional to 14:21."
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Goal",
+      "description": "Identify the missing values to find.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "the missing numbers",
+        "fill in the missing values",
+        "complete the ratios"
+      ],
+      "hints": [
+        "Find values that keep each ratio equivalent to 14:21."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -59,7 +97,13 @@
       "label": "Method 1: Simplify first",
       "description": "Simplify 14:21 to 2:3 and use the same scale factor to find missing values.",
       "prompt": "Choose a method. Simplify 14:21 first.",
-      "accept": ["simplify", "reduce", "2:3", "2 : 3", "14/21 = 2/3"],
+      "accept": [
+        "simplify",
+        "reduce",
+        "2:3",
+        "2 : 3",
+        "14/21 = 2/3"
+      ],
       "hints": [
         "Divide both 14 and 21 by 7.",
         "14 ÷ 7 = 2 and 21 ÷ 7 = 3.",
@@ -72,7 +116,12 @@
       "label": "Simplify 14:21",
       "description": "14:21 simplifies to 2:3.",
       "prompt": "What is 14:21 in simplest form?",
-      "accept": ["2:3", "2 : 3", "2 to 3", "14/21 = 2/3"],
+      "accept": [
+        "2:3",
+        "2 : 3",
+        "2 to 3",
+        "14/21 = 2/3"
+      ],
       "hints": [
         "14 and 21 are both divisible by 7.",
         "14 ÷ 7 = 2 and 21 ÷ 7 = 3.",
@@ -85,7 +134,13 @@
       "label": "Find the first missing number",
       "description": "Since 42 is 2 × 21, the first missing number is 2 × 14 = 28.",
       "prompt": "What number goes in the first blank: __ : 42?",
-      "accept": ["28", "28:42", "28 : 42", "the first number is 28", "28 to 42"],
+      "accept": [
+        "28",
+        "28:42",
+        "28 : 42",
+        "the first number is 28",
+        "28 to 42"
+      ],
       "hints": [
         "42 is 2 times 21.",
         "So multiply the first term 14 by 2.",
@@ -98,7 +153,13 @@
       "label": "Find the second missing number",
       "description": "For 6:__, scale 2:3 by 3 because 6 = 2 × 3, so the missing value is 9.",
       "prompt": "What number goes in the second blank: 6 : __?",
-      "accept": ["9", "6:9", "6 : 9", "the second number is 9", "6 to 9"],
+      "accept": [
+        "9",
+        "6:9",
+        "6 : 9",
+        "the second number is 9",
+        "6 to 9"
+      ],
       "hints": [
         "The simplified ratio is 2:3.",
         "6 is 3 times 2.",
@@ -111,7 +172,13 @@
       "label": "Finish the last ratio",
       "description": "The ratio 2:3 is already in the simplest form, so the last blank is 3.",
       "prompt": "What is the last missing number in 2 : __ ?",
-      "accept": ["3", "2:3", "2 : 3", "the last number is 3", "2 to 3"],
+      "accept": [
+        "3",
+        "2:3",
+        "2 : 3",
+        "the last number is 3",
+        "2 to 3"
+      ],
       "hints": [
         "The simplified ratio is already 2:3.",
         "So the final ratio is 2:3."
@@ -119,11 +186,50 @@
     }
   ],
   "edges": [
-    { "from": "start", "to": "m1_simplify", "label": "Simplify the ratio" },
-    { "from": "m1_simplify", "to": "m1_s1", "label": "Read the simplified form" },
-    { "from": "m1_s1", "to": "m1_s2", "label": "Scale to 42" },
-    { "from": "m1_s2", "to": "m1_s3", "label": "Scale to 6" },
-    { "from": "m1_s3", "to": "m1_s4", "label": "Finish the third ratio" },
-    { "from": "m1_s4", "to": "conclusion", "label": "State the full answer" }
+    {
+      "from": "start",
+      "to": "m1_simplify",
+      "label": "Simplify the ratio"
+    },
+    {
+      "from": "m1_simplify",
+      "to": "m1_s1",
+      "label": "Read the simplified form"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Scale to 42"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3",
+      "label": "Scale to 6"
+    },
+    {
+      "from": "m1_s3",
+      "to": "m1_s4",
+      "label": "Finish the third ratio"
+    },
+    {
+      "from": "m1_s4",
+      "to": "conclusion",
+      "label": "State the full answer"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_simplify",
+      "label": "Choose a solution method"
+    }
   ]
 }

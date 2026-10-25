@@ -1,24 +1,58 @@
-// Solution Graph for Problem 1 (g10-quad-ex001)
-// Embedded as JS to avoid file:// fetch restrictions
-// This graph captures all 6 valid solution methods for solving
-// the quadratic equation x² − 5x + 6 = 0.
+// Solution graph for g10-quad-ex001 (generated from graph.json — do not hand-edit).
 window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
 window.SOLUTION_GRAPHS["g10-quad-ex001"] = {
   "graph_meta": {
     "graph_id": "sg-g10-quad-ex001",
     "problem_uuid": "g10-quad-ex001",
     "problem_text": "Solve the quadratic equation x² − 5x + 6 = 0.",
+    "navigation_label": "Quadratic: x² − 5x + 6 = 0",
+    "problem_context": {
+      "equation": "x^2 - 5x + 6 = 0"
+    },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for x² − 5x + 6 = 0 — captures all valid solution methods (factoring by splitting the middle term, quadratic formula, completing the square, graphical, sum and product of roots, trial and factor theorem). The tutor accepts any path through this graph as a valid solution.",
     "created": "2026-10-08",
     "total_methods": 6,
-    "total_nodes": 30,
-    "total_edges": 38
+    "total_nodes": 32,
+    "total_edges": 46
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Equation",
+      "description": "Identify the quadratic equation that is given.",
+      "prompt": "What quadratic equation is given?",
+      "accept": [
+        "x² − 5x + 6 = 0",
+        "x^2 - 5x + 6 = 0",
+        "x²-5x+6=0"
+      ],
+      "hints": [
+        "Read the equation in the problem statement."
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Goal",
+      "description": "Identify what must be found from the equation.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "solve for x",
+        "the roots",
+        "the values of x",
+        "solutions of the equation"
+      ],
+      "hints": [
+        "Find the value or values of x that make the equation zero."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -797,6 +831,46 @@ window.SOLUTION_GRAPHS["g10-quad-ex001"] = {
       "from": "m6_s3",
       "to": "conclusion",
       "label": "x = 2 or x = 3"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_factor",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_formula",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m3_square",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m4_graph",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m5_vieta",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m6_trial",
+      "label": "Choose a solution method"
     }
   ]
 };

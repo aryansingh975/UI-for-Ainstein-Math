@@ -297,11 +297,11 @@ checkStructure(
   ["m1_s4", "m2_s3", "m3_s4", "m4_s5"].every(id => !getNode(id)),
   true
 );
-checkStructure("updated graph node count", graph.nodes.length, 35);
-checkStructure("updated graph edge count", graph.edges.length, 44);
+checkStructure("updated graph node count", graph.nodes.length, 37);
+checkStructure("updated graph edge count", graph.edges.length, 54);
 checkStructure(
   "displayed start method order",
-  graph.edges.filter(edge => edge.from === "start").map(edge => edge.label),
+  graph.edges.filter(edge => edge.from === "start" && getNode(edge.to) && getNode(edge.to).type === "method").map(edge => edge.label),
   [
     "Method 1: Simplification",
     "Method 2: Fraction Simplification",

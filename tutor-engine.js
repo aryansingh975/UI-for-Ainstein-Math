@@ -58,12 +58,22 @@
   }
 
   function newSession() {
-    return { trail: [], currentNodeId: null, methodId: null, failStreak: 0, completed: false };
+    let initialNodeId = null;
+    const givenExt = getNode('given_extraction');
+    if (givenExt && givenExt.optional === false) {
+      initialNodeId = 'given_extraction';
+    }
+    return { trail: [], currentNodeId: initialNodeId, methodId: null, failStreak: 0, completed: false };
   }
 
   function beginMethod(session, methodNodeId) {
     const node = getNode(methodNodeId);
-    if (!session || session.completed || session.methodId || session.trail.length > 0 || !node || node.type !== 'method') {
+    if (!session || session.completed || session.methodId || !node || node.type !== 'method') {
+      return false;
+    }
+
+    // Check required extraction: if extraction is required and not completed, block method access
+    if (!hasCompletedRequiredExtraction(session)) {
       return false;
     }
 
@@ -77,16 +87,23 @@
 
   // ─── Text normalization (synced with the accept-list matcher) ───
   function normalizeText(value) {
-    return String(value).toLowerCase()
+    let s = String(value).toLowerCase()
+      .replace(/[\u20B9$]/g, '')
+      .replace(/\b(?:rs\.?|rupees?)\b/gi, '')
       .replace(/\s+/g, ' ')
       .replace(/\s*:\s*/g, ':')
       .replace(/\s*×\s*/g, '*')
       .replace(/\bx\b/g, '*')
       .replace(/\s*÷\s*/g, '/')
+      .replace(/\s*([*+/])\s*/g, '$1')
       .replace(/\s*=\s*/g, '=')
       .replace(/\s*->\s*/g, '->')
       .replace(/[.,!;?]+$/g, '')
       .trim();
+    while (/(\d),(\d)/.test(s)) {
+      s = s.replace(/(\d),(\d)/g, (match, a, b) => a + b);
+    }
+    return s;
   }
 
   function stripConnectingWords(text) {
@@ -125,7 +142,14 @@
     'number','numbers','step','steps','method','methods','approach','over',
     'cross','form','side','sides',
     'one','two','three','four','five','six','seven','eight','nine','ten',
-    'quarter','quarters','half','halves','third','thirds'
+    'quarter','quarters','half','halves','third','thirds',
+    'percent','percentage','percentages','depreciation','depreciates','depreciate','depreciated',
+    'original','bought','buy','cost','price','sale','rate','time','annum','year','years','amount',
+    'interest','principal','discount','markup','profit','loss','gain',
+    'age','ages','daughter','daughters','mother','mothers','father','son','present','future','past',
+    'ago','hence','older','younger','unit','units','part','parts','constant','difference','sum','total',
+    'equation','let','assume','variable','linear','solve','solved','solving','subtract','subtracted','subtracting',
+    'add','added','adding','addition','subtraction'
   ]);
 
   const MATH_INTENT = new Set([
@@ -499,6 +523,9 @@
   }
 
   function successorOf(nodeId) {
+    if (nodeId === 'goal_extraction') {
+      return null;
+    }
     const edges = GRAPH.edges.filter(e => e.from === nodeId);
     return edges.length > 0 ? edges[0].to : CONCLUSION_ID;
   }
@@ -529,6 +556,24 @@
       if (cur === CONCLUSION_ID) break;
     }
     return chain;
+  }
+
+  // ─── Required Extraction Support ───
+  function hasCompletedRequiredExtraction(session) {
+    const givenExt = getNode('given_extraction');
+    const goalExt = getNode('goal_extraction');
+    if (!givenExt || !goalExt) return true;
+    const givenExtRequired = givenExt.optional === false;
+    const goalExtRequired = goalExt.optional === false;
+    if (!givenExtRequired || !goalExtRequired) return true;
+    const trail = session.trail;
+    let givenIndex = -1;
+    let goalIndex = -1;
+    for (let i = 0; i < trail.length; i++) {
+      if (trail[i].nodeId === 'given_extraction') givenIndex = i;
+      if (trail[i].nodeId === 'goal_extraction') goalIndex = i;
+    }
+    return givenIndex >= 0 && goalIndex > givenIndex;
   }
 
   // ─── Expected values per step node (derived from its accept list) ───
@@ -739,7 +784,7 @@
 
     const normalizedInput = normalizeText(parsed.raw);
     const exactGraphAnswer = GRAPH.nodes.some(node =>
-      ['method', 'step', 'conclusion'].includes(node.type) &&
+      ['method', 'step', 'conclusion', 'extraction'].includes(node.type) &&
       (node.accept || []).some(answer => normalizeText(answer) === normalizedInput)
     );
     if (isGarbage(parsed) && !exactGraphAnswer) {
@@ -747,17 +792,16 @@
       return result;
     }
 
-    // Conclusion answers may be short or numeric, so check graph acceptance before the garbage gate.
-    const concl = detectConclusion(parsed, session);
-    if (concl && concl.detected) {
-      result.verdict = concl.correct ? 'CONCLUSION_RIGHT' : 'CONCLUSION_WRONG';
-      return result;
-    }
-
     // Current-node match (context wins — includes immediate wrong-claim detection)
     if (session.currentNodeId) {
       const node = getNode(session.currentNodeId);
-      if (node && node.type === 'step') {
+      if (node && node.type === 'conclusion') {
+        const concl = detectConclusion(parsed, session);
+        if (concl && concl.detected) {
+          result.verdict = concl.correct ? 'CONCLUSION_RIGHT' : 'CONCLUSION_WRONG';
+          return result;
+        }
+      } else if (node && node.accept && node.accept.length > 0) {
         const m = matchNode(parsed, node);
         if (m.accepted) {
           result.verdict = 'ACCEPT';
@@ -773,6 +817,13 @@
           return result;
         }
       }
+    }
+
+    // Conclusion answers may be short or numeric, so check graph acceptance
+    const concl = detectConclusion(parsed, session);
+    if (concl && concl.detected) {
+      result.verdict = concl.correct ? 'CONCLUSION_RIGHT' : 'CONCLUSION_WRONG';
+      return result;
     }
 
     // Reject reversed versions of the problem ratios instead of treating their
@@ -804,8 +855,34 @@
       return result;
     }
 
-    // 5. Method keyword fast path (only before any method is locked in)
+    // 5. Extraction fast path when no method is locked in
     if (!session.methodId) {
+      const givenExt = getNode('given_extraction');
+      const goalExt = getNode('goal_extraction');
+      const hasGiven = session.trail.some(t => t.nodeId === 'given_extraction');
+      const hasGoal = session.trail.some(t => t.nodeId === 'goal_extraction');
+
+      if (!hasGiven && givenExt) {
+        const m = matchNode(parsed, givenExt);
+        if (m.accepted) {
+          result.verdict = 'ACCEPT';
+          result.nodeId = givenExt.id;
+          result.methodId = null;
+          return result;
+        }
+      } else if (hasGiven && !hasGoal && goalExt) {
+        const m = matchNode(parsed, goalExt);
+        if (m.accepted) {
+          result.verdict = 'ACCEPT';
+          result.nodeId = goalExt.id;
+          result.methodId = null;
+          return result;
+        }
+      }
+    }
+
+    // 6. Method keyword fast path (only when extraction is completed)
+    if (!session.methodId && hasCompletedRequiredExtraction(session)) {
       const mk = detectMethodKeyword(parsed);
       if (mk) {
         result.verdict = 'ACCEPT';
@@ -897,7 +974,7 @@
     init, newSession, beginMethod, processStep, applyResult,
     parseStep, extractClaims, evalArithmetic,
     matchesAccept, normalizeText, getNode,
-    explainClaim, hintFor, methodOf, successorOf,
+    explainClaim, hintFor, methodOf, successorOf, hasCompletedRequiredExtraction,
     _internal: { RELEVANT_WORDS, MATH_INTENT, expectedFor, detectConclusion, detectMethodKeyword, isGarbage, isBareYesNo }
   };
 });

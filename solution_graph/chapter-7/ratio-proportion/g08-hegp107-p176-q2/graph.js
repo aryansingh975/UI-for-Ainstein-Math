@@ -1,4 +1,4 @@
-// Solution graph for NCERT Figure it Out Q2 (g08-hegp107-p176-q2)
+// Solution graph for g08-hegp107-p176-q2 (generated from graph.json — do not hand-edit).
 window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
 window.SOLUTION_GRAPHS["g08-hegp107-p176-q2"] = {
   "graph_meta": {
@@ -6,18 +6,50 @@ window.SOLUTION_GRAPHS["g08-hegp107-p176-q2"] = {
     "problem_uuid": "g08-hegp107-p176-q2",
     "problem_text": "Last year, we hired 3 buses for the school trip. We had a total of 162 students and teachers who went on that trip and all the buses were full. This year we have 204 students and teachers. How many buses will we need? Will all the buses be full?",
     "navigation_label": "School trip bus capacity",
-    "problem_context": { "last_buses": 3, "last_people": 162, "current_people": 204 },
+    "problem_context": {
+      "last_buses": 3,
+      "last_people": 162,
+      "current_people": 204
+    },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for finding per-bus capacity, then computing the number of buses needed and whether the final bus will be full.",
     "created": "2026-10-11",
     "total_methods": 1,
-    "total_nodes": 6,
-    "total_edges": 5
+    "total_nodes": 7,
+    "total_edges": 6
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify the Goal",
+      "description": "Identify the quantity or decision the problem asks for.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "how many buses are needed and whether they will be full"
+      ],
+      "hints": [
+        "State clearly what the question asks you to determine."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify Given Information",
+      "description": "Identify the facts and quantities provided in this word problem.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "3 full buses carry 162 people and this year there are 204 people"
+      ],
+      "hints": [
+        "Read the problem carefully and identify the quantities and relationships."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -112,9 +144,35 @@ window.SOLUTION_GRAPHS["g08-hegp107-p176-q2"] = {
     }
   ],
   "edges": [
-    { "from": "start", "to": "m1_capacity", "label": "Find capacity" },
-    { "from": "m1_capacity", "to": "m1_s1", "label": "Capacity per bus" },
-    { "from": "m1_s1", "to": "m1_s2", "label": "Number of buses" },
-    { "from": "m1_s2", "to": "conclusion", "label": "Final answer" }
+    {
+      "from": "m1_capacity",
+      "to": "m1_s1",
+      "label": "Capacity per bus"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Number of buses"
+    },
+    {
+      "from": "m1_s2",
+      "to": "conclusion",
+      "label": "Final answer"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_capacity",
+      "label": "Choose a solution method"
+    }
   ]
 };

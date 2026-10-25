@@ -3,7 +3,7 @@ const { readFile } = require('node:fs/promises');
 const { extname, relative, resolve, sep } = require('node:path');
 
 const ROOT = __dirname;
-const PORT = Number(process.env.PORT || 3000);
+const PORT = Number(process.env.PORT || 8000);
 const HOST = '127.0.0.1';
 const MODEL = process.env.JEV_MODEL || 'typesafe/jev-router';
 const MAX_BODY_BYTES = 16 * 1024;

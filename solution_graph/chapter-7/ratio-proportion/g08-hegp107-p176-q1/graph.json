@@ -4,18 +4,53 @@
     "problem_uuid": "g08-hegp107-p176-q1",
     "problem_text": "Anagh mixes 600 mL of orange juice with 900 mL of apple juice to make a fruit drink. Write the ratio of orange juice to apple juice in its simplest form.",
     "navigation_label": "Orange to apple juice ratio",
-    "problem_context": { "orange": 600, "apple": 900 },
+    "problem_context": {
+      "orange": 600,
+      "apple": 900
+    },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for simplifying the ratio 600 : 900 to 2 : 3 using the HCF.",
     "created": "2026-10-11",
     "total_methods": 1,
-    "total_nodes": 6,
-    "total_edges": 5
+    "total_nodes": 7,
+    "total_edges": 7
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Juice Amounts",
+      "description": "Identify the two volumes of juice.",
+      "prompt": "What quantities of juice are given?",
+      "accept": [
+        "600 mL orange juice and 900 mL apple juice",
+        "600 and 900 mL",
+        "orange 600 mL and apple 900 mL"
+      ],
+      "hints": [
+        "The two amounts are 600 mL and 900 mL."
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Goal",
+      "description": "Identify the ratio to simplify.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "the simplest ratio of orange to apple juice",
+        "simplify the ratio",
+        "orange juice to apple juice ratio"
+      ],
+      "hints": [
+        "Write orange juice to apple juice in simplest form."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -108,9 +143,40 @@
     }
   ],
   "edges": [
-    { "from": "start", "to": "m1_simplify", "label": "Use HCF" },
-    { "from": "m1_simplify", "to": "m1_s1", "label": "Find common factor" },
-    { "from": "m1_s1", "to": "m1_s2", "label": "Reduce ratio" },
-    { "from": "m1_s2", "to": "conclusion", "label": "Final ratio" }
+    {
+      "from": "start",
+      "to": "m1_simplify",
+      "label": "Use HCF"
+    },
+    {
+      "from": "m1_simplify",
+      "to": "m1_s1",
+      "label": "Find common factor"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Reduce ratio"
+    },
+    {
+      "from": "m1_s2",
+      "to": "conclusion",
+      "label": "Final ratio"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_simplify",
+      "label": "Choose a solution method"
+    }
   ]
 }

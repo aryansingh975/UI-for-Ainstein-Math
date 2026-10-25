@@ -1,245 +1,279 @@
-// Solution Graph for A school has provisions to feed 80 students for 15 days. If 20 more students join, for how many days will the provisions last?
-// Problem UUID: b2c3d4e5-f6a7-8901-bcde-f12345678901
+// Solution graph for g08-hegp203-ex005 (generated from graph.json — do not hand-edit).
 window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
-window.SOLUTION_GRAPHS["b2c3d4e5-f6a7-8901-bcde-f12345678901"] = {
-    "graph_meta": {
-        "graph_id": "sg-b2c3d4e5-f6a7-8901-bcde-f12345678901",
-        "problem_uuid": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
-        "problem_text": "A school has provisions to feed 80 students for 15 days. If 20 more students join, for how many days will the provisions last?",
-        "navigation_label": "School Provisions",
-        "problem_context": {
-            "chapter": "8",
-            "topic": "Inverse Proportion",
-            "difficulty": "moderate",
-            "source": "g08-hegp203-ex005"
-        },
-        "graph_type": "directed_acyclic_graph",
-        "version": "1.0.0",
-        "description": "Two-method solution graph for a school provisions word problem involving inverse proportion between students and days.",
-        "created": "2026-10-12",
-        "total_methods": 2,
-        "total_nodes": 13,
-        "total_edges": 13
+window.SOLUTION_GRAPHS["g08-hegp203-ex005"] = {
+  "graph_meta": {
+    "graph_id": "sg-g08-hegp203-ex005",
+    "problem_uuid": "g08-hegp203-ex005",
+    "problem_text": "A school has provisions to feed 80 students for 15 days. If 20 more students join, for how many days will the provisions last?",
+    "navigation_label": "School Provisions",
+    "problem_context": {
+      "chapter": "8",
+      "topic": "Inverse Proportion",
+      "difficulty": "moderate",
+      "source": "g08-hegp203-ex005"
     },
-    "start_node": "start",
-    "conclusion_node": "conclusion",
-    "nodes": [
-        {
-            "id": "start",
-            "type": "start",
-            "label": "Problem Statement",
-            "description": "A school has provisions to feed 80 students for 15 days. If 20 more students join, for how many days will the provisions last?",
-            "prompt": "Read the problem carefully. What changes when more students join?",
-            "accept": [],
-            "hints": [
-                "Think about whether more students means provisions last longer or shorter.",
-                "As the number of students increases, the provisions will be consumed faster.",
-                "This is an inverse proportion — more students, fewer days the provisions last."
-            ]
-        },
-        {
-            "id": "given_extraction",
-            "type": "extraction",
-            "label": "Identify the Givens",
-            "description": "Extract the known values from the problem.",
-            "prompt": "What information is given in the problem?",
-            "accept": [
-                "80 students, 15 days",
-                "students1 = 80, days1 = 15, 20 more students join",
-                "provisions for 80 students for 15 days, 20 more join",
-                "original students = 80, days = 15, additional students = 20",
-                "80 students for 15 days; 20 additional students",
-                "students: 80, days: 15, extra students: 20"
-            ],
-            "hints": [
-                "Look for numbers related to students and days in the problem.",
-                "How many students are there originally, and for how many days do provisions last?",
-                "Given: 80 students, provisions for 15 days, and 20 more students are joining."
-            ]
-        },
-        {
-            "id": "goal_extraction",
-            "type": "extraction",
-            "label": "Identify the Goal",
-            "description": "Determine what the problem is asking us to find.",
-            "prompt": "What do we need to find?",
-            "accept": [
-                "how many days will provisions last",
-                "days for 100 students",
-                "number of days after 20 more join",
-                "new number of days",
-                "days provisions last for 100 students",
-                "days2"
-            ],
-            "hints": [
-                "The question asks how long the provisions will last after more students join.",
-                "After 20 students join, the total becomes 100. What is unknown?",
-                "We need to find how many days the provisions will last for 100 students."
-            ]
-        },
-        {
-            "id": "method1",
-            "type": "method",
-            "label": "Method 1: Total Provisions Method",
-            "description": "Calculate total provisions (student-days), then divide by new number of students.",
-            "prompt": "Find the total amount of provisions available. What is total = students × days?",
-            "accept": [
-                "total provisions method",
-                "student-days method",
-                "calculate total then divide",
-                "80 × 15 = total"
-            ],
-            "hints": [
-                "The total provisions can be expressed as student-days (how many students can eat for how many days).",
-                "Total provisions = number of students × number of days.",
-                "Method: Compute 80 × 15 to get total student-days, then divide by the new student count."
-            ]
-        },
-        {
-            "id": "m1_step1",
-            "type": "step",
-            "label": "Calculate Total Provisions",
-            "description": "Find total student-days: 80 × 15 = 1200.",
-            "prompt": "What is the total provision in student-days? (80 × 15 = ?)",
-            "accept": [
-                "1200",
-                "1200 student-days",
-                "80 × 15 = 1200",
-                "total = 1200",
-                "twelve hundred"
-            ],
-            "hints": [
-                "Multiply the original number of students by the number of days.",
-                "80 × 15 = ?",
-                "80 × 15 = 1200 student-days."
-            ]
-        },
-        {
-            "id": "m1_step2",
-            "type": "step",
-            "label": "Find New Total Students",
-            "description": "Add the 20 new students: 80 + 20 = 100.",
-            "prompt": "How many students are there in total after 20 more join?",
-            "accept": [
-                "100",
-                "100 students",
-                "80 + 20 = 100",
-                "total students = 100",
-                "one hundred students"
-            ],
-            "hints": [
-                "Add the new students to the original count.",
-                "80 + 20 = ?",
-                "80 + 20 = 100 students total."
-            ]
-        },
-        {
-            "id": "m1_step3",
-            "type": "step",
-            "label": "Divide to Find New Days",
-            "description": "Divide total provisions by new student count: 1200 ÷ 100 = 12.",
-            "prompt": "How many days will 1200 student-days of provisions last for 100 students?",
-            "accept": [
-                "12",
-                "12 days",
-                "1200 ÷ 100 = 12",
-                "days = 12",
-                "twelve days"
-            ],
-            "hints": [
-                "Divide total provisions by the new number of students.",
-                "1200 ÷ 100 = ?",
-                "1200 ÷ 100 = 12 days."
-            ]
-        },
-        {
-            "id": "method2",
-            "type": "method",
-            "label": "Method 2: Inverse Proportion Equation",
-            "description": "Set up the inverse proportion equation: students₁ × days₁ = students₂ × days₂.",
-            "prompt": "Write the inverse proportion equation relating both cases. What is the equation?",
-            "accept": [
-                "80 × 15 = 100 × d",
-                "students1 × days1 = students2 × days2",
-                "inverse proportion equation",
-                "x1y1 = x2y2",
-                "80 × 15 = 100 × days2"
-            ],
-            "hints": [
-                "In inverse proportion, the product of corresponding quantities is constant.",
-                "students₁ × days₁ = students₂ × days₂.",
-                "Set up: 80 × 15 = 100 × d, where d is the unknown number of days."
-            ]
-        },
-        {
-            "id": "m2_step1",
-            "type": "step",
-            "label": "Substitute and Simplify",
-            "description": "Substitute known values into the equation: 80 × 15 = 100 × d → 1200 = 100d.",
-            "prompt": "Substitute the values into the equation. What do you get?",
-            "accept": [
-                "1200 = 100d",
-                "100d = 1200",
-                "80 × 15 = 100 × d gives 1200 = 100d",
-                "product is 1200"
-            ],
-            "hints": [
-                "Replace students₁ = 80, days₁ = 15, students₂ = 100 into the equation.",
-                "80 × 15 = 1200, so 1200 = 100 × d.",
-                "The equation becomes 100d = 1200."
-            ]
-        },
-        {
-            "id": "m2_step2",
-            "type": "step",
-            "label": "Solve for d",
-            "description": "Solve 1200 = 100d → d = 1200 ÷ 100 = 12.",
-            "prompt": "Solve for d: if 100d = 1200, what is d?",
-            "accept": [
-                "12",
-                "12 days",
-                "d = 12",
-                "1200 ÷ 100 = 12",
-                "d = 1200/100 = 12"
-            ],
-            "hints": [
-                "Divide both sides of the equation by 100.",
-                "d = 1200 ÷ 100.",
-                "d = 12 days."
-            ]
-        },
-        {
-            "id": "conclusion",
-            "type": "conclusion",
-            "label": "Final Answer",
-            "description": "The provisions will last for 12 days after 20 more students join.",
-            "prompt": "For how many days will the provisions last after 20 more students join?",
-            "accept": [
-                "12 days",
-                "12",
-                "twelve days",
-                "provisions last 12 days",
-                "the answer is 12 days",
-                "d = 12"
-            ],
-            "hints": [
-                "Both methods give the same result.",
-                "Total provisions divided by new number of students gives the answer.",
-                "The provisions will last for 12 days for 100 students."
-            ]
-        }
-    ],
-    "edges": [
-        { "from": "start", "to": "given_extraction" },
-        { "from": "given_extraction", "to": "goal_extraction" },
-        { "from": "goal_extraction", "to": "method1" },
-        { "from": "goal_extraction", "to": "method2" },
-        { "from": "method1", "to": "m1_step1" },
-        { "from": "m1_step1", "to": "m1_step2" },
-        { "from": "m1_step2", "to": "m1_step3" },
-        { "from": "m1_step3", "to": "conclusion" },
-        { "from": "method2", "to": "m2_step1" },
-        { "from": "m2_step1", "to": "m2_step2" },
-        { "from": "m2_step2", "to": "conclusion" }
-    ]
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Two-method solution graph for a school provisions word problem involving inverse proportion between students and days.",
+    "created": "2026-10-12",
+    "total_methods": 2,
+    "total_nodes": 11,
+    "total_edges": 11
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "A school has provisions to feed 80 students for 15 days. If 20 more students join, for how many days will the provisions last?",
+      "prompt": "Read the problem carefully. What changes when more students join?",
+      "accept": [],
+      "hints": [
+        "Think about whether more students means provisions last longer or shorter.",
+        "As the number of students increases, the provisions will be consumed faster.",
+        "This is an inverse proportion — more students, fewer days the provisions last."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify the Givens",
+      "description": "Extract the known values from the problem.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "80 students, 15 days",
+        "students1 = 80, days1 = 15, 20 more students join",
+        "provisions for 80 students for 15 days, 20 more join",
+        "original students = 80, days = 15, additional students = 20",
+        "80 students for 15 days; 20 additional students",
+        "students: 80, days: 15, extra students: 20"
+      ],
+      "hints": [
+        "Look for numbers related to students and days in the problem.",
+        "How many students are there originally, and for how many days do provisions last?",
+        "Given: 80 students, provisions for 15 days, and 20 more students are joining."
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify the Goal",
+      "description": "Determine what the problem is asking us to find.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "how many days will provisions last",
+        "days for 100 students",
+        "number of days after 20 more join",
+        "new number of days",
+        "days provisions last for 100 students",
+        "days2"
+      ],
+      "hints": [
+        "The question asks how long the provisions will last after more students join.",
+        "After 20 students join, the total becomes 100. What is unknown?",
+        "We need to find how many days the provisions will last for 100 students."
+      ]
+    },
+    {
+      "id": "method1",
+      "type": "method",
+      "label": "Method 1: Total Provisions Method",
+      "description": "Calculate total provisions (student-days), then divide by new number of students.",
+      "prompt": "Find the total amount of provisions available. What is total = students × days?",
+      "accept": [
+        "total provisions method",
+        "student-days method",
+        "calculate total then divide",
+        "80 × 15 = total"
+      ],
+      "hints": [
+        "The total provisions can be expressed as student-days (how many students can eat for how many days).",
+        "Total provisions = number of students × number of days.",
+        "Method: Compute 80 × 15 to get total student-days, then divide by the new student count."
+      ]
+    },
+    {
+      "id": "m1_step1",
+      "type": "step",
+      "label": "Calculate Total Provisions",
+      "description": "Find total student-days: 80 × 15 = 1200.",
+      "prompt": "What is the total provision in student-days? (80 × 15 = ?)",
+      "accept": [
+        "1200",
+        "1200 student-days",
+        "80 × 15 = 1200",
+        "total = 1200",
+        "twelve hundred"
+      ],
+      "hints": [
+        "Multiply the original number of students by the number of days.",
+        "80 × 15 = ?",
+        "80 × 15 = 1200 student-days."
+      ]
+    },
+    {
+      "id": "m1_step2",
+      "type": "step",
+      "label": "Find New Total Students",
+      "description": "Add the 20 new students: 80 + 20 = 100.",
+      "prompt": "How many students are there in total after 20 more join?",
+      "accept": [
+        "100",
+        "100 students",
+        "80 + 20 = 100",
+        "total students = 100",
+        "one hundred students"
+      ],
+      "hints": [
+        "Add the new students to the original count.",
+        "80 + 20 = ?",
+        "80 + 20 = 100 students total."
+      ]
+    },
+    {
+      "id": "m1_step3",
+      "type": "step",
+      "label": "Divide to Find New Days",
+      "description": "Divide total provisions by new student count: 1200 ÷ 100 = 12.",
+      "prompt": "How many days will 1200 student-days of provisions last for 100 students?",
+      "accept": [
+        "12",
+        "12 days",
+        "1200 ÷ 100 = 12",
+        "days = 12",
+        "twelve days"
+      ],
+      "hints": [
+        "Divide total provisions by the new number of students.",
+        "1200 ÷ 100 = ?",
+        "1200 ÷ 100 = 12 days."
+      ]
+    },
+    {
+      "id": "method2",
+      "type": "method",
+      "label": "Method 2: Inverse Proportion Equation",
+      "description": "Set up the inverse proportion equation: students₁ × days₁ = students₂ × days₂.",
+      "prompt": "Write the inverse proportion equation relating both cases. What is the equation?",
+      "accept": [
+        "80 × 15 = 100 × d",
+        "students1 × days1 = students2 × days2",
+        "inverse proportion equation",
+        "x1y1 = x2y2",
+        "80 × 15 = 100 × days2"
+      ],
+      "hints": [
+        "In inverse proportion, the product of corresponding quantities is constant.",
+        "students₁ × days₁ = students₂ × days₂.",
+        "Set up: 80 × 15 = 100 × d, where d is the unknown number of days."
+      ]
+    },
+    {
+      "id": "m2_step1",
+      "type": "step",
+      "label": "Substitute and Simplify",
+      "description": "Substitute known values into the equation: 80 × 15 = 100 × d → 1200 = 100d.",
+      "prompt": "Substitute the values into the equation. What do you get?",
+      "accept": [
+        "1200 = 100d",
+        "100d = 1200",
+        "80 × 15 = 100 × d gives 1200 = 100d",
+        "product is 1200"
+      ],
+      "hints": [
+        "Replace students₁ = 80, days₁ = 15, students₂ = 100 into the equation.",
+        "80 × 15 = 1200, so 1200 = 100 × d.",
+        "The equation becomes 100d = 1200."
+      ]
+    },
+    {
+      "id": "m2_step2",
+      "type": "step",
+      "label": "Solve for d",
+      "description": "Solve 1200 = 100d → d = 1200 ÷ 100 = 12.",
+      "prompt": "Solve for d: if 100d = 1200, what is d?",
+      "accept": [
+        "12",
+        "12 days",
+        "d = 12",
+        "1200 ÷ 100 = 12",
+        "d = 1200/100 = 12"
+      ],
+      "hints": [
+        "Divide both sides of the equation by 100.",
+        "d = 1200 ÷ 100.",
+        "d = 12 days."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "The provisions will last for 12 days after 20 more students join.",
+      "prompt": "For how many days will the provisions last after 20 more students join?",
+      "accept": [
+        "12 days",
+        "12",
+        "twelve days",
+        "provisions last 12 days",
+        "the answer is 12 days",
+        "d = 12"
+      ],
+      "hints": [
+        "Both methods give the same result.",
+        "Total provisions divided by new number of students gives the answer.",
+        "The provisions will last for 12 days for 100 students."
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "method1"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "method2"
+    },
+    {
+      "from": "method1",
+      "to": "m1_step1"
+    },
+    {
+      "from": "m1_step1",
+      "to": "m1_step2"
+    },
+    {
+      "from": "m1_step2",
+      "to": "m1_step3"
+    },
+    {
+      "from": "m1_step3",
+      "to": "conclusion"
+    },
+    {
+      "from": "method2",
+      "to": "m2_step1"
+    },
+    {
+      "from": "m2_step1",
+      "to": "m2_step2"
+    },
+    {
+      "from": "m2_step2",
+      "to": "conclusion"
+    }
+  ]
 };

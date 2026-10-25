@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="920" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="525" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">Solution Graph: Mother-Daughter Age Problem</text>
+
+  <!-- ═══ START NODE ═══ -->
+  <rect x="385" y="55" width="280" height="55" rx="8" fill="#4CAF50"/>
+  <text x="525" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="white">START: Problem Statement</text>
+  <text x="525" y="96" text-anchor="middle" font-size="11" fill="white">Mother = 5 × Daughter · In 6 yrs: Mother = 3 × Daughter</text>
+
+  <!-- ═══ EXTRACTION NODES ═══ -->
+  <rect x="385" y="135" width="280" height="48" rx="8" fill="#FF9800"/>
+  <text x="525" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Extract Given Information</text>
+  <text x="525" y="172" text-anchor="middle" font-size="10" fill="white">Identify given ratios and time condition</text>
+
+  <rect x="385" y="205" width="280" height="48" rx="8" fill="#FF9800"/>
+  <text x="525" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Identify the Goal</text>
+  <text x="525" y="242" text-anchor="middle" font-size="10" fill="white">Find daughter's present age</text>
+
+  <!-- ═══ METHOD 1: DAUGHTER = X ═══ -->
+  <rect x="30" y="285" width="300" height="50" rx="8" fill="#2196F3"/>
+  <text x="180" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 1: Linear Eq (Daughter = x)</text>
+  <text x="180" y="323" text-anchor="middle" font-size="10" fill="white">Daughter = x, Mother = 5x</text>
+
+  <rect x="30" y="360" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="180" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 1: Express Mother's Age</text>
+  <text x="180" y="395" text-anchor="middle" font-size="10" fill="white">Mother's present age = 5x</text>
+
+  <rect x="30" y="430" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="180" y="450" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 2: Ages After 6 Years</text>
+  <text x="180" y="465" text-anchor="middle" font-size="10" fill="white">Daughter: x + 6, Mother: 5x + 6</text>
+
+  <rect x="30" y="500" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="180" y="520" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 3: Form &amp; Solve Equation</text>
+  <text x="180" y="535" text-anchor="middle" font-size="10" fill="white">5x + 6 = 3(x + 6) → 2x = 12 → x = 6</text>
+
+  <rect x="30" y="570" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="180" y="590" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 4: Daughter's Age</text>
+  <text x="180" y="605" text-anchor="middle" font-size="10" fill="white">Daughter is 6 years old</text>
+
+  <!-- ═══ METHOD 2: MOTHER = X ═══ -->
+  <rect x="375" y="285" width="300" height="50" rx="8" fill="#2196F3"/>
+  <text x="525" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 2: Linear Eq (Mother = x)</text>
+  <text x="525" y="323" text-anchor="middle" font-size="10" fill="white">Mother = x, Daughter = x/5</text>
+
+  <rect x="375" y="360" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="525" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 1: Express Daughter's Age</text>
+  <text x="525" y="395" text-anchor="middle" font-size="10" fill="white">Daughter's present age = x/5</text>
+
+  <rect x="375" y="430" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="525" y="450" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 2: Ages After 6 Years</text>
+  <text x="525" y="465" text-anchor="middle" font-size="10" fill="white">Mother: x + 6, Daughter: x/5 + 6</text>
+
+  <rect x="375" y="500" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="525" y="520" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 3: Form &amp; Solve Equation</text>
+  <text x="525" y="535" text-anchor="middle" font-size="10" fill="white">x + 6 = 3(x/5 + 6) → 2x = 60 → x = 30</text>
+
+  <rect x="375" y="570" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="525" y="590" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 4: Daughter's Age (x/5)</text>
+  <text x="525" y="605" text-anchor="middle" font-size="10" fill="white">30 ÷ 5 = 6 years old</text>
+
+  <!-- ═══ METHOD 3: RATIO DIFFERENCE ═══ -->
+  <rect x="720" y="285" width="300" height="50" rx="8" fill="#2196F3"/>
+  <text x="870" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Method 3: Constant Age Difference</text>
+  <text x="870" y="323" text-anchor="middle" font-size="10" fill="white">Age difference never changes</text>
+
+  <rect x="720" y="360" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="870" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 1: Present Ratio Difference</text>
+  <text x="870" y="395" text-anchor="middle" font-size="10" fill="white">5 : 1 → difference = 4 units</text>
+
+  <rect x="720" y="430" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="870" y="450" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 2: Equalize Difference</text>
+  <text x="870" y="465" text-anchor="middle" font-size="10" fill="white">3 : 1 (diff 2) × 2 → 6 : 2 (diff 4)</text>
+
+  <rect x="720" y="500" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="870" y="520" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 3: Years Per Unit</text>
+  <text x="870" y="535" text-anchor="middle" font-size="10" fill="white">Change: 2 - 1 = 1 unit = 6 years</text>
+
+  <rect x="720" y="570" width="300" height="45" rx="8" fill="#FF9800"/>
+  <text x="870" y="590" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Step 4: Calculate Present Age</text>
+  <text x="870" y="605" text-anchor="middle" font-size="10" fill="white">Daughter = 1 × 6 = 6 years</text>
+
+  <!-- ═══ CONCLUSION ═══ -->
+  <rect x="385" y="675" width="280" height="55" rx="8" fill="#9C27B0"/>
+  <text x="525" y="700" text-anchor="middle" font-size="13" font-weight="bold" fill="white">CONCLUSION: Final Answer</text>
+  <text x="525" y="718" text-anchor="middle" font-size="11" fill="white">Daughter: 6 years old (Mother: 30 years old)</text>
+
+  <!-- ═══ CONNECTING LINES ═══ -->
+  <!-- Start -> Given -> Goal -->
+  <line x1="525" y1="110" x2="525" y2="135" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="525" y1="183" x2="525" y2="205" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Goal -> Methods -->
+  <path d="M 525 253 L 525 268 L 180 268 L 180 285" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="525" y1="253" x2="525" y2="285" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M 525 253 L 525 268 L 870 268 L 870 285" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Method 1 Steps -->
+  <line x1="180" y1="335" x2="180" y2="360" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="180" y1="405" x2="180" y2="430" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="180" y1="475" x2="180" y2="500" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="180" y1="545" x2="180" y2="570" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M 180 615 L 180 645 L 450 645 L 450 675" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Method 2 Steps -->
+  <line x1="525" y1="335" x2="525" y2="360" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="525" y1="405" x2="525" y2="430" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="525" y1="475" x2="525" y2="500" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="525" y1="545" x2="525" y2="570" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="525" y1="615" x2="525" y2="675" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Method 3 Steps -->
+  <line x1="870" y1="335" x2="870" y2="360" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="870" y1="405" x2="870" y2="430" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="870" y1="475" x2="870" y2="500" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="870" y1="545" x2="870" y2="570" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M 870 615 L 870 645 L 600 645 L 600 675" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

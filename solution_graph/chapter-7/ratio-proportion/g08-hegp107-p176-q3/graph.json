@@ -4,18 +4,51 @@
     "problem_uuid": "g08-hegp107-p176-q3",
     "problem_text": "The area of Delhi is 1,484 sq. km and the area of Mumbai is 550 sq. km. The population of Delhi is approximately 30 million and that of Mumbai is 20 million people. Which city is more crowded? Why do you say so?",
     "navigation_label": "Population density comparison",
-    "problem_context": { "delhi_area": 1484, "delhi_pop": 30000000, "mumbai_area": 550, "mumbai_pop": 20000000 },
+    "problem_context": {
+      "delhi_area": 1484,
+      "delhi_pop": 30000000,
+      "mumbai_area": 550,
+      "mumbai_pop": 20000000
+    },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for comparing the population densities of Delhi and Mumbai and identifying the more crowded city.",
     "created": "2026-10-11",
     "total_methods": 1,
-    "total_nodes": 6,
-    "total_edges": 5
+    "total_nodes": 7,
+    "total_edges": 6
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify the Goal",
+      "description": "Identify the quantity or decision the problem asks for.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "which city is more crowded and why"
+      ],
+      "hints": [
+        "State clearly what the question asks you to determine."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify Given Information",
+      "description": "Identify the facts and quantities provided in this word problem.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "Delhi and Mumbai areas and populations"
+      ],
+      "hints": [
+        "Read the problem carefully and identify the quantities and relationships."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -103,9 +136,35 @@
     }
   ],
   "edges": [
-    { "from": "start", "to": "m1_density", "label": "Compute density" },
-    { "from": "m1_density", "to": "m1_s1", "label": "Delhi density" },
-    { "from": "m1_s1", "to": "m1_s2", "label": "Mumbai density" },
-    { "from": "m1_s2", "to": "conclusion", "label": "Compare densities" }
+    {
+      "from": "m1_density",
+      "to": "m1_s1",
+      "label": "Delhi density"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Mumbai density"
+    },
+    {
+      "from": "m1_s2",
+      "to": "conclusion",
+      "label": "Compare densities"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_density",
+      "label": "Choose a solution method"
+    }
   ]
 }

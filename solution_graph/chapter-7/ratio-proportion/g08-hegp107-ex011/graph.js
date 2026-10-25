@@ -1,4 +1,4 @@
-// Standalone solution graph for NCERT Example 11 (profit sharing)
+// Solution graph for g08-hegp107-ex011 (generated from graph.json — do not hand-edit).
 window.SOLUTION_GRAPHS = window.SOLUTION_GRAPHS || {};
 window.SOLUTION_GRAPHS["g08-hegp107-ex011"] = {
   "graph_meta": {
@@ -6,18 +6,55 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex011"] = {
     "problem_uuid": "g08-hegp107-ex011",
     "problem_text": "Prashanti and Bhuvan started a food cart business near their school. Prashanti invested ₹75,000 and Bhuvan invested ₹25,000. At the end of the first month, they gained a profit of ₹4,000. They decided that they would share the profit in the same ratio as that of their investment. What is each person’s share of the profit?",
     "navigation_label": "Profit sharing",
-    "problem_context": { "first": [75000, 25000], "second": [3000, 1000] },
+    "problem_context": {
+      "first": [
+        75000,
+        25000
+      ],
+      "second": [
+        3000,
+        1000
+      ]
+    },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for sharing a profit in the same proportion as the investment ratios.",
     "created": "2026-10-11",
     "total_methods": 2,
     "total_nodes": 10,
-    "total_edges": 10
+    "total_edges": 11
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify the Goal",
+      "description": "Identify the quantity or decision the problem asks for.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "each person’s share of the profit"
+      ],
+      "hints": [
+        "State clearly what the question asks you to determine."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify Given Information",
+      "description": "Identify the facts and quantities provided in this word problem.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "investments of ₹75,000 and ₹25,000 and a profit of ₹4,000"
+      ],
+      "hints": [
+        "Read the problem carefully and identify the quantities and relationships."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -58,7 +95,13 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex011"] = {
       "label": "Method 1: Simplify the investment ratio",
       "description": "Write the investment ratio 75000 : 25000 in simplest form as 3 : 1.",
       "prompt": "Reduce the investment ratio to its simplest form.",
-      "accept": ["75000:25000", "75000 : 25000", "ratio is 3:1", "3:1", "3 : 1"],
+      "accept": [
+        "75000:25000",
+        "75000 : 25000",
+        "ratio is 3:1",
+        "3:1",
+        "3 : 1"
+      ],
       "hints": [
         "Divide both numbers by 25000.",
         "75000 ÷ 25000 = 3.",
@@ -110,7 +153,12 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex011"] = {
       "label": "Method 2: Allocate the profit by parts",
       "description": "Multiply the value of each part by 3 and by 1 to find the individual shares.",
       "prompt": "Use the ratio 3 : 1 to distribute the profit.",
-      "accept": ["share by parts", "divide in ratio 3:1", "allocate profit", "same ratio"],
+      "accept": [
+        "share by parts",
+        "divide in ratio 3:1",
+        "allocate profit",
+        "same ratio"
+      ],
       "hints": [
         "Each part is ₹1000.",
         "Prashanti gets 3 parts and Bhuvan gets 1 part.",
@@ -157,13 +205,60 @@ window.SOLUTION_GRAPHS["g08-hegp107-ex011"] = {
     }
   ],
   "edges": [
-    { "from": "start", "to": "m1_ratio", "label": "Simplify ratio" },
-    { "from": "m1_ratio", "to": "m1_s1", "label": "Investment ratio" },
-    { "from": "m1_s1", "to": "m1_s2", "label": "Divide profit" },
-    { "from": "m1_s2", "to": "m2_share", "label": "Allocate parts" },
-    { "from": "m2_share", "to": "m2_s1", "label": "Prashanti" },
-    { "from": "m2_share", "to": "m2_s2", "label": "Bhuvan" },
-    { "from": "m2_s1", "to": "conclusion", "label": "Final share" },
-    { "from": "m2_s2", "to": "conclusion", "label": "Final share" }
+    {
+      "from": "m1_ratio",
+      "to": "m1_s1",
+      "label": "Investment ratio"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Divide profit"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m2_share",
+      "label": "Allocate parts"
+    },
+    {
+      "from": "m2_share",
+      "to": "m2_s1",
+      "label": "Prashanti"
+    },
+    {
+      "from": "m2_share",
+      "to": "m2_s2",
+      "label": "Bhuvan"
+    },
+    {
+      "from": "m2_s1",
+      "to": "conclusion",
+      "label": "Final share"
+    },
+    {
+      "from": "m2_s2",
+      "to": "conclusion",
+      "label": "Final share"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_ratio",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_share",
+      "label": "Choose a solution method"
+    }
   ]
 };
