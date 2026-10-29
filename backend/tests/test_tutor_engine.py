@@ -206,3 +206,32 @@ def test_tv_depreciation_and_age_problems(graphs):
     assert r.verdict == "CONCLUSION_RIGHT"
     assert s.completed is True
 
+
+def test_new_problem_g08_lin_ex003_with_sympy(graphs):
+    lin = graphs["g08-lin-ex003"]
+    assert lin is not None
+    s = new_session(lin)
+
+    # 1. Expand brackets step (verified via SymPy / accept)
+    r = step("3x - 6 + 5 = 2x + 4", s, lin)
+    assert r.verdict == "ACCEPT"
+    assert s.method_id == "m1"
+
+    # 2. Simplify LHS
+    r = step("3x - 1 = 2x + 4", s, lin)
+    assert r.verdict == "ACCEPT"
+
+    # 3. Transpose terms
+    r = step("3x - 2x = 4 + 1", s, lin)
+    assert r.verdict == "ACCEPT"
+
+    # 4. Final step
+    r = step("x = 5", s, lin)
+    assert r.verdict == "ACCEPT"
+
+    # 5. Conclusion
+    r = step("x = 5", s, lin)
+    assert r.verdict == "CONCLUSION_RIGHT"
+    assert s.completed is True
+
+

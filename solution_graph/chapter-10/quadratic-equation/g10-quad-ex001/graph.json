@@ -13,7 +13,10 @@
     "created": "2026-10-08",
     "total_methods": 6,
     "total_nodes": 32,
-    "total_edges": 46
+    "total_edges": 46,
+    "equation": "x**2 - 5*x + 6 = 0",
+    "variable": "x",
+    "use_jev": true
   },
   "start_node": "start",
   "conclusion_node": "conclusion",

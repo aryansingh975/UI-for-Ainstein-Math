@@ -241,13 +241,42 @@ def verify_against_expected(parsed: ParsedStep, exp: Dict[str, Any]) -> Dict[str
     return {"accepted": False}
 
 
-def match_node(parsed: ParsedStep, node: Node) -> Dict[str, Any]:
+def match_node(parsed: ParsedStep, node: Node, equation: Optional[str] = None) -> Dict[str, Any]:
     if matches_accept_any(parsed.raw, node.accept):
         return {"accepted": True}
     exp = expected_for(node)
-    if not exp:
-        return {"accepted": False}
-    return verify_against_expected(parsed, exp)
+    if exp:
+        m = verify_against_expected(parsed, exp)
+        if m.get("accepted"):
+            return m
+        if m.get("wrong_claim"):
+            return m
+
+    # SymPy algebraic & equation verification
+    if equation and ("=" in parsed.raw or any(v in parsed.raw for v in ("x", "y", "a", "b"))):
+        try:
+            from app.engine.sympy_validator import validate
+            val_res = validate(parsed.raw, equation=equation)
+            lines = val_res.get("lines", [])
+            for l in lines:
+                if l.get("status") == "valid":
+                    return {"accepted": True}
+                elif l.get("status") == "invalid" and l.get("message"):
+                    return {
+                        "accepted": False,
+                        "wrong_claim": True,
+                        "claim": Claim(
+                            kind="equation",
+                            text=l.get("statement", parsed.raw),
+                            is_true=False,
+                            lhs=l.get("statement"),
+                            rhs=l.get("message"),
+                        ),
+                    }
+        except Exception:
+            pass
+
+    return {"accepted": False}
 
 
 def detect_method_keyword(parsed: ParsedStep, graph: SolutionGraph) -> Optional[str]:
@@ -355,6 +384,21 @@ def find_global_step_match(
         if m.get("accepted"):
             return {"node_id": node.id, "method_id": method_of(node.id)}
 
+    # Pass 3: SymPy equation verification for algebra & linear equations
+    equation = None
+    if graph.graph_meta and getattr(graph.graph_meta, "equation", None):
+        equation = graph.graph_meta.equation
+    if session.method_id:
+        mn = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == session.method_id), None)
+        if mn and getattr(mn, "sympy_equation", None):
+            equation = mn.sympy_equation
+
+    if equation:
+        for node in ordered:
+            m = match_node(parsed, node, equation=equation)
+            if m.get("accepted"):
+                return {"node_id": node.id, "method_id": method_of(node.id)}
+
     return None
 
 
@@ -364,6 +408,14 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
     parsed = parse_step(raw_input, default_gcd_pair=ctx.get("second"))
     normalized_input = normalize_text(parsed.raw)
     node_map = {n.id: n for n in graph.nodes}
+
+    equation = None
+    if graph.graph_meta and getattr(graph.graph_meta, "equation", None):
+        equation = graph.graph_meta.equation
+    if session.method_id:
+        mn = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == session.method_id), None)
+        if mn and getattr(mn, "sympy_equation", None):
+            equation = mn.sympy_equation
 
     exact_graph_answer = any(
         node.type in ("method", "step", "conclusion", "extraction")
@@ -383,7 +435,7 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
                 v = "CONCLUSION_RIGHT" if concl["correct"] else "CONCLUSION_WRONG"
                 return StepResult(verdict=v, parsed=parsed)
         elif node and node.accept:
-            m = match_node(parsed, node)
+            m = match_node(parsed, node, equation=equation)
             if m.get("accepted"):
                 return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id, method_id=method_of(node.id))
             if m.get("wrong_claim"):

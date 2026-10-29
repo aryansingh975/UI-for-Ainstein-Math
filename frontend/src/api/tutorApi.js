@@ -83,10 +83,11 @@ export const AVAILABLE_CHAPTERS = [
   },
   {
     id: 'linear-equation',
-    title: 'Linear Equation',
+    title: 'Linear & Quadratic Equations',
     grade: 10,
-    description: 'Grade 10 · Latest problem',
+    description: 'Equations in One Variable',
     problems: [
+      { id: 'g08-lin-ex003', title: 'Linear Equation: 3(x − 2) + 5 = 2x + 4', uuid: 'g08-lin-ex003' },
       { id: 'g10-quad-ex001', title: 'Quadratic Equation: x² - 5x + 6 = 0', uuid: 'g10-quad-ex001' }
     ]
   }

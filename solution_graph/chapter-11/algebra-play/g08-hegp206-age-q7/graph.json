@@ -16,7 +16,12 @@
     "created": "2026-10-12",
     "total_methods": 3,
     "total_nodes": 19,
-    "total_edges": 20
+    "total_edges": 20,
+    "equation": "5*x + 6 = 3*(x + 6)",
+    "variable": "x",
+    "use_jev": true,
+    "sympy_can_finish": false,
+    "sympy_note": "x means the daughter's age in Method 1 but the mother's age in Method 2, so each method has its own sympy_equation. sympy_can_finish is false because finding x is not always the final answer (Method 2 gives the mother's age, 30); the conclusion node decides when the problem is solved."
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
@@ -110,7 +115,10 @@
         "mother's age = 5x",
         "5 * x",
         "5 × x",
-        "mother is 5x years old"
+        "mother is 5x years old",
+        "x + 6 and 5*x + 6",
+        "x +6,5*x+6",
+        "x + 6 and 5x + 6"
       ],
       "hints": [
         "Mother is 5 times her daughter's age.",
@@ -130,7 +138,10 @@
         "daughter: x + 6, mother: 5x + 6",
         "5x + 6 and x + 6",
         "daughter is x+6 and mother is 5x+6",
-        "x + 6, 5x + 6"
+        "x + 6, 5x + 6",
+        "5x + 6 = 3(x + 6)",
+        "5x + 6 = 3x + 18",
+        "5*x + 6 = 3*(x + 6)"
       ],
       "hints": [
         "Add 6 to both present ages.",
@@ -230,7 +241,9 @@
         "x+6 and x/5+6",
         "mother: x + 6, daughter: x/5 + 6",
         "x/5 + 6 and x + 6",
-        "x + 6 and (x/5) + 6"
+        "x + 6 and (x/5) + 6",
+        "x + 6 = 3(x/5 + 6)",
+        "x + 6 = 3x/5 + 18"
       ],
       "hints": [
         "Add 6 to both present ages.",
