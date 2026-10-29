@@ -27,11 +27,16 @@ def new_session(graph: SolutionGraph) -> Session:
 
 
 def method_of(node_id: Optional[str]) -> Optional[str]:
-    """Extract method prefix (e.g. 'm1' from 'm1_step1')."""
+    """Extract method prefix (e.g. 'm1' from 'm1_step1' or 'method1')."""
     if not node_id:
         return None
     m = re.match(r"^(m\d+)_", str(node_id))
-    return m.group(1) if m else None
+    if m:
+        return m.group(1)
+    m2 = re.match(r"^method(\d+)", str(node_id))
+    if m2:
+        return f"m{m2.group(1)}"
+    return None
 
 
 def successor_of(node_id: Optional[str], graph: SolutionGraph) -> Optional[str]:
@@ -62,10 +67,37 @@ def first_step_of(method_id: str, graph: SolutionGraph) -> str:
     return edges[0].to_node if edges else graph.conclusion_node
 
 
+from collections import deque
+
+
+def dag_hop_distance(from_node: str, to_node: str, graph: SolutionGraph) -> Optional[int]:
+    """Find shortest directed hop distance from from_node to to_node in the DAG."""
+    if from_node == to_node:
+        return 0
+    queue = deque([(from_node, 0)])
+    visited = {from_node}
+    while queue:
+        curr, dist = queue.popleft()
+        if curr == to_node:
+            return dist
+        for edge in graph.edges:
+            if edge.from_node == curr and edge.to_node not in visited:
+                visited.add(edge.to_node)
+                queue.append((edge.to_node, dist + 1))
+    return None
+
+
 def method_chain(method_id: str, graph: SolutionGraph) -> List[str]:
     """Return the sequential chain of node IDs for a method."""
+    node_map = {n.id: n for n in graph.nodes}
+    start_node = method_id
+    if start_node not in node_map:
+        mn = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == method_id), None)
+        if mn:
+            start_node = mn.id
+
     chain: List[str] = []
-    cur: Optional[str] = method_id
+    cur: Optional[str] = start_node
     seen = set()
     while cur and cur not in seen:
         seen.add(cur)
@@ -136,6 +168,12 @@ def apply_result(session: Session, result: Any, graph: SolutionGraph) -> Session
         session.fail_streak += 1
     elif verdict == "CONCLUSION_RIGHT":
         session.completed = True
+    elif verdict == "EARLY_CONCLUSION":
+        # Correct answer but premature; keep fail streak at 0 and do not complete
+        session.fail_streak = 0
+    elif verdict == "METHOD_MISMATCH":
+        # Pedagogical redirect, not a math failure
+        pass
 
     return session
 

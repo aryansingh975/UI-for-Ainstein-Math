@@ -59,6 +59,40 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
         </article>
       )}
 
+      {v === 'EARLY_CONCLUSION' && (
+        <article className="answer-card success-state">
+          <div className="answer-meta">🟢 RIGHT CONCLUSION · SHOW YOUR WORK</div>
+          <h3>Good job — that's the right conclusion!</h3>
+          <div className="tutor-bubble">
+            <div className="tutor-speech">{result.feedback_message || "That's correct! But before we conclude, please show your steps."}</div>
+          </div>
+          <p className="retry-prompt">
+            {result.next_prompt ? (
+              <>Let's start from the beginning: <strong>{result.next_prompt}</strong></>
+            ) : (
+              "Work it out one calculation at a time."
+            )}
+          </p>
+        </article>
+      )}
+
+      {v === 'METHOD_MISMATCH' && (
+        <article className="answer-card warn-state">
+          <div className="answer-meta">🟡 METHOD MISMATCH</div>
+          <h3>Different method detected</h3>
+          <div className="tutor-bubble">
+            <div className="tutor-speech">{result.feedback_message}</div>
+          </div>
+          <p className="retry-prompt">
+            {result.next_prompt ? (
+              <>Continue your current method: <strong>{result.next_prompt}</strong></>
+            ) : (
+              "Continue with your current line of steps."
+            )}
+          </p>
+        </article>
+      )}
+
       {v === 'CONCLUSION_RIGHT' && (
         <article className="answer-card success-state">
           <div className="answer-meta">🟢 PROBLEM COMPLETED · VALID SOLUTION</div>
@@ -133,13 +167,13 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
       )}
 
       {v === 'GARBAGE' && (
-        <article className="answer-card failure-state">
-          <div className="answer-meta">🔴 NOT A MATH STEP</div>
-          <h3>I need an actual math step.</h3>
+        <article className="answer-card warn-state">
+          <div className="answer-meta">🟡 UNRELATED STEP</div>
+          <h3>Step not related to this problem.</h3>
           <div className="tutor-bubble">
             <div className="tutor-speech">"That does not look related to this problem. Try a calculation or explain a method for the question above."</div>
           </div>
-          <p className="retry-prompt">Type a calculation or an approach above.</p>
+          <p className="retry-prompt">Type a calculation or an approach for this problem above.</p>
         </article>
       )}
 

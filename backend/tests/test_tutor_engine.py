@@ -80,7 +80,8 @@ def test_flows_b_c_d_e(graphs):
     r = step("72 = 24 × 3 and 96 = 24 × 4", s, g1)
     assert r.verdict == "ACCEPT"
     r = step("3:4 and 72:96 are proportional", s, g1)
-    assert r.verdict == "CONCLUSION_RIGHT"
+    assert r.verdict == "EARLY_CONCLUSION"
+    assert s.completed is False
 
     # Flow C: Decimal route
     s = new_session(g1)
@@ -144,15 +145,17 @@ def test_conclusion_and_edge_cases(graphs):
     r = step("no", s_mid, g1)
     assert r.verdict == "UNPARSED"
 
-    # Flow G: Bare yes at start is nudged (UNPARSED), not accepted as conclusion
+    # Flow G: Bare yes at start triggers EARLY_CONCLUSION (encouraged, but must show steps)
     s_fresh = new_session(g1)
     r = step("yes", s_fresh, g1)
-    assert r.verdict == "UNPARSED"
+    assert r.verdict == "EARLY_CONCLUSION"
+    assert s_fresh.completed is False
 
-    # Flow H: direct ratio equality completes problem
+    # Flow H: direct ratio equality at start triggers EARLY_CONCLUSION
     s = new_session(g1)
     r = step("3:4 = 72:96", s, g1)
-    assert r.verdict == "CONCLUSION_RIGHT"
+    assert r.verdict == "EARLY_CONCLUSION"
+    assert s.completed is False
 
     # Flow I: Keyword approach
     s = new_session(g1)
@@ -205,4 +208,54 @@ def test_tv_depreciation_and_age_problems(graphs):
     r = step("19950", s, tv_graph)
     assert r.verdict == "CONCLUSION_RIGHT"
     assert s.completed is True
+
+
+def test_early_conclusion_guard_and_method_mismatch(graphs):
+    g1 = graphs["g08-hegp107-ex001"]
+
+    # 1. Early conclusion on turn 1
+    s1 = new_session(g1)
+    r = step("yes they are proportional", s1, g1)
+    assert r.verdict == "EARLY_CONCLUSION"
+    assert s1.completed is False
+
+    # 2. Method Mismatch: Student is in Method 1 (Simplification) and enters Cross Multiplication step
+    s2 = new_session(g1)
+    # Start Method 1
+    r = step("24", s2, g1)
+    assert r.verdict == "ACCEPT"
+    assert s2.method_id == "m1"
+
+    # Input step from Method 5 (Cross Multiplication: 3*96 = 288)
+    r_mismatch = step("3*96 = 288", s2, g1)
+    assert r_mismatch.verdict == "METHOD_MISMATCH"
+    assert r_mismatch.method_id == "m5"
+    assert s2.method_id == "m1"
+    assert s2.completed is False
+
+    # 3. 2-Hop Limit: Student at start can jump up to 2 hops ahead
+    s3 = new_session(g1)
+    s3.method_id = "m1"
+    s3.current_node_id = "m1_simplify"
+    # m1_simplify chain: m1_simplify -> m1_s1 (1) -> m1_s2 (2) -> m1_s3 (3)
+    # m1_s2 is 2 hops ahead -> ACCEPT
+    r_hop2 = step("72/24=3 and 96/24=4", s3, g1)
+    assert r_hop2.verdict == "ACCEPT"
+    assert s3.method_id == "m1"
+
+    # 4. Full step sequence completing at conclusion
+    s4 = new_session(g1)
+    # Turn 1: Early conclusion at start
+    assert step("Yes", s4, g1).verdict == "EARLY_CONCLUSION"
+    assert s4.completed is False
+    # Show steps
+    assert step("gcd(72, 96) = 24", s4, g1).verdict == "ACCEPT"
+    assert step("72/24=3 and 96/24=4", s4, g1).verdict == "ACCEPT"
+    assert step("3:4", s4, g1).verdict == "ACCEPT"
+    # Conclude
+    r_end = step("So ratio 3:4 = 72:96", s4, g1)
+    assert r_end.verdict == "CONCLUSION_RIGHT"
+    assert s4.completed is True
+
+
 

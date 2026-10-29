@@ -200,4 +200,45 @@ def test_session_and_error_logging():
     assert any(sess_id in line and "1050 + 500 = 2000" in line for line in error_lines)
 
 
+def test_api_early_conclusion_and_method_mismatch():
+    # 1. Start Problem 1 session
+    start_resp = client.post("/api/v1/sessions/start", json={"problem_id": "g08-hegp107-ex001"})
+    assert start_resp.status_code == 200
+    sess_id = start_resp.json()["session_id"]
+
+    # 2. Direct conclusion on Turn 1 -> EARLY_CONCLUSION
+    step1_resp = client.post(
+        f"/api/v1/sessions/{sess_id}/step",
+        json={"student_input": "yes they are proportional"}
+    )
+    assert step1_resp.status_code == 200
+    d1 = step1_resp.json()
+    assert d1["verdict"] == "EARLY_CONCLUSION"
+    assert d1["completed"] is False
+    assert "show your steps" in d1["feedback_message"].lower()
+
+    # 3. Enter Step 1 of Simplification (Method 1)
+    step2_resp = client.post(
+        f"/api/v1/sessions/{sess_id}/step",
+        json={"student_input": "24"}
+    )
+    assert step2_resp.status_code == 200
+    d2 = step2_resp.json()
+    assert d2["verdict"] == "ACCEPT"
+    assert d2["method_id"] == "m1"
+
+    # 4. Enter step belonging to Cross Multiplication (Method 5) -> METHOD_MISMATCH
+    step3_resp = client.post(
+        f"/api/v1/sessions/{sess_id}/step",
+        json={"student_input": "3*96 = 288"}
+    )
+    assert step3_resp.status_code == 200
+    d3 = step3_resp.json()
+    assert d3["verdict"] == "METHOD_MISMATCH"
+    assert "Cross Multiplication" in d3["feedback_message"]
+    assert "Simplification" in d3["feedback_message"]
+    assert d3["completed"] is False
+
+
+
 

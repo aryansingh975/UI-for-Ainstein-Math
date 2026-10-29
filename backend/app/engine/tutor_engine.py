@@ -17,6 +17,7 @@ from app.engine.state_machine import (
     first_step_of,
     method_chain,
     has_completed_required_extraction,
+    dag_hop_distance,
 )
 
 
@@ -279,9 +280,11 @@ def detect_conclusion(
 
     if is_bare_yes_no(parsed):
         at_concl = session.current_node_id == graph.conclusion_node
+        dist = dag_hop_distance(session.current_node_id, graph.conclusion_node, graph) if session.current_node_id else None
+        near_concl = (dist is not None and dist <= 2)
         no_current = not session.current_node_id
-        has_progress = len(session.trail) > 0
-        if at_concl or (no_current and has_progress):
+        # Bare yes/no is treated as a conclusion if at conclusion, near conclusion, or at start/fresh session
+        if at_concl or near_concl or no_current or len(session.trail) == 0:
             return {"detected": True, "correct": matches_accept_any(parsed.raw, concl.accept)}
         return None
 
@@ -312,6 +315,26 @@ def detect_conclusion(
     return None
 
 
+from collections import deque
+
+
+def find_method_node_for_step(step_id: str, graph: SolutionGraph) -> Optional[Node]:
+    """Find the method ancestor node for a given step in the DAG."""
+    node_map = {n.id: n for n in graph.nodes}
+    queue = deque([step_id])
+    visited = {step_id}
+    while queue:
+        curr = queue.popleft()
+        node = node_map.get(curr)
+        if node and node.type == "method":
+            return node
+        for edge in graph.edges:
+            if edge.to_node == curr and edge.from_node not in visited:
+                visited.add(edge.from_node)
+                queue.append(edge.from_node)
+    return None
+
+
 def find_global_step_match(
     parsed: ParsedStep, session: Session, graph: SolutionGraph
 ) -> Optional[Dict[str, Any]]:
@@ -320,7 +343,7 @@ def find_global_step_match(
 
     steps = [
         n for n in graph.nodes
-        if n.type == "step" and (not session.method_id or method_of(n.id) == session.method_id)
+        if n.type == "step" and (not session.method_id or method_of(n.id) == session.method_id or method_of(n.id) is None)
     ]
 
     scored = []
@@ -341,13 +364,28 @@ def find_global_step_match(
     scored.sort(key=lambda x: x[0], reverse=True)
     ordered = [n for _, n in scored if n.id != session.current_node_id]
 
-    # Pass 1: exact accept-list matches
+    # Enforce bounded hop distance (at most 2 hops ahead)
+    origin_node = session.current_node_id
+
+    valid_candidates = []
     for node in ordered:
+        if not origin_node or origin_node in ("start", "given_extraction", "goal_extraction"):
+            mn = find_method_node_for_step(node.id, graph)
+            dist = dag_hop_distance(mn.id, node.id, graph) if mn else None
+        else:
+            dist = dag_hop_distance(origin_node, node.id, graph)
+
+        if dist is not None and dist > 2:
+            continue
+        valid_candidates.append(node)
+
+    # Pass 1: exact accept-list matches
+    for node in valid_candidates:
         if matches_accept_any(parsed.raw, node.accept):
             return {"node_id": node.id, "method_id": method_of(node.id)}
 
     # Pass 2: semantic verification
-    for node in ordered:
+    for node in valid_candidates:
         exp = expected_for(node)
         if not exp:
             continue
@@ -398,8 +436,35 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
     # 2. Conclusion match
     concl = detect_conclusion(parsed, session, graph, ctx)
     if concl and concl["detected"]:
-        v = "CONCLUSION_RIGHT" if concl["correct"] else "CONCLUSION_WRONG"
-        return StepResult(verdict=v, parsed=parsed)
+        if concl["correct"]:
+            has_steps = any(n.type == "step" for n in graph.nodes)
+            dist_to_concl = (
+                dag_hop_distance(session.current_node_id, graph.conclusion_node, graph)
+                if session.current_node_id
+                else None
+            )
+            has_shown_work = any(
+                t.get("nodeId") not in ("given_extraction", "goal_extraction")
+                for t in session.trail
+            )
+            # Accept conclusion if:
+            # 1. Graph has no steps, or
+            # 2. Already at conclusion node, or
+            # 3. Within 2 hops of conclusion AND student has demonstrated actual working steps
+            is_at_conclusion = (
+                not has_steps
+                or session.current_node_id == graph.conclusion_node
+                or (has_shown_work and dist_to_concl is not None and dist_to_concl <= 2)
+            )
+            if is_at_conclusion:
+                return StepResult(verdict="CONCLUSION_RIGHT", parsed=parsed)
+            return StepResult(
+                verdict="EARLY_CONCLUSION",
+                parsed=parsed,
+                node_id=session.current_node_id,
+                method_id=session.method_id,
+            )
+        return StepResult(verdict="CONCLUSION_WRONG", parsed=parsed)
 
     # 3. Reject reversed ratios (e.g. 4:3 instead of 3:4)
     first_pair = ctx.get("first", (3.0, 4.0))
@@ -463,6 +528,31 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
     g = find_global_step_match(parsed, session, graph)
     if g:
         return StepResult(verdict="ACCEPT", parsed=parsed, node_id=g["node_id"], method_id=g["method_id"])
+
+    # 7b. Method mismatch detection (active method exists, but student entered valid step of another method)
+    if session.method_id:
+        other_steps = [
+            n for n in graph.nodes
+            if n.type == "step" and method_of(n.id) and method_of(n.id) != session.method_id
+        ]
+        for other_node in other_steps:
+            if matches_accept_any(parsed.raw, other_node.accept):
+                return StepResult(
+                    verdict="METHOD_MISMATCH",
+                    parsed=parsed,
+                    node_id=other_node.id,
+                    method_id=method_of(other_node.id),
+                )
+            exp = expected_for(other_node)
+            if exp:
+                m = verify_against_expected(parsed, exp)
+                if m.get("accepted"):
+                    return StepResult(
+                        verdict="METHOD_MISMATCH",
+                        parsed=parsed,
+                        node_id=other_node.id,
+                        method_id=method_of(other_node.id),
+                    )
 
     # 8. True math, but irrelevant
     if any(c.is_true for c in parsed.claims):

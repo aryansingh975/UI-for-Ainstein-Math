@@ -12,10 +12,19 @@ from app.schemas.session import (
     StepRequest,
     StepResponse,
 )
-from app.engine.state_machine import Session, new_session, apply_result, hint_for
+from app.engine.state_machine import Session, new_session, apply_result, hint_for, method_of
 from app.engine.tutor_engine import process_step
 from app.engine.claims import Claim, explain_claim
 from app.services import session_logger
+
+def _clean_method_label(label: Optional[str]) -> str:
+    if not label:
+        return "another method"
+    import re
+    s = re.sub(r"^Method\s*\d+\s*:\s*", "", label)
+    s = re.sub(r"\s*\([^)]*\)", "", s)
+    return s.strip()
+
 
 router = APIRouter(prefix="/sessions")
 
@@ -132,6 +141,17 @@ def check_step(session_id: str, req: StepRequest):
         feedback_msg = "That's correct."
     elif result.verdict == "CONCLUSION_RIGHT":
         feedback_msg = concl_node.description if concl_node else "Your solution is complete."
+    elif result.verdict == "EARLY_CONCLUSION":
+        feedback_msg = "That's correct! But before we conclude, please show your steps. Let's work through it step by step."
+    elif result.verdict == "METHOD_MISMATCH":
+        cur_node = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == session.method_id), None)
+        other_node = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == result.method_id), None)
+        cur_name = _clean_method_label(cur_node.label if cur_node else "your current method")
+        other_name = _clean_method_label(other_node.label if other_node else "another method")
+        feedback_msg = (
+            f"That calculation is part of the {other_name} method, but you are currently solving using {cur_name}. "
+            f"Stick with {cur_name} to finish your line of reasoning, or reset if you want to switch methods."
+        )
     elif result.verdict == "CONCLUSION_WRONG":
         feedback_msg = "Your conclusion does not match this problem. Recheck your steps."
     elif result.verdict == "WRONG_CLAIM":
@@ -153,7 +173,7 @@ def check_step(session_id: str, req: StepRequest):
         "feedback": feedback_msg,
         "hint": hint,
         "explanation": explanation,
-        "is_correct": result.verdict in ("ACCEPT", "CONCLUSION_RIGHT"),
+        "is_correct": result.verdict in ("ACCEPT", "CONCLUSION_RIGHT", "EARLY_CONCLUSION"),
         "node_id": result.node_id or active_id,
         "label": active_label,
     }
