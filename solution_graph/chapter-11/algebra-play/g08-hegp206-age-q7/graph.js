@@ -6,6 +6,11 @@ window.SOLUTION_GRAPHS["g08-hegp206-age-q7"] = {
         "graph_id": "sg-7e9b2d4f-1a3c-5e7g-9i0k-2m4o6q8s0u2w",
         "problem_uuid": "g08-hegp206-age-q7",
         "problem_text": "Mother is 5 times her daughter's present age. After 6 years, the mother will be 3 times her daughter's age. Find the present age of daughter.",
+        "equation": "5*x + 6 = 3*(x + 6)",
+        "variable": "x",
+        "use_jev": true,
+        "sympy_can_finish": false,
+        "sympy_note": "x means the daughter's age in Method 1 but the mother's age in Method 2, so each method has its own sympy_equation. sympy_can_finish is false because finding x is not always the final answer (Method 2 gives the mother's age, 30); the conclusion node decides when the problem is solved.",
         "navigation_label": "Mother-Daughter Age Problem",
         "problem_context": {
             "topic": "Linear Equations – Word Problems",
@@ -15,11 +20,11 @@ window.SOLUTION_GRAPHS["g08-hegp206-age-q7"] = {
         },
         "graph_type": "directed_acyclic_graph",
         "version": "1.0.0",
-        "description": "A classic age word problem solved by forming a linear equation in one variable. Extraction nodes identify the given information and unknown goal before setting up the equation.",
+        "description": "A classic age word problem solved by linear equations (daughter = x or mother = x) or constant age difference ratios.",
         "created": "2026-10-12",
-        "total_methods": 1,
-        "total_nodes": 11,
-        "total_edges": 10
+        "total_methods": 3,
+        "total_nodes": 19,
+        "total_edges": 20
     },
     "start_node": "start",
     "conclusion_node": "conclusion",
@@ -40,6 +45,7 @@ window.SOLUTION_GRAPHS["g08-hegp206-age-q7"] = {
         {
             "id": "given_extraction",
             "type": "extraction",
+            "optional": false,
             "label": "Extract Given Information",
             "description": "Identify the known facts from the problem.",
             "prompt": "What are the given facts in this problem?",
@@ -60,6 +66,7 @@ window.SOLUTION_GRAPHS["g08-hegp206-age-q7"] = {
         {
             "id": "goal_extraction",
             "type": "extraction",
+            "optional": false,
             "label": "Identify the Goal",
             "description": "What does the problem ask us to find?",
             "prompt": "What do we need to find?",
@@ -80,166 +87,417 @@ window.SOLUTION_GRAPHS["g08-hegp206-age-q7"] = {
         {
             "id": "method1",
             "type": "method",
-            "label": "Method 1: Form and Solve a Linear Equation",
-            "description": "Let daughter's age = x. Express mother's age in terms of x and form an equation using the future condition.",
-            "prompt": "Let the daughter's present age = x. How do we express the mother's present age?",
+            "label": "Method 1: Linear Equation (Daughter = x)",
+            "description": "Let daughter's age = x. Mother's age = 5x. Form a linear equation with whole numbers.",
+            "jev_description": "Daughter = x. Steps: let daughter's age = x so mother = 5x; after 6 years the ages are x + 6 and 5x + 6; equation 5x + 6 = 3(x + 6); 5x + 6 = 3x + 18; 2x = 12; x = 6 (daughter). Identified by x standing for the DAUGHTER's age and the mother written as 5x.",
+            "sympy_equation": "5*x + 6 = 3*(x + 6)",
+            "prompt": "Choose a method: let daughter's age = x, let mother's age = x, or use ratio difference.",
             "accept": [
-                "mother's age = 5x",
-                "5x",
-                "mother = 5 times x",
-                "5 × x",
-                "mother is 5x years old"
+                "method 1",
+                "daughter = x",
+                "let daughter be x",
+                "let daughter's age = x",
+                "linear equation",
+                "algebraic method",
+                "equation method",
+                "form an equation"
             ],
             "hints": [
-                "Use the first given fact: mother is 5 times daughter's age.",
-                "If daughter is x, multiply by 5.",
-                "Mother's present age = 5x."
+                "You can choose Method 1 by letting the daughter's age be x.",
+                "Type 'daughter = x' or 'linear equation' to use this method.",
+                "Method 1 sets daughter = x and mother = 5x."
             ]
         },
         {
             "id": "m1_step1",
             "type": "step",
-            "label": "Define Variables",
-            "description": "Let daughter's age = x, mother's age = 5x.",
-            "prompt": "Daughter = x, Mother = 5x. After 6 years, daughter will be x + 6 and mother will be 5x + 6. Write the equation using the future condition (mother is 3 times daughter).",
+            "label": "Express Mother's Age as 5x",
+            "description": "Since daughter = x and mother is 5 times as old, mother's present age = 5x.",
+            "prompt": "Let daughter's present age = x. How do we express the mother's present age?",
             "accept": [
-                "5x + 6 = 3(x + 6)",
-                "5x + 6 = 3x + 18",
-                "mother + 6 = 3 × (daughter + 6)",
-                "5x+6=3(x+6)"
+                "5x",
+                "mother = 5x",
+                "mother's age = 5x",
+                "5 * x",
+                "5 × x",
+                "mother is 5x years old"
             ],
             "hints": [
-                "After 6 years: Mother's new age = 5x + 6, Daughter's new age = x + 6.",
-                "The future condition says: 5x + 6 = 3 × (x + 6).",
-                "Equation: 5x + 6 = 3(x + 6)."
+                "Mother is 5 times her daughter's age.",
+                "Multiply daughter's age x by 5.",
+                "Mother's present age = 5x."
             ]
         },
         {
             "id": "m1_step2",
             "type": "step",
-            "label": "Form the Equation",
-            "description": "5x + 6 = 3(x + 6)",
-            "prompt": "Expand the right side of 5x + 6 = 3(x + 6). What do you get?",
+            "label": "Express Ages After 6 Years",
+            "description": "In 6 years, daughter is x + 6 and mother is 5x + 6.",
+            "prompt": "After 6 years, what will their ages be in terms of x?",
             "accept": [
-                "5x + 6 = 3x + 18",
-                "3x + 18",
-                "expand to get 3x + 18",
-                "5x+6=3x+18"
+                "x + 6 and 5x + 6",
+                "x+6 and 5x+6",
+                "daughter: x + 6, mother: 5x + 6",
+                "5x + 6 and x + 6",
+                "daughter is x+6 and mother is 5x+6",
+                "x + 6, 5x + 6"
             ],
             "hints": [
-                "Distribute 3 across the bracket on the right: 3 × x and 3 × 6.",
-                "3(x + 6) = 3x + 18.",
-                "The equation becomes 5x + 6 = 3x + 18."
+                "Add 6 to both present ages.",
+                "Daughter becomes x + 6 and mother becomes 5x + 6.",
+                "Their future ages are x + 6 and 5x + 6."
             ]
         },
         {
             "id": "m1_step3",
             "type": "step",
-            "label": "Expand the Brackets",
-            "description": "5x + 6 = 3x + 18",
-            "prompt": "From 5x + 6 = 3x + 18, collect like terms. What do you get when you move the x terms to one side?",
+            "label": "Form and Solve Equation",
+            "description": "After 6 years, mother = 3 × daughter: 5x + 6 = 3(x + 6) → 2x = 12 → x = 6.",
+            "prompt": "After 6 years, mother is 3 times daughter: 5x + 6 = 3(x + 6). Solve for x.",
             "accept": [
-                "2x = 12",
-                "5x - 3x = 18 - 6",
-                "2x = 18 - 6",
-                "2x=12"
+                "5x + 6 = 3(x + 6)",
+                "5x + 6 = 3x + 18",
+                "x = 6",
+                "6",
+                "2x = 12, so x = 6",
+                "5x + 6 = 3x + 18, so x = 6",
+                "x=6",
+                "2x = 12"
             ],
             "hints": [
-                "Subtract 3x from both sides and subtract 6 from both sides.",
-                "5x − 3x = 18 − 6.",
-                "2x = 12."
+                "Expand: 5x + 6 = 3x + 18.",
+                "Collect terms: 5x - 3x = 18 - 6 → 2x = 12.",
+                "Divide by 2: x = 6."
             ]
         },
         {
             "id": "m1_step4",
             "type": "step",
-            "label": "Simplify to 2x = 12",
-            "description": "5x − 3x = 18 − 6 → 2x = 12",
-            "prompt": "We have 2x = 12. What is x?",
+            "label": "State Daughter's Present Age",
+            "description": "Since x = 6, daughter's present age is 6 years (mother is 5 × 6 = 30).",
+            "prompt": "Since x represents daughter's present age, how old is the daughter now?",
             "accept": [
-                "x = 6",
                 "6",
+                "6 years",
                 "daughter is 6",
-                "x = 12 ÷ 2",
-                "x equals 6"
+                "daughter = 6",
+                "daughter's age is 6 years",
+                "6 years old"
             ],
             "hints": [
-                "Divide both sides of 2x = 12 by 2.",
-                "2x ÷ 2 = 12 ÷ 2.",
-                "x = 6. The daughter is 6 years old."
+                "We set daughter's age = x, and found x = 6.",
+                "The daughter is 6 years old.",
+                "Daughter's present age = 6 years."
             ]
         },
         {
-            "id": "m1_step5",
-            "type": "step",
-            "label": "Solve for x",
-            "description": "x = 12 ÷ 2 = 6. Daughter is 6 years old.",
-            "prompt": "Daughter's age = 6 years. What is the mother's present age?",
+            "id": "method2",
+            "type": "method",
+            "label": "Method 2: Linear Equation (Mother = x)",
+            "description": "Let mother's age = x. Daughter's age = x/5. Form and solve a fractional equation.",
+            "jev_description": "Mother = x. Steps: let mother's age = x so daughter = x/5; after 6 years the ages are x + 6 and x/5 + 6; equation x + 6 = 3(x/5 + 6); 5x + 30 = 3x + 90; 2x = 60; x = 30 (mother); daughter = 30/5 = 6. Identified by x standing for the MOTHER's age and the daughter written as x/5 (fractions).",
+            "sympy_equation": "x + 6 = 3*(x/5 + 6)",
+            "prompt": "Choose Method 2 by letting mother's age = x and daughter = x/5.",
             "accept": [
+                "method 2",
+                "mother = x",
+                "let mother be x",
+                "let mother's age = x",
+                "x/5",
+                "fraction method",
+                "mother is x"
+            ],
+            "hints": [
+                "You can assign the variable x to the mother.",
+                "Type 'mother = x' or 'method 2'.",
+                "If mother is x, daughter is x/5."
+            ]
+        },
+        {
+            "id": "m2_step1",
+            "type": "step",
+            "label": "Express Daughter's Age as x/5",
+            "description": "Mother = x. Since mother is 5 times daughter, daughter = x/5.",
+            "prompt": "Let mother's present age = x. How do we express daughter's present age?",
+            "accept": [
+                "x/5",
+                "x / 5",
+                "daughter = x/5",
+                "daughter is x/5",
+                "1/5 x",
+                "0.2x"
+            ],
+            "hints": [
+                "Daughter is one-fifth of mother's age.",
+                "Divide mother's age x by 5.",
+                "Daughter's present age = x/5."
+            ]
+        },
+        {
+            "id": "m2_step2",
+            "type": "step",
+            "label": "Express Ages After 6 Years",
+            "description": "After 6 years: mother is x + 6, daughter is x/5 + 6.",
+            "prompt": "After 6 years, what will their ages be in terms of x?",
+            "accept": [
+                "x + 6 and x/5 + 6",
+                "x+6 and x/5+6",
+                "mother: x + 6, daughter: x/5 + 6",
+                "x/5 + 6 and x + 6",
+                "x + 6 and (x/5) + 6"
+            ],
+            "hints": [
+                "Add 6 to both present ages.",
+                "Mother becomes x + 6, daughter becomes x/5 + 6.",
+                "Future ages: x + 6 and x/5 + 6."
+            ]
+        },
+        {
+            "id": "m2_step3",
+            "type": "step",
+            "label": "Form and Solve Equation",
+            "description": "x + 6 = 3(x/5 + 6) → 5x + 30 = 3x + 90 → 2x = 60 → x = 30.",
+            "prompt": "Mother is 3 times daughter: x + 6 = 3(x/5 + 6). Clear the fraction and solve for x.",
+            "accept": [
+                "x + 6 = 3(x/5 + 6)",
+                "x + 6 = 3x/5 + 18",
+                "x = 30",
+                "30",
+                "x=30",
+                "2x = 60",
                 "mother is 30",
-                "30 years",
-                "5 × 6 = 30",
-                "mother = 30",
-                "30"
+                "5x + 30 = 3x + 90"
             ],
             "hints": [
-                "Recall that mother's age = 5x.",
-                "Substitute x = 6: mother = 5 × 6.",
-                "Mother = 30 years old."
+                "x + 6 = 3x/5 + 18.",
+                "Multiply everything by 5: 5x + 30 = 3x + 90.",
+                "2x = 60 → x = 30."
             ]
         },
         {
-            "id": "m1_step6",
+            "id": "m2_step4",
             "type": "step",
-            "label": "Find Mother's Age",
-            "description": "Mother = 5x = 5 × 6 = 30 years.",
-            "prompt": "Verify: After 6 years, mother = 36 and daughter = 12. Is 36 = 3 × 12?",
+            "label": "Calculate Daughter's Age (x/5)",
+            "description": "Mother x = 30 years. Daughter = 30 / 5 = 6 years.",
+            "prompt": "Mother is 30 years old. What is the daughter's present age (x/5)?",
             "accept": [
-                "yes 36 = 3 × 12",
-                "36 = 36",
-                "yes",
-                "verified",
-                "3 × 12 = 36 ✓",
-                "correct"
+                "6",
+                "6 years",
+                "30 / 5 = 6",
+                "30/5 = 6",
+                "daughter is 6",
+                "daughter = 6"
             ],
             "hints": [
-                "Add 6 to both present ages: mother becomes 36, daughter becomes 12.",
-                "Check if 36 = 3 × 12.",
-                "3 × 12 = 36 ✓. Solution verified!"
+                "Daughter's age is x/5.",
+                "Substitute x = 30: 30 ÷ 5 = 6.",
+                "Daughter is 6 years old."
+            ]
+        },
+        {
+            "id": "method3",
+            "type": "method",
+            "label": "Method 3: Constant Age Difference (Ratio Method)",
+            "description": "The difference in ages between two people never changes. Compare ratio differences.",
+            "jev_description": "Constant age difference (ratio method), no variable x and no equation. Steps: present ratio mother : daughter = 5 : 1, difference 5 - 1 = 4 units; future ratio 3 : 1 has difference 2, scale by 2 to 6 : 2 so the difference is 4 units; daughter goes from 1 unit to 2 units in 6 years, so 1 unit = 6 years; daughter = 1 x 6 = 6. Identified by working with ratios and units.",
+            "prompt": "Choose Method 3: Constant Age Difference Ratio Method.",
+            "accept": [
+                "method 3",
+                "ratio method",
+                "ratio",
+                "difference method",
+                "age difference",
+                "constant difference"
+            ],
+            "hints": [
+                "Age difference between two people is constant throughout life.",
+                "Type 'ratio method' or 'method 3'.",
+                "Present ratio is 5 : 1 and future ratio is 3 : 1."
+            ]
+        },
+        {
+            "id": "m3_step1",
+            "type": "step",
+            "label": "Find Present Ratio Difference",
+            "description": "Mother : Daughter = 5 : 1. Ratio difference = 5 - 1 = 4 units.",
+            "prompt": "Present ratio is 5 : 1 (mother : daughter). What is the difference in ratio units?",
+            "accept": [
+                "4",
+                "4 units",
+                "5 - 1 = 4",
+                "difference is 4",
+                "difference = 4"
+            ],
+            "hints": [
+                "Subtract daughter's unit (1) from mother's units (5).",
+                "5 - 1 = 4.",
+                "The present age difference is 4 units."
+            ]
+        },
+        {
+            "id": "m3_step2",
+            "type": "step",
+            "label": "Equalize Future Ratio Difference",
+            "description": "Future ratio 3 : 1 has diff = 2. Multiply by 2 to make diff = 4: (3×2) : (1×2) = 6 : 2.",
+            "prompt": "In 6 years, ratio is 3 : 1 (diff = 2). Scale by 2 so difference is 4 units. What is the new ratio?",
+            "accept": [
+                "6:2",
+                "6 : 2",
+                "6 to 2",
+                "ratio is 6:2"
+            ],
+            "hints": [
+                "Multiply both numbers in 3 : 1 by 2.",
+                "3 × 2 = 6, 1 × 2 = 2.",
+                "The scaled ratio is 6 : 2 (difference 6 - 2 = 4 units)."
+            ]
+        },
+        {
+            "id": "m3_step3",
+            "type": "step",
+            "label": "Find Years per Unit",
+            "description": "Daughter's units went from 1 to 2 (increase of 1 unit) over 6 years. 1 unit = 6 years.",
+            "prompt": "Daughter went from 1 unit to 2 units (increase of 1 unit) in 6 years. How many years is 1 unit?",
+            "accept": [
+                "6",
+                "6 years",
+                "1 unit = 6 years",
+                "1 unit is 6 years",
+                "1 unit = 6"
+            ],
+            "hints": [
+                "2 units - 1 unit = 1 unit.",
+                "The time passed is 6 years.",
+                "So 1 unit = 6 years."
+            ]
+        },
+        {
+            "id": "m3_step4",
+            "type": "step",
+            "label": "Calculate Present Age",
+            "description": "Since daughter has 1 unit, daughter = 1 × 6 = 6 years (mother = 5 × 6 = 30).",
+            "prompt": "Since 1 unit = 6 years and daughter's present age is 1 unit, how old is the daughter?",
+            "accept": [
+                "6",
+                "6 years",
+                "daughter is 6",
+                "daughter = 6",
+                "6 years old"
+            ],
+            "hints": [
+                "Daughter's present units = 1.",
+                "1 × 6 = 6 years.",
+                "Daughter is 6 years old."
             ]
         },
         {
             "id": "conclusion",
-            "type": "convention",
+            "type": "conclusion",
             "label": "Final Answer",
-            "description": "Daughter's present age = 6 years. Mother's present age = 30 years.",
-            "prompt": "What is the final answer?",
+            "description": "Daughter's present age is 6 years (Mother is 30 years).",
+            "prompt": "What is the final answer for the daughter's present age?",
             "accept": [
-                "daughter is 6 years old",
-                "daughter = 6",
-                "daughter's age is 6",
+                "6",
                 "6 years",
-                "daughter 6 mother 30",
-                "daughter is 6 and mother is 30",
-                "x = 6, mother = 30 years"
+                "daughter is 6",
+                "daughter = 6",
+                "daughter is 6 years old",
+                "daughter's present age is 6",
+                "daughter 6, mother 30",
+                "daughter is 6 and mother is 30"
             ],
             "hints": [
-                "We solved the equation 5x + 6 = 3(x + 6) to find x.",
-                "x = 6 means the daughter is 6 years old.",
-                "Daughter's present age = 6 years; Mother's present age = 30 years."
+                "All methods lead to the same result.",
+                "The daughter is 6 years old.",
+                "Final answer: Daughter's present age is 6 years."
             ]
         }
     ],
     "edges": [
-        { "from": "start", "to": "given_extraction" },
-        { "from": "given_extraction", "to": "goal_extraction" },
-        { "from": "goal_extraction", "to": "method1" },
-        { "from": "method1", "to": "m1_step1" },
-        { "from": "m1_step1", "to": "m1_step2" },
-        { "from": "m1_step2", "to": "m1_step3" },
-        { "from": "m1_step3", "to": "m1_step4" },
-        { "from": "m1_step4", "to": "m1_step5" },
-        { "from": "m1_step5", "to": "m1_step6" },
-        { "from": "m1_step6", "to": "conclusion" }
+        {
+            "from": "start",
+            "to": "given_extraction",
+            "label": "Identify the given information"
+        },
+        {
+            "from": "given_extraction",
+            "to": "goal_extraction",
+            "label": "Identify what to find"
+        },
+        {
+            "from": "goal_extraction",
+            "to": "method1",
+            "label": "Choose Method 1: Daughter = x"
+        },
+        {
+            "from": "goal_extraction",
+            "to": "method2",
+            "label": "Choose Method 2: Mother = x"
+        },
+        {
+            "from": "goal_extraction",
+            "to": "method3",
+            "label": "Choose Method 3: Ratio Difference"
+        },
+        {
+            "from": "method1",
+            "to": "m1_step1"
+        },
+        {
+            "from": "m1_step1",
+            "to": "m1_step2"
+        },
+        {
+            "from": "m1_step2",
+            "to": "m1_step3"
+        },
+        {
+            "from": "m1_step3",
+            "to": "m1_step4"
+        },
+        {
+            "from": "m1_step4",
+            "to": "conclusion"
+        },
+        {
+            "from": "method2",
+            "to": "m2_step1"
+        },
+        {
+            "from": "m2_step1",
+            "to": "m2_step2"
+        },
+        {
+            "from": "m2_step2",
+            "to": "m2_step3"
+        },
+        {
+            "from": "m2_step3",
+            "to": "m2_step4"
+        },
+        {
+            "from": "m2_step4",
+            "to": "conclusion"
+        },
+        {
+            "from": "method3",
+            "to": "m3_step1"
+        },
+        {
+            "from": "m3_step1",
+            "to": "m3_step2"
+        },
+        {
+            "from": "m3_step2",
+            "to": "m3_step3"
+        },
+        {
+            "from": "m3_step3",
+            "to": "m3_step4"
+        },
+        {
+            "from": "m3_step4",
+            "to": "conclusion"
+        }
     ]
 };

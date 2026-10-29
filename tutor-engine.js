@@ -732,10 +732,127 @@
     return null;
   }
 
+  // ─── Definition check: "daughter = x/6" vs the graph's "daughter = x/5" ───
+  // Splits "name = expression" (or "name is expression"). Returns null if the left side is not a name.
+  const NAME_FILLER = /\b(let|the|present|current|now|age|ages|of|be|years?|old)\b/g;
+  function splitDefinition(text) {
+    const s = String(text).toLowerCase()
+      .replace(/[’']s\b/g, '').replace(/[−–]/g, '-').replace(/×/g, '*').replace(/÷/g, '/');
+    let parts = s.split('=');
+    if (parts.length !== 2) {
+      if (parts.length !== 1) return null;
+      parts = s.split(/\bis\b/);
+      if (parts.length !== 2) return null;
+    }
+    const name = parts[0].replace(NAME_FILLER, ' ').replace(/\s+/g, ' ').trim();
+    const expr = parts[1].replace(/\b(years?|old)\b/g, ' ').trim();
+    // The name must be a word (daughter, mother…), not a variable or an expression
+    if (!/^[a-z]{2,}( [a-z]{2,})?$/.test(name) || !expr) return null;
+    return { name, expr };
+  }
+
+  // Turn "3x/5", "1/5 x", "3(x+6)" into explicit products and find the single-letter variables.
+  function prepareExpr(expr) {
+    let s = String(expr).replace(/\s+/g, ' ').trim();
+    s = s.replace(/(\d)\s*([a-z(])/g, '$1*$2')         // 5x, 3(x, 1/5 x
+         .replace(/\)\s*([a-z\d(])/g, ')*$1')          // )(, )x
+         .replace(/\b([a-z])\s*\(/g, '$1*(')           // x(
+         .replace(/\b([a-z])\s+([a-z])\b/g, '$1*$2');  // x y
+    const tokens = tokenizeMath(s);
+    if (!tokens) return null;
+    const vars = new Set();
+    for (const t of tokens) {
+      if (t.t !== 'id') continue;
+      if (t.v.length !== 1) return null;              // words left over → not an expression
+      vars.add(t.v);
+    }
+    return { src: s, vars };
+  }
+
+  function evalWith(prep, values) {
+    const src = prep.src.replace(/\b([a-z])\b/g, v => '(' + values[v] + ')');
+    return evalArithmetic(src);
+  }
+
+  // true = same expression, false = different, null = can't compare
+  function sameExpression(a, b) {
+    const pa = prepareExpr(a), pb = prepareExpr(b);
+    if (!pa || !pb || pb.vars.size === 0) return null;
+    for (const v of pa.vars) if (!pb.vars.has(v)) return null;
+    for (const v of pb.vars) if (!pa.vars.has(v)) return null;
+    for (const trial of [3, 7.5, 11, 40]) {
+      const values = {};
+      for (const v of pb.vars) values[v] = trial;
+      const va = evalWith(pa, values), vb = evalWith(pb, values);
+      if (va === null || vb === null) return null;
+      if (Math.abs(va - vb) > 1e-6 * Math.max(1, Math.abs(vb))) return false;
+    }
+    return true;
+  }
+
+  function edgeTo(methodNodeId, methodPrefix) {
+    return methodOf(firstStepOf(methodNodeId) || '') === methodPrefix || methodNodeId === methodPrefix;
+  }
+
+  // Compares a student definition with the definitions in the current method's step nodes.
+  function checkDefinition(rawInput, session) {
+    if (!session || !session.currentNodeId) return null;
+    const methodId = session.methodId || methodOf(session.currentNodeId);
+    if (!methodId) return null;
+    const student = splitDefinition(rawInput);
+    if (!student) return null;
+    // "daughter = x" / "mother = x" choose a method — leave those to the method logic
+    const isMethodChoice = GRAPH.nodes.some(n => n.type === 'method' &&
+      (n.accept || []).some(a => normalizeText(a) === normalizeText(rawInput)));
+    if (isMethodChoice) return null;
+
+    const methodNode = GRAPH.nodes.find(n => n.type === 'method' && edgeTo(n.id, methodId))
+      || getNode(methodId);
+    const stepIds = methodNode ? methodChain(methodNode.id).slice(1) : [];
+    // Look at the current step first, then the method's other steps
+    const ordered = [session.currentNodeId, ...stepIds.filter(id => id !== session.currentNodeId)];
+
+    for (const nodeId of ordered) {
+      const node = getNode(nodeId);
+      if (!node || node.type !== 'step') continue;
+      let expected = null;
+      for (const a of node.accept || []) {
+        const d = splitDefinition(a);
+        if (!d || d.name !== student.name) continue;
+        const same = sameExpression(student.expr, d.expr);
+        if (same === true) return { accepted: true, nodeId };
+        if (same === false && !expected) expected = d.expr;
+      }
+      if (expected) {
+        return {
+          accepted: false, nodeId,
+          claim: { kind: 'definition', name: student.name, got: student.expr, expected, text: String(rawInput).trim(), isTrue: false }
+        };
+      }
+    }
+    return null;
+  }
+
   // ─── Main classifier ───
   function processStep(rawInput, session) {
     const parsed = parseStep(rawInput);
     const result = { verdict: null, parsed, nodeId: null, methodId: null, claim: null, approachOnly: false };
+
+    // Definition steps ("daughter = x/5"): right value → accept, wrong value → mistake
+    const def = checkDefinition(parsed.raw, session);
+    if (def && !def.accepted) {
+      result.verdict = 'WRONG_CLAIM';
+      result.claim = def.claim;
+      result.nodeId = def.nodeId;
+      result.methodId = methodOf(def.nodeId);
+      return result;
+    }
+    if (def && def.accepted && def.nodeId === session.currentNodeId) {
+      result.verdict = 'ACCEPT';
+      result.nodeId = def.nodeId;
+      result.methodId = methodOf(def.nodeId);
+      return result;
+    }
 
     const normalizedInput = normalizeText(parsed.raw);
     const exactGraphAnswer = GRAPH.nodes.some(node =>
@@ -879,6 +996,10 @@
     }
     if (c.kind === 'value') {
       return c.got + " isn't the value needed at this step.";
+    }
+    if (c.kind === 'definition') {
+      const name = c.name.charAt(0).toUpperCase() + c.name.slice(1);
+      return name + ' should be ' + c.expected + ', not ' + c.got + '.';
     }
     return "This step doesn't hold.";
   }

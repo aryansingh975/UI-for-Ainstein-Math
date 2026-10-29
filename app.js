@@ -112,6 +112,15 @@ let state = {
       ]
     },
     {
+      id: 'linear-equations-one-variable',
+      title: 'Linear Equations in One Variable',
+      grade: 8,
+      description: 'Grade 8 · 1 problem · Jev + SymPy',
+      problems: [
+        { id: 'g08-lin-ex003', title: 'Solve 3(x − 2) + 5 = 2x + 4', uuid: 'g08-lin-ex003' }
+      ]
+    },
+    {
       id: 'linear-equation',
       title: 'Linear Equation',
       grade: 10,
@@ -248,6 +257,7 @@ function loadSolutionGraph(problemUuid) {
   }
 
   // Initialize the tutor engine with this graph
+  state.activeGraph = activeGraph;
   TutorEngine.init(activeGraph);
 
   // Update problem statement
@@ -294,12 +304,12 @@ function updateStepUI() {
     stepLabel.textContent = '✓ Solved';
     stepDotActive.className = 'step-dot-done';
     questionInput.placeholder = 'Problem solved — press "↺ Reset Problem State" to try again.';
-  } else if (state.session.trail.length === 0 && !state.session.methodId) {
+  } else if (state.session.trail.length === 0 && !state.session.methodId && !(state.session.pendingLines || []).length) {
     stepLabel.textContent = 'Step 1';
     stepDotActive.className = 'step-dot-active';
     questionInput.placeholder = 'Type your first step for this problem…';
   } else {
-    stepLabel.textContent = `Step ${state.session.trail.length + 1}`;
+    stepLabel.textContent = `Step ${state.session.trail.length + (state.session.pendingLines || []).length + 1}`;
     stepDotActive.className = 'step-dot-active';
     questionInput.placeholder = 'Type your next step…';
   }
@@ -373,9 +383,12 @@ async function evaluateStep() {
   solveButton.disabled = true;
 
   try {
-    if (state.currentProblemUuid === 'g10-quad-ex001' && !state.session.methodId) {
+    const usesJev = state.activeGraph && state.activeGraph.graph_meta && state.activeGraph.graph_meta.use_jev;
+    if (usesJev && !state.session.methodId) {
       solveButton.textContent = 'Identifying method...';
       await evaluateWithJev(rawInput);
+    } else if (usesJev) {
+      await evaluateWithSympyAndGraph(rawInput);
     } else {
       const result = TutorEngine.processStep(rawInput, state.session);
       TutorEngine.applyResult(state.session, result);
@@ -390,54 +403,197 @@ async function evaluateStep() {
   }
 }
 
+// Jev + SymPy flow (used until Jev has identified the method).
+// Lines that several methods share (e.g. expanding a bracket) are accepted when SymPy says they are
+// correct and kept in session.pendingLines; each check sends ALL lines so far to Jev, so Jev can pick
+// the method as soon as a distinguishing step appears. Then the lines are replayed into the tutor engine.
 async function evaluateWithJev(rawInput) {
-  const response = await fetch('/api/jev/method', {
+  const lines = [...(state.session.pendingLines || []), rawInput];
+  const response = await fetch('/api/check', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ problemId: state.currentProblemUuid, studentWork: rawInput })
+    body: JSON.stringify({ problemId: state.currentProblemUuid, studentWork: lines.join('\n') })
   });
-  const classification = await response.json();
-
-  if (!response.ok) {
-    throw new Error(classification.message || 'Jev could not classify this response. Please try again.');
+  const result = await response.json();
+  if (!response.ok && result.status !== 'unavailable') {
+    throw new Error(result.message || 'Could not check this step. Please try again.');
   }
 
-  if (classification.status === 'off_graph') {
-    renderJevMessage('METHOD NOT IN THIS GRAPH', 'Jev could not match this work to one of the supported methods. Try explaining your approach or choose another method.');
+  const method = result.method || {};
+  const probabilities = method.probabilities;
+
+  // 1. SymPy found a maths mistake: don't keep this line
+  if (result.status === 'fix_mistake') {
+    renderJevMessage('🔴 MISTAKE IN THIS STEP', result.feedback, 'failure-state', probabilities);
     return;
   }
 
-  if (classification.status !== 'selected') {
-    renderJevMessage('METHOD UNCLEAR', 'Jev is not confident which method you are using. Add another line or explain your approach, then try again.');
+  // 2. Jev picked a method: lock it in and replay every line through the tutor engine
+  if (method.status === 'selected' && method.methodId) {
+    if (!TutorEngine.beginMethod(state.session, method.methodId)) {
+      throw new Error('The selected method is not available in this problem graph.');
+    }
+    // Method ids like "method1" don't carry the m1_ prefix the engine groups steps by,
+    // so take it from the first step id (e.g. "m1_step1" -> "m1").
+    if (!state.session.methodId) {
+      const prefix = String(state.session.currentNodeId || '').match(/^(m\d+)_/);
+      if (prefix) state.session.methodId = prefix[1];
+    }
+    state.session.jevMethodId = method.methodId;
+    const methodNode = TutorEngine.getNode(method.methodId);
+    methodIndicator.textContent = `· ${methodNode.label}`;
+    methodIndicator.hidden = false;
+
+    let last = null;
+    for (const line of lines) {
+      last = TutorEngine.processStep(line, state.session);
+      if (last.verdict === 'ACCEPT' || last.verdict === 'CONCLUSION_RIGHT') {
+        TutorEngine.applyResult(state.session, last);
+      }
+    }
+    state.session.pendingLines = [];
+
+    if (last && (last.verdict === 'ACCEPT' || last.verdict === 'CONCLUSION_RIGHT')) {
+      renderResult(last);
+      prependJevNote(`Jev identified: ${methodNode.label} (${Math.round(method.confidence * 100)}%)`, probabilities);
+    } else if (last && (last.verdict === 'WRONG_CLAIM' || last.verdict === 'CONCLUSION_WRONG')) {
+      // The tutor engine found a mistake (e.g. "daughter = x/6") — show it as an error
+      TutorEngine.applyResult(state.session, last);
+      renderResult(last);
+      prependJevNote(`Jev identified: ${methodNode.label} (${Math.round(method.confidence * 100)}%)`, probabilities);
+    } else if (methodDeclaredBy(lines[lines.length - 1]) === method.methodId) {
+      const nextNode = TutorEngine.getNode(state.session.currentNodeId);
+      renderJevMessage('🟢 GOOD APPROACH',
+        `Good start — that is ${methodNode.label}. ${nextNode && nextNode.prompt ? nextNode.prompt : ''}`.trim(),
+        'success-state', probabilities);
+    } else {
+      const nextNode = TutorEngine.getNode(state.session.currentNodeId);
+      renderJevMessage('METHOD SELECTED · STEP NOT VERIFIED',
+        `Jev identified ${methodNode.label}. ${nextNode ? nextNode.prompt : ''}`, 'warn-state', probabilities);
+    }
     return;
   }
 
-  if (!TutorEngine.beginMethod(state.session, classification.methodId)) {
-    throw new Error('The selected method is not available in this problem graph.');
+  // 3. Fully solved before a method was identified
+  if (result.status === 'solved') {
+    state.session.completed = true;
+    renderJevMessage('🟢 PROBLEM COMPLETED', result.feedback, 'success-state', probabilities);
+    return;
   }
 
-  const methodNode = TutorEngine.getNode(classification.methodId);
-  methodIndicator.textContent = `· ${methodNode.label}`;
-  methodIndicator.hidden = false;
+  // 4. Correct, but Jev can't tell the method yet (shared step): keep the line and continue
+  const validation = result.validation || {};
+  const sympyChecked = Array.isArray(validation.lines) && validation.lines.some(l => l.status === 'valid');
+  if (sympyChecked && validation.is_valid) {
+    state.session.pendingLines = lines;
+    renderJevMessage('🟢 CORRECT · METHOD NOT IDENTIFIED YET',
+      'Correct so far. This step is shared by more than one method, so keep going — your next step will show which method you are using.',
+      'success-state', probabilities);
+    return;
+  }
 
+  if (method.status === 'off_graph') {
+    renderJevMessage('METHOD NOT IN THIS GRAPH', 'Jev could not match this work to one of the supported methods. Try explaining your approach or choose another method.', 'warn-state', probabilities);
+    return;
+  }
+  renderJevMessage('METHOD UNCLEAR', result.feedback || 'Jev is not confident which method you are using. Add another line or explain your approach, then try again.', 'warn-state', probabilities);
+}
+
+// After the method is known: SymPy checks the maths, the graph decides the next step.
+async function evaluateWithSympyAndGraph(rawInput) {
+  let sym = null;
+  try {
+    const response = await fetch('/api/sympy/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ problemId: state.currentProblemUuid, studentWork: rawInput, methodId: state.session.jevMethodId || null })
+    });
+    if (response.ok) sym = await response.json();
+  } catch (error) {
+    console.warn('SymPy check unavailable:', error);
+  }
+
+  // 1. SymPy found a maths mistake
+  if (sym && Array.isArray(sym.errors) && sym.errors.length) {
+    const e = sym.errors[0];
+    renderJevMessage('🔴 MISTAKE IN THIS STEP', `There is a mistake in "${e.statement}". ${e.message || ''}`.trim(), 'failure-state');
+    return;
+  }
+
+  // 2. The graph decides whether this is the expected step
   const result = TutorEngine.processStep(rawInput, state.session);
   if (result.verdict === 'GARBAGE' || result.verdict === 'UNPARSED') {
-    const nextNode = TutorEngine.getNode(state.session.currentNodeId);
-    renderJevMessage('METHOD SELECTED · STEP NOT VERIFIED', `Jev identified ${methodNode.label.toLowerCase()}, but the tutor could not verify that line as a correct step. ${nextNode.prompt}`);
+    const declared = methodDeclaredBy(rawInput);
+    const current = TutorEngine.getNode(state.session.currentNodeId);
+    const prompt = current && current.prompt ? current.prompt : '';
+    if (declared && declared === state.session.jevMethodId) {
+      renderJevMessage('🟢 YES — THAT IS YOUR METHOD',
+        `"${rawInput}" is how ${TutorEngine.getNode(declared).label} starts. ${prompt}`.trim(), 'success-state');
+      return;
+    }
+    if (declared) {
+      const locked = TutorEngine.getNode(state.session.jevMethodId);
+      renderJevMessage('🟡 THAT IS A DIFFERENT METHOD',
+        `"${rawInput}" starts ${TutorEngine.getNode(declared).label}, but you are working with ${locked ? locked.label : 'another method'}. ` +
+        'Keep going with your current method, or press "↺ Reset Problem State" to start again with this one.', 'warn-state');
+      return;
+    }
+  }
+  const sympyCorrect = sym && sym.is_valid && Array.isArray(sym.lines) && sym.lines.some(l => l.status === 'valid');
+  if ((result.verdict === 'GARBAGE' || result.verdict === 'UNPARSED') && sympyCorrect) {
+    const next = TutorEngine.getNode(state.session.currentNodeId);
+    renderJevMessage('🟢 CORRECT MATHS · DIFFERENT STEP',
+      `"${rawInput}" is mathematically correct, but it is not the step expected here. ${next && next.prompt ? next.prompt : ''}`.trim(),
+      'warn-state');
     return;
   }
-
   TutorEngine.applyResult(state.session, result);
   renderResult(result);
 }
 
-function renderJevMessage(label, message, stateClass = 'warn-state') {
+// "mother = x", "let daughter be x" … are method choices (listed in a METHOD node's accept list),
+// not calculations, so neither SymPy nor the step matcher can check them.
+function methodDeclaredBy(rawInput) {
+  const nodes = (state.activeGraph && state.activeGraph.nodes) || [];
+  const method = nodes.find(n => n.type === 'method' &&
+    (n.accept || []).some(a => TutorEngine.matchesAccept(rawInput, a)));
+  return method ? method.id : null;
+}
+
+// Small bar chart of Jev's probability for each method
+function renderProbabilities(probabilities) {
+  if (!probabilities || !Object.keys(probabilities).length) return '';
+  const rows = Object.entries(probabilities)
+    .sort((a, b) => b[1] - a[1])
+    .map(([id, p]) => {
+      const node = TutorEngine.getNode(id);
+      const label = node ? node.label.replace(/^Method \d+:\s*/, '') : id;
+      const pct = Math.round(Number(p) * 100);
+      return `<div style="display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px;">
+          <span style="flex:0 0 150px;">${escapeHtml(label)}</span>
+          <span style="flex:1;height:8px;background:rgba(127,127,127,.2);border-radius:4px;overflow:hidden;">
+            <span style="display:block;height:100%;width:${pct}%;background:currentColor;opacity:.6;"></span>
+          </span>
+          <span style="flex:0 0 40px;text-align:right;">${pct}%</span>
+        </div>`;
+    }).join('');
+  return `<div class="jev-probabilities" style="margin-top:12px;"><div class="answer-meta">JEV · METHOD PROBABILITIES</div>${rows}</div>`;
+}
+
+function prependJevNote(text, probabilities) {
+  const card = resultArea.querySelector('.answer-card');
+  if (!card) return;
+  card.insertAdjacentHTML('beforeend', `<p class="answer-note">${escapeHtml(text)}</p>${renderProbabilities(probabilities)}`);
+}
+
+function renderJevMessage(label, message, stateClass = 'warn-state', probabilities = null) {
   resultArea.innerHTML = `
     <article class="answer-card ${stateClass}">
       <div class="answer-meta">${escapeHtml(label)}</div>
       <div class="tutor-bubble">
         <div class="tutor-speech">${escapeHtml(message)}</div>
       </div>
+      ${renderProbabilities(probabilities)}
     </article>`;
   resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }

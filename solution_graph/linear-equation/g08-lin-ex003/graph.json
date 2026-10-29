@@ -1,0 +1,405 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g08-lin-ex003",
+    "problem_uuid": "g08-lin-ex003",
+    "problem_text": "Solve 3(x − 2) + 5 = 2x + 4.",
+    "equation": "3*(x - 2) + 5 = 2*x + 4",
+    "variable": "x",
+    "use_jev": true,
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for 3(x − 2) + 5 = 2x + 4 — captures all valid solution methods (transposition, balancing, trial and error). Transposition and balancing share their first two steps (expand, simplify) and differ from step 3. The tutor accepts any path through this graph as a valid solution.",
+    "created": "2026-10-15",
+    "total_methods": 3,
+    "total_nodes": 16,
+    "total_edges": 18
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Solve 3(x − 2) + 5 = 2x + 4.",
+      "prompt": "Read the problem. Solve 3(x − 2) + 5 = 2x + 4 and find the value of x.",
+      "accept": [],
+      "hints": [
+        "This is a linear equation in one variable.",
+        "Start by removing the bracket.",
+        "You can use transposition, balancing, or trial and error."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "x = 5",
+      "prompt": "State your final answer: what is the value of x?",
+      "accept": [
+        "x = 5",
+        "x=5",
+        "the value of x is 5"
+      ],
+      "hints": [
+        "Check: 3(5 − 2) + 5 = 14 and 2(5) + 4 = 14.",
+        "Both sides are equal.",
+        "x = 5."
+      ]
+    },
+    {
+      "id": "m1_transpose",
+      "type": "method",
+      "label": "Method 1: Transposition",
+      "description": "Expand and simplify, then move terms to the other side of the equation, changing their sign (+ becomes −, − becomes +).",
+      "prompt": "Choose a method to solve this problem. You can use transposition, balancing, or trial and error.",
+      "accept": [
+        "transpos",
+        "transfer",
+        "move",
+        "shift",
+        "change sign",
+        "other side",
+        "3x - 2x = 4 + 1",
+        "3x − 2x = 4 + 1"
+      ],
+      "hints": [
+        "Get the x terms on one side and the numbers on the other.",
+        "When a term moves across the = sign, its sign changes.",
+        "Move 2x to the left and −1 to the right."
+      ],
+      "jev_description": "Transposition. Steps: (1) expand the bracket: 3x - 6 + 5 = 2x + 4, (2) simplify: 3x - 1 = 2x + 4, (3) move terms across the = sign and change their sign: 3x - 2x = 4 + 1, (4) x = 5. Steps 1-2 are the same as balancing; step 3 is what identifies transposition."
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Expand the bracket",
+      "description": "3(x − 2) = 3x − 6, so the equation becomes 3x − 6 + 5 = 2x + 4.",
+      "prompt": "Expand 3(x − 2). What does the equation become?",
+      "accept": [
+        "3x - 6 + 5 = 2x + 4",
+        "3x − 6 + 5 = 2x + 4",
+        "3x-6+5=2x+4"
+      ],
+      "hints": [
+        "Multiply 3 by each term inside the bracket.",
+        "3 × x = 3x and 3 × (−2) = −6.",
+        "3x − 6 + 5 = 2x + 4"
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Simplify the left side",
+      "description": "−6 + 5 = −1, so 3x − 1 = 2x + 4.",
+      "prompt": "Combine the numbers on the left side. What do you get?",
+      "accept": [
+        "3x - 1 = 2x + 4",
+        "3x − 1 = 2x + 4",
+        "3x-1=2x+4"
+      ],
+      "hints": [
+        "Combine −6 and +5.",
+        "−6 + 5 = −1.",
+        "3x − 1 = 2x + 4"
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Transpose terms",
+      "description": "Move 2x to the left (it becomes −2x) and −1 to the right (it becomes +1): 3x − 2x = 4 + 1.",
+      "prompt": "Move the x terms to the left and the numbers to the right. What do you get?",
+      "accept": [
+        "3x - 2x = 4 + 1",
+        "3x − 2x = 4 + 1",
+        "3x-2x=4+1"
+      ],
+      "hints": [
+        "+2x on the right becomes −2x on the left.",
+        "−1 on the left becomes +1 on the right.",
+        "3x − 2x = 4 + 1"
+      ]
+    },
+    {
+      "id": "m1_s4",
+      "type": "step",
+      "label": "Simplify to find x",
+      "description": "3x − 2x = x and 4 + 1 = 5, so x = 5.",
+      "prompt": "Simplify both sides. What is x?",
+      "accept": [
+        "x = 5",
+        "x=5"
+      ],
+      "hints": [
+        "3x − 2x = x",
+        "4 + 1 = 5",
+        "x = 5"
+      ]
+    },
+    {
+      "id": "m2_balance",
+      "type": "method",
+      "label": "Method 2: Balancing",
+      "description": "Expand and simplify, then do the same operation to both sides of the equation (subtract 2x from both sides, then add 1 to both sides).",
+      "prompt": "Choose a method to solve this problem. You can use transposition, balancing, or trial and error.",
+      "accept": [
+        "balanc",
+        "both sides",
+        "same operation",
+        "subtract 2x from both",
+        "add 1 to both",
+        "3x - 1 - 2x = 2x + 4 - 2x",
+        "3x − 1 − 2x = 2x + 4 − 2x"
+      ],
+      "hints": [
+        "Whatever you do to one side, do the same to the other.",
+        "First subtract 2x from both sides.",
+        "Then add 1 to both sides."
+      ],
+      "jev_description": "Balancing. Steps: (1) expand the bracket: 3x - 6 + 5 = 2x + 4, (2) simplify: 3x - 1 = 2x + 4, (3) do the same operation on both sides, e.g. subtract 2x from both sides: 3x - 1 - 2x = 2x + 4 - 2x, or x - 1 = 4, (4) add 1 to both sides: x = 5. Steps 1-2 are the same as transposition; step 3 is what identifies balancing."
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Expand the bracket",
+      "description": "3(x − 2) = 3x − 6, so the equation becomes 3x − 6 + 5 = 2x + 4.",
+      "prompt": "Expand 3(x − 2). What does the equation become?",
+      "accept": [
+        "3x - 6 + 5 = 2x + 4",
+        "3x − 6 + 5 = 2x + 4",
+        "3x-6+5=2x+4"
+      ],
+      "hints": [
+        "Multiply 3 by each term inside the bracket.",
+        "3 × x = 3x and 3 × (−2) = −6.",
+        "3x − 6 + 5 = 2x + 4"
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Simplify the left side",
+      "description": "−6 + 5 = −1, so 3x − 1 = 2x + 4.",
+      "prompt": "Combine the numbers on the left side. What do you get?",
+      "accept": [
+        "3x - 1 = 2x + 4",
+        "3x − 1 = 2x + 4",
+        "3x-1=2x+4"
+      ],
+      "hints": [
+        "Combine −6 and +5.",
+        "−6 + 5 = −1.",
+        "3x − 1 = 2x + 4"
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Subtract 2x from both sides",
+      "description": "3x − 1 − 2x = 2x + 4 − 2x, which gives x − 1 = 4.",
+      "prompt": "Subtract 2x from both sides. What does the equation become?",
+      "accept": [
+        "3x - 1 - 2x = 2x + 4 - 2x",
+        "3x − 1 − 2x = 2x + 4 − 2x",
+        "x - 1 = 4",
+        "x − 1 = 4"
+      ],
+      "hints": [
+        "Write −2x on both sides.",
+        "3x − 2x = x on the left; 2x − 2x = 0 on the right.",
+        "x − 1 = 4"
+      ]
+    },
+    {
+      "id": "m2_s4",
+      "type": "step",
+      "label": "Add 1 to both sides",
+      "description": "x − 1 + 1 = 4 + 1, so x = 5.",
+      "prompt": "Add 1 to both sides. What is x?",
+      "accept": [
+        "x - 1 + 1 = 4 + 1",
+        "x − 1 + 1 = 4 + 1",
+        "x = 5",
+        "x=5"
+      ],
+      "hints": [
+        "Write +1 on both sides.",
+        "−1 + 1 = 0 on the left; 4 + 1 = 5 on the right.",
+        "x = 5"
+      ]
+    },
+    {
+      "id": "m3_trial",
+      "type": "method",
+      "label": "Method 3: Trial and Error",
+      "description": "Substitute values of x into both sides of 3(x − 2) + 5 = 2x + 4 until the two sides are equal.",
+      "prompt": "Choose a method to solve this problem. You can use transposition, balancing, or trial and error.",
+      "accept": [
+        "trial",
+        "try",
+        "guess",
+        "substitut",
+        "put x =",
+        "check x =",
+        "lhs",
+        "rhs"
+      ],
+      "hints": [
+        "Pick a value for x and work out both sides.",
+        "If the sides are not equal, try another value.",
+        "Keep going until LHS = RHS."
+      ],
+      "jev_description": "Trial and error. Substitute numbers for x into both sides, e.g. x = 3: 3(3 - 2) + 5 = 8 and 2(3) + 4 = 10, not equal; keep trying until both sides are equal (x = 5). No algebraic rearranging."
+    },
+    {
+      "id": "m3_s1",
+      "type": "step",
+      "label": "Try x = 3",
+      "description": "LHS = 3(3 − 2) + 5 = 8, RHS = 2(3) + 4 = 10. 8 ≠ 10, so x = 3 is not the answer.",
+      "prompt": "Substitute x = 3. Are both sides equal?",
+      "accept": [
+        "3(3 - 2) + 5 = 8",
+        "2(3) + 4 = 10",
+        "8 and 10",
+        "no",
+        "not equal"
+      ],
+      "hints": [
+        "LHS = 3(1) + 5 = 8",
+        "RHS = 6 + 4 = 10",
+        "8 ≠ 10, try a bigger value."
+      ]
+    },
+    {
+      "id": "m3_s2",
+      "type": "step",
+      "label": "Try x = 4",
+      "description": "LHS = 3(4 − 2) + 5 = 11, RHS = 2(4) + 4 = 12. 11 ≠ 12, so x = 4 is not the answer.",
+      "prompt": "Substitute x = 4. Are both sides equal?",
+      "accept": [
+        "3(4 - 2) + 5 = 11",
+        "2(4) + 4 = 12",
+        "11 and 12",
+        "no",
+        "not equal"
+      ],
+      "hints": [
+        "LHS = 3(2) + 5 = 11",
+        "RHS = 8 + 4 = 12",
+        "11 ≠ 12, the gap is shrinking. Try one more."
+      ]
+    },
+    {
+      "id": "m3_s3",
+      "type": "step",
+      "label": "Try x = 5",
+      "description": "LHS = 3(5 − 2) + 5 = 14, RHS = 2(5) + 4 = 14. Both sides are equal, so x = 5.",
+      "prompt": "Substitute x = 5. Are both sides equal?",
+      "accept": [
+        "3(5 - 2) + 5 = 14",
+        "2(5) + 4 = 14",
+        "14 = 14",
+        "yes",
+        "equal"
+      ],
+      "hints": [
+        "LHS = 3(3) + 5 = 14",
+        "RHS = 10 + 4 = 14",
+        "14 = 14, so x = 5."
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "m1_transpose",
+      "label": "Method 1: Transposition"
+    },
+    {
+      "from": "m1_transpose",
+      "to": "m1_s1",
+      "label": "Expand"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Simplify"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3",
+      "label": "Transpose"
+    },
+    {
+      "from": "m1_s3",
+      "to": "m1_s4",
+      "label": "Simplify"
+    },
+    {
+      "from": "m1_s4",
+      "to": "conclusion",
+      "label": "x = 5"
+    },
+    {
+      "from": "start",
+      "to": "m2_balance",
+      "label": "Method 2: Balancing"
+    },
+    {
+      "from": "m2_balance",
+      "to": "m2_s1",
+      "label": "Expand"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Simplify"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3",
+      "label": "Subtract 2x"
+    },
+    {
+      "from": "m2_s3",
+      "to": "m2_s4",
+      "label": "Add 1"
+    },
+    {
+      "from": "m2_s4",
+      "to": "conclusion",
+      "label": "x = 5"
+    },
+    {
+      "from": "start",
+      "to": "m3_trial",
+      "label": "Method 3: Trial and Error"
+    },
+    {
+      "from": "m3_trial",
+      "to": "m3_s1",
+      "label": "Try x = 3"
+    },
+    {
+      "from": "m3_s1",
+      "to": "m3_s2",
+      "label": "Try x = 4"
+    },
+    {
+      "from": "m3_s2",
+      "to": "m3_s3",
+      "label": "Try x = 5"
+    },
+    {
+      "from": "m3_trial",
+      "to": "m3_s3",
+      "label": "Try x = 5 directly"
+    },
+    {
+      "from": "m3_s3",
+      "to": "conclusion",
+      "label": "x = 5"
+    }
+  ]
+}
