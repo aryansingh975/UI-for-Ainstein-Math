@@ -90,14 +90,10 @@
       "sympy_equation": "5*x + 6 = 3*(x + 6)",
       "prompt": "Choose a method: let daughter's age = x, let mother's age = x, or use ratio difference.",
       "accept": [
-        "method 1",
         "daughter = x",
         "let daughter be x",
-        "let daughter's age = x",
-        "linear equation",
-        "algebraic method",
-        "equation method",
-        "form an equation"
+        "let daughter's age = x"
+        
       ],
       "hints": [
         "You can choose Method 1 by letting the daughter's age be x.",
@@ -134,10 +130,12 @@
       "accept": [
         "x + 6 and 5x + 6",
         "x+6 and 5x+6",
+        "x +6 and 5*x+6",
         "daughter: x + 6, mother: 5x + 6",
         "5x + 6 and x + 6",
         "daughter is x+6 and mother is 5x+6",
-        "x + 6, 5x + 6"
+        "x + 6, 5x + 6",
+        "x +6,5*x+6"
       ],
       "hints": [
         "Add 6 to both present ages.",

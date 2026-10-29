@@ -137,10 +137,12 @@ window.SOLUTION_GRAPHS["g08-hegp206-age-q7"] = {
             "accept": [
                 "x + 6 and 5x + 6",
                 "x+6 and 5x+6",
+                "x +6 and 5*x+6",
                 "daughter: x + 6, mother: 5x + 6",
                 "5x + 6 and x + 6",
                 "daughter is x+6 and mother is 5x+6",
-                "x + 6, 5x + 6"
+                "x + 6, 5x + 6",
+                "x +6,5*x+6"
             ],
             "hints": [
                 "Add 6 to both present ages.",
