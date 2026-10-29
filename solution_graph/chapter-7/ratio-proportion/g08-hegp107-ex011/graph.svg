@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%">
+  <rect width="1280" height="720" fill="#0b1120"/>
+  <text x="640" y="80" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#f8fafc">SOLUTION GRAPH - g08-hegp107-ex011</text>
+  <text x="640" y="120" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#cbd5e1">Profit sharing</text>
+  <text x="640" y="160" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94a3b8">10 nodes, 11 edges, 2 method(s) — placeholder visual</text>
+  <rect x="500" y="220" width="280" height="60" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="640" y="257" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">START</text>
+  <rect x="470" y="360" width="340" height="72" rx="10" fill="#052e2b" stroke="#34d399" stroke-width="2"/>
+  <text x="640" y="390" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">CONCLUSION</text>
+  <text x="640" y="414" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#a5b4c8">Prashanti and Bhuvan started a food cart business near their school. Prashanti invested ₹7</text>
+</svg>

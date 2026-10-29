@@ -1,15 +1,31 @@
 # Python virtual environment
 .venv/
+backend/.venv/
+
+# Node dependencies
+node_modules/
+frontend/node_modules/
+
 # Antigravity / AGY hidden runtime data
 .agents/
-# Byte‑code caches
+
+# Byte-code caches
 __pycache__/
 *.py[cod]
+
 # Jupyter notebooks checkpoints
 .ipynb_checkpoints/
-# OS‑specific junk
+
+# OS-specific junk
 .DS_Store
-# Other common artifacts you may want to ignore
+
+# Logs and runtime artifacts
 *.log
 *.sqlite3
+*.jsonl
+backend/logs/
+logs/
+
+# Secrets
 .env
+.claude/

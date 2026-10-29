@@ -4,7 +4,16 @@
     "problem_uuid": "g08-hegp107-ex010",
     "problem_text": "A small farmer in Himachal Pradesh sells each 200 g packet of tea for ₹200. A large estate in Meghalaya sells each 1 kg packet of tea for ₹800. Are the weight-to-price ratios in both places proportional? Which tea is more expensive?",
     "navigation_label": "Tea cost comparison",
-    "problem_context": { "first": [200, 200], "second": [1000, 800] },
+    "problem_context": {
+      "first": [
+        200,
+        200
+      ],
+      "second": [
+        1000,
+        800
+      ]
+    },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for comparing tea price ratios and identifying the more expensive tea.",
@@ -16,6 +25,34 @@
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify the Goal",
+      "description": "Identify the quantity or decision the problem asks for.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "whether the ratios are proportional and which tea costs more"
+      ],
+      "hints": [
+        "State clearly what the question asks you to determine."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify Given Information",
+      "description": "Identify the facts and quantities provided in this word problem.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "200 g of tea costs ₹200 and 1 kg costs ₹800"
+      ],
+      "hints": [
+        "Read the problem carefully and identify the quantities and relationships."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -57,7 +94,13 @@
       "label": "Method 1: Equivalent ratios",
       "description": "Express both tea prices using the same unit of weight and compare the ratios.",
       "prompt": "Write the weight-to-price ratios in equivalent simplified forms.",
-      "accept": ["ratio", "compare ratio", "equivalent ratio", "simplify ratio", "weight to price ratio"],
+      "accept": [
+        "ratio",
+        "compare ratio",
+        "equivalent ratio",
+        "simplify ratio",
+        "weight to price ratio"
+      ],
       "hints": [
         "For Himachal, 200 g : ₹200.",
         "For Meghalaya, 1000 g : ₹800.",
@@ -110,7 +153,13 @@
       "label": "Method 2: Cost for the same weight",
       "description": "Compare the cost of 1 kg of tea from both places to decide which is more expensive.",
       "prompt": "Find the cost of 1 kg of tea from each seller and compare them.",
-      "accept": ["same weight", "cost for 1 kg", "per kg", "same amount", "compare price per kg"],
+      "accept": [
+        "same weight",
+        "cost for 1 kg",
+        "per kg",
+        "same amount",
+        "compare price per kg"
+      ],
       "hints": [
         "Take 1 kg as the common unit.",
         "200 g is one-fifth of 1 kg.",
@@ -174,14 +223,60 @@
     }
   ],
   "edges": [
-    { "from": "start", "to": "m1_compare", "label": "Compare ratios" },
-    { "from": "start", "to": "m2_cost", "label": "Compare same weight" },
-    { "from": "m1_compare", "to": "m1_s1", "label": "Himachal ratio" },
-    { "from": "m1_s1", "to": "m1_s2", "label": "Meghalaya ratio" },
-    { "from": "m1_s2", "to": "conclusion", "label": "State the answer" },
-    { "from": "m2_cost", "to": "m2_s1", "label": "Convert 1 kg" },
-    { "from": "m2_s1", "to": "m2_s2", "label": "Find 1 kg price" },
-    { "from": "m2_s2", "to": "m2_s3", "label": "Compare prices" },
-    { "from": "m2_s3", "to": "conclusion", "label": "Conclude" }
+    {
+      "from": "m1_compare",
+      "to": "m1_s1",
+      "label": "Himachal ratio"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Meghalaya ratio"
+    },
+    {
+      "from": "m1_s2",
+      "to": "conclusion",
+      "label": "State the answer"
+    },
+    {
+      "from": "m2_cost",
+      "to": "m2_s1",
+      "label": "Convert 1 kg"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Find 1 kg price"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3",
+      "label": "Compare prices"
+    },
+    {
+      "from": "m2_s3",
+      "to": "conclusion",
+      "label": "Conclude"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_compare",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_cost",
+      "label": "Choose a solution method"
+    }
   ]
 }

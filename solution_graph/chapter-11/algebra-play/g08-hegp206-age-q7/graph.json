@@ -3,11 +3,14 @@
     "graph_id": "sg-7e9b2d4f-1a3c-5e7g-9i0k-2m4o6q8s0u2w",
     "problem_uuid": "g08-hegp206-age-q7",
     "problem_text": "Mother is 5 times her daughter's present age. After 6 years, the mother will be 3 times her daughter's age. Find the present age of daughter.",
+<<<<<<< HEAD
     "equation": "5*x + 6 = 3*(x + 6)",
     "variable": "x",
     "use_jev": true,
     "sympy_can_finish": false,
     "sympy_note": "x means the daughter's age in Method 1 but the mother's age in Method 2, so each method has its own sympy_equation. sympy_can_finish is false because finding x is not always the final answer (Method 2 gives the mother's age, 30); the conclusion node decides when the problem is solved.",
+=======
+>>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1
     "navigation_label": "Mother-Daughter Age Problem",
     "problem_context": {
       "topic": "Linear Equations – Word Problems",
@@ -86,6 +89,7 @@
       "type": "method",
       "label": "Method 1: Linear Equation (Daughter = x)",
       "description": "Let daughter's age = x. Mother's age = 5x. Form a linear equation with whole numbers.",
+<<<<<<< HEAD
       "jev_description": "Daughter = x. Steps: let daughter's age = x so mother = 5x; after 6 years the ages are x + 6 and 5x + 6; equation 5x + 6 = 3(x + 6); 5x + 6 = 3x + 18; 2x = 12; x = 6 (daughter). Identified by x standing for the DAUGHTER's age and the mother written as 5x.",
       "sympy_equation": "5*x + 6 = 3*(x + 6)",
       "prompt": "Choose a method: let daughter's age = x, let mother's age = x, or use ratio difference.",
@@ -94,6 +98,18 @@
         "let daughter be x",
         "let daughter's age = x"
         
+=======
+      "prompt": "Choose a method: let daughter's age = x, let mother's age = x, or use ratio difference.",
+      "accept": [
+        "method 1",
+        "daughter = x",
+        "let daughter be x",
+        "let daughter's age = x",
+        "linear equation",
+        "algebraic method",
+        "equation method",
+        "form an equation"
+>>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1
       ],
       "hints": [
         "You can choose Method 1 by letting the daughter's age be x.",
@@ -130,12 +146,19 @@
       "accept": [
         "x + 6 and 5x + 6",
         "x+6 and 5x+6",
+<<<<<<< HEAD
         "x +6 and 5*x+6",
         "daughter: x + 6, mother: 5x + 6",
         "5x + 6 and x + 6",
         "daughter is x+6 and mother is 5x+6",
         "x + 6, 5x + 6",
         "x +6,5*x+6"
+=======
+        "daughter: x + 6, mother: 5x + 6",
+        "5x + 6 and x + 6",
+        "daughter is x+6 and mother is 5x+6",
+        "x + 6, 5x + 6"
+>>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1
       ],
       "hints": [
         "Add 6 to both present ages.",
@@ -150,8 +173,11 @@
       "description": "After 6 years, mother = 3 × daughter: 5x + 6 = 3(x + 6) → 2x = 12 → x = 6.",
       "prompt": "After 6 years, mother is 3 times daughter: 5x + 6 = 3(x + 6). Solve for x.",
       "accept": [
+<<<<<<< HEAD
         "5x + 6 = 3(x + 6)",
         "5x + 6 = 3x + 18",
+=======
+>>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1
         "x = 6",
         "6",
         "2x = 12, so x = 6",
@@ -190,8 +216,11 @@
       "type": "method",
       "label": "Method 2: Linear Equation (Mother = x)",
       "description": "Let mother's age = x. Daughter's age = x/5. Form and solve a fractional equation.",
+<<<<<<< HEAD
       "jev_description": "Mother = x. Steps: let mother's age = x so daughter = x/5; after 6 years the ages are x + 6 and x/5 + 6; equation x + 6 = 3(x/5 + 6); 5x + 30 = 3x + 90; 2x = 60; x = 30 (mother); daughter = 30/5 = 6. Identified by x standing for the MOTHER's age and the daughter written as x/5 (fractions).",
       "sympy_equation": "x + 6 = 3*(x/5 + 6)",
+=======
+>>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1
       "prompt": "Choose Method 2 by letting mother's age = x and daughter = x/5.",
       "accept": [
         "method 2",
@@ -254,8 +283,11 @@
       "description": "x + 6 = 3(x/5 + 6) → 5x + 30 = 3x + 90 → 2x = 60 → x = 30.",
       "prompt": "Mother is 3 times daughter: x + 6 = 3(x/5 + 6). Clear the fraction and solve for x.",
       "accept": [
+<<<<<<< HEAD
         "x + 6 = 3(x/5 + 6)",
         "x + 6 = 3x/5 + 18",
+=======
+>>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1
         "x = 30",
         "30",
         "x=30",
@@ -294,7 +326,10 @@
       "type": "method",
       "label": "Method 3: Constant Age Difference (Ratio Method)",
       "description": "The difference in ages between two people never changes. Compare ratio differences.",
+<<<<<<< HEAD
       "jev_description": "Constant age difference (ratio method), no variable x and no equation. Steps: present ratio mother : daughter = 5 : 1, difference 5 - 1 = 4 units; future ratio 3 : 1 has difference 2, scale by 2 to 6 : 2 so the difference is 4 units; daughter goes from 1 unit to 2 units in 6 years, so 1 unit = 6 years; daughter = 1 x 6 = 6. Identified by working with ratios and units.",
+=======
+>>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1
       "prompt": "Choose Method 3: Constant Age Difference Ratio Method.",
       "accept": [
         "method 3",
@@ -495,4 +530,8 @@
       "to": "conclusion"
     }
   ]
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1

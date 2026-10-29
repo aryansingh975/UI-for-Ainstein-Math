@@ -72,7 +72,7 @@ Start the app and its same-origin Jev endpoint:
 node --env-file=.env .\server.js
 ```
 
-Open <http://127.0.0.1:3000> in a browser. Jev is used to select a method for
+Open <http://127.0.0.1:8000> in a browser. Jev is used to select a method for
 the Grade 10 quadratic problem; the tutor engine still checks each step.
 
 Stop the server with `Ctrl+C`.

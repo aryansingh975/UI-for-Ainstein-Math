@@ -4,18 +4,55 @@
     "problem_uuid": "g08-hegp107-ex008",
     "problem_text": "For 120 students, the cook makes 15 kg of rice. On a rainy day, only 80 students come. How much rice should be made so that the food is not wasted?",
     "navigation_label": "Rice for 80 students",
-    "problem_context": { "first": [120, 15], "second": [80, 10] },
+    "problem_context": {
+      "first": [
+        120,
+        15
+      ],
+      "second": [
+        80,
+        10
+      ]
+    },
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for the proportional rice-allocation example. It uses the proportional ratio 120:15 :: 80:x and solves for x = 10.",
     "created": "2026-10-07",
     "total_methods": 3,
-    "total_nodes": 18,
-    "total_edges": 18
+    "total_nodes": 13,
+    "total_edges": 14
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
   "nodes": [
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify the Goal",
+      "description": "Identify the quantity or decision the problem asks for.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "how much rice should be made"
+      ],
+      "hints": [
+        "State clearly what the question asks you to determine."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": false,
+      "label": "Identify Given Information",
+      "description": "Identify the facts and quantities provided in this word problem.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "120 students need 15 kg of rice and 80 students attend"
+      ],
+      "hints": [
+        "Read the problem carefully and identify the quantities and relationships."
+      ]
+    },
     {
       "id": "start",
       "type": "start",
@@ -55,7 +92,12 @@
       "label": "Method 1: Proportional scaling",
       "description": "Use the same factor of change in the number of students and the rice amount.",
       "prompt": "Choose a method. You can compare the factors of change.",
-      "accept": ["scale", "scaling", "same factor", "proportion"],
+      "accept": [
+        "scale",
+        "scaling",
+        "same factor",
+        "proportion"
+      ],
       "hints": [
         "Find the factor from 120 to 80.",
         "80/120 = 2/3.",
@@ -68,7 +110,12 @@
       "label": "Find the scale factor",
       "description": "80/120 = 2/3.",
       "prompt": "What factor changes 120 students to 80 students?",
-      "accept": ["2/3", "two thirds", "80/120=2/3", "80 divided by 120 is 2/3"],
+      "accept": [
+        "2/3",
+        "two thirds",
+        "80/120=2/3",
+        "80 divided by 120 is 2/3"
+      ],
       "hints": [
         "Divide 80 by 120.",
         "80/120 simplifies to 2/3.",
@@ -81,7 +128,12 @@
       "label": "Apply the factor to the rice",
       "description": "15 × 2/3 = 10.",
       "prompt": "Multiply 15 kg by the same factor 2/3.",
-      "accept": ["10", "10 kg", "15*2/3=10", "15 x 2/3 = 10"],
+      "accept": [
+        "10",
+        "10 kg",
+        "15*2/3=10",
+        "15 x 2/3 = 10"
+      ],
       "hints": [
         "15 × 2 = 30.",
         "30 ÷ 3 = 10.",
@@ -94,7 +146,11 @@
       "label": "Method 2: Unit rate",
       "description": "Find the rice per student and multiply by the smaller number of students.",
       "prompt": "Find how much rice is used per student and then for 80 students.",
-      "accept": ["unit rate", "per student", "rate"],
+      "accept": [
+        "unit rate",
+        "per student",
+        "rate"
+      ],
       "hints": [
         "Compute 15/120.",
         "Then multiply by 80.",
@@ -107,7 +163,11 @@
       "label": "Find rice per student",
       "description": "15/120 = 1/8 kg per student.",
       "prompt": "How much rice is used per student?",
-      "accept": ["1/8 kg", "0.125 kg", "15/120=1/8"],
+      "accept": [
+        "1/8 kg",
+        "0.125 kg",
+        "15/120=1/8"
+      ],
       "hints": [
         "Divide 15 by 120.",
         "15/120 simplifies to 1/8.",
@@ -120,7 +180,12 @@
       "label": "Multiply by 80 students",
       "description": "80 × 1/8 = 10.",
       "prompt": "Use the per-student amount for 80 students.",
-      "accept": ["10", "10 kg", "80/8=10", "80 * 1/8 = 10"],
+      "accept": [
+        "10",
+        "10 kg",
+        "80/8=10",
+        "80 * 1/8 = 10"
+      ],
       "hints": [
         "80 ÷ 8 = 10.",
         "So 80 students need 10 kg of rice."
@@ -132,7 +197,10 @@
       "label": "Method 3: Cross multiplication",
       "description": "Solve 120:15 :: 80:x by cross multiplication.",
       "prompt": "Set up the proportion and cross multiply to find x.",
-      "accept": ["cross multiply", "cross multiplication"],
+      "accept": [
+        "cross multiply",
+        "cross multiplication"
+      ],
       "hints": [
         "Use 120:15 :: 80:x.",
         "Cross multiply: 120x = 15 × 80.",
@@ -145,7 +213,11 @@
       "label": "Set up the proportion",
       "description": "120:15 :: 80:x or 120/15 = 80/x.",
       "prompt": "How do you write the proportion for this case?",
-      "accept": ["120:15::80:x", "120/15=80/x", "120:15 = 80:x"],
+      "accept": [
+        "120:15::80:x",
+        "120/15=80/x",
+        "120:15 = 80:x"
+      ],
       "hints": [
         "The student-to-rice ratio is proportional.",
         "So 120:15 :: 80:x.",
@@ -158,7 +230,12 @@
       "label": "Solve the equation",
       "description": "120x = 15 × 80 = 1200, so x = 10.",
       "prompt": "Solve the equation to find x.",
-      "accept": ["10", "x=10", "120x=1200, x=10", "10 kg"],
+      "accept": [
+        "10",
+        "x=10",
+        "120x=1200, x=10",
+        "10 kg"
+      ],
       "hints": [
         "15 × 80 = 1200.",
         "120x = 1200.",
@@ -167,17 +244,75 @@
     }
   ],
   "edges": [
-    { "from": "start", "to": "m1_ratio", "label": "Use proportional scaling" },
-    { "from": "start", "to": "m2_unit_rate", "label": "Use unit rate" },
-    { "from": "start", "to": "m3_cross", "label": "Use cross multiplication" },
-    { "from": "m1_ratio", "to": "m1_s1", "label": "Find scale factor" },
-    { "from": "m1_s1", "to": "m1_s2", "label": "Apply factor" },
-    { "from": "m1_s2", "to": "conclusion", "label": "Compute answer" },
-    { "from": "m2_unit_rate", "to": "m2_s1", "label": "Find rice per student" },
-    { "from": "m2_s1", "to": "m2_s2", "label": "For 80 students" },
-    { "from": "m2_s2", "to": "conclusion", "label": "Compute answer" },
-    { "from": "m3_cross", "to": "m3_s1", "label": "Set up equation" },
-    { "from": "m3_s1", "to": "m3_s2", "label": "Solve equation" },
-    { "from": "m3_s2", "to": "conclusion", "label": "Final amount" }
+    {
+      "from": "m1_ratio",
+      "to": "m1_s1",
+      "label": "Find scale factor"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Apply factor"
+    },
+    {
+      "from": "m1_s2",
+      "to": "conclusion",
+      "label": "Compute answer"
+    },
+    {
+      "from": "m2_unit_rate",
+      "to": "m2_s1",
+      "label": "Find rice per student"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "For 80 students"
+    },
+    {
+      "from": "m2_s2",
+      "to": "conclusion",
+      "label": "Compute answer"
+    },
+    {
+      "from": "m3_cross",
+      "to": "m3_s1",
+      "label": "Set up equation"
+    },
+    {
+      "from": "m3_s1",
+      "to": "m3_s2",
+      "label": "Solve equation"
+    },
+    {
+      "from": "m3_s2",
+      "to": "conclusion",
+      "label": "Final amount"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_ratio",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_unit_rate",
+      "label": "Choose a solution method"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m3_cross",
+      "label": "Choose a solution method"
+    }
   ]
 }
