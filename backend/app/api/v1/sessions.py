@@ -12,7 +12,14 @@ from app.schemas.session import (
     StepRequest,
     StepResponse,
 )
-from app.engine.state_machine import Session, new_session, apply_result, hint_for
+from app.engine.state_machine import (
+    Session,
+    new_session,
+    apply_result,
+    hint_for,
+    get_method_node,
+    first_step_of,
+)
 from app.engine.tutor_engine import process_step
 from app.engine.claims import Claim, explain_claim
 from app.services import session_logger
@@ -36,6 +43,8 @@ def start_session(req: SessionStartRequest):
 
     node_map = {n.id: n for n in graph.nodes}
     active_id = session.current_node_id or graph.start_node
+    if active_id in node_map and node_map[active_id].type == "method":
+        active_id = first_step_of(active_id, graph)
     active_node = node_map.get(active_id)
 
     meta = graph.graph_meta
@@ -110,6 +119,9 @@ def check_step(session_id: str, req: StepRequest):
         cur = node_map[active_id]
         active_label = cur.label
         next_prompt = cur.prompt
+    elif not session.completed and not active_id and not session.method_id:
+        active_label = "Step 1"
+        next_prompt = "Great! Now that we know what is given and what to find, what is your first step to solve this problem?"
 
     claim_data = None
     if isinstance(result.claim, Claim):
@@ -123,7 +135,7 @@ def check_step(session_id: str, req: StepRequest):
         hint = concl_node.hints[0]
     explanation = explain_claim(result.claim)
 
-    method_node = node_map.get(session.method_id) if session.method_id else None
+    method_node = get_method_node(session.method_id, graph) if session.method_id else None
     method_label = method_node.label if method_node else None
 
     # Feedback messages

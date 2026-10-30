@@ -17,6 +17,10 @@ def matches_accept(raw_input: str, accepted_answer: str) -> bool:
     if has_irrelevant_words(normalized_input, normalized_accepted):
         return False
 
+    # Verbal phrase matching: student input contains the multi-word non-numeric accepted phrase (e.g. "whether the ratios are proportional")
+    if " " in normalized_accepted and not re.search(r"\d", normalized_accepted) and normalized_accepted in normalized_input:
+        return True
+
     # Single-word keyword matching
     if re.match(r"^[a-z]+$", normalized_accepted) and len(normalized_accepted) >= 3:
         if normalized_accepted in normalized_input:

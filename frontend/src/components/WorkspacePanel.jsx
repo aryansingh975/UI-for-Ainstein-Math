@@ -143,7 +143,7 @@ export default function WorkspacePanel({
           <span className={isCompleted ? 'step-dot-done' : 'step-dot-active'} id="step-dot-1"></span>
           <span id="step-label">{stepLabel || 'Step 1'}</span>
           {methodIndicator && (
-            <span id="method-indicator">{methodIndicator}</span>
+            <span className="method-pill" id="method-indicator">{methodIndicator}</span>
           )}
         </div>
       </div>

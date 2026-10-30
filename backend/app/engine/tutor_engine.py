@@ -13,6 +13,8 @@ from app.engine.matcher import matches_accept, matches_accept_any
 from app.engine.state_machine import (
     Session,
     method_of,
+    method_for_node,
+    get_method_node,
     successor_of,
     first_step_of,
     method_chain,
@@ -275,6 +277,11 @@ def detect_conclusion(
         return None
 
     norm = parsed.normalized
+
+    # Filter out hypothesis/question/goal statements (e.g. "whether the ratios are proportional")
+    if re.search(r"\b(whether|if|check|find|determine|to\s+find|goal)\b", norm):
+        return None
+
     negated = bool(re.search(r"not proportional|not equal|≠|isn't|are not|is not|doesn't hold", norm))
 
     if is_bare_yes_no(parsed):
@@ -288,6 +295,7 @@ def detect_conclusion(
     first_pair = ctx.get("first", (3.0, 4.0))
     second_pair = ctx.get("second", (72.0, 96.0))
 
+    # Explicit full ratio equality claims (e.g. 3:4 = 72:96)
     for c in parsed.claims:
         if c.kind == "ratio_eq" and c.a and c.b and c.c and c.d:
             fwd = is_ratio_pair(c.a, c.b, first_pair) and is_ratio_pair(c.c, c.d, second_pair)
@@ -300,14 +308,25 @@ def detect_conclusion(
             if fwd or rev:
                 return {"detected": True, "correct": c.is_true}
 
-    if matches_accept_any(parsed.raw, concl.accept):
-        return {"detected": True, "correct": not negated and not bool(re.match(r"^(no|nope)\b", norm))}
-
+    # Explicit mention of both ratio pairs with proportional (e.g. "3:4 and 72:96 are proportional")
     if re.search(r"\bproportional\b", norm):
         has_first = any(is_ratio_pair(r[0], r[1], first_pair) for r in parsed.ratios)
         has_second = any(is_ratio_pair(r[0], r[1], second_pair) for r in parsed.ratios)
         if has_first and has_second:
             return {"detected": True, "correct": not negated}
+
+    # Phase Gating for bare accept keywords (e.g. "proportional", "6", "8"):
+    # Do not match bare accept strings if student is in extraction phase
+    if session.current_node_id in ("given_extraction", "goal_extraction"):
+        return None
+
+    # Require either being at conclusion node or having prior calculation progress
+    has_calc_step = any(t.get("nodeId") not in ("given_extraction", "goal_extraction", "start") for t in session.trail)
+    at_concl = session.current_node_id == graph.conclusion_node
+
+    if at_concl or has_calc_step:
+        if matches_accept_any(parsed.raw, concl.accept):
+            return {"detected": True, "correct": not negated and not bool(re.match(r"^(no|nope)\b", norm))}
 
     return None
 
@@ -320,13 +339,13 @@ def find_global_step_match(
 
     steps = [
         n for n in graph.nodes
-        if n.type == "step" and (not session.method_id or method_of(n.id) == session.method_id)
+        if n.type == "step" and (not session.method_id or method_for_node(n.id, graph) == session.method_id)
     ]
 
     scored = []
     for n in steps:
         score = 0
-        nm = method_of(n.id)
+        nm = method_for_node(n.id, graph)
         if session.method_id and nm == session.method_id:
             score += 2
         if session.method_id and nm == session.method_id and session.current_node_id:
@@ -344,7 +363,7 @@ def find_global_step_match(
     # Pass 1: exact accept-list matches
     for node in ordered:
         if matches_accept_any(parsed.raw, node.accept):
-            return {"node_id": node.id, "method_id": method_of(node.id)}
+            return {"node_id": node.id, "method_id": method_for_node(node.id, graph)}
 
     # Pass 2: semantic verification
     for node in ordered:
@@ -353,7 +372,7 @@ def find_global_step_match(
             continue
         m = verify_against_expected(parsed, exp)
         if m.get("accepted"):
-            return {"node_id": node.id, "method_id": method_of(node.id)}
+            return {"node_id": node.id, "method_id": method_for_node(node.id, graph)}
 
     return None
 
@@ -385,13 +404,13 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
         elif node and node.accept:
             m = match_node(parsed, node)
             if m.get("accepted"):
-                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id, method_id=method_of(node.id))
+                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id, method_id=method_for_node(node.id, graph))
             if m.get("wrong_claim"):
                 return StepResult(
                     verdict="WRONG_CLAIM",
                     parsed=parsed,
                     node_id=node.id,
-                    method_id=method_of(node.id),
+                    method_id=method_for_node(node.id, graph),
                     claim=m.get("claim"),
                 )
 
@@ -453,16 +472,16 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
             if m.get("accepted"):
                 return StepResult(verdict="ACCEPT", parsed=parsed, node_id=goal_ext.id)
 
-    # 6. Method keyword approach
+    # 6. Global step search (silent inference / real mathematical calculation)
+    g = find_global_step_match(parsed, session, graph)
+    if g:
+        return StepResult(verdict="ACCEPT", parsed=parsed, node_id=g["node_id"], method_id=g["method_id"])
+
+    # 7. Method keyword approach (fallback only if no math calculation was matched)
     if not session.method_id and has_completed_required_extraction(session, graph):
         mk = detect_method_keyword(parsed, graph)
         if mk:
             return StepResult(verdict="ACCEPT", parsed=parsed, method_id=mk, approach_only=True)
-
-    # 7. Global step search (silent inference / skip-ahead)
-    g = find_global_step_match(parsed, session, graph)
-    if g:
-        return StepResult(verdict="ACCEPT", parsed=parsed, node_id=g["node_id"], method_id=g["method_id"])
 
     # 8. True math, but irrelevant
     if any(c.is_true for c in parsed.claims):

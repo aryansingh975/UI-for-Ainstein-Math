@@ -212,20 +212,20 @@ export default function App() {
 
   // Derive step UI label and placeholder
   const isCompleted = session?.completed || false;
+  const isExtraction = session?.active_node_id === 'given_extraction' || session?.active_node_id === 'goal_extraction';
   const isBeginning = session?.is_beginning || (!session?.trail || session.trail.length === 0);
+
   const stepLabel = isCompleted
     ? '✓ Solved'
-    : isBeginning
-    ? 'Start'
+    : isExtraction
+    ? (session?.active_label || 'Identify Givens & Goal')
     : session?.active_label || `Step ${(session?.trail?.length || 0) + 1}`;
 
   const placeholder = isCompleted
     ? 'Problem solved — press "↺ Reset Problem State" to try again.'
-    : isBeginning
-    ? session?.prompt || 'Type your first step for this problem…'
-    : session?.prompt || 'Type your next step…';
+    : session?.prompt || (isBeginning ? 'Type what is given or your first calculation step…' : 'Type your next step…');
 
-  const methodIndicator = session?.method_label ? `· ${session.method_label}` : null;
+  const methodIndicator = session?.method_label ? `🎯 ${session.method_label}` : null;
 
   const problemBadge = session
     ? `NCERT Grade ${currentChapter.grade} · ${currentChapter.title} · Problem ${getProblemNumber(currentProblem.id)} (${session.problem_id})`
