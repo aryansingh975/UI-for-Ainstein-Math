@@ -15,7 +15,7 @@ const CONFIDENCE_THRESHOLD = 0.7;
 // enables equation checks; a method node's optional "jev_description" is sent to Jev instead of
 // its normal description.
 // NEW: files that must never be served as static content
-const PRIVATE_FILES = new Set(['server.js', 'server_jev.js', 'sympyWorker.js', 'sympy_worker.py', 'sympy_validator.py', 'requirements.txt']);
+const PRIVATE_FILES = new Set(['server.js', 'server_jev.js', 'sympyWorker.js', 'sympy_worker.py', 'sympy_validator.py', 'requirements.txt', 'my_jev.js', 'test_my_jev.js']);
 
 function findGraphFiles(dir) {
   const found = [];
@@ -146,8 +146,18 @@ function sendJson(response, status, body) {
   response.end(JSON.stringify(body));
 }
 
+// "My Jev": local method detector (no API key). Turn on with JEV_MODE=local in .env
+const LOCAL_JEV = process.env.JEV_MODE === 'local'
+  ? require('./my_jev').createLocalJev(join(__dirname, 'solution_graph'))
+  : null;
+
 async function classifyMethod(problem, studentWork) {
   const METHODS = problem.methods;
+  if (LOCAL_JEV) {
+    const result = LOCAL_JEV.classify(problem.id, studentWork, CONFIDENCE_THRESHOLD);
+    console.log(`[My Jev] ${result.status} ${result.methodId || ''}`, JSON.stringify(result.probabilities));
+    return result;
+  }
   if (!process.env.OPENROUTER_API_KEY) {
     throw Object.assign(new Error('The Jev API key is not configured.'), { status: 503, code: 'not_configured' });
   }
