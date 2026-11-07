@@ -140,12 +140,22 @@ def check_step(session_id: str, req: StepRequest):
 
     # Feedback messages
     feedback_msg = None
-    if result.verdict == "ACCEPT":
+    if getattr(result, "feedback", None):
+        feedback_msg = result.feedback
+    elif result.verdict in ("ACCEPT", "MULTI_STEP_ACCEPT"):
         feedback_msg = "That's correct."
     elif result.verdict == "CONCLUSION_RIGHT":
         feedback_msg = concl_node.description if concl_node else "Your solution is complete."
     elif result.verdict == "CONCLUSION_WRONG":
         feedback_msg = "Your conclusion does not match this problem. Recheck your steps."
+    elif result.verdict == "EXTRACTION_REQUIRED":
+        feedback_msg = "Let's first identify the given information for this problem."
+    elif result.verdict == "METHOD_LOCKED":
+        feedback_msg = "Let's continue solving with your current method."
+    elif result.verdict == "PARTIAL_EXTRACTION":
+        feedback_msg = "Good start! What other information is given?"
+    elif result.verdict == "MISCONCEPTION":
+        feedback_msg = f"🔴 {explanation}" if explanation else "Review the mathematical operation needed."
     elif result.verdict == "WRONG_CLAIM":
         feedback_msg = f"🔴 {explanation} Fix this step and try it again." if explanation else "This step contains a mathematical mistake. Fix this calculation and try again."
     elif result.verdict == "IRRELEVANT_TRUE":
@@ -163,9 +173,10 @@ def check_step(session_id: str, req: StepRequest):
         "input": req.student_input,
         "verdict": result.verdict,
         "feedback": feedback_msg,
+        "next_prompt": next_prompt,
         "hint": hint,
         "explanation": explanation,
-        "is_correct": result.verdict in ("ACCEPT", "CONCLUSION_RIGHT"),
+        "is_correct": result.verdict in ("ACCEPT", "MULTI_STEP_ACCEPT", "CONCLUSION_RIGHT"),
         "node_id": result.node_id or active_id,
         "label": active_label,
     }

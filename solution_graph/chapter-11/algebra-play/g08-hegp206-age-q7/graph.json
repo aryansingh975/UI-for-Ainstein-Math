@@ -63,7 +63,7 @@
       "description": "What does the problem ask us to find?",
       "prompt": "What do we need to find?",
       "accept": [
-        "daughter's present age",
+        "mother is 5 times daughter's age",
         "present age of daughter",
         "age of daughter",
         "find x",

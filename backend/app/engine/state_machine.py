@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 from app.schemas.graph import SolutionGraph, Node
 
 
@@ -14,6 +14,7 @@ class Session:
         self.fail_streak: int = 0
         self.completed: bool = False
         self.raw_input: Optional[str] = None
+        self.extracted_entities: Set[str] = set()
 
 
 def new_session(graph: SolutionGraph) -> Session:
@@ -201,7 +202,30 @@ def apply_result(session: Session, result: Any, graph: SolutionGraph) -> Session
             if result.method_id:
                 session.method_id = result.method_id
             session.current_node_id = successor_of(result.node_id, graph)
-    elif verdict == "WRONG_CLAIM":
+    elif verdict == "MULTI_STEP_ACCEPT":
+        session.fail_streak = 0
+        compound_trail = getattr(result, "compound_trail", None)
+        if compound_trail:
+            for step in compound_trail:
+                session.trail.append({
+                    "input": step.get("input", result.parsed.raw),
+                    "nodeId": step.get("node_id"),
+                    "methodId": step.get("method_id") or result.method_id,
+                })
+            last_node_id = compound_trail[-1].get("node_id")
+            session.current_node_id = successor_of(last_node_id, graph)
+        else:
+            session.trail.append({
+                "input": result.parsed.raw,
+                "nodeId": result.node_id,
+                "methodId": result.method_id,
+            })
+            session.current_node_id = successor_of(result.node_id, graph)
+        if result.method_id:
+            session.method_id = result.method_id
+    elif verdict in ("PARTIAL_EXTRACTION", "EXTRACTION_REQUIRED", "METHOD_LOCKED"):
+        session.fail_streak = 0
+    elif verdict in ("WRONG_CLAIM", "MISCONCEPTION"):
         session.fail_streak += 1
     elif verdict == "CONCLUSION_RIGHT":
         session.completed = True
