@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 from contextlib import asynccontextmanager
 from pathlib import Path
 import httpx
@@ -11,6 +12,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api.v1 import api_v1_router
+from app.engine import plan_llm
 from app.graph_loader import load_all_graphs
 
 # Path to the root project directory containing index.html, styles.css, app.js
@@ -19,8 +21,9 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Warm up the graph cache on server start."""
+    """Warm up the graph cache, and load Qwen in the background so the first plan is not slow."""
     load_all_graphs()
+    threading.Thread(target=plan_llm.warm_up, daemon=True).start()
     yield
 
 

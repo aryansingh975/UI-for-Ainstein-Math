@@ -7,8 +7,15 @@ function formatLatexString(raw) {
   return text
     .replace(/\*/g, ' \\times ')
     .replace(/x(?=\s*\d)/g, ' \\times ')
-    .replace(/==/g, ' = ');
+    .replace(/==/g, ' = ')
+    .replace(/(^|[^\\])%/g, '$1\\%')                       // "15%": a bare % starts a LaTeX comment
+    // "cannot be a probability": runs of words as text, keeping their spaces (single letters stay maths)
+    .replace(/(\s*)(?<![\\a-zA-Z{])([a-zA-Z]{2,}(?:\s+(?:[a-zA-Z]{2,}|a)(?![a-zA-Z]))*)(?:(\s+)|(?![a-zA-Z{(]))/g,
+      (m, before, words, after = '') =>
+        MATH_FUNCTIONS.test(words.split(/\s+/)[0]) ? m : `\\text{${before}${words}${after}}`);
 }
+
+const MATH_FUNCTIONS = /^(sin|cos|tan|cot|sec|csc|cosec|sqrt|log|ln|theta|gcd|lcm|hcf|frac|times|div|neq|implies|text)$/;
 
 const MATH_BUTTONS = [
   { label: '\\times', insert: '\\times' },
@@ -31,7 +38,7 @@ function HistoryItem({ turn, input, isCorrect, verdict, feedback }) {
     }
   }, [input]);
 
-  const isWarn = verdict === 'IRRELEVANT_TRUE' || verdict === 'GARBAGE';
+  const isWarn = verdict === 'DONT_KNOW' || verdict === 'PART' || verdict === 'IRRELEVANT_TRUE' || verdict === 'GARBAGE' || verdict === 'PLAN_FEEDBACK' || verdict === 'UNIT_ISSUE';
   const badgeClass = isCorrect
     ? 'live-trail-badge live-trail-badge-correct'
     : isWarn
@@ -68,6 +75,7 @@ export default function WorkspacePanel({
   input,
   onInputChange,
   placeholder,
+  question,
   onResetProblem,
   onCheckStep,
   isChecking,
@@ -185,6 +193,13 @@ export default function WorkspacePanel({
           </button>
         ))}
       </div>
+
+      {question && (
+        <div className="guided-question" id="guided-question">
+          <span className="guided-question-label">Question</span>
+          <p className="guided-question-text">{question}</p>
+        </div>
+      )}
 
       <textarea
         ref={textareaRef}

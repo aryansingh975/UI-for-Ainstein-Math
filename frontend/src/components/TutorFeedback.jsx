@@ -1,4 +1,5 @@
 import React from 'react';
+import MethodProbabilities from './MethodProbabilities.jsx';
 
 const PRAISE = [
   'Right step!',
@@ -7,9 +8,41 @@ const PRAISE = [
   'Well done — next one!'
 ];
 
-export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
+const PLAN_LABELS = {
+  correct: '🟢 COMPLETE PLAN',
+  partial: '🟡 PARTLY THERE',
+  misconception: '🔴 CHECK THIS IDEA',
+  contradiction: '🟡 TWO DIFFERENT IDEAS',
+  dont_know: '🟡 LET’S BUILD THE PLAN',
+  off_topic: '🟡 NOT A PLAN YET',
+  explain: '🟡 ONE QUICK CHECK'
+};
+
+// Progress through the plan: ideas the student said (✓), ideas the tutor gave (✓ with "hint"), and the
+// rest only as "one more step", so the checklist never gives the plan away
+function PlanConcepts({ choice }) {
+  const ideas = choice.concept_ideas || {};
+  const found = choice.concepts_found || [];
+  const given = (choice.concepts_given || []).filter((id) => !found.includes(id));
+  const missing = (choice.concepts_missing || []).filter((id) => !given.includes(id));
+  if (!found.length && !given.length) return null;   // nothing yet: no empty list
+  const order = Object.keys(ideas);
+  const done = [...found, ...given].sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  return (
+    <ul className="plan-concepts">
+      {done.map((id) => (
+        <li key={id} className={given.includes(id) ? 'plan-concept given' : 'plan-concept found'}>
+          ✓ {ideas[id] || id}{given.includes(id) && <span className="plan-concept-tag">with a hint</span>}
+        </li>
+      ))}
+      {missing.map((id) => <li key={id} className="plan-concept">○ one more step</li>)}
+    </ul>
+  );
+}
+
+export default function TutorFeedback({ result, jevMessage, jevNote, onStartAgain }) {
   if (jevMessage) {
-    const { label, message, stateClass = 'warn-state' } = jevMessage;
+    const { label, message, stateClass = 'warn-state', probabilities, labels } = jevMessage;
     return (
       <section id="result" className="result-area" aria-live="polite">
         <article className={`answer-card ${stateClass}`}>
@@ -17,6 +50,7 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
           <div className="tutor-bubble">
             <div className="tutor-speech">{message}</div>
           </div>
+          <MethodProbabilities probabilities={probabilities} labels={labels} />
         </article>
       </section>
     );
@@ -25,9 +59,17 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
   if (!result || !result.verdict) return null;
 
   const v = result.verdict;
+  const choice = result.choice;
   const praise = PRAISE[Math.floor(Math.random() * PRAISE.length)];
   const conclusionPrompt = result.conclusion_prompt || 'State your conclusion';
   const conclusionDesc = result.conclusion_description || 'Problem solved';
+  // Shown under the step result when Jev has just identified the method
+  const jevExtra = jevNote ? (
+    <>
+      <p className="answer-note">{jevNote.text}</p>
+      <MethodProbabilities probabilities={jevNote.probabilities} labels={jevNote.labels} />
+    </>
+  ) : null;
 
   return (
     <section id="result" className="result-area" aria-live="polite">
@@ -41,6 +83,18 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
                 <div className="tutor-speech">"Great — now show me your first step. Work it out one calculation at a time."</div>
               </div>
               <p className="retry-prompt">Type your first calculation above.</p>
+            </>
+          ) : choice ? (
+            <>
+              <div className="answer-meta">{choice.category === 'correct' ? PLAN_LABELS.correct : '🟢 PLAN READY'}</div>
+              <h3>{choice.category === 'correct' ? praise : "Let's follow this plan."}</h3>
+              <div className="tutor-bubble">
+                <div className="tutor-speech">{choice.message}</div>
+              </div>
+              <PlanConcepts choice={choice} />
+              <p>{result.active_label === 'Solve on Your Own'
+                ? 'Now solve it on your own, one step per line. You will only hear from me if something is wrong.'
+                : <>{result.method_label ? <>Path: <strong>{result.method_label}</strong>. </> : null}Answer the next question above.</>}</p>
             </>
           ) : (
             <>
@@ -56,6 +110,7 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
               </p>
             </>
           )}
+          {jevExtra}
         </article>
       )}
 
@@ -90,6 +145,7 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
               ↺ Start Again
             </button>
           </div>
+          {jevExtra}
         </article>
       )}
 
@@ -102,6 +158,7 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
           </div>
           {result.hint && <p className="tutor-hint-text">Hint: {result.hint}</p>}
           <p className="retry-prompt">Recheck your steps above, then state your conclusion again.</p>
+          {jevExtra}
         </article>
       )}
 
@@ -116,6 +173,7 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
           </div>
           {result.hint && <p className="tutor-hint-text">Hint: {result.hint}</p>}
           <p className="retry-prompt">Correct this step — the tutor will continue from here.</p>
+          {jevExtra}
         </article>
       )}
 
@@ -129,6 +187,78 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
             </div>
           </div>
           <p className="retry-prompt">Return to the question.</p>
+          {jevExtra}
+        </article>
+      )}
+
+      {v === 'PLAN_FEEDBACK' && choice && (
+        <article className={`answer-card ${choice.category === 'misconception' ? 'failure-state' : 'warn-state'}`}>
+          <div className="answer-meta">{PLAN_LABELS[choice.category] || '🟡 NOT QUITE'}</div>
+          <div className="tutor-bubble">
+            <div className="tutor-speech">{choice.message}</div>
+          </div>
+          <PlanConcepts choice={choice} />
+          {choice.concept_hint && (
+            <p className="tutor-hint-text">
+              <strong>Hint {choice.concept_hint.id}:</strong> {choice.concept_hint.question}
+            </p>
+          )}
+          {choice.concept_hint && <p className="retry-prompt">Think about the hint, then describe your plan again.</p>}
+          {choice.category === 'explain' && <p className="retry-prompt">Answer in your own words. Then you'll solve it.</p>}
+          {choice.category === 'partial' && !choice.concept_hint && <p className="retry-prompt">Answer the question above. What you've said so far is kept.</p>}
+          {jevExtra}
+        </article>
+      )}
+
+      {v === 'UNIT_ISSUE' && (
+        <article className="answer-card warn-state">
+          <div className="answer-meta">🟡 CHECK THE UNIT</div>
+          <h3>Right number, but check the unit.</h3>
+          <div className="tutor-bubble">
+            <div className="tutor-speech">{result.feedback_message}</div>
+          </div>
+          <p className="retry-prompt">Write the step again with its unit (cm, cm³, g or kg).</p>
+        </article>
+      )}
+
+      {v === 'PART' && (
+        <article className="answer-card warn-state">
+          <div className="answer-meta">🧭 PART</div>
+          <div className="tutor-bubble">
+            <div className="tutor-speech">{result.feedback_message}</div>
+          </div>
+        </article>
+      )}
+
+      {v === 'WORKING' && (
+        <article className="answer-card success-state">
+          <div className="answer-meta">🟢 GOOD STEP</div>
+          <div className="tutor-bubble">
+            <div className="tutor-speech">{result.feedback_message}</div>
+          </div>
+          {result.hint && <p className="tutor-hint-text">Hint: {result.hint}</p>}
+          <p className="retry-prompt">Keep going, or write the full answer when you have it.</p>
+        </article>
+      )}
+
+      {v === 'DONT_KNOW' && (
+        <article className="answer-card warn-state">
+          <div className="answer-meta">🟡 LET'S LOOK AT THIS</div>
+          <div className="tutor-bubble">
+            <div className="tutor-speech">{result.feedback_message}</div>
+          </div>
+          {result.hint && <p className="tutor-hint-text">Hint: {result.hint}</p>}
+          <p className="retry-prompt">Use this, then try the question again.</p>
+        </article>
+      )}
+
+      {v === 'WRONG_ANSWER' && (
+        <article className="answer-card warn-state">
+          <div className="answer-meta">🟡 NOT QUITE</div>
+          <h3>That's not the answer to this question yet.</h3>
+          {result.hint && <p className="tutor-hint-text">Hint: {result.hint}</p>}
+          <p className="retry-prompt">Read the question again and try once more.</p>
+          {jevExtra}
         </article>
       )}
 
@@ -140,6 +270,7 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
             <div className="tutor-speech">"That does not look related to this problem. Try a calculation or explain a method for the question above."</div>
           </div>
           <p className="retry-prompt">Type a calculation or an approach above.</p>
+          {jevExtra}
         </article>
       )}
 
@@ -151,6 +282,7 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
             <div className="tutor-speech">"Try writing a calculation or mathematical relationship that helps answer this question."</div>
           </div>
           <p className="retry-prompt">Type your step as a calculation above.</p>
+          {jevExtra}
         </article>
       )}
     </section>

@@ -1,0 +1,807 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh103-ex-3-3-q2-ii",
+    "problem_uuid": "g10-jemh103-ex-3-3-q2-ii",
+    "problem_text": "Form the pair of linear equations in the following problem, and find its solution by the elimination method: Five years ago, Nuri was thrice as old as Sonu. Ten years later, Nuri will be twice as old as Sonu. How old are Nuri and Sonu?",
+    "equation": null,
+    "variable": "x",
+    "use_jev": true,
+    "guided": true,
+    "llm_tutor": true,
+    "sympy_can_finish": false,
+    "sympy_note": "Equations, steps and checks by SymPy (engine/linear_pair.py): an equation is right when it is a multiple of x − 3y + 10 or x − 2y − 10; a step when it is linear and true at x = 50, y = 20.",
+    "guided_note": "Guided mode: after the plan, form → solve → verify. SymPy (engine/linear_pair.py) accepts any equivalent equation (x, y or n, s, or the names), any true step of either method, and checks the ages against both sentences. Hints follow the method.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Guided solution DAG for NCERT Class 10 Ex 3.3 Q2 (ii): form x − 3y = −10 and x − 2y = 10, solve by elimination (A) or substitution (B), verify, answer Nuri 50, Sonu 20.",
+    "created": "2026-11-13",
+    "total_methods": 2,
+    "total_nodes": 16,
+    "total_edges": 16,
+    "problem_context": {
+      "chapter": "3",
+      "topic": "Pair of Linear Equations in Two Variables",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 3 Pair of Linear Equations in Two Variables, Exercise 3.3, Q2 (ii) (p. 36)",
+      "question_type": "short_answer"
+    },
+    "navigation_label": "Ex 3.3 Q2 (ii): Nuri and Sonu",
+    "glossary": [
+      {
+        "term": "variable",
+        "aliases": [
+          "variables",
+          "unknown",
+          "unknowns"
+        ],
+        "definition": "A variable is a letter for a number we do not know yet. Example: let A's age be a years."
+      },
+      {
+        "term": "linear equation",
+        "aliases": [
+          "linear equations",
+          "linear",
+          "equation",
+          "equations"
+        ],
+        "definition": "A linear equation in two variables looks like ax + by = c, with no x², y² or xy. Example: 2x + 3y = 12."
+      },
+      {
+        "term": "pair of linear equations",
+        "aliases": [
+          "pair of equations",
+          "pair",
+          "system"
+        ],
+        "definition": "Two linear equations in the same two variables, solved together. Example: x + y = 7 and x − y = 1 have the solution x = 4, y = 3."
+      },
+      {
+        "term": "elimination method",
+        "aliases": [
+          "elimination",
+          "eliminate",
+          "eliminating"
+        ],
+        "definition": "Add or subtract the equations (after multiplying if needed) so one variable disappears. Example: (x + y) + (x − y) = 7 + 1 gives 2x = 8, so x = 4."
+      },
+      {
+        "term": "substitution method",
+        "aliases": [
+          "substitution",
+          "substitute",
+          "substituting"
+        ],
+        "definition": "Write one variable from one equation and put it into the other. Example: x + y = 7 gives x = 7 − y; then (7 − y) − y = 1, so y = 3."
+      },
+      {
+        "term": "thrice",
+        "aliases": [
+          "three times"
+        ],
+        "definition": "Thrice means three times. Example: if B is 4, a number thrice as big is 3 × 4 = 12."
+      },
+      {
+        "term": "twice",
+        "aliases": [
+          "two times",
+          "double"
+        ],
+        "definition": "Twice means two times. Example: if B is 6, a number twice as big is 2 × 6 = 12."
+      },
+      {
+        "term": "years ago",
+        "aliases": [
+          "ago",
+          "years before"
+        ],
+        "definition": "'n years ago' means take n away from today's age. Example: A is a years old now, so 3 years ago A was a − 3."
+      },
+      {
+        "term": "years later",
+        "aliases": [
+          "later",
+          "years hence",
+          "after"
+        ],
+        "definition": "'n years later' means add n to today's age. Example: A is a years old now, so in 4 years A will be a + 4."
+      }
+    ],
+    "parts": [
+      {
+        "id": "p1",
+        "label": "ii",
+        "title": "Nuri and Sonu",
+        "text": "Nuri and Sonu",
+        "numbers": [],
+        "nodes": [
+          "p1_form",
+          "p1_solve",
+          "p1_verify"
+        ]
+      }
+    ]
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Form the pair of linear equations in the following problem, and find its solution by the elimination method: Five years ago, Nuri was thrice as old as Sonu. Ten years later, Nuri will be twice as old as Sonu. How old are Nuri and Sonu?",
+      "prompt": "Read the problem. Answer each question to solve it step by step.",
+      "accept": [],
+      "hints": [
+        "Answer the question shown above the box."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "What Is Given",
+      "description": "Five years ago, Nuri was thrice as old as Sonu; ten years later, Nuri will be twice as old as Sonu.",
+      "prompt": "What is given in the question?",
+      "accept": [
+        "five years ago Nuri was thrice as old as Sonu, ten years later Nuri will be twice as old as Sonu",
+        "five years ago Nuri was 3 times Sonu and ten years later twice"
+      ],
+      "hints": [
+        "What does the question tell you about their ages five years ago?",
+        "And what about ten years later?",
+        "Five years ago Nuri was 3 times as old as Sonu; ten years later, 2 times as old"
+      ],
+      "optional": false,
+      "keywords": [
+        "five|5",
+        "ten|10",
+        "thrice|three|3",
+        "twice|two|2"
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "What We Need to Find",
+      "description": "The present ages of Nuri and Sonu.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "the present ages of Nuri and Sonu",
+        "how old are Nuri and Sonu",
+        "their ages"
+      ],
+      "hints": [
+        "Read the last sentence of the question.",
+        "How old are …?",
+        "The present ages of Nuri and Sonu"
+      ],
+      "optional": false,
+      "keywords": [
+        "age|old"
+      ]
+    },
+    {
+      "id": "method_choice",
+      "type": "choice",
+      "label": "Describe the Plan",
+      "description": "Describe the plan: let the ages be x and y, form two equations, solve by elimination (or substitution), and verify.",
+      "prompt": "Describe your plan: how will you find the ages of Nuri and Sonu?",
+      "accept": [],
+      "hints": [
+        "Name the ages you don't know.",
+        "One equation per sentence.",
+        "Then solve the pair."
+      ],
+      "plan_questions": [
+        {
+          "id": "Q1",
+          "check": "keywords",
+          "keywords": [
+            "nuri|sonu|both|their|two|x|y",
+            "present|now|current|today"
+          ],
+          "question": "Whose ages are unknown in this question? Are you being asked to find their ages in the past, present, or future?",
+          "wrong": "Read the last line of the question: whose ages, and at what time?",
+          "hints": [
+            "Example: 'A is twice as old as B. How old are they?' asks for A's and B's present ages.",
+            "Nuri's and Sonu's present ages are unknown. Let Nuri's be x and Sonu's be y."
+          ]
+        },
+        {
+          "id": "Q2",
+          "check": "past",
+          "keywords": [
+            "subtract|minus|less|take away|reduce|-",
+            "5|five"
+          ],
+          "question": "Think about your own age five years ago. How would you calculate it from your present age? Would the same idea apply to both people?",
+          "wrong": "Five years ago, each of them was 5 years younger. Write both ages.",
+          "hints": [
+            "Example: if A is a years old now, 3 years ago A was a − 3, and B was b − 3.",
+            "Five years ago Nuri was x − 5 and Sonu was y − 5."
+          ]
+        },
+        {
+          "id": "Q3",
+          "check": "equation",
+          "index": 0,
+          "question": "If one person's age is three times another person's age, how could you express that relationship mathematically? Which person's age is being compared with the other?",
+          "wrong": "Write it as an equation: Nuri's age five years ago = 3 × Sonu's age five years ago.",
+          "hints": [
+            "Example: 'two years ago, A was four times as old as B' gives a − 2 = 4(b − 2): A's age then equals 4 × B's age then.",
+            "x − 5 = 3(y − 5)"
+          ]
+        },
+        {
+          "id": "Q4",
+          "check": "equation",
+          "index": 1,
+          "question": "Imagine both people ten years from today. How will their ages change? How can you use the second statement to connect those future ages?",
+          "wrong": "Write it as an equation: Nuri's age ten years later = 2 × Sonu's age ten years later.",
+          "hints": [
+            "Example: 'in three years, A will be twice as old as B' gives a + 3 = 2(b + 3).",
+            "x + 10 = 2(y + 10)"
+          ]
+        }
+      ],
+      "concepts_required": [
+        {
+          "id": "C1",
+          "idea": "letting the present ages be x and y",
+          "keywords": [
+            "let",
+            "suppose",
+            "assume",
+            "variable",
+            "x and y",
+            "x, y",
+            "age be",
+            "ages be",
+            "present age"
+          ],
+          "needs_any": [],
+          "hints": [
+            "What do we not know yet? How can we name it?",
+            "Example: let A's age now be a years and B's be b years."
+          ],
+          "answer": "Let Nuri's present age be x years and Sonu's be y years.",
+          "explain": {
+            "question": "Why do we use two letters?",
+            "expected_keywords": [
+              "two",
+              "unknown",
+              "don't know",
+              "do not know",
+              "both",
+              "ages"
+            ],
+            "understanding": "There are two ages we don't know, so we need two variables."
+          }
+        },
+        {
+          "id": "C2",
+          "idea": "turning each sentence into an equation",
+          "keywords": [
+            "equation",
+            "form",
+            "condition",
+            "sentence",
+            "relation",
+            "write"
+          ],
+          "needs_any": [
+            "equation",
+            "form",
+            "condition",
+            "sentence",
+            "write"
+          ],
+          "hints": [
+            "Each sentence of the question tells you something about the ages. How can you write it in maths?",
+            "Example: 'two years ago, A was four times as old as B' gives a − 2 = 4(b − 2)."
+          ],
+          "answer": "Turn each sentence into a linear equation in x and y.",
+          "explain": {
+            "question": "Why do we need two equations?",
+            "expected_keywords": [
+              "two",
+              "variables",
+              "unknowns",
+              "each",
+              "both"
+            ],
+            "understanding": "Two unknowns need two equations, one from each sentence."
+          }
+        },
+        {
+          "id": "C3",
+          "idea": "solving the pair (elimination or substitution)",
+          "keywords": [
+            "solve",
+            "eliminat",
+            "substitut",
+            "subtract",
+            "add the",
+            "find x",
+            "find the value"
+          ],
+          "needs_any": [],
+          "hints": [
+            "Once you have two equations, how do you find x and y?",
+            "Example: x + y = 7 and x − y = 1: add them, 2x = 8, so x = 4 and y = 3."
+          ],
+          "answer": "Solve the pair by elimination (or substitution), then check the ages.",
+          "explain": {
+            "question": "What does eliminating a variable mean?",
+            "expected_keywords": [
+              "remove",
+              "one variable",
+              "disappear",
+              "cancel",
+              "only one",
+              "single"
+            ],
+            "understanding": "Adding or subtracting the equations removes one variable, leaving an equation in one letter."
+          }
+        }
+      ],
+      "path_signals": {},
+      "default_path": null,
+      "misconceptions": [
+        {
+          "signal": "C2",
+          "keywords": [
+            "x + 5",
+            "y + 5",
+            "x - 10",
+            "x − 10"
+          ],
+          "response": "Careful: 'five years ago' takes 5 away (x − 5), and 'ten years later' adds 10 (x + 10)."
+        }
+      ],
+      "contradiction_response": "You said two different things. Which one is it?",
+      "dont_know_response": "That's fine. Think about this question, then try the plan again.",
+      "off_topic_response": "Let's stay with Nuri and Sonu. How will you find their ages?",
+      "retry_response": "Use that idea and try the plan again: how will you find the ages of Nuri and Sonu?",
+      "concept_hints": [
+        {
+          "id": "K1",
+          "question": "What is a variable?",
+          "understanding": "A letter for a number we don't know yet"
+        },
+        {
+          "id": "K2",
+          "question": "If A is a years old now, how old was A 3 years ago?",
+          "understanding": "a − 3"
+        },
+        {
+          "id": "K3",
+          "question": "Solve x + y = 7 and x − y = 1.",
+          "understanding": "x = 4, y = 3"
+        }
+      ],
+      "partial_prefix": "Good, {found} is right.",
+      "max_hints": 4,
+      "reveal": "Here is the plan: let the present ages be x (Nuri) and y (Sonu), write one equation for each sentence, solve the pair by elimination, and check the ages.",
+      "solve_freely": false
+    },
+    {
+      "id": "p1_form",
+      "type": "step",
+      "label": "Form the Equations",
+      "description": "x − 3y = −10 and x − 2y = 10",
+      "prompt": "Let Nuri's present age be x years and Sonu's be y years. Form the pair of linear equations.",
+      "accept": [
+        "x − 5 = 3(y − 5) and x + 10 = 2(y + 10)",
+        "x − 3y = −10 and x − 2y = 10"
+      ],
+      "hints": [
+        "Let Nuri's age now be x and Sonu's be y. Write each sentence as an equation. Example: 'two years ago, A was four times as old as B' gives a − 2 = 4(b − 2).",
+        "Example: 'in three years, A will be twice as old as B' gives a + 3 = 2(b + 3), so a − 2b = 3.",
+        "x − 5 = 3(y − 5), i.e. x − 3y = −10; and x + 10 = 2(y + 10), i.e. x − 2y = 10"
+      ],
+      "pair_form": {
+        "vars": [
+          "x",
+          "y"
+        ],
+        "names": {
+          "nuri": "x",
+          "sonu": "y",
+          "n": "x",
+          "s": "y"
+        },
+        "equations": [
+          "x - 3*y + 10",
+          "x - 2*y - 10"
+        ],
+        "solution": {
+          "x": "50",
+          "y": "20"
+        },
+        "shown": [
+          "x − 3y = −10",
+          "x − 2y = 10"
+        ],
+        "conditions": [
+          "five years ago, Nuri was thrice as old as Sonu",
+          "ten years later, Nuri will be twice as old as Sonu"
+        ],
+        "ask": [
+          "How old were Nuri (x) and Sonu (y) five years ago, and which is three times the other?",
+          "How old will Nuri (x) and Sonu (y) be ten years later, and which is two times the other?"
+        ],
+        "checks": [
+          [
+            "45",
+            "-10"
+          ],
+          [
+            "60",
+            "10"
+          ]
+        ],
+        "relations": [
+          "x - 3*y",
+          "x - 2*y"
+        ],
+        "relation_next": [
+          "Now use the same idea for five years ago: their ages then were x − 5 and y − 5.",
+          "Now use the same idea for ten years later: their ages then will be x + 10 and y + 10."
+        ]
+      },
+      "form_stages": {
+        "past": [
+          "Think about your own age five years ago. How would you calculate it from your present age? Would the same idea apply to both people?",
+          "Example: if A is a years old now, 3 years ago A was a − 3, and B was b − 3.",
+          "Five years ago Nuri was x − 5 and Sonu was y − 5."
+        ],
+        "first": [
+          "If one person's age is three times another person's age, how could you express that relationship mathematically? Which person's age is being compared with the other?",
+          "Example: 'two years ago, A was four times as old as B' gives a − 2 = 4(b − 2): A's age then equals 4 × B's age then.",
+          "x − 5 = 3(y − 5)"
+        ],
+        "second": [
+          "Imagine both people ten years from today. How will their ages change? How can you use the second statement to connect those future ages?",
+          "Example: 'in three years, A will be twice as old as B' gives a + 3 = 2(b + 3).",
+          "x + 10 = 2(y + 10)"
+        ]
+      }
+    },
+    {
+      "id": "m1_p1",
+      "type": "method",
+      "label": "A: Elimination",
+      "description": "Subtract the equations to remove x",
+      "prompt": "Solve by elimination.",
+      "accept": [
+        "elimination",
+        "subtract the equations"
+      ],
+      "hints": [],
+      "jev_description": "Elimination: (x − 3y) − (x − 2y) = −10 − 10, so −y = −20, y = 20; x − 2(20) = 10, x = 50."
+    },
+    {
+      "id": "m1_p1_s1",
+      "type": "step",
+      "label": "(x − 3y) − (x − 2y) = −10 − 10",
+      "description": "elimination",
+      "prompt": "(x − 3y) − (x − 2y) = −10 − 10",
+      "accept": [
+        "(x − 3y) − (x − 2y) = −10 − 10"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p1_s2",
+      "type": "step",
+      "label": "−y = −20, so y = 20",
+      "description": "elimination",
+      "prompt": "−y = −20, so y = 20",
+      "accept": [
+        "−y = −20, so y = 20"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p1_s3",
+      "type": "step",
+      "label": "x − 2(20) = 10, so x = 50",
+      "description": "elimination",
+      "prompt": "x − 2(20) = 10, so x = 50",
+      "accept": [
+        "x − 2(20) = 10, so x = 50"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p1",
+      "type": "method",
+      "label": "B: Substitution",
+      "description": "x = 3y − 10, put it into the other equation",
+      "prompt": "Solve by substitution.",
+      "accept": [
+        "substitution",
+        "substitute"
+      ],
+      "hints": [],
+      "jev_description": "Substitution: x = 3y − 10; (3y − 10) − 2y = 10, so y = 20; x = 3(20) − 10 = 50."
+    },
+    {
+      "id": "m2_p1_s1",
+      "type": "step",
+      "label": "x = 3y − 10",
+      "description": "substitution",
+      "prompt": "x = 3y − 10",
+      "accept": [
+        "x = 3y − 10"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p1_s2",
+      "type": "step",
+      "label": "(3y − 10) − 2y = 10, so y = 20",
+      "description": "substitution",
+      "prompt": "(3y − 10) − 2y = 10, so y = 20",
+      "accept": [
+        "(3y − 10) − 2y = 10, so y = 20"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p1_s3",
+      "type": "step",
+      "label": "x = 3(20) − 10 = 50",
+      "description": "substitution",
+      "prompt": "x = 3(20) − 10 = 50",
+      "accept": [
+        "x = 3(20) − 10 = 50"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p1_solve",
+      "type": "step",
+      "label": "Solve the Pair",
+      "description": "x = 50, y = 20",
+      "prompt": "Now solve the pair of equations by the elimination method.",
+      "accept": [
+        "x = 50, y = 20"
+      ],
+      "hints": [
+        "Solve the pair: subtract the equations to remove x (elimination). Example: x + y = 7 and x − y = 1: (x + y) − (x − y) = 7 − 1 gives 2y = 6, so y = 3.",
+        "Then put that value back into either equation. Example: 2x + 2 = 9, so x = 3.5.",
+        "(x − 3y) − (x − 2y) = −10 − 10 gives −y = −20, so y = 20; then x − 2(20) = 10, so x = 50"
+      ],
+      "pair_solve": {
+        "vars": [
+          "x",
+          "y"
+        ],
+        "names": {
+          "nuri": "x",
+          "sonu": "y",
+          "n": "x",
+          "s": "y"
+        },
+        "equations": [
+          "x - 3*y + 10",
+          "x - 2*y - 10"
+        ],
+        "solution": {
+          "x": "50",
+          "y": "20"
+        },
+        "shown": [
+          "x − 3y = −10",
+          "x − 2y = 10"
+        ],
+        "conditions": [
+          "five years ago, Nuri was thrice as old as Sonu",
+          "ten years later, Nuri will be twice as old as Sonu"
+        ],
+        "ask": [
+          "How old were Nuri (x) and Sonu (y) five years ago, and which is three times the other?",
+          "How old will Nuri (x) and Sonu (y) be ten years later, and which is two times the other?"
+        ],
+        "checks": [
+          [
+            "45",
+            "-10"
+          ],
+          [
+            "60",
+            "10"
+          ]
+        ],
+        "relations": [
+          "x - 3*y",
+          "x - 2*y"
+        ],
+        "relation_next": [
+          "Now use the same idea for five years ago: their ages then were x − 5 and y − 5.",
+          "Now use the same idea for ten years later: their ages then will be x + 10 and y + 10."
+        ]
+      },
+      "hints_by_method": {
+        "m1": [
+          "Look at the coefficients of x in the two equations. Are they the same? Then subtract one equation from the other. Example: (2x + y) − (2x − 3y) = 9 − 1 gives 4y = 8, so y = 2.",
+          "Then put that value back into either equation. Example: 2x + 2 = 9, so x = 3.5.",
+          "(x − 3y) − (x − 2y) = −10 − 10 gives −y = −20, so y = 20; then x − 2(20) = 10, so x = 50"
+        ],
+        "m2": [
+          "Write x from one equation and put it into the other. Example: x − y = 1 gives x = y + 1; then (y + 1) + y = 7, so y = 3.",
+          "Then put that value back. Example: x = 3 + 1 = 4.",
+          "x = 3y − 10; then (3y − 10) − 2y = 10, so y = 20 and x = 3(20) − 10 = 50"
+        ]
+      }
+    },
+    {
+      "id": "p1_verify",
+      "type": "step",
+      "label": "Verify",
+      "description": "45 = 3 × 15 and 60 = 2 × 30",
+      "prompt": "Verify: do your ages fit both sentences of the question?",
+      "accept": [
+        "45 = 3 × 15 and 60 = 2 × 30"
+      ],
+      "hints": [
+        "Put your ages back into the sentences. Example: A = 10 and B = 4, 'two years ago A was four times B': 10 − 2 = 8 and 4 − 2 = 2, and 8 = 4 × 2 ✓.",
+        "Do it for both sentences: their ages five years ago, then their ages ten years later.",
+        "Five years ago: 45 and 15, and 45 = 3 × 15 ✓. Ten years later: 60 and 30, and 60 = 2 × 30 ✓"
+      ],
+      "pair_verify": {
+        "vars": [
+          "x",
+          "y"
+        ],
+        "names": {
+          "nuri": "x",
+          "sonu": "y",
+          "n": "x",
+          "s": "y"
+        },
+        "equations": [
+          "x - 3*y + 10",
+          "x - 2*y - 10"
+        ],
+        "solution": {
+          "x": "50",
+          "y": "20"
+        },
+        "shown": [
+          "x − 3y = −10",
+          "x − 2y = 10"
+        ],
+        "conditions": [
+          "five years ago, Nuri was thrice as old as Sonu",
+          "ten years later, Nuri will be twice as old as Sonu"
+        ],
+        "ask": [
+          "How old were Nuri (x) and Sonu (y) five years ago, and which is three times the other?",
+          "How old will Nuri (x) and Sonu (y) be ten years later, and which is two times the other?"
+        ],
+        "checks": [
+          [
+            "45",
+            "-10"
+          ],
+          [
+            "60",
+            "10"
+          ]
+        ],
+        "relations": [
+          "x - 3*y",
+          "x - 2*y"
+        ],
+        "relation_next": [
+          "Now use the same idea for five years ago: their ages then were x − 5 and y − 5.",
+          "Now use the same idea for ten years later: their ages then will be x + 10 and y + 10."
+        ]
+      }
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "Nuri is 50 years old and Sonu is 20 years old",
+      "prompt": "How old are Nuri and Sonu?",
+      "accept": [
+        "Nuri is 50 years old and Sonu is 20 years old",
+        "Nuri 50, Sonu 20"
+      ],
+      "hints": [
+        "Look at your values of x and y.",
+        "x is Nuri's age, y is Sonu's.",
+        "Nuri is 50 years old and Sonu is 20 years old"
+      ],
+      "keywords": [
+        "50",
+        "20"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "What Is Given"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "What We Need to Find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "method_choice",
+      "label": "Describe the Plan"
+    },
+    {
+      "from": "method_choice",
+      "to": "p1_form",
+      "label": "Form the Equations"
+    },
+    {
+      "from": "p1_form",
+      "to": "m1_p1",
+      "label": "A: Elimination"
+    },
+    {
+      "from": "m1_p1",
+      "to": "m1_p1_s1",
+      "label": "(x − 3y) − (x − 2y) = −10 − 10"
+    },
+    {
+      "from": "m1_p1_s1",
+      "to": "m1_p1_s2",
+      "label": "−y = −20, so y = 20"
+    },
+    {
+      "from": "m1_p1_s2",
+      "to": "m1_p1_s3",
+      "label": "x − 2(20) = 10, so x = 50"
+    },
+    {
+      "from": "m1_p1_s3",
+      "to": "p1_solve",
+      "label": "Solve the Pair"
+    },
+    {
+      "from": "p1_form",
+      "to": "m2_p1",
+      "label": "B: Substitution"
+    },
+    {
+      "from": "m2_p1",
+      "to": "m2_p1_s1",
+      "label": "x = 3y − 10"
+    },
+    {
+      "from": "m2_p1_s1",
+      "to": "m2_p1_s2",
+      "label": "(3y − 10) − 2y = 10, so y = 20"
+    },
+    {
+      "from": "m2_p1_s2",
+      "to": "m2_p1_s3",
+      "label": "x = 3(20) − 10 = 50"
+    },
+    {
+      "from": "m2_p1_s3",
+      "to": "p1_solve",
+      "label": "Solve the Pair"
+    },
+    {
+      "from": "p1_solve",
+      "to": "p1_verify",
+      "label": "Verify"
+    },
+    {
+      "from": "p1_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    }
+  ]
+}

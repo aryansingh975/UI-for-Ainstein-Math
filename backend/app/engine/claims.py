@@ -97,8 +97,14 @@ def extract_claims(normalized: str, context_pair: Optional[tuple[float, float]] 
     # Preprocess gcd phrases BEFORE 'and' becomes a separator
     s = preprocess_gcd_phrases(s)
 
+    # Unicode minus / en dash -> "-" (so "−1.5" is a number)
+    s = re.sub(r"[−–]", "-", s)
+
     # Comparators
     s = re.sub(r"\s*(?:≠|!=|<>)\s*", "≠", s)
+    s = re.sub(r"\s*(?:<=|≤)\s*", "≤", s)
+    s = re.sub(r"\s*(?:>=|≥)\s*", "≥", s)
+    s = re.sub(r"\s*(?<![-=])([<>])\s*", r"\1", s)  # not the arrows -> and =>
     s = re.sub(r"\bis not\b", "≠", s)
     s = re.sub(r"\bdoes not equal\b", "≠", s)
     s = re.sub(r"\bisn't\b", "≠", s)
@@ -137,14 +143,14 @@ def extract_claims(normalized: str, context_pair: Optional[tuple[float, float]] 
         ))
         cleaned = cleaned.replace(m.group(0), " ")
 
-    # Arithmetic equality claims: split on = ≠ ; at top level
-    parts = re.split(r"(=|≠|;)", cleaned)
+    # Arithmetic equality / inequality claims: split on = ≠ < > ≤ ≥ ; at top level
+    parts = re.split(r"(=|≠|;|≤|≥|<|(?<![-=])>)", cleaned)
     lhs: Optional[str] = None
     pending_op: Optional[str] = None
 
     for part in parts:
         p = part.strip()
-        if p in ("=", "≠"):
+        if p in ("=", "≠", "<", ">", "≤", "≥"):
             pending_op = p
             continue
         if p == ";":
@@ -165,10 +171,12 @@ def extract_claims(normalized: str, context_pair: Optional[tuple[float, float]] 
 
             if lv is not None and rv is not None:
                 equal = abs(lv - rv) < EPS
-                is_true = equal if pending_op == "=" else not equal
+                is_true = {"=": equal, "≠": not equal,
+                           "<": lv < rv and not equal, ">": lv > rv and not equal,
+                           "≤": lv < rv or equal, "≥": lv > rv or equal}[pending_op]
                 claims.append(Claim(
                     kind="arith",
-                    text=f"{lhs} {'=' if pending_op == '=' else '≠'} {p}",
+                    text=f"{lhs} {pending_op} {p}",
                     is_true=is_true,
                     op=pending_op,
                     lhs=lhs,
@@ -213,6 +221,8 @@ def explain_claim(c: Claim | dict | None) -> str:
             bc = fmt_num(b * c_val) if b is not None and c_val is not None else ""
             verdict_text = "holds." if is_true else "doesn't hold."
             return f"Cross products: {a}x{d} = {ad} and {b}x{c_val} = {bc} - so \"{text}\" {verdict_text}"
+        elif kind in ("value", "equation") and c.get("message"):
+            return f"\"{text}\": {c['message']}"
         elif kind == "value":
             verdict_text = "holds." if is_true else "doesn't hold."
             return f"\"{text}\" {verdict_text}"

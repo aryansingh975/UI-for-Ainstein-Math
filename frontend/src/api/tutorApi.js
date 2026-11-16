@@ -82,6 +82,35 @@ export const AVAILABLE_CHAPTERS = [
     ]
   },
   {
+    id: 'real-numbers',
+    title: 'Real Numbers',
+    grade: 10,
+    description: 'Grade 10 · 2 problems · SymPy',
+    problems: [
+      { id: 'g10-jemh101-ex-1-1-q1', title: 'Prime Factorisation of 140, 156, 3825, 5005 and 7429', uuid: 'g10-jemh101-ex-1-1-q1' },
+      { id: 'g10-jemh101-ex-1-1-q2', title: 'LCM and HCF of Pairs: Verify LCM × HCF = Product', uuid: 'g10-jemh101-ex-1-1-q2' }
+    ]
+  },
+  {
+    id: 'polynomials',
+    title: 'Polynomials',
+    grade: 10,
+    description: 'Grade 10 · 2 problems · SymPy',
+    problems: [
+      { id: 'g10-jemh102-ex-2-2-q1', title: 'Zeroes of Six Quadratics: Verify α + β = −b/a and αβ = c/a', uuid: 'g10-jemh102-ex-2-2-q1' },
+      { id: 'g10-jemh102-ex-2-2-q2', title: 'Quadratic Polynomial from the Sum and Product of its Zeroes', uuid: 'g10-jemh102-ex-2-2-q2' }
+    ]
+  },
+  {
+    id: 'pair-of-linear-equations',
+    title: 'Pair of Linear Equations',
+    grade: 10,
+    description: 'Grade 10 · 1 problem · Jev + SymPy',
+    problems: [
+      { id: 'g10-jemh103-ex-3-3-q2-ii', title: 'Ages of Nuri and Sonu: Form and Solve by Elimination', uuid: 'g10-jemh103-ex-3-3-q2-ii' }
+    ]
+  },
+  {
     id: 'linear-equation',
     title: 'Linear & Quadratic Equations',
     grade: 10,
@@ -89,6 +118,36 @@ export const AVAILABLE_CHAPTERS = [
     problems: [
       { id: 'g08-lin-ex003', title: 'Linear Equation: 3(x − 2) + 5 = 2x + 4', uuid: 'g08-lin-ex003' },
       { id: 'g10-quad-ex001', title: 'Quadratic Equation: x² - 5x + 6 = 0', uuid: 'g10-quad-ex001' }
+    ]
+  },
+  {
+    id: 'circles',
+    title: 'Circles',
+    grade: 10,
+    description: 'Grade 10 · 2 problems · Jev + SymPy',
+    problems: [
+      { id: 'g10-jemh110-ex-10-2-q6', title: 'Tangent 4 cm from a Point 5 cm Away: Find the Radius', uuid: 'g10-jemh110-ex-10-2-q6' },
+      { id: 'g10-jemh110-ex-10-2-q7', title: 'Concentric Circles 5 cm and 3 cm: Length of the Chord', uuid: 'g10-jemh110-ex-10-2-q7' }
+    ]
+  },
+  {
+    id: 'surface-areas-and-volumes',
+    title: 'Surface Areas and Volumes',
+    grade: 10,
+    description: 'Grade 10 · 1 problem · Jev + SymPy',
+    problems: [
+      { id: 'g10-jemh112-ex-12-2-q6', title: 'Iron Pole: Two Cylinders, Find the Mass', uuid: 'g10-jemh112-ex-12-2-q6' }
+    ]
+  },
+  {
+    id: 'probability',
+    title: 'Probability',
+    grade: 10,
+    description: 'Grade 10 · 3 problems · Jev + SymPy',
+    problems: [
+      { id: 'g10-jemh114-ex-14-1-q4', title: 'Which Cannot Be the Probability of an Event? (MCQ)', uuid: 'g10-jemh114-ex-14-1-q4' },
+      { id: 'g10-jemh114-ex-14-1-q7', title: 'Same Birthday: P(not same) = 0.992, Find P(same)', uuid: 'g10-jemh114-ex-14-1-q7' },
+      { id: 'g10-jemh114-ex-14-1-q10', title: 'Piggy Bank: P(50p Coin) and P(Not a ₹5 Coin)', uuid: 'g10-jemh114-ex-14-1-q10' }
     ]
   }
 ];
@@ -130,6 +189,33 @@ export async function resetTutorSession(sessionId) {
     method: 'POST'
   });
   if (!res.ok) throw new Error('Failed to reset session');
+  return res.json();
+}
+
+// Local Jev (which method?) + SymPy (is the maths correct?) over every line written so far
+export async function classifyMethod(problemId, lines) {
+  const res = await fetch(`${API_BASE}/api/v1/jev/classify`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ problem_id: problemId, lines })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Could not check this step. Please try again.');
+  }
+  return res.json();
+}
+
+export async function lockMethod(sessionId, methodId) {
+  const res = await fetch(`${API_BASE}/api/v1/sessions/${sessionId}/method`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ method_id: methodId })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'The selected method is not available in this problem graph.');
+  }
   return res.json();
 }
 

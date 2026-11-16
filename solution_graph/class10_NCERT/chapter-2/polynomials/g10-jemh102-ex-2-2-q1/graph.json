@@ -1,0 +1,1767 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh102-ex-2-2-q1",
+    "problem_uuid": "g10-jemh102-ex-2-2-q1",
+    "problem_text": "Find the zeroes of the following quadratic polynomials and verify the relationship between the zeroes and the coefficients. (i) x² – 2x – 8 (ii) 4s² – 4s + 1 (iii) 6x² – 3 – 7x (iv) 4u² + 8u (v) t² – 15 (vi) 3x² – x – 4",
+    "equation": null,
+    "variable": "x",
+    "use_jev": true,
+    "guided": true,
+    "llm_tutor": true,
+    "sympy_can_finish": false,
+    "sympy_note": "Zeroes, sums, products and polynomials are checked by SymPy (engine/polynomials.py): zeroes as a set (±, √, fractions), working by expanding, a quadratic by its −b/a and c/a.",
+    "guided_note": "Guided mode: after the plan, the parts in any order ('(iii)' picks part (iii)). Zeroes are checked by SymPy as a set; one zero is kept while the other is found; working of either method (a factorisation that expands back, a factor = 0, the discriminant, the formula) is accepted, wrong working is explained. Hints follow the method.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Guided solution DAG for NCERT Class 10 Ex 2.2 Q1: the zeroes of six quadratics, each by factorisation (A) or the quadratic formula (B), then α + β = −b/a and αβ = c/a.",
+    "created": "2026-11-13",
+    "total_methods": 2,
+    "total_nodes": 64,
+    "total_edges": 74,
+    "problem_context": {
+      "chapter": "2",
+      "topic": "Polynomials",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 2 Polynomials, Exercise 2.2, Q1 (p. 23)",
+      "question_type": "short_answer"
+    },
+    "navigation_label": "Ex 2.2 Q1: Zeroes and Coefficients",
+    "glossary": [
+      {
+        "term": "zero of a polynomial",
+        "aliases": [
+          "zeroes",
+          "zeros",
+          "zero",
+          "root",
+          "roots"
+        ],
+        "definition": "A zero of a polynomial is a value that makes it 0. For x² − 5x + 6, x = 2 is a zero because 2² − 5 × 2 + 6 = 0.",
+        "hints": [
+          "What happens to the value of a polynomial when you substitute one of its zeroes? Can you use that idea to understand what you are looking for?",
+          "Example: for x² − 5x + 6, put x = 2: 2² − 5 × 2 + 6 = 4 − 10 + 6 = 0. So 2 is a zero. Put x = 1: 1 − 5 + 6 = 2, not 0, so 1 is not a zero. A zero is a value that makes the polynomial 0."
+        ]
+      },
+      {
+        "term": "quadratic polynomial",
+        "aliases": [
+          "quadratic",
+          "quadratics"
+        ],
+        "definition": "A quadratic polynomial has degree 2: ax² + bx + c with a ≠ 0, like 2x² + x − 3. It has at most two zeroes."
+      },
+      {
+        "term": "polynomial",
+        "aliases": [
+          "polynomials"
+        ],
+        "definition": "A polynomial is a sum of terms like 3x², −5x and 7, where the powers of x are whole numbers."
+      },
+      {
+        "term": "coefficient",
+        "aliases": [
+          "coefficients"
+        ],
+        "definition": "A coefficient is the number in front of a power of x. In 2x² + x − 3: a = 2, b = 1, c = −3."
+      },
+      {
+        "term": "degree",
+        "aliases": [],
+        "definition": "The degree is the highest power of the variable. 2x² + x − 3 has degree 2."
+      },
+      {
+        "term": "discriminant",
+        "aliases": [
+          "d",
+          "b² − 4ac",
+          "b^2 - 4ac"
+        ],
+        "definition": "The discriminant is D = b² − 4ac. For 2x² + x − 3, D = 1 + 24 = 25."
+      },
+      {
+        "term": "quadratic formula",
+        "aliases": [
+          "formula"
+        ],
+        "definition": "The quadratic formula gives the zeroes of ax² + bx + c: x = (−b ± √D) / 2a, with D = b² − 4ac."
+      },
+      {
+        "term": "splitting the middle term",
+        "aliases": [
+          "middle term",
+          "split the middle term",
+          "factorise",
+          "factorize",
+          "factorisation",
+          "factorization",
+          "factor"
+        ],
+        "definition": "To factorise ax² + bx + c, split bx into two terms whose numbers multiply to a × c. Example: x² − 5x + 6 = x² − 2x − 3x + 6 = (x − 2)(x − 3)."
+      },
+      {
+        "term": "sum of zeroes",
+        "aliases": [
+          "sum of the zeroes",
+          "sum",
+          "alpha + beta",
+          "α + β"
+        ],
+        "definition": "For ax² + bx + c, the sum of the zeroes is α + β = −b/a. For x² − 5x + 6: 2 + 3 = 5 = −(−5)/1."
+      },
+      {
+        "term": "product of zeroes",
+        "aliases": [
+          "product of the zeroes",
+          "product",
+          "alpha beta",
+          "αβ"
+        ],
+        "definition": "For ax² + bx + c, the product of the zeroes is αβ = c/a. For x² − 5x + 6: 2 × 3 = 6 = 6/1."
+      }
+    ],
+    "parts": [
+      {
+        "id": "p1",
+        "label": "i",
+        "title": "(i) x² − 2x − 8",
+        "text": "x² − 2x − 8",
+        "numbers": [],
+        "nodes": [
+          "p1_zeroes",
+          "p1_verify"
+        ]
+      },
+      {
+        "id": "p2",
+        "label": "ii",
+        "title": "(ii) 4s² − 4s + 1",
+        "text": "4s² − 4s + 1",
+        "numbers": [],
+        "nodes": [
+          "p2_zeroes",
+          "p2_verify"
+        ]
+      },
+      {
+        "id": "p3",
+        "label": "iii",
+        "title": "(iii) 6x² − 3 − 7x",
+        "text": "6x² − 3 − 7x",
+        "numbers": [],
+        "nodes": [
+          "p3_zeroes",
+          "p3_verify"
+        ]
+      },
+      {
+        "id": "p4",
+        "label": "iv",
+        "title": "(iv) 4u² + 8u",
+        "text": "4u² + 8u",
+        "numbers": [],
+        "nodes": [
+          "p4_zeroes",
+          "p4_verify"
+        ]
+      },
+      {
+        "id": "p5",
+        "label": "v",
+        "title": "(v) t² − 15",
+        "text": "t² − 15",
+        "numbers": [],
+        "nodes": [
+          "p5_zeroes",
+          "p5_verify"
+        ]
+      },
+      {
+        "id": "p6",
+        "label": "vi",
+        "title": "(vi) 3x² − x − 4",
+        "text": "3x² − x − 4",
+        "numbers": [],
+        "nodes": [
+          "p6_zeroes",
+          "p6_verify"
+        ]
+      }
+    ]
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Find the zeroes of the following quadratic polynomials and verify the relationship between the zeroes and the coefficients. (i) x² – 2x – 8 (ii) 4s² – 4s + 1 (iii) 6x² – 3 – 7x (iv) 4u² + 8u (v) t² – 15 (vi) 3x² – x – 4",
+      "prompt": "Read the problem. Answer each question to solve it step by step.",
+      "accept": [],
+      "hints": [
+        "Answer the question shown above the box."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "What Is Given",
+      "description": "Six quadratic polynomials: x² − 2x − 8, 4s² − 4s + 1, 6x² − 3 − 7x, 4u² + 8u, t² − 15, 3x² − x − 4.",
+      "prompt": "What is given in the question?",
+      "accept": [
+        "x² − 2x − 8, 4s² − 4s + 1, 6x² − 3 − 7x, 4u² + 8u, t² − 15, 3x² − x − 4",
+        "six quadratic polynomials"
+      ],
+      "hints": [
+        "What kind of polynomials does the question give?",
+        "There are six of them, (i) to (vi).",
+        "Six quadratic polynomials, (i) x² − 2x − 8 to (vi) 3x² − x − 4"
+      ],
+      "optional": false,
+      "keywords": [
+        "quadratic"
+      ],
+      "given_polys": [
+        {
+          "poly": "x**2 - 2*x - 8",
+          "var": "x"
+        },
+        {
+          "poly": "4*s**2 - 4*s + 1",
+          "var": "s"
+        },
+        {
+          "poly": "6*x**2 - 7*x - 3",
+          "var": "x"
+        },
+        {
+          "poly": "4*u**2 + 8*u",
+          "var": "u"
+        },
+        {
+          "poly": "t**2 - 15",
+          "var": "t"
+        },
+        {
+          "poly": "3*x**2 - x - 4",
+          "var": "x"
+        }
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "What We Need to Find",
+      "description": "The zeroes of each polynomial, and a check of the relationship between zeroes and coefficients.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "the zeroes of each polynomial and verify the relationship",
+        "zeroes and check sum and product",
+        "find the zeroes and verify the relationship between zeroes and coefficients"
+      ],
+      "hints": [
+        "Read the question again: what must you find?",
+        "Find something, then verify something.",
+        "The zeroes of each polynomial, then verify their relationship with the coefficients"
+      ],
+      "optional": false,
+      "keywords": [
+        "zero"
+      ]
+    },
+    {
+      "id": "method_choice",
+      "type": "choice",
+      "label": "Describe the Plan",
+      "description": "Describe the plan: find the zeroes (factorise or use the formula), then check α + β = −b/a and αβ = c/a. Then the parts (i) to (vi), in any order, each by either method.",
+      "prompt": "Describe your plan: how will you find the zeroes, and how will you check them against the coefficients?",
+      "accept": [],
+      "hints": [
+        "Think about what a zero is.",
+        "Find the zeroes, then compare with a, b, c.",
+        "Sum of zeroes = −b/a, product = c/a."
+      ],
+      "concepts_required": [
+        {
+          "id": "C1",
+          "idea": "finding the zeroes (factorise, or use the quadratic formula)",
+          "keywords": [
+            "factoris",
+            "factoriz",
+            "factor",
+            "split",
+            "middle term",
+            "formula",
+            "discriminant",
+            "= 0",
+            "equal to 0",
+            "equal to zero",
+            "solve",
+            "roots",
+            "zeroes",
+            "zeros"
+          ],
+          "needs_any": [],
+          "hints": [
+            "How do you find the values that make a polynomial equal to 0?",
+            "Example: x² − 5x + 6 = (x − 2)(x − 3), so x = 2 or x = 3. You can also use the quadratic formula."
+          ],
+          "answer": "Find the zeroes: factorise the polynomial (or use the quadratic formula) and set it equal to 0.",
+          "explain": {
+            "question": "Why do we set the polynomial equal to 0?",
+            "expected_keywords": [
+              "zero",
+              "0",
+              "value",
+              "makes"
+            ],
+            "understanding": "A zero is a value of x that makes the polynomial 0, so we solve p(x) = 0."
+          }
+        },
+        {
+          "id": "C2",
+          "idea": "the sum of the zeroes equals −b/a",
+          "keywords": [
+            "−b/a",
+            "-b/a",
+            "- b/a",
+            "minus b"
+          ],
+          "needs_any": [
+            "sum",
+            "α",
+            "add"
+          ],
+          "hints": [
+            "What should the sum of the zeroes be equal to?",
+            "For ax² + bx + c, compare α + β with the coefficients. Example: for x² − 5x + 6, 2 + 3 = 5."
+          ],
+          "answer": "Check that the sum of the zeroes equals −b/a.",
+          "explain": {
+            "question": "Why must the sum of the zeroes equal −b/a?",
+            "expected_keywords": [
+              "(x − α)(x − β)",
+              "expand",
+              "coefficient",
+              "−b/a",
+              "-b/a"
+            ],
+            "understanding": "ax² + bx + c = a(x − α)(x − β); expanding gives b = −a(α + β), so α + β = −b/a."
+          }
+        },
+        {
+          "id": "C3",
+          "idea": "the product of the zeroes equals c/a",
+          "keywords": [
+            "c/a"
+          ],
+          "needs_any": [
+            "product",
+            "multiply",
+            "αβ"
+          ],
+          "hints": [
+            "And what should the product of the zeroes be equal to?",
+            "For ax² + bx + c, compare αβ with the coefficients. Example: for x² − 5x + 6, 2 × 3 = 6."
+          ],
+          "answer": "Check that the product of the zeroes equals c/a.",
+          "explain": {
+            "question": "Why must the product of the zeroes equal c/a?",
+            "expected_keywords": [
+              "(x − α)(x − β)",
+              "expand",
+              "coefficient",
+              "c/a"
+            ],
+            "understanding": "ax² + bx + c = a(x − α)(x − β); expanding gives c = aαβ, so αβ = c/a."
+          }
+        }
+      ],
+      "path_signals": {},
+      "default_path": null,
+      "misconceptions": [
+        {
+          "signal": "C2",
+          "keywords": [
+            "sum = b/a",
+            "sum is b/a",
+            "sum equals b/a",
+            "sum of zeroes = b/a",
+            "sum of the zeroes is b/a"
+          ],
+          "response": "Careful with the sign: the sum of the zeroes is −b/a, not b/a. Check with x² − 5x + 6: 2 + 3 = 5 = −(−5)/1."
+        },
+        {
+          "signal": "C3",
+          "keywords": [
+            "product = −c/a",
+            "product = -c/a",
+            "product is -c/a",
+            "product is −c/a"
+          ],
+          "response": "Careful with the sign: the product of the zeroes is c/a. Check with x² − 5x + 6: 2 × 3 = 6 = 6/1."
+        }
+      ],
+      "contradiction_response": "You said two different things. Which one is it?",
+      "dont_know_response": "That's fine. Think about this question, then try the plan again.",
+      "off_topic_response": "Let's stay with the polynomials. How will you find their zeroes?",
+      "retry_response": "Use that idea and try the plan again: how will you find the zeroes, and how will you check them against the coefficients?",
+      "concept_hints": [
+        {
+          "id": "K1",
+          "question": "What is a zero of a polynomial?",
+          "understanding": "A value that makes it 0"
+        },
+        {
+          "id": "K2",
+          "question": "What are the zeroes of x² − 5x + 6 = (x − 2)(x − 3)?",
+          "understanding": "2 and 3"
+        },
+        {
+          "id": "K3",
+          "question": "For x² − 5x + 6, what are a, b and c?",
+          "understanding": "a = 1, b = −5, c = 6"
+        }
+      ],
+      "partial_prefix": "Good, {found} is right.",
+      "max_hints": 4,
+      "reveal": "Here is the plan: find the zeroes (factorise or use the quadratic formula), then check that their sum is −b/a and their product is c/a.",
+      "solve_freely": false
+    },
+    {
+      "id": "p1",
+      "type": "choice",
+      "label": "(i) x² − 2x − 8",
+      "description": "Factorise (A) or the quadratic formula (B)",
+      "prompt": "(i) Find the zeroes of x² − 2x − 8.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p1",
+      "type": "method",
+      "label": "A: Factorisation",
+      "description": "Factorise, then set each factor equal to 0",
+      "prompt": "(i) Factorise x² − 2x − 8.",
+      "accept": [
+        "factorise",
+        "split the middle term"
+      ],
+      "hints": [],
+      "jev_description": "Factorisation of x² − 2x − 8: x² − 2x − 8 = (x − 4)(x + 2)."
+    },
+    {
+      "id": "m1_p1_s1",
+      "type": "step",
+      "label": "x² − 2x − 8 = x² − 4x + 2x − 8",
+      "description": "(i) factorisation",
+      "prompt": "(i) x² − 2x − 8 = x² − 4x + 2x − 8",
+      "accept": [
+        "x² − 2x − 8 = x² − 4x + 2x − 8"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p1_s2",
+      "type": "step",
+      "label": "x² − 2x − 8 = (x − 4)(x + 2)",
+      "description": "(i) factorisation",
+      "prompt": "(i) x² − 2x − 8 = (x − 4)(x + 2)",
+      "accept": [
+        "x² − 2x − 8 = (x − 4)(x + 2)"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p1_s3",
+      "type": "step",
+      "label": "x − 4 = 0 or x + 2 = 0",
+      "description": "(i) factorisation",
+      "prompt": "(i) x − 4 = 0 or x + 2 = 0",
+      "accept": [
+        "x − 4 = 0 or x + 2 = 0"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p1",
+      "type": "method",
+      "label": "B: Quadratic Formula",
+      "description": "x = (−b ± √D) / 2a with D = b² − 4ac",
+      "prompt": "(i) Use the quadratic formula on x² − 2x − 8.",
+      "accept": [
+        "quadratic formula",
+        "discriminant"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic formula for x² − 2x − 8: a = 1, b = −2, c = −8, D = b² − 4ac = (−2)² − 4(1)(−8) = 36."
+    },
+    {
+      "id": "m2_p1_s1",
+      "type": "step",
+      "label": "D = b² − 4ac = (−2)² − 4(1)(−8) = 36",
+      "description": "(i) quadratic formula",
+      "prompt": "(i) D = b² − 4ac = (−2)² − 4(1)(−8) = 36",
+      "accept": [
+        "D = b² − 4ac = (−2)² − 4(1)(−8) = 36"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p1_s2",
+      "type": "step",
+      "label": "x = (2 ± 6)/2",
+      "description": "(i) quadratic formula",
+      "prompt": "(i) x = (2 ± 6)/2",
+      "accept": [
+        "x = (2 ± 6)/2"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p1_zeroes",
+      "type": "step",
+      "label": "(i) Zeroes of x² − 2x − 8",
+      "description": "x = 4 or x = −2",
+      "prompt": "(i) Find the zeroes of x² − 2x − 8.",
+      "accept": [
+        "x = 4 or x = −2"
+      ],
+      "hints": [
+        "Find the values that make the polynomial 0: factorise it, or use the quadratic formula. Example: x² − 5x + 6 = (x − 2)(x − 3), so x = 2 or x = 3.",
+        "With the formula: for x² − 5x + 6, D = b² − 4ac = 25 − 24 = 1, so x = (5 ± 1)/2 = 3 or 2.",
+        "x = 4 or x = −2"
+      ],
+      "zeroes_of": {
+        "poly": "x**2 - 2*x - 8",
+        "var": "x"
+      },
+      "hints_by_method": {
+        "m1": [
+          "Split the middle term: find two numbers that multiply to a × c and add up to b. Example: for x² − 5x + 6, (−2) × (−3) = 6 and (−2) + (−3) = −5.",
+          "Example: x² − 5x + 6 = x² − 2x − 3x + 6 = (x − 2)(x − 3). Then set each factor equal to 0.",
+          "x = 4 or x = −2"
+        ],
+        "m2": [
+          "Work out D = b² − 4ac first. Example: for 2x² + x − 3, a = 2, b = 1, c = −3, so D = 1 + 24 = 25.",
+          "Then use x = (−b ± √D) / 2a. Example: x = (−1 ± 5)/4, so x = 1 or x = −3/2.",
+          "x = 4 or x = −2"
+        ]
+      }
+    },
+    {
+      "id": "p1_verify",
+      "type": "step",
+      "label": "(i) Verify the Relationship",
+      "description": "α + β = 4 + (−2) = 2 = −(−2)/1; αβ = 4 × (−2) = −8 = −8/1",
+      "prompt": "(i) Verify the relationship between the zeroes and the coefficients.",
+      "accept": [
+        "α + β = 4 + (−2) = 2 = −(−2)/1, αβ = 4 × (−2) = −8 = −8/1"
+      ],
+      "hints": [
+        "Look at the zeroes you found and the original polynomial. Do you notice any connection between the numbers? Think about how the factors produced the original expression.",
+        "Try expanding the factors again. Pay attention to how different terms combine. Can you explain where each coefficient comes from?",
+        "Example: x² − 5x + 6 = (x − 2)(x − 3), zeroes 2 and 3. Expanding: x² − 3x − 2x + 6, so the middle term is −(2 + 3)x and the constant is (−2) × (−3). Sum 2 + 3 = 5 = −(−5)/1 = −b/a; product 2 × 3 = 6 = 6/1 = c/a.",
+        "α + β = 4 + (−2) = 2 = −(−2)/1, αβ = 4 × (−2) = −8 = −8/1"
+      ],
+      "relation_of": {
+        "sum": {
+          "value": "2",
+          "value_text": "2",
+          "what": "the sum of the zeroes",
+          "rule": "−b/a",
+          "work": "−(−2)/1",
+          "a": "1",
+          "b": "−2",
+          "c": "−8"
+        },
+        "product": {
+          "value": "-8",
+          "value_text": "−8",
+          "what": "the product of the zeroes",
+          "rule": "c/a",
+          "work": "−8/1",
+          "a": "1",
+          "b": "−2",
+          "c": "−8"
+        }
+      }
+    },
+    {
+      "id": "p2",
+      "type": "choice",
+      "label": "(ii) 4s² − 4s + 1",
+      "description": "Factorise (A) or the quadratic formula (B)",
+      "prompt": "(ii) Find the zeroes of 4s² − 4s + 1.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p2",
+      "type": "method",
+      "label": "A: Factorisation",
+      "description": "Factorise, then set each factor equal to 0",
+      "prompt": "(ii) Factorise 4s² − 4s + 1.",
+      "accept": [
+        "factorise",
+        "split the middle term"
+      ],
+      "hints": [],
+      "jev_description": "Factorisation of 4s² − 4s + 1: 4s² − 4s + 1 = (2s − 1)(2s − 1)."
+    },
+    {
+      "id": "m1_p2_s1",
+      "type": "step",
+      "label": "4s² − 4s + 1 = 4s² − 2s − 2s + 1",
+      "description": "(ii) factorisation",
+      "prompt": "(ii) 4s² − 4s + 1 = 4s² − 2s − 2s + 1",
+      "accept": [
+        "4s² − 4s + 1 = 4s² − 2s − 2s + 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p2_s2",
+      "type": "step",
+      "label": "4s² − 4s + 1 = (2s − 1)(2s − 1)",
+      "description": "(ii) factorisation",
+      "prompt": "(ii) 4s² − 4s + 1 = (2s − 1)(2s − 1)",
+      "accept": [
+        "4s² − 4s + 1 = (2s − 1)(2s − 1)"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p2_s3",
+      "type": "step",
+      "label": "2s − 1 = 0",
+      "description": "(ii) factorisation",
+      "prompt": "(ii) 2s − 1 = 0",
+      "accept": [
+        "2s − 1 = 0"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p2",
+      "type": "method",
+      "label": "B: Quadratic Formula",
+      "description": "s = (−b ± √D) / 2a with D = b² − 4ac",
+      "prompt": "(ii) Use the quadratic formula on 4s² − 4s + 1.",
+      "accept": [
+        "quadratic formula",
+        "discriminant"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic formula for 4s² − 4s + 1: a = 4, b = −4, c = 1, D = b² − 4ac = (−4)² − 4(4)(1) = 0."
+    },
+    {
+      "id": "m2_p2_s1",
+      "type": "step",
+      "label": "D = b² − 4ac = (−4)² − 4(4)(1) = 0",
+      "description": "(ii) quadratic formula",
+      "prompt": "(ii) D = b² − 4ac = (−4)² − 4(4)(1) = 0",
+      "accept": [
+        "D = b² − 4ac = (−4)² − 4(4)(1) = 0"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p2_s2",
+      "type": "step",
+      "label": "s = (4 ± 0)/8 = 1/2",
+      "description": "(ii) quadratic formula",
+      "prompt": "(ii) s = (4 ± 0)/8 = 1/2",
+      "accept": [
+        "s = (4 ± 0)/8 = 1/2"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p2_zeroes",
+      "type": "step",
+      "label": "(ii) Zeroes of 4s² − 4s + 1",
+      "description": "s = 1/2 (twice)",
+      "prompt": "(ii) Find the zeroes of 4s² − 4s + 1.",
+      "accept": [
+        "s = 1/2 (twice)"
+      ],
+      "hints": [
+        "Find the values that make the polynomial 0: factorise it, or use the quadratic formula. Example: x² − 5x + 6 = (x − 2)(x − 3), so x = 2 or x = 3.",
+        "With the formula: for x² − 5x + 6, D = b² − 4ac = 25 − 24 = 1, so x = (5 ± 1)/2 = 3 or 2.",
+        "s = 1/2 (twice)"
+      ],
+      "zeroes_of": {
+        "poly": "4*s**2 - 4*s + 1",
+        "var": "s"
+      },
+      "hints_by_method": {
+        "m1": [
+          "Is it a perfect square? Example: 9y² − 6y + 1 = (3y − 1)².",
+          "Example: (3y − 1)² = 0 gives 3y − 1 = 0, so y = 1/3 (the same zero twice).",
+          "s = 1/2 (twice)"
+        ],
+        "m2": [
+          "Work out D = b² − 4ac first. Example: for 2x² + x − 3, a = 2, b = 1, c = −3, so D = 1 + 24 = 25.",
+          "Then use x = (−b ± √D) / 2a. Example: x = (−1 ± 5)/4, so x = 1 or x = −3/2.",
+          "s = 1/2 (twice)"
+        ]
+      }
+    },
+    {
+      "id": "p2_verify",
+      "type": "step",
+      "label": "(ii) Verify the Relationship",
+      "description": "α + β = 1/2 + 1/2 = 1 = −(−4)/4; αβ = 1/2 × 1/2 = 1/4 = 1/4",
+      "prompt": "(ii) Verify the relationship between the zeroes and the coefficients.",
+      "accept": [
+        "α + β = 1/2 + 1/2 = 1 = −(−4)/4, αβ = 1/2 × 1/2 = 1/4 = 1/4"
+      ],
+      "hints": [
+        "Look at the zeroes you found and the original polynomial. Do you notice any connection between the numbers? Think about how the factors produced the original expression.",
+        "Try expanding the factors again. Pay attention to how different terms combine. Can you explain where each coefficient comes from?",
+        "Example: x² − 5x + 6 = (x − 2)(x − 3), zeroes 2 and 3. Expanding: x² − 3x − 2x + 6, so the middle term is −(2 + 3)x and the constant is (−2) × (−3). Sum 2 + 3 = 5 = −(−5)/1 = −b/a; product 2 × 3 = 6 = 6/1 = c/a.",
+        "α + β = 1/2 + 1/2 = 1 = −(−4)/4, αβ = 1/2 × 1/2 = 1/4 = 1/4"
+      ],
+      "relation_of": {
+        "sum": {
+          "value": "1",
+          "value_text": "1",
+          "what": "the sum of the zeroes",
+          "rule": "−b/a",
+          "work": "−(−4)/4",
+          "a": "4",
+          "b": "−4",
+          "c": "1"
+        },
+        "product": {
+          "value": "1/4",
+          "value_text": "1/4",
+          "what": "the product of the zeroes",
+          "rule": "c/a",
+          "work": "1/4",
+          "a": "4",
+          "b": "−4",
+          "c": "1"
+        }
+      }
+    },
+    {
+      "id": "p3",
+      "type": "choice",
+      "label": "(iii) 6x² − 3 − 7x",
+      "description": "Factorise (A) or the quadratic formula (B)",
+      "prompt": "(iii) Find the zeroes of 6x² − 3 − 7x.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p3",
+      "type": "method",
+      "label": "A: Factorisation",
+      "description": "Factorise, then set each factor equal to 0",
+      "prompt": "(iii) Factorise 6x² − 3 − 7x.",
+      "accept": [
+        "factorise",
+        "split the middle term"
+      ],
+      "hints": [],
+      "jev_description": "Factorisation of 6x² − 3 − 7x: 6x² − 7x − 3 = (2x − 3)(3x + 1)."
+    },
+    {
+      "id": "m1_p3_s1",
+      "type": "step",
+      "label": "6x² − 7x − 3 = 6x² − 9x + 2x − 3",
+      "description": "(iii) factorisation",
+      "prompt": "(iii) 6x² − 7x − 3 = 6x² − 9x + 2x − 3",
+      "accept": [
+        "6x² − 7x − 3 = 6x² − 9x + 2x − 3"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p3_s2",
+      "type": "step",
+      "label": "6x² − 7x − 3 = (2x − 3)(3x + 1)",
+      "description": "(iii) factorisation",
+      "prompt": "(iii) 6x² − 7x − 3 = (2x − 3)(3x + 1)",
+      "accept": [
+        "6x² − 7x − 3 = (2x − 3)(3x + 1)"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p3_s3",
+      "type": "step",
+      "label": "2x − 3 = 0 or 3x + 1 = 0",
+      "description": "(iii) factorisation",
+      "prompt": "(iii) 2x − 3 = 0 or 3x + 1 = 0",
+      "accept": [
+        "2x − 3 = 0 or 3x + 1 = 0"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p3",
+      "type": "method",
+      "label": "B: Quadratic Formula",
+      "description": "x = (−b ± √D) / 2a with D = b² − 4ac",
+      "prompt": "(iii) Use the quadratic formula on 6x² − 3 − 7x.",
+      "accept": [
+        "quadratic formula",
+        "discriminant"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic formula for 6x² − 3 − 7x: a = 6, b = −7, c = −3, D = b² − 4ac = (−7)² − 4(6)(−3) = 121."
+    },
+    {
+      "id": "m2_p3_s1",
+      "type": "step",
+      "label": "D = b² − 4ac = (−7)² − 4(6)(−3) = 121",
+      "description": "(iii) quadratic formula",
+      "prompt": "(iii) D = b² − 4ac = (−7)² − 4(6)(−3) = 121",
+      "accept": [
+        "D = b² − 4ac = (−7)² − 4(6)(−3) = 121"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p3_s2",
+      "type": "step",
+      "label": "x = (7 ± 11)/12",
+      "description": "(iii) quadratic formula",
+      "prompt": "(iii) x = (7 ± 11)/12",
+      "accept": [
+        "x = (7 ± 11)/12"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p3_zeroes",
+      "type": "step",
+      "label": "(iii) Zeroes of 6x² − 3 − 7x",
+      "description": "x = 3/2 or x = −1/3",
+      "prompt": "(iii) Find the zeroes of 6x² − 3 − 7x.",
+      "accept": [
+        "x = 3/2 or x = −1/3"
+      ],
+      "hints": [
+        "Find the values that make the polynomial 0: factorise it, or use the quadratic formula. Example: x² − 5x + 6 = (x − 2)(x − 3), so x = 2 or x = 3.",
+        "With the formula: for x² − 5x + 6, D = b² − 4ac = 25 − 24 = 1, so x = (5 ± 1)/2 = 3 or 2.",
+        "x = 3/2 or x = −1/3"
+      ],
+      "zeroes_of": {
+        "poly": "6*x**2 - 7*x - 3",
+        "var": "x"
+      },
+      "hints_by_method": {
+        "m1": [
+          "Split the middle term: find two numbers that multiply to a × c and add up to b. Example: for x² − 5x + 6, (−2) × (−3) = 6 and (−2) + (−3) = −5.",
+          "Example: x² − 5x + 6 = x² − 2x − 3x + 6 = (x − 2)(x − 3). Then set each factor equal to 0.",
+          "x = 3/2 or x = −1/3"
+        ],
+        "m2": [
+          "Work out D = b² − 4ac first. Example: for 2x² + x − 3, a = 2, b = 1, c = −3, so D = 1 + 24 = 25.",
+          "Then use x = (−b ± √D) / 2a. Example: x = (−1 ± 5)/4, so x = 1 or x = −3/2.",
+          "x = 3/2 or x = −1/3"
+        ]
+      }
+    },
+    {
+      "id": "p3_verify",
+      "type": "step",
+      "label": "(iii) Verify the Relationship",
+      "description": "α + β = 3/2 + (−1/3) = 7/6 = −(−7)/6; αβ = 3/2 × (−1/3) = −1/2 = −3/6",
+      "prompt": "(iii) Verify the relationship between the zeroes and the coefficients.",
+      "accept": [
+        "α + β = 3/2 + (−1/3) = 7/6 = −(−7)/6, αβ = 3/2 × (−1/3) = −1/2 = −3/6"
+      ],
+      "hints": [
+        "Look at the zeroes you found and the original polynomial. Do you notice any connection between the numbers? Think about how the factors produced the original expression.",
+        "Try expanding the factors again. Pay attention to how different terms combine. Can you explain where each coefficient comes from?",
+        "Example: x² − 5x + 6 = (x − 2)(x − 3), zeroes 2 and 3. Expanding: x² − 3x − 2x + 6, so the middle term is −(2 + 3)x and the constant is (−2) × (−3). Sum 2 + 3 = 5 = −(−5)/1 = −b/a; product 2 × 3 = 6 = 6/1 = c/a.",
+        "α + β = 3/2 + (−1/3) = 7/6 = −(−7)/6, αβ = 3/2 × (−1/3) = −1/2 = −3/6"
+      ],
+      "relation_of": {
+        "sum": {
+          "value": "7/6",
+          "value_text": "7/6",
+          "what": "the sum of the zeroes",
+          "rule": "−b/a",
+          "work": "−(−7)/6",
+          "a": "6",
+          "b": "−7",
+          "c": "−3"
+        },
+        "product": {
+          "value": "-1/2",
+          "value_text": "−1/2",
+          "what": "the product of the zeroes",
+          "rule": "c/a",
+          "work": "−3/6",
+          "a": "6",
+          "b": "−7",
+          "c": "−3"
+        }
+      }
+    },
+    {
+      "id": "p4",
+      "type": "choice",
+      "label": "(iv) 4u² + 8u",
+      "description": "Factorise (A) or the quadratic formula (B)",
+      "prompt": "(iv) Find the zeroes of 4u² + 8u.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p4",
+      "type": "method",
+      "label": "A: Factorisation",
+      "description": "Factorise, then set each factor equal to 0",
+      "prompt": "(iv) Factorise 4u² + 8u.",
+      "accept": [
+        "factorise",
+        "split the middle term"
+      ],
+      "hints": [],
+      "jev_description": "Factorisation of 4u² + 8u: 4u² + 8u = 4u(u + 2)."
+    },
+    {
+      "id": "m1_p4_s1",
+      "type": "step",
+      "label": "4u² + 8u = 4u(u + 2)",
+      "description": "(iv) factorisation",
+      "prompt": "(iv) 4u² + 8u = 4u(u + 2)",
+      "accept": [
+        "4u² + 8u = 4u(u + 2)"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p4_s2",
+      "type": "step",
+      "label": "4u = 0 or u + 2 = 0",
+      "description": "(iv) factorisation",
+      "prompt": "(iv) 4u = 0 or u + 2 = 0",
+      "accept": [
+        "4u = 0 or u + 2 = 0"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p4",
+      "type": "method",
+      "label": "B: Quadratic Formula",
+      "description": "u = (−b ± √D) / 2a with D = b² − 4ac",
+      "prompt": "(iv) Use the quadratic formula on 4u² + 8u.",
+      "accept": [
+        "quadratic formula",
+        "discriminant"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic formula for 4u² + 8u: a = 4, b = 8, c = 0, D = b² − 4ac = 8² − 4(4)(0) = 64."
+    },
+    {
+      "id": "m2_p4_s1",
+      "type": "step",
+      "label": "D = b² − 4ac = 8² − 4(4)(0) = 64",
+      "description": "(iv) quadratic formula",
+      "prompt": "(iv) D = b² − 4ac = 8² − 4(4)(0) = 64",
+      "accept": [
+        "D = b² − 4ac = 8² − 4(4)(0) = 64"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p4_s2",
+      "type": "step",
+      "label": "u = (−8 ± 8)/8",
+      "description": "(iv) quadratic formula",
+      "prompt": "(iv) u = (−8 ± 8)/8",
+      "accept": [
+        "u = (−8 ± 8)/8"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p4_zeroes",
+      "type": "step",
+      "label": "(iv) Zeroes of 4u² + 8u",
+      "description": "u = 0 or u = −2",
+      "prompt": "(iv) Find the zeroes of 4u² + 8u.",
+      "accept": [
+        "u = 0 or u = −2"
+      ],
+      "hints": [
+        "Find the values that make the polynomial 0: factorise it, or use the quadratic formula. Example: x² − 5x + 6 = (x − 2)(x − 3), so x = 2 or x = 3.",
+        "With the formula: for x² − 5x + 6, D = b² − 4ac = 25 − 24 = 1, so x = (5 ± 1)/2 = 3 or 2.",
+        "u = 0 or u = −2"
+      ],
+      "zeroes_of": {
+        "poly": "4*u**2 + 8*u",
+        "var": "u"
+      },
+      "hints_by_method": {
+        "m1": [
+          "Do both terms have a common factor? Example: 5y² − 10y = 5y(y − 2).",
+          "Example: 5y(y − 2) = 0 gives 5y = 0 or y − 2 = 0, so y = 0 or y = 2.",
+          "u = 0 or u = −2"
+        ],
+        "m2": [
+          "Work out D = b² − 4ac first. Example: for 2x² + x − 3, a = 2, b = 1, c = −3, so D = 1 + 24 = 25.",
+          "Then use x = (−b ± √D) / 2a. Example: x = (−1 ± 5)/4, so x = 1 or x = −3/2.",
+          "u = 0 or u = −2"
+        ]
+      }
+    },
+    {
+      "id": "p4_verify",
+      "type": "step",
+      "label": "(iv) Verify the Relationship",
+      "description": "α + β = 0 + (−2) = −2 = −8/4; αβ = 0 × (−2) = 0 = 0/4",
+      "prompt": "(iv) Verify the relationship between the zeroes and the coefficients.",
+      "accept": [
+        "α + β = 0 + (−2) = −2 = −8/4, αβ = 0 × (−2) = 0 = 0/4"
+      ],
+      "hints": [
+        "Look at the zeroes you found and the original polynomial. Do you notice any connection between the numbers? Think about how the factors produced the original expression.",
+        "Try expanding the factors again. Pay attention to how different terms combine. Can you explain where each coefficient comes from?",
+        "Example: x² − 5x + 6 = (x − 2)(x − 3), zeroes 2 and 3. Expanding: x² − 3x − 2x + 6, so the middle term is −(2 + 3)x and the constant is (−2) × (−3). Sum 2 + 3 = 5 = −(−5)/1 = −b/a; product 2 × 3 = 6 = 6/1 = c/a.",
+        "α + β = 0 + (−2) = −2 = −8/4, αβ = 0 × (−2) = 0 = 0/4"
+      ],
+      "relation_of": {
+        "sum": {
+          "value": "-2",
+          "value_text": "−2",
+          "what": "the sum of the zeroes",
+          "rule": "−b/a",
+          "work": "−8/4",
+          "a": "4",
+          "b": "8",
+          "c": "0"
+        },
+        "product": {
+          "value": "0",
+          "value_text": "0",
+          "what": "the product of the zeroes",
+          "rule": "c/a",
+          "work": "0/4",
+          "a": "4",
+          "b": "8",
+          "c": "0"
+        }
+      }
+    },
+    {
+      "id": "p5",
+      "type": "choice",
+      "label": "(v) t² − 15",
+      "description": "Factorise (A) or the quadratic formula (B)",
+      "prompt": "(v) Find the zeroes of t² − 15.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p5",
+      "type": "method",
+      "label": "A: Factorisation",
+      "description": "Factorise, then set each factor equal to 0",
+      "prompt": "(v) Factorise t² − 15.",
+      "accept": [
+        "factorise",
+        "split the middle term"
+      ],
+      "hints": [],
+      "jev_description": "Factorisation of t² − 15: t² − 15 = (t − √15)(t + √15)."
+    },
+    {
+      "id": "m1_p5_s1",
+      "type": "step",
+      "label": "t² − 15 = t² − (√15)²",
+      "description": "(v) factorisation",
+      "prompt": "(v) t² − 15 = t² − (√15)²",
+      "accept": [
+        "t² − 15 = t² − (√15)²"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p5_s2",
+      "type": "step",
+      "label": "t² − 15 = (t − √15)(t + √15)",
+      "description": "(v) factorisation",
+      "prompt": "(v) t² − 15 = (t − √15)(t + √15)",
+      "accept": [
+        "t² − 15 = (t − √15)(t + √15)"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p5_s3",
+      "type": "step",
+      "label": "t − √15 = 0 or t + √15 = 0",
+      "description": "(v) factorisation",
+      "prompt": "(v) t − √15 = 0 or t + √15 = 0",
+      "accept": [
+        "t − √15 = 0 or t + √15 = 0"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p5",
+      "type": "method",
+      "label": "B: Quadratic Formula",
+      "description": "t = (−b ± √D) / 2a with D = b² − 4ac",
+      "prompt": "(v) Use the quadratic formula on t² − 15.",
+      "accept": [
+        "quadratic formula",
+        "discriminant"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic formula for t² − 15: a = 1, b = 0, c = −15, D = b² − 4ac = 0² − 4(1)(−15) = 60."
+    },
+    {
+      "id": "m2_p5_s1",
+      "type": "step",
+      "label": "D = b² − 4ac = 0² − 4(1)(−15) = 60",
+      "description": "(v) quadratic formula",
+      "prompt": "(v) D = b² − 4ac = 0² − 4(1)(−15) = 60",
+      "accept": [
+        "D = b² − 4ac = 0² − 4(1)(−15) = 60"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p5_s2",
+      "type": "step",
+      "label": "t = ±√60/2 = ±√15",
+      "description": "(v) quadratic formula",
+      "prompt": "(v) t = ±√60/2 = ±√15",
+      "accept": [
+        "t = ±√60/2 = ±√15"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p5_zeroes",
+      "type": "step",
+      "label": "(v) Zeroes of t² − 15",
+      "description": "t = √15 or t = −√15",
+      "prompt": "(v) Find the zeroes of t² − 15.",
+      "accept": [
+        "t = √15 or t = −√15"
+      ],
+      "hints": [
+        "Find the values that make the polynomial 0: factorise it, or use the quadratic formula. Example: x² − 5x + 6 = (x − 2)(x − 3), so x = 2 or x = 3.",
+        "With the formula: for x² − 5x + 6, D = b² − 4ac = 25 − 24 = 1, so x = (5 ± 1)/2 = 3 or 2.",
+        "t = √15 or t = −√15"
+      ],
+      "zeroes_of": {
+        "poly": "t**2 - 15",
+        "var": "t"
+      },
+      "hints_by_method": {
+        "m1": [
+          "Write it as a difference of two squares: a² − b² = (a − b)(a + b). Example: x² − 7 = x² − (√7)².",
+          "Example: x² − 7 = (x − √7)(x + √7), so x = √7 or x = −√7.",
+          "t = √15 or t = −√15"
+        ],
+        "m2": [
+          "Work out D = b² − 4ac first. Example: for 2x² + x − 3, a = 2, b = 1, c = −3, so D = 1 + 24 = 25.",
+          "Then use x = (−b ± √D) / 2a. Example: x = (−1 ± 5)/4, so x = 1 or x = −3/2.",
+          "t = √15 or t = −√15"
+        ]
+      }
+    },
+    {
+      "id": "p5_verify",
+      "type": "step",
+      "label": "(v) Verify the Relationship",
+      "description": "α + β = √15 + (−√15) = 0 = −0/1; αβ = √15 × (−√15) = −15 = −15/1",
+      "prompt": "(v) Verify the relationship between the zeroes and the coefficients.",
+      "accept": [
+        "α + β = √15 + (−√15) = 0 = −0/1, αβ = √15 × (−√15) = −15 = −15/1"
+      ],
+      "hints": [
+        "Look at the zeroes you found and the original polynomial. Do you notice any connection between the numbers? Think about how the factors produced the original expression.",
+        "Try expanding the factors again. Pay attention to how different terms combine. Can you explain where each coefficient comes from?",
+        "Example: x² − 5x + 6 = (x − 2)(x − 3), zeroes 2 and 3. Expanding: x² − 3x − 2x + 6, so the middle term is −(2 + 3)x and the constant is (−2) × (−3). Sum 2 + 3 = 5 = −(−5)/1 = −b/a; product 2 × 3 = 6 = 6/1 = c/a.",
+        "α + β = √15 + (−√15) = 0 = −0/1, αβ = √15 × (−√15) = −15 = −15/1"
+      ],
+      "relation_of": {
+        "sum": {
+          "value": "0",
+          "value_text": "0",
+          "what": "the sum of the zeroes",
+          "rule": "−b/a",
+          "work": "−0/1",
+          "a": "1",
+          "b": "0",
+          "c": "−15"
+        },
+        "product": {
+          "value": "-15",
+          "value_text": "−15",
+          "what": "the product of the zeroes",
+          "rule": "c/a",
+          "work": "−15/1",
+          "a": "1",
+          "b": "0",
+          "c": "−15"
+        }
+      }
+    },
+    {
+      "id": "p6",
+      "type": "choice",
+      "label": "(vi) 3x² − x − 4",
+      "description": "Factorise (A) or the quadratic formula (B)",
+      "prompt": "(vi) Find the zeroes of 3x² − x − 4.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p6",
+      "type": "method",
+      "label": "A: Factorisation",
+      "description": "Factorise, then set each factor equal to 0",
+      "prompt": "(vi) Factorise 3x² − x − 4.",
+      "accept": [
+        "factorise",
+        "split the middle term"
+      ],
+      "hints": [],
+      "jev_description": "Factorisation of 3x² − x − 4: 3x² − x − 4 = (3x − 4)(x + 1)."
+    },
+    {
+      "id": "m1_p6_s1",
+      "type": "step",
+      "label": "3x² − x − 4 = 3x² − 4x + 3x − 4",
+      "description": "(vi) factorisation",
+      "prompt": "(vi) 3x² − x − 4 = 3x² − 4x + 3x − 4",
+      "accept": [
+        "3x² − x − 4 = 3x² − 4x + 3x − 4"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p6_s2",
+      "type": "step",
+      "label": "3x² − x − 4 = (3x − 4)(x + 1)",
+      "description": "(vi) factorisation",
+      "prompt": "(vi) 3x² − x − 4 = (3x − 4)(x + 1)",
+      "accept": [
+        "3x² − x − 4 = (3x − 4)(x + 1)"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p6_s3",
+      "type": "step",
+      "label": "3x − 4 = 0 or x + 1 = 0",
+      "description": "(vi) factorisation",
+      "prompt": "(vi) 3x − 4 = 0 or x + 1 = 0",
+      "accept": [
+        "3x − 4 = 0 or x + 1 = 0"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p6",
+      "type": "method",
+      "label": "B: Quadratic Formula",
+      "description": "x = (−b ± √D) / 2a with D = b² − 4ac",
+      "prompt": "(vi) Use the quadratic formula on 3x² − x − 4.",
+      "accept": [
+        "quadratic formula",
+        "discriminant"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic formula for 3x² − x − 4: a = 3, b = −1, c = −4, D = b² − 4ac = (−1)² − 4(3)(−4) = 49."
+    },
+    {
+      "id": "m2_p6_s1",
+      "type": "step",
+      "label": "D = b² − 4ac = (−1)² − 4(3)(−4) = 49",
+      "description": "(vi) quadratic formula",
+      "prompt": "(vi) D = b² − 4ac = (−1)² − 4(3)(−4) = 49",
+      "accept": [
+        "D = b² − 4ac = (−1)² − 4(3)(−4) = 49"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p6_s2",
+      "type": "step",
+      "label": "x = (1 ± 7)/6",
+      "description": "(vi) quadratic formula",
+      "prompt": "(vi) x = (1 ± 7)/6",
+      "accept": [
+        "x = (1 ± 7)/6"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p6_zeroes",
+      "type": "step",
+      "label": "(vi) Zeroes of 3x² − x − 4",
+      "description": "x = 4/3 or x = −1",
+      "prompt": "(vi) Find the zeroes of 3x² − x − 4.",
+      "accept": [
+        "x = 4/3 or x = −1"
+      ],
+      "hints": [
+        "Find the values that make the polynomial 0: factorise it, or use the quadratic formula. Example: x² − 5x + 6 = (x − 2)(x − 3), so x = 2 or x = 3.",
+        "With the formula: for x² − 5x + 6, D = b² − 4ac = 25 − 24 = 1, so x = (5 ± 1)/2 = 3 or 2.",
+        "x = 4/3 or x = −1"
+      ],
+      "zeroes_of": {
+        "poly": "3*x**2 - x - 4",
+        "var": "x"
+      },
+      "hints_by_method": {
+        "m1": [
+          "Split the middle term: find two numbers that multiply to a × c and add up to b. Example: for x² − 5x + 6, (−2) × (−3) = 6 and (−2) + (−3) = −5.",
+          "Example: x² − 5x + 6 = x² − 2x − 3x + 6 = (x − 2)(x − 3). Then set each factor equal to 0.",
+          "x = 4/3 or x = −1"
+        ],
+        "m2": [
+          "Work out D = b² − 4ac first. Example: for 2x² + x − 3, a = 2, b = 1, c = −3, so D = 1 + 24 = 25.",
+          "Then use x = (−b ± √D) / 2a. Example: x = (−1 ± 5)/4, so x = 1 or x = −3/2.",
+          "x = 4/3 or x = −1"
+        ]
+      }
+    },
+    {
+      "id": "p6_verify",
+      "type": "step",
+      "label": "(vi) Verify the Relationship",
+      "description": "α + β = 4/3 + (−1) = 1/3 = −(−1)/3; αβ = 4/3 × (−1) = −4/3 = −4/3",
+      "prompt": "(vi) Verify the relationship between the zeroes and the coefficients.",
+      "accept": [
+        "α + β = 4/3 + (−1) = 1/3 = −(−1)/3, αβ = 4/3 × (−1) = −4/3 = −4/3"
+      ],
+      "hints": [
+        "Look at the zeroes you found and the original polynomial. Do you notice any connection between the numbers? Think about how the factors produced the original expression.",
+        "Try expanding the factors again. Pay attention to how different terms combine. Can you explain where each coefficient comes from?",
+        "Example: x² − 5x + 6 = (x − 2)(x − 3), zeroes 2 and 3. Expanding: x² − 3x − 2x + 6, so the middle term is −(2 + 3)x and the constant is (−2) × (−3). Sum 2 + 3 = 5 = −(−5)/1 = −b/a; product 2 × 3 = 6 = 6/1 = c/a.",
+        "α + β = 4/3 + (−1) = 1/3 = −(−1)/3, αβ = 4/3 × (−1) = −4/3 = −4/3"
+      ],
+      "relation_of": {
+        "sum": {
+          "value": "1/3",
+          "value_text": "1/3",
+          "what": "the sum of the zeroes",
+          "rule": "−b/a",
+          "work": "−(−1)/3",
+          "a": "3",
+          "b": "−1",
+          "c": "−4"
+        },
+        "product": {
+          "value": "-4/3",
+          "value_text": "−4/3",
+          "what": "the product of the zeroes",
+          "rule": "c/a",
+          "work": "−4/3",
+          "a": "3",
+          "b": "−1",
+          "c": "−4"
+        }
+      }
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "For every polynomial: α + β = −b/a and αβ = c/a",
+      "prompt": "All six are done. In one line: how are the zeroes related to the coefficients?",
+      "accept": [
+        "sum of zeroes = −b/a and product of zeroes = c/a",
+        "α + β = −b/a, αβ = c/a"
+      ],
+      "hints": [
+        "Look at your checks for the sums and the products.",
+        "One relation for the sum, one for the product.",
+        "α + β = −b/a and αβ = c/a"
+      ],
+      "keywords": [
+        "b/a",
+        "c/a"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "What Is Given"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "What We Need to Find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "method_choice",
+      "label": "Describe the Plan"
+    },
+    {
+      "from": "method_choice",
+      "to": "p1",
+      "label": "(i) x² − 2x − 8"
+    },
+    {
+      "from": "p1",
+      "to": "m1_p1",
+      "label": "A: Factorisation"
+    },
+    {
+      "from": "m1_p1",
+      "to": "m1_p1_s1",
+      "label": "x² − 2x − 8 = x² − 4x + 2x − 8"
+    },
+    {
+      "from": "m1_p1_s1",
+      "to": "m1_p1_s2",
+      "label": "x² − 2x − 8 = (x − 4)(x + 2)"
+    },
+    {
+      "from": "m1_p1_s2",
+      "to": "m1_p1_s3",
+      "label": "x − 4 = 0 or x + 2 = 0"
+    },
+    {
+      "from": "m1_p1_s3",
+      "to": "p1_zeroes",
+      "label": "(i) Zeroes of x² − 2x − 8"
+    },
+    {
+      "from": "p1",
+      "to": "m2_p1",
+      "label": "B: Quadratic Formula"
+    },
+    {
+      "from": "m2_p1",
+      "to": "m2_p1_s1",
+      "label": "D = b² − 4ac = (−2)² − 4(1)(−8) = 36"
+    },
+    {
+      "from": "m2_p1_s1",
+      "to": "m2_p1_s2",
+      "label": "x = (2 ± 6)/2"
+    },
+    {
+      "from": "m2_p1_s2",
+      "to": "p1_zeroes",
+      "label": "(i) Zeroes of x² − 2x − 8"
+    },
+    {
+      "from": "p1_zeroes",
+      "to": "p1_verify",
+      "label": "(i) Verify the Relationship"
+    },
+    {
+      "from": "p1_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p2",
+      "label": "(ii) 4s² − 4s + 1"
+    },
+    {
+      "from": "p2",
+      "to": "m1_p2",
+      "label": "A: Factorisation"
+    },
+    {
+      "from": "m1_p2",
+      "to": "m1_p2_s1",
+      "label": "4s² − 4s + 1 = 4s² − 2s − 2s + 1"
+    },
+    {
+      "from": "m1_p2_s1",
+      "to": "m1_p2_s2",
+      "label": "4s² − 4s + 1 = (2s − 1)(2s − 1)"
+    },
+    {
+      "from": "m1_p2_s2",
+      "to": "m1_p2_s3",
+      "label": "2s − 1 = 0"
+    },
+    {
+      "from": "m1_p2_s3",
+      "to": "p2_zeroes",
+      "label": "(ii) Zeroes of 4s² − 4s + 1"
+    },
+    {
+      "from": "p2",
+      "to": "m2_p2",
+      "label": "B: Quadratic Formula"
+    },
+    {
+      "from": "m2_p2",
+      "to": "m2_p2_s1",
+      "label": "D = b² − 4ac = (−4)² − 4(4)(1) = 0"
+    },
+    {
+      "from": "m2_p2_s1",
+      "to": "m2_p2_s2",
+      "label": "s = (4 ± 0)/8 = 1/2"
+    },
+    {
+      "from": "m2_p2_s2",
+      "to": "p2_zeroes",
+      "label": "(ii) Zeroes of 4s² − 4s + 1"
+    },
+    {
+      "from": "p2_zeroes",
+      "to": "p2_verify",
+      "label": "(ii) Verify the Relationship"
+    },
+    {
+      "from": "p2_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p3",
+      "label": "(iii) 6x² − 3 − 7x"
+    },
+    {
+      "from": "p3",
+      "to": "m1_p3",
+      "label": "A: Factorisation"
+    },
+    {
+      "from": "m1_p3",
+      "to": "m1_p3_s1",
+      "label": "6x² − 7x − 3 = 6x² − 9x + 2x − 3"
+    },
+    {
+      "from": "m1_p3_s1",
+      "to": "m1_p3_s2",
+      "label": "6x² − 7x − 3 = (2x − 3)(3x + 1)"
+    },
+    {
+      "from": "m1_p3_s2",
+      "to": "m1_p3_s3",
+      "label": "2x − 3 = 0 or 3x + 1 = 0"
+    },
+    {
+      "from": "m1_p3_s3",
+      "to": "p3_zeroes",
+      "label": "(iii) Zeroes of 6x² − 3 − 7x"
+    },
+    {
+      "from": "p3",
+      "to": "m2_p3",
+      "label": "B: Quadratic Formula"
+    },
+    {
+      "from": "m2_p3",
+      "to": "m2_p3_s1",
+      "label": "D = b² − 4ac = (−7)² − 4(6)(−3) = 121"
+    },
+    {
+      "from": "m2_p3_s1",
+      "to": "m2_p3_s2",
+      "label": "x = (7 ± 11)/12"
+    },
+    {
+      "from": "m2_p3_s2",
+      "to": "p3_zeroes",
+      "label": "(iii) Zeroes of 6x² − 3 − 7x"
+    },
+    {
+      "from": "p3_zeroes",
+      "to": "p3_verify",
+      "label": "(iii) Verify the Relationship"
+    },
+    {
+      "from": "p3_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p4",
+      "label": "(iv) 4u² + 8u"
+    },
+    {
+      "from": "p4",
+      "to": "m1_p4",
+      "label": "A: Factorisation"
+    },
+    {
+      "from": "m1_p4",
+      "to": "m1_p4_s1",
+      "label": "4u² + 8u = 4u(u + 2)"
+    },
+    {
+      "from": "m1_p4_s1",
+      "to": "m1_p4_s2",
+      "label": "4u = 0 or u + 2 = 0"
+    },
+    {
+      "from": "m1_p4_s2",
+      "to": "p4_zeroes",
+      "label": "(iv) Zeroes of 4u² + 8u"
+    },
+    {
+      "from": "p4",
+      "to": "m2_p4",
+      "label": "B: Quadratic Formula"
+    },
+    {
+      "from": "m2_p4",
+      "to": "m2_p4_s1",
+      "label": "D = b² − 4ac = 8² − 4(4)(0) = 64"
+    },
+    {
+      "from": "m2_p4_s1",
+      "to": "m2_p4_s2",
+      "label": "u = (−8 ± 8)/8"
+    },
+    {
+      "from": "m2_p4_s2",
+      "to": "p4_zeroes",
+      "label": "(iv) Zeroes of 4u² + 8u"
+    },
+    {
+      "from": "p4_zeroes",
+      "to": "p4_verify",
+      "label": "(iv) Verify the Relationship"
+    },
+    {
+      "from": "p4_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p5",
+      "label": "(v) t² − 15"
+    },
+    {
+      "from": "p5",
+      "to": "m1_p5",
+      "label": "A: Factorisation"
+    },
+    {
+      "from": "m1_p5",
+      "to": "m1_p5_s1",
+      "label": "t² − 15 = t² − (√15)²"
+    },
+    {
+      "from": "m1_p5_s1",
+      "to": "m1_p5_s2",
+      "label": "t² − 15 = (t − √15)(t + √15)"
+    },
+    {
+      "from": "m1_p5_s2",
+      "to": "m1_p5_s3",
+      "label": "t − √15 = 0 or t + √15 = 0"
+    },
+    {
+      "from": "m1_p5_s3",
+      "to": "p5_zeroes",
+      "label": "(v) Zeroes of t² − 15"
+    },
+    {
+      "from": "p5",
+      "to": "m2_p5",
+      "label": "B: Quadratic Formula"
+    },
+    {
+      "from": "m2_p5",
+      "to": "m2_p5_s1",
+      "label": "D = b² − 4ac = 0² − 4(1)(−15) = 60"
+    },
+    {
+      "from": "m2_p5_s1",
+      "to": "m2_p5_s2",
+      "label": "t = ±√60/2 = ±√15"
+    },
+    {
+      "from": "m2_p5_s2",
+      "to": "p5_zeroes",
+      "label": "(v) Zeroes of t² − 15"
+    },
+    {
+      "from": "p5_zeroes",
+      "to": "p5_verify",
+      "label": "(v) Verify the Relationship"
+    },
+    {
+      "from": "p5_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p6",
+      "label": "(vi) 3x² − x − 4"
+    },
+    {
+      "from": "p6",
+      "to": "m1_p6",
+      "label": "A: Factorisation"
+    },
+    {
+      "from": "m1_p6",
+      "to": "m1_p6_s1",
+      "label": "3x² − x − 4 = 3x² − 4x + 3x − 4"
+    },
+    {
+      "from": "m1_p6_s1",
+      "to": "m1_p6_s2",
+      "label": "3x² − x − 4 = (3x − 4)(x + 1)"
+    },
+    {
+      "from": "m1_p6_s2",
+      "to": "m1_p6_s3",
+      "label": "3x − 4 = 0 or x + 1 = 0"
+    },
+    {
+      "from": "m1_p6_s3",
+      "to": "p6_zeroes",
+      "label": "(vi) Zeroes of 3x² − x − 4"
+    },
+    {
+      "from": "p6",
+      "to": "m2_p6",
+      "label": "B: Quadratic Formula"
+    },
+    {
+      "from": "m2_p6",
+      "to": "m2_p6_s1",
+      "label": "D = b² − 4ac = (−1)² − 4(3)(−4) = 49"
+    },
+    {
+      "from": "m2_p6_s1",
+      "to": "m2_p6_s2",
+      "label": "x = (1 ± 7)/6"
+    },
+    {
+      "from": "m2_p6_s2",
+      "to": "p6_zeroes",
+      "label": "(vi) Zeroes of 3x² − x − 4"
+    },
+    {
+      "from": "p6_zeroes",
+      "to": "p6_verify",
+      "label": "(vi) Verify the Relationship"
+    },
+    {
+      "from": "p6_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    }
+  ]
+}

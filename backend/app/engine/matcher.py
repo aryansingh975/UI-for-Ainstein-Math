@@ -6,6 +6,11 @@ from app.engine.normalizer import normalize_text, strip_connecting_words
 from app.engine.vocabulary import has_irrelevant_words
 
 
+def _plus_minus(text: str) -> List[str]:
+    """The + and − between numbers, in order (a leading or bracketed minus sign is not an operator)."""
+    return ["+" if op == "+" else "-" for op in re.findall(r"(?<=[\d)\s])\s*([+\-−–])\s*(?=[\d(])", text)]
+
+
 def matches_accept(raw_input: str, accepted_answer: str) -> bool:
     """Matches a raw student input against an accepted answer string."""
     normalized_input = normalize_text(raw_input)
@@ -59,7 +64,8 @@ def matches_accept(raw_input: str, accepted_answer: str) -> bool:
         has_op = bool(re.search(r"[/*=÷×]", normalized_input))
         if not has_op:
             return False
-        return True
+        # same numbers but "1 + 0.992" is not "1 - 0.992"
+        return _plus_minus(normalized_input) == _plus_minus(normalized_accepted)
 
     # Phrasing with connecting words stripped
     if re.search(r"[a-z]", normalized_accepted):

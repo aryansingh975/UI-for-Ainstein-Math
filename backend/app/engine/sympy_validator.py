@@ -135,8 +135,12 @@ def _same_solutions(expr, prob: Problem) -> bool:
 
 
 def _equal(u, v) -> bool:
+    """Exact equality, allowing for float rounding: 1 − 0.7 = 0.3 is true (but 2/3 = 0.67 is not)."""
     try:
-        return sp.simplify(u - v) == 0
+        d = sp.simplify(u - v)
+        if d == 0:
+            return True
+        return bool(d.is_number) and abs(float(d)) < 1e-9 * max(1.0, abs(float(u)), abs(float(v)))
     except Exception:
         return False
 
