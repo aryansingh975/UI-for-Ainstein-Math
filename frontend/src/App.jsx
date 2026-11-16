@@ -13,11 +13,10 @@ import {
 } from './api/tutorApi.js';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('workspace'); // 'workspace' | 'curriculum'
+  const [currentView, setCurrentView] = useState('curriculum'); // 'curriculum' (All Chapters) | 'workspace'
   const [isReviewingSteps, setIsReviewingSteps] = useState(false);
   const [selectedChapterId, setSelectedChapterId] = useState(AVAILABLE_CHAPTERS[0].id);
   const [showHint, setShowHint] = useState(false);
-  const [showFormulas, setShowFormulas] = useState(false);
   
   const currentChapter = useMemo(
     () => AVAILABLE_CHAPTERS.find((c) => c.id === selectedChapterId) || AVAILABLE_CHAPTERS[0],
@@ -86,6 +85,9 @@ export default function App() {
 
     try {
       const sessionData = await startTutorSession(targetUuid);
+      if (!sessionData.hint && Array.isArray(sessionData.hints) && sessionData.hints.length > 0) {
+        sessionData.hint = sessionData.hints[0];
+      }
       setSession(sessionData);
     } catch (err) {
       console.error('Error starting problem session:', err);
@@ -124,6 +126,9 @@ export default function App() {
     }
     try {
       const resetData = await resetTutorSession(session.session_id);
+      if (!resetData.hint && Array.isArray(resetData.hints) && resetData.hints.length > 0) {
+        resetData.hint = resetData.hints[0];
+      }
       setSession(resetData);
     } catch {
       handleLoadProblem();
@@ -211,6 +216,8 @@ export default function App() {
           active_node_id: stepData.active_node_id,
           active_label: stepData.active_label,
           prompt: stepData.next_prompt,
+          hint: stepData.hint || (stepData.hints && stepData.hints[0]) || prev?.hint,
+          hints: stepData.hints || prev?.hints,
           fail_streak: stepData.fail_streak,
           trail: stepData.trail || prev.trail,
           history: stepData.history || prev.history || [],
@@ -244,6 +251,8 @@ export default function App() {
           active_node_id: stepData.active_node_id,
           active_label: stepData.active_label,
           prompt: stepData.next_prompt,
+          hint: stepData.hint || (stepData.hints && stepData.hints[0]) || prev?.hint,
+          hints: stepData.hints || prev?.hints,
           fail_streak: stepData.fail_streak,
           trail: stepData.trail || prev.trail,
           history: stepData.history || prev.history || [],
@@ -269,22 +278,6 @@ export default function App() {
     }
   };
 
-  // Toggle and scroll to formula cheat sheet
-  const handleScrollToFormulas = () => {
-    if (currentView !== 'workspace') {
-      setCurrentView('workspace');
-    }
-    setShowFormulas((prev) => !prev);
-    setTimeout(() => {
-      const el = document.getElementById('formula-card');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        el.classList.add('ring-2', 'ring-indigo-400');
-        setTimeout(() => el.classList.remove('ring-2', 'ring-indigo-400'), 1500);
-      }
-    }, 50);
-  };
-
   const isCompleted = session?.completed || false;
 
   return (
@@ -293,30 +286,30 @@ export default function App() {
       {/* ============================================================== */}
       {/* TOP NAVIGATION HEADER (Studio Style)                           */}
       {/* ============================================================== */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-slate-200 shrink-0 sticky top-0 z-30 px-4 sm:px-8 py-2.5 flex items-center justify-between shadow-xs">
-        <div className="flex items-center gap-4">
+      <header className="bg-white/95 backdrop-blur-md border-b border-slate-200 shrink-0 sticky top-0 z-30 px-3 sm:px-6 py-2 flex items-center justify-between shadow-xs">
+        <div className="flex items-center gap-3">
           
           {/* App Brand & Grade Badge */}
           <div
             onClick={() => setCurrentView('curriculum')}
-            className="flex items-center gap-2.5 cursor-pointer group"
+            className="flex items-center gap-2 cursor-pointer group"
             title="Open Curriculum Hub / Main Menu"
           >
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-indigo-900 to-indigo-700 bg-clip-text text-transparent">
+                <span className="text-base font-extrabold tracking-tight bg-gradient-to-r from-indigo-900 to-indigo-700 bg-clip-text text-transparent">
                   AInstein
                 </span>
-                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/60">
+                <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/60">
                   {currentChapter.grade ? `Class ${currentChapter.grade}` : 'Class 8'}
                 </span>
               </div>
-              <p className="text-[11px] font-medium text-slate-400">Think · Explore · Understand</p>
+              <p className="text-[10px] font-medium text-slate-400">Think · Explore · Understand</p>
             </div>
           </div>
 
@@ -353,35 +346,6 @@ export default function App() {
         <div className="flex items-center gap-2.5">
           <button
             type="button"
-            onClick={() => setShowHint((prev) => !prev)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all shadow-xs cursor-pointer ${
-              showHint
-                ? 'bg-amber-500 text-white font-bold ring-2 ring-amber-300'
-                : 'bg-amber-50 text-amber-800 border border-amber-200/80 hover:bg-amber-100'
-            }`}
-            title="Toggle Socratic Hint"
-          >
-            <span>💡</span>
-            <span className="hidden sm:inline">Hints</span>
-            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold ${
-              showHint ? 'bg-white text-amber-600' : 'bg-amber-500 text-white'
-            }`}>
-              1
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={handleScrollToFormulas}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 hover:bg-indigo-100 transition-all shadow-xs cursor-pointer"
-            title="Jump to Useful Formulas"
-          >
-            <span>📖</span>
-            <span className="hidden sm:inline">Formulas</span>
-          </button>
-
-          <button
-            type="button"
             onClick={() => setCurrentView(currentView === 'curriculum' ? 'workspace' : 'curriculum')}
             className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all shadow-xs cursor-pointer ${
               currentView === 'curriculum'
@@ -416,7 +380,7 @@ export default function App() {
       {/* VIEW 1: FULL-PAGE CURRICULUM HUB (MAIN MENU)                   */}
       {/* ============================================================== */}
       {currentView === 'curriculum' && (
-        <main className="flex-1 max-w-[1720px] w-full mx-auto p-4 sm:p-6">
+        <main className="flex-1 min-h-0 max-w-[1720px] w-full mx-auto p-4 sm:p-6 overflow-y-auto custom-scrollbar">
           <CurriculumHubView
             chapters={AVAILABLE_CHAPTERS}
             solvedProblems={solvedProblems}
@@ -458,12 +422,12 @@ export default function App() {
               />
             </main>
           ) : (
-            <main className="flex-1 min-h-0 w-full max-w-[1720px] mx-auto p-3 sm:p-4 overflow-hidden flex flex-col">
+            <main className="flex-1 min-h-0 w-full max-w-[1720px] mx-auto p-2 sm:p-2.5 overflow-hidden flex flex-col">
               {/* Banner when reviewing a completed problem */}
               {isCompleted && isReviewingSteps && (
-                <div className="mb-3 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex flex-wrap items-center justify-between gap-3 shadow-xs shrink-0">
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-xl">🏆</span>
+                <div className="mb-2 p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex flex-wrap items-center justify-between gap-2 shadow-xs shrink-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">🏆</span>
                     <div>
                       <p className="text-xs font-bold text-emerald-950">Review Mode: Problem Socratically Solved!</p>
                       <p className="text-[11px] text-emerald-700">You are reviewing your verified ledger steps and conversation trail.</p>
@@ -488,11 +452,11 @@ export default function App() {
                 </div>
               )}
 
-              {/* 3-Column Socratic Studio Grid (Viewport-Fit: Zero Window Scroll) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-0 h-full items-stretch overflow-hidden">
+              {/* Unified 3-Panel Progressive Studio (Option 2: 0px Gap with 1px Border Dividers) */}
+              <div className="flex flex-col lg:flex-row flex-1 min-h-0 h-full items-stretch bg-white rounded-xl border border-slate-300 shadow-xs overflow-hidden">
                 
-                {/* COLUMN 1: Problem Context & Solution Plan (3 Cols) */}
-                <div className="lg:col-span-3 flex flex-col h-full min-h-0 overflow-hidden">
+                {/* COLUMN 1: Problem Context & Solution Plan (Slim 200px, 1px Right Divider) */}
+                <div className="w-full lg:w-[200px] lg:shrink-0 flex flex-col h-full min-h-0 overflow-hidden lg:border-r border-slate-200 p-2.5 bg-slate-50/40">
                   <ProblemRoadmapPanel
                     chapter={currentChapter}
                     problem={currentProblem}
@@ -500,36 +464,24 @@ export default function App() {
                     isCompleted={isCompleted}
                     totalProblems={totalProblems}
                     problemIndex={currentProblemIndex + 1}
-                    formulasOpen={showFormulas}
-                    onToggleFormulas={() => setShowFormulas((prev) => !prev)}
                   />
                 </div>
 
-                {/* COLUMN 2: Live Solution Notebook (5 Cols) */}
-                <div className="lg:col-span-5 flex flex-col h-full min-h-0 overflow-hidden">
+                {/* COLUMNS 2 & 3: Progressive Solution Notebook Studio (flex-1) + Ainstein Feed (290px) */}
+                <div className="flex-1 min-w-0 flex flex-col h-full min-h-0 overflow-hidden">
                   <LiveSolutionNotebook
                     chapter={currentChapter}
                     problem={currentProblem}
                     session={session}
                     isCompleted={isCompleted}
-                  />
-                </div>
-
-                {/* COLUMN 3: Socratic Dialogue Stream (4 Cols) */}
-                <div className="lg:col-span-4 flex flex-col h-full min-h-0 overflow-hidden">
-                  <SocraticChatStream
-                    session={session}
-                    chapter={currentChapter}
-                    history={session?.history || []}
-                    stepResult={stepResult}
-                    jevMessage={jevMessage}
                     input={input}
                     onInputChange={setInput}
                     onCheckStep={handleCheckStep}
                     onResetProblem={handleResetProblem}
                     isChecking={isChecking}
                     checkButtonText={checkButtonText}
-                    isCompleted={isCompleted}
+                    stepResult={stepResult}
+                    jevMessage={jevMessage}
                     showHint={showHint}
                     onToggleHint={() => setShowHint((prev) => !prev)}
                   />

@@ -31,7 +31,7 @@ export default function CurriculumHubView({
   }, [chapters, activeChapterId]);
 
   return (
-    <div className="p-6 fade-in space-y-6">
+    <div className="p-6 pb-20 fade-in space-y-6">
       {/* Top Header of Main Menu */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-slate-200">
         <div>

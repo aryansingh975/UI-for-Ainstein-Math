@@ -29,3 +29,6 @@ logs/
 # Secrets
 .env
 .claude/
+
+# Temporary scratch files
+scratch/

@@ -402,6 +402,11 @@ def find_step_in_other_methods(
 ) -> Optional[Dict[str, Any]]:
     """Problem 4: Check if input matches a step in a method different from the active one.
     Crucial: If the input matches ANY step in the current method (present or future), it is NOT an other-method step."""
+    # Generic short affirmations/words should never trigger cross-method jumps
+    generic_words = {"yes", "no", "true", "false", "ok", "yep", "yeah"}
+    if parsed.normalized in generic_words:
+        return None
+
     current_steps = [
         n for n in graph.nodes
         if n.type == "step" and method_for_node(n.id, graph) == current_method_id
