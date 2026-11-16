@@ -1,0 +1,443 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh110-ex-10-2-q7",
+    "problem_uuid": "g10-jemh110-ex-10-2-q7",
+    "problem_text": "Two concentric circles are of radii 5 cm and 3 cm. Find the length of the chord of the larger circle which touches the smaller circle.",
+    "equation": "x**2 + 3**2 = 5**2",
+    "variable": "x",
+    "use_jev": true,
+    "sympy_can_finish": false,
+    "sympy_note": "x is half the chord, AP. sympy_can_finish is false because finding x is not the final answer (the chord is 2x = 8), and x² = 16 also has the root −4; the conclusion node decides when the problem is solved.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for NCERT Ex 10.2 Q7 (chord of the larger of two concentric circles touching the smaller). Both methods start with Pythagoras in triangle OPA (OP ⊥ AB) and rearrange to x² = 5² − 3²; they differ at step 3: squaring and subtracting (25 − 9) or factorising as a difference of squares ((5 − 3)(5 + 3)). Then AP = 4 and AB = 2 × AP = 8.",
+    "created": "2026-11-01",
+    "total_methods": 2,
+    "total_nodes": 16,
+    "total_edges": 18,
+    "problem_context": {
+      "chapter": "10",
+      "topic": "Circles",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 10 Circles, Exercise 10.2, Q7"
+    },
+    "navigation_label": "Concentric Circles 5 cm and 3 cm: Length of the Chord"
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Two concentric circles are of radii 5 cm and 3 cm. Find the length of the chord of the larger circle which touches the smaller circle.",
+      "prompt": "Read the problem. The chord AB of the larger circle touches the smaller circle at P. Find the length of AB.",
+      "accept": [],
+      "hints": [
+        "Draw both circles with the same centre O and the chord AB touching the inner circle at P.",
+        "OP is perpendicular to AB, and the perpendicular from the centre bisects the chord.",
+        "Find AP with Pythagoras' theorem, then double it."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "Identify the Given Information",
+      "description": "Radius of the larger circle OA = 5 cm and of the smaller circle OP = 3 cm.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "radii 5 cm and 3 cm",
+        "OA = 5 and OP = 3",
+        "OA = 5 cm, OP = 3 cm",
+        "5 and 3",
+        "larger radius 5 cm, smaller radius 3 cm"
+      ],
+      "hints": [
+        "The larger circle has radius 5 cm.",
+        "The smaller circle has radius 3 cm."
+      ],
+      "optional": true
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "Identify the Goal",
+      "description": "Find the length of the chord AB.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "length of the chord",
+        "find the chord",
+        "chord",
+        "AB",
+        "find AB"
+      ],
+      "hints": [
+        "We need the length of the chord AB of the larger circle."
+      ],
+      "optional": true
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "chord = 8 cm",
+      "prompt": "State your final answer: how long is the chord?",
+      "accept": [
+        "the chord is 8 cm",
+        "chord = 8 cm",
+        "the length of the chord is 8 cm",
+        "AB = 8 cm",
+        "length of chord = 8 cm",
+        "8 cm",
+        "chord = 8",
+        "8"
+      ],
+      "hints": [
+        "AP = 4 cm and P is the midpoint of AB.",
+        "AB = 2 × 4 = 8.",
+        "The chord is 8 cm long."
+      ]
+    },
+    {
+      "id": "m1_subtract",
+      "type": "method",
+      "label": "Method 1: Square and Subtract",
+      "description": "Use Pythagoras' theorem, square and subtract: x² = 25 − 9 = 16, so AP = 4 and AB = 8.",
+      "prompt": "Choose a method to find x² = 5² − 3²: square and subtract, or use the difference of two squares.",
+      "accept": [
+        "square and subtract",
+        "subtract the squares",
+        "squaring",
+        "25 - 9",
+        "25 − 9"
+      ],
+      "hints": [
+        "Work out 5² and 3² first.",
+        "5² = 25 and 3² = 9.",
+        "Subtract: 25 − 9."
+      ],
+      "jev_description": "Square and subtract. Steps: (1) OP ⊥ AB so x^2 + 3^2 = 5^2 with x = AP, (2) x^2 = 5^2 - 3^2, (3) square and subtract: x^2 = 25 - 9 = 16, (4) x = 4, (5) AB = 2 × 4 = 8. Steps 1-2 are the same as the difference-of-squares method; computing 25 - 9 is what identifies this method."
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Right angle at the point of contact",
+      "description": "The chord AB touches the smaller circle at P, so OP = 3 cm is perpendicular to AB and P is the midpoint of AB. In triangle OPA: AP² + OP² = OA², i.e. x² + 3² = 5² with AP = x.",
+      "prompt": "OP is perpendicular to the chord AB. Let AP = x. Write Pythagoras' theorem for triangle OPA.",
+      "accept": [
+        "x^2 + 3^2 = 5^2",
+        "x² + 3² = 5²",
+        "x^2+3^2=5^2",
+        "AP^2 + OP^2 = OA^2",
+        "AP² + OP² = OA²",
+        "AP^2 + 3^2 = 5^2",
+        "x^2 + 9 = 25"
+      ],
+      "hints": [
+        "AB is a tangent to the smaller circle at P, so OP ⊥ AB.",
+        "OA is a radius of the larger circle (5 cm) and OP of the smaller one (3 cm).",
+        "x² + 3² = 5²"
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Make x² the subject",
+      "description": "Subtract 3² from both sides: x² = 5² − 3².",
+      "prompt": "Rearrange to get x² on its own. What is x² equal to?",
+      "accept": [
+        "x^2 = 5^2 - 3^2",
+        "x² = 5² − 3²",
+        "x^2=5^2-3^2",
+        "AP^2 = OA^2 - OP^2",
+        "AP^2 = 5^2 - 3^2"
+      ],
+      "hints": [
+        "Move 3² to the other side.",
+        "Its sign changes from + to −.",
+        "x² = 5² − 3²"
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Square and subtract",
+      "description": "5² = 25 and 3² = 9, so x² = 25 − 9 = 16.",
+      "prompt": "Work out 5² and 3², then subtract. What is x²?",
+      "accept": [
+        "x^2 = 25 - 9",
+        "x² = 25 − 9",
+        "25 - 9 = 16",
+        "x^2 = 25 - 9 = 16",
+        "x^2 = 16",
+        "x² = 16",
+        "AP^2 = 16"
+      ],
+      "hints": [
+        "5 × 5 = 25",
+        "3 × 3 = 9",
+        "25 − 9 = 16"
+      ]
+    },
+    {
+      "id": "m1_s4",
+      "type": "step",
+      "label": "Take the square root",
+      "description": "x = √16 = 4, so AP = 4 cm.",
+      "prompt": "Take the square root. What is AP?",
+      "accept": [
+        "x = 4",
+        "x=4",
+        "x = √16 = 4",
+        "x = sqrt(16) = 4",
+        "AP = 4",
+        "sqrt(16) = 4",
+        "√16 = 4"
+      ],
+      "hints": [
+        "Which number squared gives 16?",
+        "4 × 4 = 16",
+        "AP = 4"
+      ]
+    },
+    {
+      "id": "m1_s5",
+      "type": "step",
+      "label": "Double to get the chord",
+      "description": "P is the midpoint of AB, so AB = 2 × AP = 2 × 4 = 8.",
+      "prompt": "P is the midpoint of AB. How long is the whole chord AB?",
+      "accept": [
+        "AB = 2 × 4 = 8",
+        "AB = 2 * 4 = 8",
+        "AB = 2x = 8",
+        "AB = 8",
+        "2 × 4 = 8",
+        "2 * 4 = 8",
+        "2x = 8",
+        "chord = 2 × 4 = 8"
+      ],
+      "hints": [
+        "The perpendicular from the centre bisects the chord.",
+        "AB = 2 × AP",
+        "AB = 2 × 4 = 8"
+      ]
+    },
+    {
+      "id": "m2_diff_squares",
+      "type": "method",
+      "label": "Method 2: Difference of Two Squares",
+      "description": "Use Pythagoras' theorem, then factorise 5² − 3² = (5 − 3)(5 + 3) = 2 × 8 = 16, so AP = 4 and AB = 8.",
+      "prompt": "Choose a method to find x² = 5² − 3²: square and subtract, or use the difference of two squares.",
+      "accept": [
+        "difference of squares",
+        "difference of two squares",
+        "a^2 - b^2 = (a - b)(a + b)",
+        "(a - b)(a + b)",
+        "(5 - 3)(5 + 3)",
+        "(5-3)(5+3)"
+      ],
+      "hints": [
+        "a² − b² = (a − b)(a + b).",
+        "Here a = 5 and b = 3.",
+        "(5 − 3)(5 + 3) = 2 × 8."
+      ],
+      "jev_description": "Difference of two squares. Steps: (1) OP ⊥ AB so x^2 + 3^2 = 5^2 with x = AP, (2) x^2 = 5^2 - 3^2, (3) factorise: x^2 = (5 - 3)(5 + 3) = 2 × 8 = 16, (4) x = 4, (5) AB = 2 × 4 = 8. Steps 1-2 are the same as square-and-subtract; writing (5 - 3)(5 + 3) is what identifies this method."
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Right angle at the point of contact",
+      "description": "The chord AB touches the smaller circle at P, so OP = 3 cm is perpendicular to AB and P is the midpoint of AB. In triangle OPA: AP² + OP² = OA², i.e. x² + 3² = 5² with AP = x.",
+      "prompt": "OP is perpendicular to the chord AB. Let AP = x. Write Pythagoras' theorem for triangle OPA.",
+      "accept": [
+        "x^2 + 3^2 = 5^2",
+        "x² + 3² = 5²",
+        "x^2+3^2=5^2",
+        "AP^2 + OP^2 = OA^2",
+        "AP² + OP² = OA²",
+        "AP^2 + 3^2 = 5^2",
+        "x^2 + 9 = 25"
+      ],
+      "hints": [
+        "AB is a tangent to the smaller circle at P, so OP ⊥ AB.",
+        "OA is a radius of the larger circle (5 cm) and OP of the smaller one (3 cm).",
+        "x² + 3² = 5²"
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Make x² the subject",
+      "description": "Subtract 3² from both sides: x² = 5² − 3².",
+      "prompt": "Rearrange to get x² on its own. What is x² equal to?",
+      "accept": [
+        "x^2 = 5^2 - 3^2",
+        "x² = 5² − 3²",
+        "x^2=5^2-3^2",
+        "AP^2 = OA^2 - OP^2",
+        "AP^2 = 5^2 - 3^2"
+      ],
+      "hints": [
+        "Move 3² to the other side.",
+        "Its sign changes from + to −.",
+        "x² = 5² − 3²"
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Factorise as a difference of squares",
+      "description": "5² − 3² = (5 − 3)(5 + 3) = 2 × 8 = 16.",
+      "prompt": "Use a² − b² = (a − b)(a + b) on 5² − 3². What is x²?",
+      "accept": [
+        "x^2 = (5 - 3)(5 + 3)",
+        "x² = (5 − 3)(5 + 3)",
+        "(5 - 3)(5 + 3) = 16",
+        "(5-3)(5+3)",
+        "x^2 = (5 - 3)(5 + 3) = 2 × 8 = 16",
+        "2 × 8 = 16",
+        "2 * 8 = 16"
+      ],
+      "hints": [
+        "a = 5 and b = 3.",
+        "5 − 3 = 2 and 5 + 3 = 8.",
+        "x² = 2 × 8 = 16"
+      ]
+    },
+    {
+      "id": "m2_s4",
+      "type": "step",
+      "label": "Take the square root",
+      "description": "x = √16 = 4, so AP = 4 cm.",
+      "prompt": "Take the square root. What is AP?",
+      "accept": [
+        "x = 4",
+        "x=4",
+        "x = √16 = 4",
+        "x = sqrt(16) = 4",
+        "AP = 4",
+        "sqrt(16) = 4",
+        "√16 = 4"
+      ],
+      "hints": [
+        "Which number squared gives 16?",
+        "4 × 4 = 16",
+        "AP = 4"
+      ]
+    },
+    {
+      "id": "m2_s5",
+      "type": "step",
+      "label": "Double to get the chord",
+      "description": "P is the midpoint of AB, so AB = 2 × AP = 2 × 4 = 8.",
+      "prompt": "P is the midpoint of AB. How long is the whole chord AB?",
+      "accept": [
+        "AB = 2 × 4 = 8",
+        "AB = 2 * 4 = 8",
+        "AB = 2x = 8",
+        "AB = 8",
+        "2 × 4 = 8",
+        "2 * 4 = 8",
+        "2x = 8",
+        "chord = 2 × 4 = 8"
+      ],
+      "hints": [
+        "The perpendicular from the centre bisects the chord.",
+        "AB = 2 × AP",
+        "AB = 2 × 4 = 8"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "m1_subtract",
+      "label": "Method 1: Square and Subtract"
+    },
+    {
+      "from": "m1_subtract",
+      "to": "m1_s1",
+      "label": "Pythagoras"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Rearrange"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3",
+      "label": "Square and subtract"
+    },
+    {
+      "from": "m1_s3",
+      "to": "m1_s4",
+      "label": "Square root"
+    },
+    {
+      "from": "m1_s4",
+      "to": "m1_s5",
+      "label": "Double"
+    },
+    {
+      "from": "m1_s5",
+      "to": "conclusion",
+      "label": "chord = 8 cm"
+    },
+    {
+      "from": "start",
+      "to": "m2_diff_squares",
+      "label": "Method 2: Difference of Two Squares"
+    },
+    {
+      "from": "m2_diff_squares",
+      "to": "m2_s1",
+      "label": "Pythagoras"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Rearrange"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3",
+      "label": "Factorise"
+    },
+    {
+      "from": "m2_s3",
+      "to": "m2_s4",
+      "label": "Square root"
+    },
+    {
+      "from": "m2_s4",
+      "to": "m2_s5",
+      "label": "Double"
+    },
+    {
+      "from": "m2_s5",
+      "to": "conclusion",
+      "label": "chord = 8 cm"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_subtract",
+      "label": "Method 1: Square and Subtract"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_diff_squares",
+      "label": "Method 2: Difference of Two Squares"
+    }
+  ]
+}

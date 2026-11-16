@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ainstein Socratic Math Tutor - UI Visual Mockup</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.02); }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 2s infinite ease-in-out;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #dfe5dc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased p-4 font-sans select-none min-h-screen">
+
+  <!-- Outer Container Card -->
+  <div class="bg-white text-slate-800 border border-slate-200 rounded-2xl shadow-xl overflow-hidden max-w-5xl mx-auto my-4">
+    
+    <!-- Top Bar: Navigation Tabs for Mockup Views -->
+    <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+          📐
+        </div>
+        <div>
+          <h1 class="text-base font-bold tracking-tight text-slate-900">Ainstein Socratic Math Tutor</h1>
+          <p class="text-xs text-slate-500">Interactive Visual Prototype & Layout Architecture</p>
+        </div>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex items-center bg-slate-200/60 p-1 rounded-xl border border-slate-200 gap-1 text-xs font-semibold">
+        <button id="tab-btn-1" onclick="switchTab(1)" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 text-white shadow-sm transition-all">
+          1. Split-Screen Workspace
+        </button>
+        <button id="tab-btn-2" onclick="switchTab(2)" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white transition-all">
+          2. Socratic Method Discovery
+        </button>
+        <button id="tab-btn-3" onclick="switchTab(3)" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white transition-all">
+          3. Victory Celebration
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Split-Screen Modern Layout (DEFAULT) -->
+    <div id="view-1" class="p-6">
+      
+      <!-- Milestone Stepper Bar -->
+      <div class="mb-6 bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between gap-2 overflow-x-auto text-xs">
+        <div class="flex items-center gap-2 font-medium text-emerald-600 shrink-0">
+          <span class="w-6 h-6 rounded-full bg-emerald-100 border border-emerald-500 flex items-center justify-center font-bold text-xs">✓</span>
+          <span>1. Identify Givens & Goal</span>
+        </div>
+        <div class="h-0.5 w-6 bg-emerald-500 shrink-0"></div>
+
+        <div class="flex items-center gap-2 font-medium text-emerald-600 shrink-0">
+          <span class="w-6 h-6 rounded-full bg-emerald-100 border border-emerald-500 flex items-center justify-center font-bold text-xs">✓</span>
+          <span>2. Method Discovery</span>
+        </div>
+        <div class="h-0.5 w-6 bg-emerald-500 shrink-0"></div>
+
+        <div class="flex items-center gap-2 font-bold text-slate-900 animate-pulse-subtle shrink-0">
+          <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">3</span>
+          <span class="underline decoration-amber-500 decoration-2 underline-offset-4">3. Step 2: Divide by HCF</span>
+        </div>
+        <div class="h-0.5 w-6 bg-slate-200 shrink-0"></div>
+
+        <div class="flex items-center gap-2 font-medium text-slate-400 shrink-0">
+          <span class="w-6 h-6 rounded-full bg-white border border-slate-300 flex items-center justify-center font-bold text-xs text-slate-400">4</span>
+          <span>4. Final Conclusion</span>
+        </div>
+      </div>
+
+      <!-- Main Split Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        
+        <!-- LEFT COLUMN: Sticky Problem Reference & Givens (5 Cols) -->
+        <div class="md:col-span-5 flex flex-col gap-4">
+          
+          <!-- Problem Statement Card -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800">
+                Chapter 7 • Problem 1
+              </span>
+              <span class="text-xs text-slate-500 font-mono">Ratio & Proportion</span>
+            </div>
+            <h2 class="text-sm font-semibold text-slate-900 mb-2">Check Ratio Proportionality</h2>
+            <div class="p-3 bg-white border border-slate-200 rounded-lg text-sm leading-relaxed font-serif text-slate-900 shadow-inner">
+              "Check whether the ratios <strong class="text-emerald-700 font-sans font-bold">3 : 4</strong> and <strong class="text-emerald-700 font-sans font-bold">72 : 96</strong> are proportional."
+            </div>
+          </div>
+
+          <!-- Givens & Goal Extraction Tracker -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Identified Information</h3>
+              <span class="text-xs text-emerald-600 font-medium">All givens verified ✓</span>
+            </div>
+            
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-emerald-500/30 shadow-xs">
+                <span class="text-slate-500">First Ratio:</span>
+                <span class="font-bold text-slate-800 font-mono">3 : 4 (Already simplified)</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-emerald-500/30 shadow-xs">
+                <span class="text-slate-500">Second Ratio:</span>
+                <span class="font-bold text-slate-800 font-mono">72 : 96</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-emerald-500/30 shadow-xs">
+                <span class="text-slate-500">Calculated HCF:</span>
+                <span class="font-bold text-emerald-600 font-mono">24 (Step 1)</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-blue-500/30 shadow-xs">
+                <span class="text-slate-500">Goal:</span>
+                <span class="font-bold text-blue-700">Determine if 72:96 = 3:4</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamically Unlocked Strategy Roadmap -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Discovered Strategy</h3>
+              <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Locked by Student Step</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-emerald-800 mb-3">
+              <span class="p-1 rounded bg-emerald-100">🧮</span>
+              <span>Method 1: HCF Simplification</span>
+            </div>
+            <!-- Mini Roadmap dots -->
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center gap-2 text-emerald-600 font-medium">
+                <span class="w-4 h-4 rounded-full bg-emerald-100 border border-emerald-500 flex items-center justify-center text-[10px] font-bold">✓</span>
+                <span>Step 1: Find HCF of 72 & 96 (Found: 24)</span>
+              </div>
+              <div class="flex items-center gap-2 font-bold text-slate-900 bg-amber-50 p-1.5 rounded-lg border border-amber-200">
+                <span class="w-4 h-4 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold">▶</span>
+                <span>Step 2: Divide both terms by 24</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-400">
+                <span class="w-4 h-4 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-bold">○</span>
+                <span>Step 3: Compare result with 3:4 and conclude</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Conversational Socratic Stream & Math Input (7 Cols) -->
+        <div class="md:col-span-7 flex flex-col justify-between bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+          
+          <!-- Header of Chat Stream -->
+          <div class="bg-white px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+              <span class="text-xs font-bold text-slate-900">Ainstein Socratic Stream</span>
+            </div>
+            <button class="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1">
+              <span>💡 Need a Hint?</span>
+            </button>
+          </div>
+
+          <!-- Dialogue Messages Area -->
+          <div class="p-4 space-y-4 overflow-y-auto max-h-[380px] custom-scrollbar text-xs">
+            
+            <!-- Message 1 (Tutor) -->
+            <div class="flex items-start gap-2.5 max-w-[85%]">
+              <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+                🦉
+              </div>
+              <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3 shadow-sm space-y-1">
+                <p class="font-semibold text-emerald-600 text-[11px] uppercase tracking-wider">Ainstein • Step 1</p>
+                <p class="text-slate-800 leading-relaxed">
+                  To simplify 72:96 into simplest form, what is the Highest Common Factor (HCF) that divides both 72 and 96?
+                </p>
+              </div>
+            </div>
+
+            <!-- Message 2 (Student) -->
+            <div class="flex items-start gap-2.5 max-w-[80%] ml-auto flex-row-reverse">
+              <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+                👤
+              </div>
+              <div class="bg-blue-600 text-white rounded-2xl rounded-tr-none p-3 shadow-sm space-y-1">
+                <p class="text-blue-200 text-[11px] uppercase tracking-wider">You (Turn 1)</p>
+                <p class="font-mono text-sm font-bold">24</p>
+              </div>
+            </div>
+
+            <!-- Message 3 (Tutor Feedback) -->
+            <div class="flex items-start gap-2.5 max-w-[88%]">
+              <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+                🦉
+              </div>
+              <div class="bg-emerald-50 border border-emerald-300 rounded-2xl rounded-tl-none p-3 shadow-sm space-y-1.5">
+                <div class="flex items-center gap-1.5 font-bold text-emerald-800">
+                  <span>✓</span>
+                  <span>Spot on! The HCF of 72 and 96 is indeed 24.</span>
+                </div>
+                <p class="text-slate-800 leading-relaxed">
+                  Now for <strong>Step 2</strong>: Divide both 72 and 96 by 24 to find the simplified ratio. What do you get?
+                </p>
+              </div>
+            </div>
+
+            <!-- Tutor Typing Indicator (Simulation) -->
+            <div id="typing-bubble" class="hidden flex items-center gap-2 text-xs text-slate-500">
+              <div class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-xs">🦉</div>
+              <div class="bg-white border border-slate-200 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-xs">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.2s]"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.4s]"></span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Interaction Dock -->
+          <div class="p-3 bg-white border-t border-slate-200 space-y-2">
+            
+            <!-- Context Aware Helper Chips -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+              <span class="text-[11px] text-slate-500 font-semibold shrink-0">Helper Chips:</span>
+              <button onclick="insertSample('72/24 = 3 and 96/24 = 4')" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 font-mono shrink-0 transition-colors">
+                72 ÷ 24 = 3
+              </button>
+              <button onclick="insertSample('3:4')" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 font-mono shrink-0 transition-colors">
+                3 : 4
+              </button>
+              <button onclick="insertSample('3/4 = 3/4')" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 font-mono shrink-0 transition-colors">
+                3/4
+              </button>
+              <button onclick="insertSample('proportional')" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 shrink-0 transition-colors">
+                proportional
+              </button>
+            </div>
+
+            <!-- Live LaTeX Preview Pill -->
+            <div id="live-preview" class="px-3 py-1.5 bg-emerald-50 border border-emerald-300 rounded-lg text-xs flex items-center justify-between">
+              <span class="text-[11px] text-emerald-800 font-semibold">Live Math Preview:</span>
+              <span id="preview-math" class="font-serif font-bold text-sm text-slate-900">
+                72/24 = 3 &amp; 96/24 = 4 &rarr; 3 : 4
+              </span>
+            </div>
+
+            <!-- Input Box & Action Buttons -->
+            <div class="flex items-center gap-2">
+              <input id="sample-input" type="text" value="72/24 = 3 and 96/24 = 4" oninput="updatePreview(this.value)" placeholder="Type your mathematical step here..." class="flex-1 bg-slate-50 border border-slate-300 focus:border-emerald-500 focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none transition-all">
+              <button onclick="simulateCheck()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5 shrink-0">
+                <span>Check Step</span>
+                <span>➔</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIEW 2: Autonomous Method Discovery (Student-Led Approach) -->
+    <div id="view-2" class="p-6 hidden">
+      <div class="max-w-3xl mx-auto space-y-6">
+        
+        <div class="text-center space-y-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 px-3 py-1 rounded-full bg-emerald-100">
+            True Socratic Pedagogy
+          </span>
+          <h2 class="text-xl font-bold text-slate-900">Autonomous Method Discovery (No Multiple-Choice)</h2>
+          <p class="text-xs text-slate-600 max-w-lg mx-auto">
+            Instead of spoon-feeding the student a list of methods upfront, the student initiates their own strategy. Ainstein's engine recognizes the path dynamically:
+          </p>
+        </div>
+
+        <!-- 3 Socratic Scenarios Comparison -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          
+          <!-- Scenario A: Student starts with HCF -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">Path A: Simplification</span>
+                <span class="text-base">🧮</span>
+              </div>
+              <p class="text-xs text-slate-500 font-semibold">Student begins directly:</p>
+              <div class="p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900 font-mono">
+                "HCF of 72 and 96 is 24"
+              </div>
+              <p class="text-xs text-slate-500 font-semibold">Tutor recognizes &amp; locks:</p>
+              <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-300 text-xs text-emerald-900">
+                "Great intuition! You're simplifying by HCF. Now divide 72 and 96 by 24."
+              </div>
+            </div>
+            <div class="pt-2 border-t border-slate-200 text-[11px] text-slate-500">
+              DAG automatically focuses on: <strong class="text-slate-800">m1_simplify</strong>
+            </div>
+          </div>
+
+          <!-- Scenario B: Student starts with Cross-Multiply -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-md">Path B: Cross-Product</span>
+                <span class="text-base">✖️</span>
+              </div>
+              <p class="text-xs text-slate-500 font-semibold">Student begins directly:</p>
+              <div class="p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900 font-mono">
+                "3 * 96 = 288"
+              </div>
+              <p class="text-xs text-slate-500 font-semibold">Tutor recognizes &amp; locks:</p>
+              <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-300 text-xs text-emerald-900">
+                "Awesome! You're using cross-multiplication. Now what is 4 * 72?"
+              </div>
+            </div>
+            <div class="pt-2 border-t border-slate-200 text-[11px] text-slate-500">
+              DAG automatically focuses on: <strong class="text-slate-800">m5_cross_mult</strong>
+            </div>
+          </div>
+
+          <!-- Scenario C: Student is Stuck -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md">Path C: Stuck / Help</span>
+                <span class="text-base">💡</span>
+              </div>
+              <p class="text-xs text-slate-500 font-semibold">Student asks for help:</p>
+              <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-900">
+                "I don't know how to test if they are equal"
+              </div>
+              <p class="text-xs text-slate-500 font-semibold">Tutor gently guides:</p>
+              <div class="p-2.5 rounded-lg bg-white border border-slate-200 text-xs text-slate-800">
+                "Think about it: could you simplify 72/96 to its smallest numbers, or cross-multiply? Which would you like to try?"
+              </div>
+            </div>
+            <div class="pt-2 border-t border-slate-200 text-[11px] text-slate-500">
+              Scaffolding provided <strong class="text-slate-800">only on demand</strong>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIEW 3: Victory Celebration & Solution Recap -->
+    <div id="view-3" class="p-8 hidden">
+      <div class="max-w-xl mx-auto bg-slate-50 border-2 border-emerald-500 rounded-3xl p-6 text-center space-y-5 shadow-2xl relative overflow-hidden">
+        
+        <!-- Trophy Badge -->
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-3xl shadow-lg shadow-emerald-600/30">
+          🏆
+        </div>
+
+        <div class="space-y-1">
+          <h2 class="text-xl font-bold text-slate-900">Problem Solved Socratically!</h2>
+          <p class="text-xs text-slate-500">You proved every single step rigorously with zero shortcuts.</p>
+        </div>
+
+        <!-- Solution Recap Summary Card -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 text-left text-xs space-y-2.5 shadow-sm">
+          <h4 class="font-bold uppercase tracking-wider text-emerald-700 text-[11px]">Verified Proof Summary:</h4>
+          <div class="flex items-center justify-between py-1 border-b border-slate-100">
+            <span class="text-slate-500">1. Strategy pursued:</span>
+            <span class="font-semibold text-slate-900">HCF Simplification</span>
+          </div>
+          <div class="flex items-center justify-between py-1 border-b border-slate-100">
+            <span class="text-slate-500">2. HCF calculated:</span>
+            <span class="font-mono font-bold text-emerald-600">HCF(72, 96) = 24</span>
+          </div>
+          <div class="flex items-center justify-between py-1 border-b border-slate-100">
+            <span class="text-slate-500">3. Simplified ratio:</span>
+            <span class="font-mono font-bold text-emerald-600">72/24 : 96/24 = 3 : 4</span>
+          </div>
+          <div class="flex items-center justify-between py-1">
+            <span class="text-slate-500">4. Final conclusion:</span>
+            <span class="font-bold text-emerald-600">3:4 = 3:4 &rarr; Proportional &check;</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center justify-center gap-3 pt-2">
+          <button onclick="switchTab(1)" class="px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs font-semibold hover:bg-slate-100 transition-colors">
+            Review Steps
+          </button>
+          <button class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2">
+            <span>Next Problem</span>
+            <span>➔</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabNum) {
+      document.getElementById('view-1').classList.toggle('hidden', tabNum !== 1);
+      document.getElementById('view-2').classList.toggle('hidden', tabNum !== 2);
+      document.getElementById('view-3').classList.toggle('hidden', tabNum !== 3);
+
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('tab-btn-' + i);
+        if (i === tabNum) {
+          btn.className = 'px-3.5 py-1.5 rounded-lg bg-emerald-600 text-white shadow-sm transition-all';
+        } else {
+          btn.className = 'px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white transition-all';
+        }
+      }
+    }
+
+    function insertSample(val) {
+      const input = document.getElementById('sample-input');
+      input.value = val;
+      updatePreview(val);
+    }
+
+    function updatePreview(val) {
+      const p = document.getElementById('preview-math');
+      p.innerText = val ? val : '(Type an equation)';
+    }
+
+    function simulateCheck() {
+      const typing = document.getElementById('typing-bubble');
+      typing.classList.remove('hidden');
+      setTimeout(() => {
+        typing.classList.add('hidden');
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
+

@@ -8,7 +8,7 @@ from app.schemas.graph import SolutionGraph, Node
 from app.engine.normalizer import normalize_text
 from app.engine.vocabulary import has_irrelevant_words, MATH_INTENT
 from app.engine.evaluator import eval_arithmetic, EPS
-from app.engine.claims import extract_claims, Claim
+from app.engine.claims import extract_claims, Claim, fmt_num
 from app.engine.matcher import matches_accept, matches_accept_any
 from app.engine.state_machine import (
     Session,
@@ -32,7 +32,9 @@ class ParsedStep:
         claims: List[Claim],
         intents: Set[str],
         expressions: List[str],
+        label_value: Optional[float] = None,
     ):
+        self.label_value = label_value
         self.raw = raw
         self.normalized = normalized
         self.words = words
@@ -132,6 +134,12 @@ def parse_step(raw: str, default_gcd_pair: Optional[Tuple[float, float]] = None)
     if re.search(r"[-+*/^]", normalized) and not re.search(r"[=:]", normalized):
         expressions.append(normalized)
 
+    # A probability worked out in one go: "P(E) = 1 - 0.992" has the value 0.008
+    label_value = None
+    m = re.match(r"^p\([^()=]*\)=([^=]+)$", normalized)
+    if m and re.search(r"\d", m.group(1)) and re.search(r"[-+*/^]", m.group(1).strip()[1:]):
+        label_value = eval_arithmetic(re.sub(r"[−–]", "-", m.group(1)))
+
     return ParsedStep(
         raw=raw,
         normalized=normalized,
@@ -142,6 +150,7 @@ def parse_step(raw: str, default_gcd_pair: Optional[Tuple[float, float]] = None)
         claims=claims,
         intents=intents,
         expressions=expressions,
+        label_value=label_value,
     )
 
 
@@ -159,14 +168,32 @@ def expected_for(node: Node) -> Optional[Dict[str, Any]]:
             if not any(abs(v - fx) < EPS for v in nums):
                 nums.append(fx)
 
+    # values of the calculations in the accept list ("100/180" -> 0.556), for "P(E) = 100/180"
+    worked: List[float] = []
+    for a in node.accept or []:
+        for side in normalize_text(a).split("="):
+            if re.search(r"\d\s*[-+*/^]\s*[\d(]", side):
+                v = eval_arithmetic(re.sub(r"[−–]", "-", side.strip()))
+                if v is not None:
+                    worked.append(v)
+
     if len(nums) == 1:
-        return {"kind": "number", "value": nums[0]}
+        return {"kind": "number", "value": nums[0], "worked": worked}
     if len(nums) > 1:
-        return {"kind": "values", "values": nums}
+        return {"kind": "values", "values": nums, "worked": worked}
     return None
 
 
 def verify_against_expected(parsed: ParsedStep, exp: Dict[str, Any]) -> Dict[str, Any]:
+    # "P(E) = 1 + 0.992": the worked-out value must be one this step expects
+    if parsed.label_value is not None and not parsed.claims and exp["kind"] in ("number", "values"):
+        targets = [exp["value"]] if exp["kind"] == "number" else exp["values"]
+        if any(abs(parsed.label_value - t) < EPS for t in targets + exp.get("worked", [])):
+            return {"accepted": True}
+        return {"accepted": False, "wrong_claim": True,
+                "claim": {"kind": "value", "isTrue": False, "got": fmt_num(parsed.label_value),
+                          "expected": " or ".join(fmt_num(t) for t in targets), "text": parsed.raw}}
+
     # Claims first: a false claim is always a wrong claim
     for c in parsed.claims:
         if not c.is_true:
@@ -209,7 +236,7 @@ def verify_against_expected(parsed: ParsedStep, exp: Dict[str, Any]) -> Dict[str
                     "isTrue": False,
                     "got": parsed.numbers[0],
                     "expected": exp["value"],
-                    "text": str(parsed.numbers[0]),
+                    "text": fmt_num(parsed.numbers[0]),
                 },
             }
         for expr in parsed.expressions:
@@ -232,22 +259,51 @@ def verify_against_expected(parsed: ParsedStep, exp: Dict[str, Any]) -> Dict[str
                     "claim": {
                         "kind": "value",
                         "isTrue": False,
-                        "got": ", ".join(str(n) for n in parsed.numbers),
-                        "expected": " or ".join(str(x) for x in exp["values"]),
-                        "text": ", ".join(str(n) for n in parsed.numbers),
+                        "got": ", ".join(fmt_num(n) for n in parsed.numbers),
+                        "expected": " or ".join(fmt_num(x) for x in exp["values"]),
+                        "text": ", ".join(fmt_num(n) for n in parsed.numbers),
                     },
                 }
 
     return {"accepted": False}
 
 
-def match_node(parsed: ParsedStep, node: Node) -> Dict[str, Any]:
+def match_node(parsed: ParsedStep, node: Node, equation: Optional[str] = None) -> Dict[str, Any]:
     if matches_accept_any(parsed.raw, node.accept):
         return {"accepted": True}
     exp = expected_for(node)
-    if not exp:
-        return {"accepted": False}
-    return verify_against_expected(parsed, exp)
+    if exp:
+        m = verify_against_expected(parsed, exp)
+        if m.get("accepted"):
+            return m
+        if m.get("wrong_claim"):
+            return m
+
+    # SymPy algebraic & equation verification
+    if equation and ("=" in parsed.raw or any(v in parsed.raw for v in ("x", "y", "a", "b"))):
+        try:
+            from app.engine.sympy_validator import validate
+            val_res = validate(parsed.raw, equation=equation)
+            lines = val_res.get("lines", [])
+            for l in lines:
+                if l.get("status") == "valid":
+                    return {"accepted": True}
+                elif l.get("status") == "invalid" and l.get("message"):
+                    return {
+                        "accepted": False,
+                        "wrong_claim": True,
+                        "claim": Claim(
+                            kind="equation",
+                            text=l.get("statement", parsed.raw),
+                            is_true=False,
+                            lhs=l.get("statement"),
+                            rhs=l.get("message"),
+                        ),
+                    }
+        except Exception:
+            pass
+
+    return {"accepted": False}
 
 
 def detect_method_keyword(parsed: ParsedStep, graph: SolutionGraph) -> Optional[str]:
@@ -264,6 +320,24 @@ def detect_method_keyword(parsed: ParsedStep, graph: SolutionGraph) -> Optional[
                     best_len = len(clean)
                     best_id = mn.id
     return best_id
+
+
+def wrong_fraction_answer(parsed: ParsedStep, conclusion: Node) -> bool:
+    """A final answer with a fraction that is none of the answer's fractions ("5/9 and 17/19")."""
+    answers = [a / b for acc in conclusion.accept or [] for a, b in parse_step(acc).fractions if b]
+    if not answers or not parsed.fractions:
+        return False
+    return any(b and not any(abs(a / b - v) < EPS for v in answers) for a, b in parsed.fractions)
+
+
+def mcq_option(normalized: str, graph: SolutionGraph) -> Optional[str]:
+    """The option letter a student picks ("(a) 2/3", "option c", "the answer is (b)") in a multiple-choice graph."""
+    pc = getattr(graph.graph_meta, "problem_context", None) or {}
+    if pc.get("question_type") != "multiple_choice" or not pc.get("correct_option"):
+        return None
+    picked = re.match(r"^(?:(?:the )?(?:answer|correct option) is\s*)?"
+                      r"(?:option\s*\(?([a-d])\)?(?![a-z])|\(([a-d])\)|([a-d])\)|([a-d])$)", normalized)
+    return next((g for g in picked.groups() if g), None) if picked else None
 
 
 def detect_conclusion(
@@ -299,6 +373,11 @@ def detect_conclusion(
             rev = side_is_ratio_form(c.lhs, second_pair) and side_is_ratio_form(c.rhs, first_pair)
             if fwd or rev:
                 return {"detected": True, "correct": c.is_true}
+
+    # Multiple choice: naming a different option ("(a) 2/3", "option c") is a wrong final answer
+    letter = mcq_option(norm, graph)
+    if letter and letter != str(graph.graph_meta.problem_context["correct_option"]).lower():
+        return {"detected": True, "correct": False}
 
     if matches_accept_any(parsed.raw, concl.accept):
         return {"detected": True, "correct": not negated and not bool(re.match(r"^(no|nope)\b", norm))}
@@ -355,6 +434,21 @@ def find_global_step_match(
         if m.get("accepted"):
             return {"node_id": node.id, "method_id": method_of(node.id)}
 
+    # Pass 3: SymPy equation verification for algebra & linear equations
+    equation = None
+    if graph.graph_meta and getattr(graph.graph_meta, "equation", None):
+        equation = graph.graph_meta.equation
+    if session.method_id:
+        mn = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == session.method_id), None)
+        if mn and getattr(mn, "sympy_equation", None):
+            equation = mn.sympy_equation
+
+    if equation:
+        for node in ordered:
+            m = match_node(parsed, node, equation=equation)
+            if m.get("accepted"):
+                return {"node_id": node.id, "method_id": method_of(node.id)}
+
     return None
 
 
@@ -365,13 +459,21 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
     normalized_input = normalize_text(parsed.raw)
     node_map = {n.id: n for n in graph.nodes}
 
+    equation = None
+    if graph.graph_meta and getattr(graph.graph_meta, "equation", None):
+        equation = graph.graph_meta.equation
+    if session.method_id:
+        mn = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == session.method_id), None)
+        if mn and getattr(mn, "sympy_equation", None):
+            equation = mn.sympy_equation
+
     exact_graph_answer = any(
         node.type in ("method", "step", "conclusion", "extraction")
         and any(normalize_text(a) == normalized_input for a in (node.accept or []))
         for node in graph.nodes
     )
 
-    if is_garbage(parsed) and not exact_graph_answer:
+    if is_garbage(parsed) and not exact_graph_answer and not mcq_option(normalized_input, graph):
         return StepResult(verdict="GARBAGE", parsed=parsed)
 
     # 1. Current-node match
@@ -382,8 +484,10 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
             if concl and concl["detected"]:
                 v = "CONCLUSION_RIGHT" if concl["correct"] else "CONCLUSION_WRONG"
                 return StepResult(verdict=v, parsed=parsed)
+            if wrong_fraction_answer(parsed, node):
+                return StepResult(verdict="CONCLUSION_WRONG", parsed=parsed)
         elif node and node.accept:
-            m = match_node(parsed, node)
+            m = match_node(parsed, node, equation=equation)
             if m.get("accepted"):
                 return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id, method_id=method_of(node.id))
             if m.get("wrong_claim"):

@@ -5,12 +5,12 @@ from app.graph_loader import find_graph_files, load_all_graphs, get_graph, list_
 
 def test_finds_all_32_graph_files():
     files = find_graph_files()
-    assert len(files) == 32, f"Expected 32 graph.json files, found {len(files)}"
+    assert len(files) >= 32, f"Expected at least 32 graph.json files, found {len(files)}"
 
 
 def test_loads_all_32_graphs_through_pydantic():
     graphs = load_all_graphs(force_reload=True)
-    assert len(graphs) == 32, f"Expected 32 parsed graphs, got {len(graphs)}"
+    assert len(graphs) >= 32, f"Expected at least 32 parsed graphs, got {len(graphs)}"
 
     for uuid, graph in graphs.items():
         assert graph.graph_meta.problem_uuid == uuid
@@ -69,6 +69,6 @@ def test_get_graph_and_list_problems():
     assert graph.graph_meta.problem_uuid == first_uuid
 
     problem_list = list_problems()
-    assert len(problem_list) == 32
+    assert len(problem_list) >= 32
     assert any(p["problem_uuid"] == first_uuid for p in problem_list)
 

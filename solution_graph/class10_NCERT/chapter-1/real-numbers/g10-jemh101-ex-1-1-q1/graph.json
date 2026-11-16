@@ -1,0 +1,1490 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh101-ex-1-1-q1",
+    "problem_uuid": "g10-jemh101-ex-1-1-q1",
+    "problem_text": "Express each number as a product of its prime factors: (i) 140 (ii) 156 (iii) 3825 (iv) 5005 (v) 7429",
+    "equation": null,
+    "variable": "x",
+    "use_jev": true,
+    "guided": true,
+    "llm_tutor": true,
+    "sympy_can_finish": false,
+    "sympy_note": "No unknown, so no equation. Factorisations are checked by the node's `factorise` list (every factor must be prime and the product right); other lines by SymPy's value checks.",
+    "guided_note": "Guided mode: after the plan, the parts in any order. '(ii)' or 'ii)' picks part (ii); a line without a label is for the part being solved. Any correct division (3825 ÷ 5 = 765) or split (3825 = 25 × 153) of the part's number or one of its factors is working; the full factorisation completes the part. Hints follow the method the student uses for that number (hints_by_method).",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Guided solution DAG for NCERT Class 10 Ex 1.1 Q1: 140 = 2² × 5 × 7, 156 = 2² × 3 × 13, 3825 = 3² × 5² × 17, 5005 = 5 × 7 × 11 × 13, 7429 = 17 × 19 × 23. Each number (part) by either method: A, repeated division by primes, or B, a factor tree. Both reach the same factorisation.",
+    "created": "2026-11-13",
+    "total_methods": 2,
+    "total_nodes": 60,
+    "total_edges": 68,
+    "problem_context": {
+      "chapter": "1",
+      "topic": "Real Numbers",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 1 Real Numbers, Exercise 1.1, Q1 (p. 5)",
+      "question_type": "short_answer"
+    },
+    "navigation_label": "Ex 1.1 Q1: Prime Factorisation",
+    "glossary": [
+      {
+        "term": "prime factor",
+        "aliases": [
+          "prime factors",
+          "prime factorisation",
+          "prime factorization"
+        ],
+        "definition": "A prime factor is a factor that is also a prime number. For 10 = 2 × 5, the prime factors are 2 and 5."
+      },
+      {
+        "term": "prime number",
+        "aliases": [
+          "prime numbers",
+          "prime",
+          "primes"
+        ],
+        "definition": "A prime number has exactly two factors: 1 and itself. 2, 3, 5, 7, 11 and 13 are primes; 1 is not a prime."
+      },
+      {
+        "term": "composite number",
+        "aliases": [
+          "composite numbers",
+          "composite"
+        ],
+        "definition": "A composite number has more than two factors, like 4, 6 or 9, so it can be broken into smaller factors."
+      },
+      {
+        "term": "factor",
+        "aliases": [
+          "factors",
+          "divisor",
+          "divisors"
+        ],
+        "definition": "A factor of a number divides it exactly. The factors of 12 are 1, 2, 3, 4, 6 and 12."
+      },
+      {
+        "term": "HCF",
+        "aliases": [
+          "highest common factor",
+          "gcd",
+          "greatest common divisor",
+          "greatest common factor"
+        ],
+        "definition": "The HCF (highest common factor) is the largest number that divides both numbers exactly. HCF(8, 12) = 4."
+      },
+      {
+        "term": "LCM",
+        "aliases": [
+          "lowest common multiple",
+          "least common multiple"
+        ],
+        "definition": "The LCM (lowest common multiple) is the smallest number that both numbers divide into exactly. LCM(4, 6) = 12."
+      },
+      {
+        "term": "multiple",
+        "aliases": [
+          "multiples"
+        ],
+        "definition": "A multiple of a number is that number times a whole number. The multiples of 4 are 4, 8, 12, 16, …"
+      },
+      {
+        "term": "power",
+        "aliases": [
+          "powers",
+          "exponent",
+          "exponents",
+          "index",
+          "squared",
+          "cubed"
+        ],
+        "definition": "A power is repeated multiplication: 3² = 3 × 3 and 2³ = 2 × 2 × 2."
+      },
+      {
+        "term": "product",
+        "aliases": [
+          "products"
+        ],
+        "definition": "The product is the answer to a multiplication: the product of 3 and 4 is 12."
+      }
+    ],
+    "parts": [
+      {
+        "id": "p1",
+        "label": "i",
+        "title": "(i) 140",
+        "numbers": [
+          140
+        ],
+        "nodes": [
+          "p1_answer"
+        ]
+      },
+      {
+        "id": "p2",
+        "label": "ii",
+        "title": "(ii) 156",
+        "numbers": [
+          156
+        ],
+        "nodes": [
+          "p2_answer"
+        ]
+      },
+      {
+        "id": "p3",
+        "label": "iii",
+        "title": "(iii) 3825",
+        "numbers": [
+          3825
+        ],
+        "nodes": [
+          "p3_answer"
+        ]
+      },
+      {
+        "id": "p4",
+        "label": "iv",
+        "title": "(iv) 5005",
+        "numbers": [
+          5005
+        ],
+        "nodes": [
+          "p4_answer"
+        ]
+      },
+      {
+        "id": "p5",
+        "label": "v",
+        "title": "(v) 7429",
+        "numbers": [
+          7429
+        ],
+        "nodes": [
+          "p5_answer"
+        ]
+      }
+    ]
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Express each number as a product of its prime factors: (i) 140 (ii) 156 (iii) 3825 (iv) 5005 (v) 7429",
+      "prompt": "Read the problem. Answer each question to solve it step by step.",
+      "accept": [],
+      "hints": [
+        "Answer the question shown above the box."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "What Is Given",
+      "description": "The numbers 140, 156, 3825, 5005 and 7429.",
+      "prompt": "What is given in the question?",
+      "accept": [
+        "140, 156, 3825, 5005, 7429",
+        "the numbers 140, 156, 3825, 5005 and 7429"
+      ],
+      "hints": [
+        "Which numbers does the question list?",
+        "There are five numbers, (i) to (v).",
+        "140, 156, 3825, 5005 and 7429"
+      ],
+      "optional": false,
+      "keywords": [
+        "140",
+        "156",
+        "3825",
+        "5005",
+        "7429"
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "What We Need to Find",
+      "description": "Each number written as a product of its prime factors.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "each number as a product of its prime factors",
+        "the prime factorisation of each number",
+        "prime factors of each number"
+      ],
+      "hints": [
+        "Read the first line of the question.",
+        "What kind of factors does it ask for?",
+        "Each number written as a product of prime factors"
+      ],
+      "optional": false,
+      "keywords": [
+        "prime"
+      ]
+    },
+    {
+      "id": "method_choice",
+      "type": "choice",
+      "label": "Describe the Plan",
+      "description": "Describe the plan: break the number down (divide by primes, or split into two factors) until every factor is prime. Then the parts (i) to (v), in any order, each by either method.",
+      "prompt": "Describe your plan: how will you write each number as a product of its prime factors?",
+      "accept": [],
+      "hints": [
+        "Think about what a prime factor is.",
+        "Method A: divide by the smallest prime again and again.",
+        "Method B: split into two factors, again and again."
+      ],
+      "concepts_required": [
+        {
+          "id": "C1",
+          "idea": "breaking the number into smaller factors",
+          "keywords": [
+            "divide",
+            "divid",
+            "division",
+            "÷",
+            "split",
+            "break",
+            "factor tree",
+            "tree",
+            "two factors",
+            "smaller factor",
+            "factorise",
+            "factorize"
+          ],
+          "needs_any": [],
+          "hints": [
+            "How can you turn a big number into smaller numbers that multiply to give it?",
+            "Example: 60 ÷ 2 = 30 (divide by a number that goes in exactly), or 60 = 6 × 10 (split into two factors)."
+          ],
+          "answer": "Break the number into smaller factors: divide it by a prime, or split it into two factors.",
+          "explain": {
+            "question": "Why do we break a number into smaller factors?",
+            "expected_keywords": [
+              "multiply",
+              "product",
+              "smaller",
+              "easier",
+              "made of",
+              "make"
+            ],
+            "understanding": "A number is a product of smaller numbers. Breaking it up shows which numbers multiply to give it."
+          }
+        },
+        {
+          "id": "C2",
+          "idea": "using prime numbers",
+          "keywords": [
+            "prime"
+          ],
+          "needs_any": [],
+          "hints": [
+            "The question says prime factors. What is special about a prime number?",
+            "A prime has only two factors, 1 and itself, like 2, 3, 5, 7. What must every factor at the end be?"
+          ],
+          "answer": "Use prime numbers: every factor at the end must be a prime.",
+          "explain": {
+            "question": "Why must every factor be a prime?",
+            "expected_keywords": [
+              "cannot",
+              "can't",
+              "only two factors",
+              "1 and itself",
+              "no more",
+              "not be split",
+              "not be divided"
+            ],
+            "understanding": "A prime cannot be broken down any further, so a product of primes is the final answer."
+          }
+        },
+        {
+          "id": "C3",
+          "idea": "repeating until only primes are left",
+          "keywords": [
+            "again",
+            "repeat",
+            "until",
+            "till",
+            "keep",
+            "continue",
+            "each time",
+            "all primes",
+            "only primes",
+            "every factor",
+            "cannot be divided",
+            "can't be divided",
+            "no more"
+          ],
+          "needs_any": [],
+          "hints": [
+            "After the first division (or split), are you finished?",
+            "Example: 60 ÷ 2 = 30, but 30 can still be broken down. When do you stop?"
+          ],
+          "answer": "Keep going until every factor is a prime.",
+          "explain": {
+            "question": "When do you stop dividing or splitting?",
+            "expected_keywords": [
+              "prime",
+              "cannot",
+              "can't",
+              "quotient is 1",
+              "no more"
+            ],
+            "understanding": "Stop when every factor is a prime (or the quotient is 1): nothing can be broken down further."
+          }
+        }
+      ],
+      "path_signals": {},
+      "default_path": null,
+      "misconceptions": [
+        {
+          "signal": "",
+          "keywords": [
+            "add",
+            "sum",
+            "plus",
+            "subtract",
+            "multiples"
+          ],
+          "response": "Prime factors multiply to give the number; they don't add up to it. Example: 6 = 2 × 3, not 2 + 3. How can you break a number into numbers that multiply to give it?"
+        }
+      ],
+      "contradiction_response": "You said two different things. Which one is it?",
+      "dont_know_response": "That's fine. Think about this question, then try the plan again.",
+      "off_topic_response": "Let's stay with the numbers. How will you write each one as a product of primes?",
+      "retry_response": "Use that idea and try the plan again: how will you write each number as a product of its prime factors?",
+      "concept_hints": [
+        {
+          "id": "K1",
+          "question": "The question asks for prime factors. What is a prime number?",
+          "understanding": "A number with only two factors: 1 and itself"
+        },
+        {
+          "id": "K2",
+          "question": "Which two numbers multiply to give 10? Are they prime?",
+          "understanding": "2 × 5; both are prime"
+        },
+        {
+          "id": "K3",
+          "question": "How could you break 60 into smaller numbers that multiply to give 60?",
+          "understanding": "Divide by 2, or split into 6 × 10"
+        }
+      ],
+      "partial_prefix": "Good, {found} is right.",
+      "max_hints": 4,
+      "reveal": "Here is the plan: divide the number by its smallest prime (or split it into two factors), and keep going until every factor is a prime.",
+      "solve_freely": false
+    },
+    {
+      "id": "p1",
+      "type": "choice",
+      "label": "(i) 140",
+      "description": "Divide by primes (A) or a factor tree (B)",
+      "prompt": "(i) Express 140 as a product of its prime factors.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p1",
+      "type": "method",
+      "label": "A: Repeated Division",
+      "description": "Divide 140 by the smallest prime, again and again",
+      "prompt": "(i) Divide 140 by its smallest prime factor.",
+      "accept": [
+        "repeated division",
+        "divide by primes"
+      ],
+      "hints": [],
+      "jev_description": "Repeated division of 140 by primes, e.g. 140 ÷ 2 = 70."
+    },
+    {
+      "id": "m1_p1_s1",
+      "type": "step",
+      "label": "140 ÷ 2 = 70",
+      "description": "(i) divide by 2",
+      "prompt": "(i) Divide 140 by 2.",
+      "accept": [
+        "140 ÷ 2 = 70",
+        "140 / 2 = 70"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p1_s2",
+      "type": "step",
+      "label": "70 ÷ 2 = 35",
+      "description": "(i) divide by 2",
+      "prompt": "(i) Divide 70 by 2.",
+      "accept": [
+        "70 ÷ 2 = 35",
+        "70 / 2 = 35"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p1_s3",
+      "type": "step",
+      "label": "35 ÷ 5 = 7",
+      "description": "(i) divide by 5",
+      "prompt": "(i) Divide 35 by 5.",
+      "accept": [
+        "35 ÷ 5 = 7",
+        "35 / 5 = 7"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p1_s4",
+      "type": "step",
+      "label": "7 ÷ 7 = 1",
+      "description": "(i) divide by 7",
+      "prompt": "(i) Divide 7 by 7.",
+      "accept": [
+        "7 ÷ 7 = 1",
+        "7 / 7 = 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p1",
+      "type": "method",
+      "label": "B: Factor Tree",
+      "description": "Split 140 into two factors, then split again",
+      "prompt": "(i) Split 140 into any two factors.",
+      "accept": [
+        "factor tree",
+        "split into factors"
+      ],
+      "hints": [],
+      "jev_description": "Factor tree for 140: split into two factors (140 = 14 × 10), then split each again."
+    },
+    {
+      "id": "m2_p1_s1",
+      "type": "step",
+      "label": "140 = 14 × 10",
+      "description": "(i) split 140",
+      "prompt": "(i) Split 140 into two factors.",
+      "accept": [
+        "140 = 14 × 10"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p1_s2",
+      "type": "step",
+      "label": "14 = 2 × 7",
+      "description": "(i) split 14",
+      "prompt": "(i) Split 14 into two factors.",
+      "accept": [
+        "14 = 2 × 7"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p1_s3",
+      "type": "step",
+      "label": "10 = 2 × 5",
+      "description": "(i) split 10",
+      "prompt": "(i) Split 10 into two factors.",
+      "accept": [
+        "10 = 2 × 5"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p1_answer",
+      "type": "step",
+      "label": "(i) 140",
+      "description": "140 = 2² × 5 × 7",
+      "prompt": "(i) Express 140 as a product of its prime factors.",
+      "accept": [
+        "140 = 2² × 5 × 7",
+        "140 = 2 × 2 × 5 × 7",
+        "2² × 5 × 7",
+        "2 × 2 × 5 × 7"
+      ],
+      "hints": [
+        "Use either method: divide by the smallest prime again and again, or split the number into two factors and split them again. Example: 60 ÷ 2 = 30, or 60 = 6 × 10.",
+        "Stop when every factor is a prime. Example: 60 = 2 × 2 × 3 × 5 = 2² × 3 × 5.",
+        "140 = 2 × 2 × 5 × 7 = 2² × 5 × 7"
+      ],
+      "factorise": [
+        140
+      ],
+      "hints_by_method": {
+        "m1": [
+          "Is the number even? Then divide by 2 as many times as you can. Example: 12 ÷ 2 = 6, 6 ÷ 2 = 3.",
+          "Worked example: 60 ÷ 2 = 30, 30 ÷ 2 = 15, 15 ÷ 3 = 5, so 60 = 2² × 3 × 5. Do the same with your number.",
+          "140 = 2 × 2 × 5 × 7 = 2² × 5 × 7"
+        ],
+        "m2": [
+          "Split the number into two factors, then split each factor again. Example: 24 = 4 × 6.",
+          "Worked example: 24 = 4 × 6 = (2 × 2) × (2 × 3) = 2³ × 3. Stop when every branch is prime.",
+          "140 = 2 × 2 × 5 × 7 = 2² × 5 × 7"
+        ]
+      }
+    },
+    {
+      "id": "p2",
+      "type": "choice",
+      "label": "(ii) 156",
+      "description": "Divide by primes (A) or a factor tree (B)",
+      "prompt": "(ii) Express 156 as a product of its prime factors.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p2",
+      "type": "method",
+      "label": "A: Repeated Division",
+      "description": "Divide 156 by the smallest prime, again and again",
+      "prompt": "(ii) Divide 156 by its smallest prime factor.",
+      "accept": [
+        "repeated division",
+        "divide by primes"
+      ],
+      "hints": [],
+      "jev_description": "Repeated division of 156 by primes, e.g. 156 ÷ 2 = 78."
+    },
+    {
+      "id": "m1_p2_s1",
+      "type": "step",
+      "label": "156 ÷ 2 = 78",
+      "description": "(ii) divide by 2",
+      "prompt": "(ii) Divide 156 by 2.",
+      "accept": [
+        "156 ÷ 2 = 78",
+        "156 / 2 = 78"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p2_s2",
+      "type": "step",
+      "label": "78 ÷ 2 = 39",
+      "description": "(ii) divide by 2",
+      "prompt": "(ii) Divide 78 by 2.",
+      "accept": [
+        "78 ÷ 2 = 39",
+        "78 / 2 = 39"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p2_s3",
+      "type": "step",
+      "label": "39 ÷ 3 = 13",
+      "description": "(ii) divide by 3",
+      "prompt": "(ii) Divide 39 by 3.",
+      "accept": [
+        "39 ÷ 3 = 13",
+        "39 / 3 = 13"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p2_s4",
+      "type": "step",
+      "label": "13 ÷ 13 = 1",
+      "description": "(ii) divide by 13",
+      "prompt": "(ii) Divide 13 by 13.",
+      "accept": [
+        "13 ÷ 13 = 1",
+        "13 / 13 = 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p2",
+      "type": "method",
+      "label": "B: Factor Tree",
+      "description": "Split 156 into two factors, then split again",
+      "prompt": "(ii) Split 156 into any two factors.",
+      "accept": [
+        "factor tree",
+        "split into factors"
+      ],
+      "hints": [],
+      "jev_description": "Factor tree for 156: split into two factors (156 = 12 × 13), then split each again."
+    },
+    {
+      "id": "m2_p2_s1",
+      "type": "step",
+      "label": "156 = 12 × 13",
+      "description": "(ii) split 156",
+      "prompt": "(ii) Split 156 into two factors.",
+      "accept": [
+        "156 = 12 × 13"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p2_s2",
+      "type": "step",
+      "label": "12 = 4 × 3",
+      "description": "(ii) split 12",
+      "prompt": "(ii) Split 12 into two factors.",
+      "accept": [
+        "12 = 4 × 3"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p2_s3",
+      "type": "step",
+      "label": "4 = 2 × 2",
+      "description": "(ii) split 4",
+      "prompt": "(ii) Split 4 into two factors.",
+      "accept": [
+        "4 = 2 × 2"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p2_answer",
+      "type": "step",
+      "label": "(ii) 156",
+      "description": "156 = 2² × 3 × 13",
+      "prompt": "(ii) Express 156 as a product of its prime factors.",
+      "accept": [
+        "156 = 2² × 3 × 13",
+        "156 = 2 × 2 × 3 × 13",
+        "2² × 3 × 13",
+        "2 × 2 × 3 × 13"
+      ],
+      "hints": [
+        "Use either method: divide by the smallest prime again and again, or split the number into two factors and split them again. Example: 60 ÷ 2 = 30, or 60 = 6 × 10.",
+        "Stop when every factor is a prime. Example: 60 = 2 × 2 × 3 × 5 = 2² × 3 × 5.",
+        "156 = 2 × 2 × 3 × 13 = 2² × 3 × 13"
+      ],
+      "factorise": [
+        156
+      ],
+      "hints_by_method": {
+        "m1": [
+          "Divide by 2 as many times as you can, then try 3. Example: 18 ÷ 2 = 9, 9 ÷ 3 = 3.",
+          "Worked example: 84 ÷ 2 = 42, 42 ÷ 2 = 21, 21 ÷ 3 = 7, so 84 = 2² × 3 × 7. Do the same with your number.",
+          "156 = 2 × 2 × 3 × 13 = 2² × 3 × 13"
+        ],
+        "m2": [
+          "Find two factors first. Example: 36 = 4 × 9.",
+          "Worked example: 36 = 4 × 9 = (2 × 2) × (3 × 3) = 2² × 3². Stop when every branch is prime.",
+          "156 = 2 × 2 × 3 × 13 = 2² × 3 × 13"
+        ]
+      }
+    },
+    {
+      "id": "p3",
+      "type": "choice",
+      "label": "(iii) 3825",
+      "description": "Divide by primes (A) or a factor tree (B)",
+      "prompt": "(iii) Express 3825 as a product of its prime factors.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p3",
+      "type": "method",
+      "label": "A: Repeated Division",
+      "description": "Divide 3825 by the smallest prime, again and again",
+      "prompt": "(iii) Divide 3825 by its smallest prime factor.",
+      "accept": [
+        "repeated division",
+        "divide by primes"
+      ],
+      "hints": [],
+      "jev_description": "Repeated division of 3825 by primes, e.g. 3825 ÷ 3 = 1275."
+    },
+    {
+      "id": "m1_p3_s1",
+      "type": "step",
+      "label": "3825 ÷ 3 = 1275",
+      "description": "(iii) divide by 3",
+      "prompt": "(iii) Divide 3825 by 3.",
+      "accept": [
+        "3825 ÷ 3 = 1275",
+        "3825 / 3 = 1275"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p3_s2",
+      "type": "step",
+      "label": "1275 ÷ 3 = 425",
+      "description": "(iii) divide by 3",
+      "prompt": "(iii) Divide 1275 by 3.",
+      "accept": [
+        "1275 ÷ 3 = 425",
+        "1275 / 3 = 425"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p3_s3",
+      "type": "step",
+      "label": "425 ÷ 5 = 85",
+      "description": "(iii) divide by 5",
+      "prompt": "(iii) Divide 425 by 5.",
+      "accept": [
+        "425 ÷ 5 = 85",
+        "425 / 5 = 85"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p3_s4",
+      "type": "step",
+      "label": "85 ÷ 5 = 17",
+      "description": "(iii) divide by 5",
+      "prompt": "(iii) Divide 85 by 5.",
+      "accept": [
+        "85 ÷ 5 = 17",
+        "85 / 5 = 17"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p3_s5",
+      "type": "step",
+      "label": "17 ÷ 17 = 1",
+      "description": "(iii) divide by 17",
+      "prompt": "(iii) Divide 17 by 17.",
+      "accept": [
+        "17 ÷ 17 = 1",
+        "17 / 17 = 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p3",
+      "type": "method",
+      "label": "B: Factor Tree",
+      "description": "Split 3825 into two factors, then split again",
+      "prompt": "(iii) Split 3825 into any two factors.",
+      "accept": [
+        "factor tree",
+        "split into factors"
+      ],
+      "hints": [],
+      "jev_description": "Factor tree for 3825: split into two factors (3825 = 25 × 153), then split each again."
+    },
+    {
+      "id": "m2_p3_s1",
+      "type": "step",
+      "label": "3825 = 25 × 153",
+      "description": "(iii) split 3825",
+      "prompt": "(iii) Split 3825 into two factors.",
+      "accept": [
+        "3825 = 25 × 153"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p3_s2",
+      "type": "step",
+      "label": "25 = 5 × 5",
+      "description": "(iii) split 25",
+      "prompt": "(iii) Split 25 into two factors.",
+      "accept": [
+        "25 = 5 × 5"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p3_s3",
+      "type": "step",
+      "label": "153 = 9 × 17",
+      "description": "(iii) split 153",
+      "prompt": "(iii) Split 153 into two factors.",
+      "accept": [
+        "153 = 9 × 17"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p3_s4",
+      "type": "step",
+      "label": "9 = 3 × 3",
+      "description": "(iii) split 9",
+      "prompt": "(iii) Split 9 into two factors.",
+      "accept": [
+        "9 = 3 × 3"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p3_answer",
+      "type": "step",
+      "label": "(iii) 3825",
+      "description": "3825 = 3² × 5² × 17",
+      "prompt": "(iii) Express 3825 as a product of its prime factors.",
+      "accept": [
+        "3825 = 3² × 5² × 17",
+        "3825 = 3 × 3 × 5 × 5 × 17",
+        "3² × 5² × 17",
+        "3 × 3 × 5 × 5 × 17"
+      ],
+      "hints": [
+        "Use either method: divide by the smallest prime again and again, or split the number into two factors and split them again. Example: 60 ÷ 2 = 30, or 60 = 6 × 10.",
+        "Stop when every factor is a prime. Example: 60 = 2 × 2 × 3 × 5 = 2² × 3 × 5.",
+        "3825 = 3 × 3 × 5 × 5 × 17 = 3² × 5² × 17"
+      ],
+      "factorise": [
+        3825
+      ],
+      "hints_by_method": {
+        "m1": [
+          "An odd number has no factor 2. If it ends in 5, divide by 5 first. Example: 75 ÷ 5 = 15.",
+          "Worked example: 225 ÷ 5 = 45, 45 ÷ 5 = 9 = 3 × 3, so 225 = 3² × 5². Digits adding up to 9 mean 9 divides it.",
+          "3825 = 3 × 3 × 5 × 5 × 17 = 3² × 5² × 17"
+        ],
+        "m2": [
+          "A number ending in 25 or 75 has 25 as a factor. Example: 675 = 25 × 27.",
+          "Worked example: 675 = 25 × 27 = (5 × 5) × (3 × 3 × 3) = 3³ × 5².",
+          "3825 = 3 × 3 × 5 × 5 × 17 = 3² × 5² × 17"
+        ]
+      }
+    },
+    {
+      "id": "p4",
+      "type": "choice",
+      "label": "(iv) 5005",
+      "description": "Divide by primes (A) or a factor tree (B)",
+      "prompt": "(iv) Express 5005 as a product of its prime factors.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p4",
+      "type": "method",
+      "label": "A: Repeated Division",
+      "description": "Divide 5005 by the smallest prime, again and again",
+      "prompt": "(iv) Divide 5005 by its smallest prime factor.",
+      "accept": [
+        "repeated division",
+        "divide by primes"
+      ],
+      "hints": [],
+      "jev_description": "Repeated division of 5005 by primes, e.g. 5005 ÷ 5 = 1001."
+    },
+    {
+      "id": "m1_p4_s1",
+      "type": "step",
+      "label": "5005 ÷ 5 = 1001",
+      "description": "(iv) divide by 5",
+      "prompt": "(iv) Divide 5005 by 5.",
+      "accept": [
+        "5005 ÷ 5 = 1001",
+        "5005 / 5 = 1001"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p4_s2",
+      "type": "step",
+      "label": "1001 ÷ 7 = 143",
+      "description": "(iv) divide by 7",
+      "prompt": "(iv) Divide 1001 by 7.",
+      "accept": [
+        "1001 ÷ 7 = 143",
+        "1001 / 7 = 143"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p4_s3",
+      "type": "step",
+      "label": "143 ÷ 11 = 13",
+      "description": "(iv) divide by 11",
+      "prompt": "(iv) Divide 143 by 11.",
+      "accept": [
+        "143 ÷ 11 = 13",
+        "143 / 11 = 13"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p4_s4",
+      "type": "step",
+      "label": "13 ÷ 13 = 1",
+      "description": "(iv) divide by 13",
+      "prompt": "(iv) Divide 13 by 13.",
+      "accept": [
+        "13 ÷ 13 = 1",
+        "13 / 13 = 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p4",
+      "type": "method",
+      "label": "B: Factor Tree",
+      "description": "Split 5005 into two factors, then split again",
+      "prompt": "(iv) Split 5005 into any two factors.",
+      "accept": [
+        "factor tree",
+        "split into factors"
+      ],
+      "hints": [],
+      "jev_description": "Factor tree for 5005: split into two factors (5005 = 5 × 1001), then split each again."
+    },
+    {
+      "id": "m2_p4_s1",
+      "type": "step",
+      "label": "5005 = 5 × 1001",
+      "description": "(iv) split 5005",
+      "prompt": "(iv) Split 5005 into two factors.",
+      "accept": [
+        "5005 = 5 × 1001"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p4_s2",
+      "type": "step",
+      "label": "1001 = 7 × 143",
+      "description": "(iv) split 1001",
+      "prompt": "(iv) Split 1001 into two factors.",
+      "accept": [
+        "1001 = 7 × 143"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p4_s3",
+      "type": "step",
+      "label": "143 = 11 × 13",
+      "description": "(iv) split 143",
+      "prompt": "(iv) Split 143 into two factors.",
+      "accept": [
+        "143 = 11 × 13"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p4_answer",
+      "type": "step",
+      "label": "(iv) 5005",
+      "description": "5005 = 5 × 7 × 11 × 13",
+      "prompt": "(iv) Express 5005 as a product of its prime factors.",
+      "accept": [
+        "5005 = 5 × 7 × 11 × 13",
+        "5005 = 5 × 7 × 11 × 13",
+        "5 × 7 × 11 × 13",
+        "5 × 7 × 11 × 13"
+      ],
+      "hints": [
+        "Use either method: divide by the smallest prime again and again, or split the number into two factors and split them again. Example: 60 ÷ 2 = 30, or 60 = 6 × 10.",
+        "Stop when every factor is a prime. Example: 60 = 2 × 2 × 3 × 5 = 2² × 3 × 5.",
+        "5005 = 5 × 7 × 11 × 13"
+      ],
+      "factorise": [
+        5005
+      ],
+      "hints_by_method": {
+        "m1": [
+          "It ends in 5, so start with 5. Then test the primes in order on what is left.",
+          "Worked example: 105 ÷ 5 = 21 and 21 = 3 × 7, so 105 = 3 × 5 × 7. Do the same with your number.",
+          "5005 = 5 × 7 × 11 × 13"
+        ],
+        "m2": [
+          "It ends in 5, so 5 is a factor. Example: 105 = 5 × 21.",
+          "Worked example: 105 = 5 × 21 = 5 × (3 × 7) = 3 × 5 × 7.",
+          "5005 = 5 × 7 × 11 × 13"
+        ]
+      }
+    },
+    {
+      "id": "p5",
+      "type": "choice",
+      "label": "(v) 7429",
+      "description": "Divide by primes (A) or a factor tree (B)",
+      "prompt": "(v) Express 7429 as a product of its prime factors.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p5",
+      "type": "method",
+      "label": "A: Repeated Division",
+      "description": "Divide 7429 by the smallest prime, again and again",
+      "prompt": "(v) Divide 7429 by its smallest prime factor.",
+      "accept": [
+        "repeated division",
+        "divide by primes"
+      ],
+      "hints": [],
+      "jev_description": "Repeated division of 7429 by primes, e.g. 7429 ÷ 17 = 437."
+    },
+    {
+      "id": "m1_p5_s1",
+      "type": "step",
+      "label": "7429 ÷ 17 = 437",
+      "description": "(v) divide by 17",
+      "prompt": "(v) Divide 7429 by 17.",
+      "accept": [
+        "7429 ÷ 17 = 437",
+        "7429 / 17 = 437"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p5_s2",
+      "type": "step",
+      "label": "437 ÷ 19 = 23",
+      "description": "(v) divide by 19",
+      "prompt": "(v) Divide 437 by 19.",
+      "accept": [
+        "437 ÷ 19 = 23",
+        "437 / 19 = 23"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p5_s3",
+      "type": "step",
+      "label": "23 ÷ 23 = 1",
+      "description": "(v) divide by 23",
+      "prompt": "(v) Divide 23 by 23.",
+      "accept": [
+        "23 ÷ 23 = 1",
+        "23 / 23 = 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p5",
+      "type": "method",
+      "label": "B: Factor Tree",
+      "description": "Split 7429 into two factors, then split again",
+      "prompt": "(v) Split 7429 into any two factors.",
+      "accept": [
+        "factor tree",
+        "split into factors"
+      ],
+      "hints": [],
+      "jev_description": "Factor tree for 7429: split into two factors (7429 = 17 × 437), then split each again."
+    },
+    {
+      "id": "m2_p5_s1",
+      "type": "step",
+      "label": "7429 = 17 × 437",
+      "description": "(v) split 7429",
+      "prompt": "(v) Split 7429 into two factors.",
+      "accept": [
+        "7429 = 17 × 437"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m2_p5_s2",
+      "type": "step",
+      "label": "437 = 19 × 23",
+      "description": "(v) split 437",
+      "prompt": "(v) Split 437 into two factors.",
+      "accept": [
+        "437 = 19 × 23"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p5_answer",
+      "type": "step",
+      "label": "(v) 7429",
+      "description": "7429 = 17 × 19 × 23",
+      "prompt": "(v) Express 7429 as a product of its prime factors.",
+      "accept": [
+        "7429 = 17 × 19 × 23",
+        "7429 = 17 × 19 × 23",
+        "17 × 19 × 23",
+        "17 × 19 × 23"
+      ],
+      "hints": [
+        "Use either method: divide by the smallest prime again and again, or split the number into two factors and split them again. Example: 60 ÷ 2 = 30, or 60 = 6 × 10.",
+        "Stop when every factor is a prime. Example: 60 = 2 × 2 × 3 × 5 = 2² × 3 × 5.",
+        "7429 = 17 × 19 × 23"
+      ],
+      "factorise": [
+        7429
+      ],
+      "hints_by_method": {
+        "m1": [
+          "The small primes 2, 3, 5 and 7 may not divide it. Keep testing the primes in order, past the small ones.",
+          "Worked example: no prime below 29 divides 899, but 899 ÷ 29 = 31, so 899 = 29 × 31.",
+          "7429 = 17 × 19 × 23"
+        ],
+        "m2": [
+          "No small prime is a factor. Test the primes in order to find the first split.",
+          "Worked example: 899 = 29 × 31, and both 29 and 31 are prime.",
+          "7429 = 17 × 19 × 23"
+        ]
+      }
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "140 = 2² × 5 × 7, 156 = 2² × 3 × 13, 3825 = 3² × 5² × 17, 5005 = 5 × 7 × 11 × 13, 7429 = 17 × 19 × 23",
+      "prompt": "Write all five numbers as products of their prime factors.",
+      "accept": [
+        "140 = 2² × 5 × 7, 156 = 2² × 3 × 13, 3825 = 3² × 5² × 17, 5005 = 5 × 7 × 11 × 13, 7429 = 17 × 19 × 23"
+      ],
+      "hints": [
+        "Collect your answers to (i) to (v).",
+        "Write each one as: number = product of primes, separated by commas.",
+        "140 = 2² × 5 × 7, 156 = 2² × 3 × 13, 3825 = 3² × 5² × 17, 5005 = 5 × 7 × 11 × 13, 7429 = 17 × 19 × 23"
+      ],
+      "factorise": [
+        140,
+        156,
+        3825,
+        5005,
+        7429
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "What Is Given"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "What We Need to Find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "method_choice",
+      "label": "Describe the Plan"
+    },
+    {
+      "from": "method_choice",
+      "to": "p1",
+      "label": "(i) 140"
+    },
+    {
+      "from": "p1",
+      "to": "m1_p1",
+      "label": "A: Repeated Division"
+    },
+    {
+      "from": "m1_p1",
+      "to": "m1_p1_s1",
+      "label": "140 ÷ 2 = 70"
+    },
+    {
+      "from": "m1_p1_s1",
+      "to": "m1_p1_s2",
+      "label": "70 ÷ 2 = 35"
+    },
+    {
+      "from": "m1_p1_s2",
+      "to": "m1_p1_s3",
+      "label": "35 ÷ 5 = 7"
+    },
+    {
+      "from": "m1_p1_s3",
+      "to": "m1_p1_s4",
+      "label": "7 ÷ 7 = 1"
+    },
+    {
+      "from": "m1_p1_s4",
+      "to": "p1_answer",
+      "label": "(i) 140"
+    },
+    {
+      "from": "p1",
+      "to": "m2_p1",
+      "label": "B: Factor Tree"
+    },
+    {
+      "from": "m2_p1",
+      "to": "m2_p1_s1",
+      "label": "140 = 14 × 10"
+    },
+    {
+      "from": "m2_p1_s1",
+      "to": "m2_p1_s2",
+      "label": "14 = 2 × 7"
+    },
+    {
+      "from": "m2_p1_s2",
+      "to": "m2_p1_s3",
+      "label": "10 = 2 × 5"
+    },
+    {
+      "from": "m2_p1_s3",
+      "to": "p1_answer",
+      "label": "(i) 140"
+    },
+    {
+      "from": "p1_answer",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p2",
+      "label": "(ii) 156"
+    },
+    {
+      "from": "p2",
+      "to": "m1_p2",
+      "label": "A: Repeated Division"
+    },
+    {
+      "from": "m1_p2",
+      "to": "m1_p2_s1",
+      "label": "156 ÷ 2 = 78"
+    },
+    {
+      "from": "m1_p2_s1",
+      "to": "m1_p2_s2",
+      "label": "78 ÷ 2 = 39"
+    },
+    {
+      "from": "m1_p2_s2",
+      "to": "m1_p2_s3",
+      "label": "39 ÷ 3 = 13"
+    },
+    {
+      "from": "m1_p2_s3",
+      "to": "m1_p2_s4",
+      "label": "13 ÷ 13 = 1"
+    },
+    {
+      "from": "m1_p2_s4",
+      "to": "p2_answer",
+      "label": "(ii) 156"
+    },
+    {
+      "from": "p2",
+      "to": "m2_p2",
+      "label": "B: Factor Tree"
+    },
+    {
+      "from": "m2_p2",
+      "to": "m2_p2_s1",
+      "label": "156 = 12 × 13"
+    },
+    {
+      "from": "m2_p2_s1",
+      "to": "m2_p2_s2",
+      "label": "12 = 4 × 3"
+    },
+    {
+      "from": "m2_p2_s2",
+      "to": "m2_p2_s3",
+      "label": "4 = 2 × 2"
+    },
+    {
+      "from": "m2_p2_s3",
+      "to": "p2_answer",
+      "label": "(ii) 156"
+    },
+    {
+      "from": "p2_answer",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p3",
+      "label": "(iii) 3825"
+    },
+    {
+      "from": "p3",
+      "to": "m1_p3",
+      "label": "A: Repeated Division"
+    },
+    {
+      "from": "m1_p3",
+      "to": "m1_p3_s1",
+      "label": "3825 ÷ 3 = 1275"
+    },
+    {
+      "from": "m1_p3_s1",
+      "to": "m1_p3_s2",
+      "label": "1275 ÷ 3 = 425"
+    },
+    {
+      "from": "m1_p3_s2",
+      "to": "m1_p3_s3",
+      "label": "425 ÷ 5 = 85"
+    },
+    {
+      "from": "m1_p3_s3",
+      "to": "m1_p3_s4",
+      "label": "85 ÷ 5 = 17"
+    },
+    {
+      "from": "m1_p3_s4",
+      "to": "m1_p3_s5",
+      "label": "17 ÷ 17 = 1"
+    },
+    {
+      "from": "m1_p3_s5",
+      "to": "p3_answer",
+      "label": "(iii) 3825"
+    },
+    {
+      "from": "p3",
+      "to": "m2_p3",
+      "label": "B: Factor Tree"
+    },
+    {
+      "from": "m2_p3",
+      "to": "m2_p3_s1",
+      "label": "3825 = 25 × 153"
+    },
+    {
+      "from": "m2_p3_s1",
+      "to": "m2_p3_s2",
+      "label": "25 = 5 × 5"
+    },
+    {
+      "from": "m2_p3_s2",
+      "to": "m2_p3_s3",
+      "label": "153 = 9 × 17"
+    },
+    {
+      "from": "m2_p3_s3",
+      "to": "m2_p3_s4",
+      "label": "9 = 3 × 3"
+    },
+    {
+      "from": "m2_p3_s4",
+      "to": "p3_answer",
+      "label": "(iii) 3825"
+    },
+    {
+      "from": "p3_answer",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p4",
+      "label": "(iv) 5005"
+    },
+    {
+      "from": "p4",
+      "to": "m1_p4",
+      "label": "A: Repeated Division"
+    },
+    {
+      "from": "m1_p4",
+      "to": "m1_p4_s1",
+      "label": "5005 ÷ 5 = 1001"
+    },
+    {
+      "from": "m1_p4_s1",
+      "to": "m1_p4_s2",
+      "label": "1001 ÷ 7 = 143"
+    },
+    {
+      "from": "m1_p4_s2",
+      "to": "m1_p4_s3",
+      "label": "143 ÷ 11 = 13"
+    },
+    {
+      "from": "m1_p4_s3",
+      "to": "m1_p4_s4",
+      "label": "13 ÷ 13 = 1"
+    },
+    {
+      "from": "m1_p4_s4",
+      "to": "p4_answer",
+      "label": "(iv) 5005"
+    },
+    {
+      "from": "p4",
+      "to": "m2_p4",
+      "label": "B: Factor Tree"
+    },
+    {
+      "from": "m2_p4",
+      "to": "m2_p4_s1",
+      "label": "5005 = 5 × 1001"
+    },
+    {
+      "from": "m2_p4_s1",
+      "to": "m2_p4_s2",
+      "label": "1001 = 7 × 143"
+    },
+    {
+      "from": "m2_p4_s2",
+      "to": "m2_p4_s3",
+      "label": "143 = 11 × 13"
+    },
+    {
+      "from": "m2_p4_s3",
+      "to": "p4_answer",
+      "label": "(iv) 5005"
+    },
+    {
+      "from": "p4_answer",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p5",
+      "label": "(v) 7429"
+    },
+    {
+      "from": "p5",
+      "to": "m1_p5",
+      "label": "A: Repeated Division"
+    },
+    {
+      "from": "m1_p5",
+      "to": "m1_p5_s1",
+      "label": "7429 ÷ 17 = 437"
+    },
+    {
+      "from": "m1_p5_s1",
+      "to": "m1_p5_s2",
+      "label": "437 ÷ 19 = 23"
+    },
+    {
+      "from": "m1_p5_s2",
+      "to": "m1_p5_s3",
+      "label": "23 ÷ 23 = 1"
+    },
+    {
+      "from": "m1_p5_s3",
+      "to": "p5_answer",
+      "label": "(v) 7429"
+    },
+    {
+      "from": "p5",
+      "to": "m2_p5",
+      "label": "B: Factor Tree"
+    },
+    {
+      "from": "m2_p5",
+      "to": "m2_p5_s1",
+      "label": "7429 = 17 × 437"
+    },
+    {
+      "from": "m2_p5_s1",
+      "to": "m2_p5_s2",
+      "label": "437 = 19 × 23"
+    },
+    {
+      "from": "m2_p5_s2",
+      "to": "p5_answer",
+      "label": "(v) 7429"
+    },
+    {
+      "from": "p5_answer",
+      "to": "conclusion",
+      "label": "Final Answer"
+    }
+  ]
+}

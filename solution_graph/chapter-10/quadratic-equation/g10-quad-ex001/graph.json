@@ -3,23 +3,20 @@
     "graph_id": "sg-g10-quad-ex001",
     "problem_uuid": "g10-quad-ex001",
     "problem_text": "Solve the quadratic equation x² − 5x + 6 = 0.",
-<<<<<<< HEAD
-    "equation": "x**2 - 5*x + 6 = 0",
-    "variable": "x",
-    "use_jev": true,
-=======
     "navigation_label": "Quadratic: x² − 5x + 6 = 0",
     "problem_context": {
       "equation": "x^2 - 5x + 6 = 0"
     },
->>>>>>> fbe8d142e04c9770fc1c774a3ffd31e4f60f69f1
     "graph_type": "directed_acyclic_graph",
     "version": "1.0.0",
     "description": "Solution DAG for x² − 5x + 6 = 0 — captures all valid solution methods (factoring by splitting the middle term, quadratic formula, completing the square, graphical, sum and product of roots, trial and factor theorem). The tutor accepts any path through this graph as a valid solution.",
     "created": "2026-10-08",
     "total_methods": 6,
     "total_nodes": 32,
-    "total_edges": 46
+    "total_edges": 46,
+    "equation": "x**2 - 5*x + 6 = 0",
+    "variable": "x",
+    "use_jev": true
   },
   "start_node": "start",
   "conclusion_node": "conclusion",

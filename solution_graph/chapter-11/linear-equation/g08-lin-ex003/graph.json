@@ -12,7 +12,13 @@
     "created": "2026-10-15",
     "total_methods": 3,
     "total_nodes": 16,
-    "total_edges": 18
+    "total_edges": 18,
+    "problem_context": {
+      "chapter": "11",
+      "topic": "Linear Equations",
+      "grade": "8"
+    },
+    "navigation_label": "Linear Equation: 3(x − 2) + 5 = 2x + 4"
   },
   "start_node": "start",
   "conclusion_node": "conclusion",
@@ -28,6 +34,40 @@
         "This is a linear equation in one variable.",
         "Start by removing the bracket.",
         "You can use transposition, balancing, or trial and error."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Equation",
+      "description": "Identify the linear equation to solve.",
+      "prompt": "What linear equation is given?",
+      "accept": [
+        "3(x - 2) + 5 = 2x + 4",
+        "3(x-2)+5=2x+4",
+        "3(x - 2) + 5 = 2*x + 4",
+        "3*(x-2)+5=2*x+4"
+      ],
+      "hints": [
+        "The equation is given in the problem statement."
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Goal",
+      "description": "Identify what needs to be found.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "value of x",
+        "solve for x",
+        "find x",
+        "x"
+      ],
+      "hints": [
+        "Find the value of x that makes both sides equal."
       ]
     },
     {
@@ -400,6 +440,31 @@
       "from": "m3_s3",
       "to": "conclusion",
       "label": "x = 5"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given equation"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_transpose",
+      "label": "Method 1: Transposition"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_balance",
+      "label": "Method 2: Balancing"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m3_trial",
+      "label": "Method 3: Trial and Error"
     }
   ]
 }

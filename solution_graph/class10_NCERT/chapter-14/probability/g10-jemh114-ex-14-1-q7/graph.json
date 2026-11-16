@@ -1,0 +1,392 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh114-ex-14-1-q7",
+    "problem_uuid": "g10-jemh114-ex-14-1-q7",
+    "problem_text": "It is given that in a group of 3 students, the probability of 2 students not having the same birthday is 0.992. What is the probability that the 2 students have the same birthday?",
+    "equation": "x + 124/125 = 1",
+    "variable": "x",
+    "use_jev": true,
+    "guided": true,
+    "sympy_can_finish": false,
+    "sympy_note": "x is P(same birthday); 124/125 = 0.992 is written as a fraction so SymPy reports the root as 1/125. SymPy also checks numeric lines such as 1 − 0.992 = 0.008.",
+    "guided_note": "Guided mode (probability_hints.pdf): one question at a time. A correct answer moves on; a wrong answer shows Hint 1, then 2, then 3. At method_choice the student answers either method's first question; Jev picks which method's hints to show for a wrong answer.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Guided solution DAG for NCERT Class 10 Ex 14.1 Q7 (P(not same birthday) = 0.992; answer 0.008). Questions: what is given, what to find, complementary events, then Method 1 (complement rule P(E) + P(not E) = 1) or Method 2 (let x = P(same birthday), x + 0.992 = 1), then the final answer.",
+    "created": "2026-11-02",
+    "total_methods": 2,
+    "total_nodes": 14,
+    "total_edges": 14,
+    "problem_context": {
+      "chapter": "14",
+      "topic": "Probability",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 14 Probability, Exercise 14.1, Q7 (p. 214)",
+      "question_type": "short_answer"
+    },
+    "navigation_label": "Ex 14.1 Q7: Same Birthday, Given P(not) = 0.992"
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "It is given that in a group of 3 students, the probability of 2 students not having the same birthday is 0.992. What is the probability that the 2 students have the same birthday?",
+      "prompt": "Read the problem. Answer each question to solve it step by step.",
+      "accept": [],
+      "hints": [
+        "Answer the question shown above the box."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "What Is Given",
+      "description": "P(2 students do not have the same birthday) = 0.992.",
+      "prompt": "What is given in the question?",
+      "accept": [
+        "P(2 students do not have the same birthday) = 0.992",
+        "P(not same birthday) = 0.992",
+        "P(not E) = 0.992",
+        "0.992"
+      ],
+      "hints": [
+        "Read the number in the question."
+      ],
+      "optional": false,
+      "keywords": [
+        "0.992"
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "What We Need to Find",
+      "description": "Find P(2 students have the same birthday).",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "Find P(2 students have the same birthday)",
+        "P(same birthday)",
+        "P(E)",
+        "probability of same birthday",
+        "probability that 2 students have the same birthday"
+      ],
+      "hints": [
+        "We need the probability that the 2 students have the same birthday."
+      ],
+      "optional": false,
+      "keywords": [
+        "same",
+        "birthday"
+      ],
+      "forbidden": [
+        "not",
+        "n't"
+      ]
+    },
+    {
+      "id": "concept_complementary",
+      "type": "concept",
+      "label": "Complementary Events",
+      "description": "'Same birthday' and 'not the same birthday' are complementary events.",
+      "prompt": "Look at the two events: 'same birthday' and 'not the same birthday'. How are they related?",
+      "accept": [
+        "complementary events",
+        "complementary",
+        "they are complementary events",
+        "complement",
+        "they are complements"
+      ],
+      "hints": [
+        "Can both happen at the same time?",
+        "They are opposites of each other. What do we call such events?",
+        "They are called complementary events."
+      ],
+      "keywords": [
+        "complement"
+      ]
+    },
+    {
+      "id": "method_choice",
+      "type": "choice",
+      "label": "Let's Solve the Problem",
+      "description": "Answer either question: how are P(E) and P(not E) related (Method 1), or what does x stand for (Method 2).",
+      "prompt": "Let's solve the problem. You can answer either one of the questions:\n1. How are P(E) and P(not E) related?\n2. Let the unknown probability be x. What does x stand for?",
+      "accept": [],
+      "hints": [
+        "Answer just one of the two questions.",
+        "Question 1: what do P(E) and P(not E) add up to?",
+        "Question 2: x is the probability we don't know yet."
+      ]
+    },
+    {
+      "id": "m1_complement",
+      "type": "method",
+      "label": "Method 1: Complement Rule P(E) = 1 − P(not E)",
+      "description": "P(E) + P(not E) = 1, so P(E) = 1 − 0.992 = 0.008.",
+      "prompt": "How are P(E) and P(not E) related?",
+      "accept": [
+        "P(E) + P(not E) = 1",
+        "P(E) = 1 - P(not E)",
+        "complement rule"
+      ],
+      "hints": [],
+      "jev_description": "Complement rule written with P(E). Steps: (1) P(E) + P(not E) = 1, (2) P(E) = 1 - 0.992, (3) 0.008. Writing P(E) or P(not E) identifies this method."
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Relate P(E) and P(not E)",
+      "description": "P(E) + P(not E) = 1.",
+      "prompt": "How are P(E) and P(not E) related?",
+      "accept": [
+        "P(E) + P(not E) = 1",
+        "P(not E) + P(E) = 1",
+        "P(E) + P(Ē) = 1",
+        "P(E) + P(E') = 1",
+        "P(E) = 1 - P(not E)",
+        "P(E) = 1 − P(not E)",
+        "P(not E) = 1 - P(E)",
+        "they add up to 1"
+      ],
+      "hints": [
+        "Can both events happen together? Is there a third possibility?",
+        "E and 'not E' cover all outcomes, so their probabilities add up to ___.",
+        "P(E) + P(not E) = 1"
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Put in P(not E) = 0.992",
+      "description": "P(E) = 1 − 0.992.",
+      "prompt": "Put P(not E) = 0.992 in the rule. What is P(E)?",
+      "accept": [
+        "P(E) = 1 - 0.992",
+        "P(E) = 1 − 0.992",
+        "1 - 0.992",
+        "P(E) = 1 - P(not E) = 1 - 0.992"
+      ],
+      "hints": [
+        "Which one is given, P(E) or P(not E)?",
+        "Make P(E) the subject: P(E) = 1 − P(not E).",
+        "P(E) = 1 − 0.992"
+      ],
+      "keywords": [
+        "1",
+        "0.992"
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Work out P(E)",
+      "description": "1 − 0.992 = 0.008.",
+      "prompt": "What is the probability that the 2 students have the same birthday?",
+      "accept": [
+        "0.008",
+        "P(E) = 0.008",
+        "1 - 0.992 = 0.008",
+        "1.000 - 0.992 = 0.008",
+        "P(E) = 1 - 0.992 = 0.008"
+      ],
+      "hints": [
+        "Write 1 as 1.000 and subtract 0.992.",
+        "Check: your answer + 0.992 should equal 1.",
+        "1.000 − 0.992 = 0.008"
+      ]
+    },
+    {
+      "id": "m2_equation",
+      "type": "method",
+      "label": "Method 2: Let x Be the Probability and Solve",
+      "description": "Let x = P(same birthday). Then x + 0.992 = 1, so x = 1 − 0.992 = 0.008.",
+      "prompt": "Let the unknown probability be x. What does x stand for?",
+      "accept": [
+        "let x be the probability",
+        "let x = P(same birthday)",
+        "let the probability be x"
+      ],
+      "hints": [],
+      "jev_description": "Linear equation in x. Steps: (1) x = P(same birthday), (2) x + 0.992 = 1, (3) x = 1 - 0.992 = 0.008. Writing x identifies this method."
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Say what x stands for",
+      "description": "x = P(2 students have the same birthday).",
+      "prompt": "Let the unknown probability be x. What does x stand for?",
+      "accept": [
+        "x = P(2 students have the same birthday)",
+        "x = P(same birthday)",
+        "x = P(E)",
+        "x is the probability that the 2 students have the same birthday"
+      ],
+      "hints": [
+        "What are we trying to find?",
+        "Let x be the probability we don't know yet.",
+        "x = P(same birthday)"
+      ],
+      "keywords": [
+        "x",
+        "same",
+        "birthday"
+      ],
+      "forbidden": [
+        "not",
+        "n't"
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Form the equation",
+      "description": "x + 0.992 = 1.",
+      "prompt": "The two probabilities add up to 1. Write this as an equation in x.",
+      "accept": [
+        "x + 0.992 = 1",
+        "0.992 + x = 1",
+        "1 = x + 0.992"
+      ],
+      "hints": [
+        "Same birthday + not same birthday = ?",
+        "Replace 'same birthday' with x and 'not same birthday' with 0.992.",
+        "x + 0.992 = 1"
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Solve for x",
+      "description": "x = 1 − 0.992 = 0.008.",
+      "prompt": "Solve the equation. What is x?",
+      "accept": [
+        "x = 1 - 0.992 = 0.008",
+        "x = 1 − 0.992 = 0.008",
+        "x = 0.008",
+        "x = 1 - 0.992",
+        "x = 1.000 - 0.992 = 0.008"
+      ],
+      "hints": [
+        "How do you get x alone on one side?",
+        "Subtract 0.992 from both sides: x = 1 − 0.992.",
+        "Write 1 as 1.000: 1.000 − 0.992 = 0.008"
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "The probability that the 2 students have the same birthday is 0.008",
+      "prompt": "State the final answer.",
+      "accept": [
+        "The probability that the 2 students have the same birthday is 0.008",
+        "the probability that 2 students have the same birthday is 0.008",
+        "P(same birthday) = 0.008",
+        "P(2 students have the same birthday) = 0.008"
+      ],
+      "hints": [
+        "What does x stand for?",
+        "Check: 0.008 + 0.992 = 1 ✓",
+        "P(same birthday) = 0.008"
+      ],
+      "keywords": [
+        "same",
+        "birthday"
+      ],
+      "forbidden": [
+        "not",
+        "n't"
+      ],
+      "answer_values": [
+        "0.008"
+      ],
+      "hints_by_method": {
+        "m1": [
+          "What does P(E) stand for?",
+          "Check: 0.008 + 0.992 = 1 ✓",
+          "P(same birthday) = 0.008"
+        ],
+        "m2": [
+          "What does x stand for?",
+          "Check: 0.008 + 0.992 = 1 ✓",
+          "P(same birthday) = 0.008"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "What is given?"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "What do we need to find?"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "concept_complementary",
+      "label": "How are the events related?"
+    },
+    {
+      "from": "concept_complementary",
+      "to": "method_choice",
+      "label": "Let's solve"
+    },
+    {
+      "from": "method_choice",
+      "to": "m1_complement",
+      "label": "Method 1: Complement Rule P(E) = 1 − P(not E)"
+    },
+    {
+      "from": "m1_complement",
+      "to": "m1_s1",
+      "label": "Relate P(E) and P(not E)"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Put in P(not E) = 0.992"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3",
+      "label": "Work out P(E)"
+    },
+    {
+      "from": "m1_s3",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "m2_equation",
+      "label": "Method 2: Let x Be the Probability and Solve"
+    },
+    {
+      "from": "m2_equation",
+      "to": "m2_s1",
+      "label": "Say what x stands for"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Form the equation"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3",
+      "label": "Solve for x"
+    },
+    {
+      "from": "m2_s3",
+      "to": "conclusion",
+      "label": "Final Answer"
+    }
+  ]
+}
