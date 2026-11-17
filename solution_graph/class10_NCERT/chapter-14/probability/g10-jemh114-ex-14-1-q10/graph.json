@@ -1,0 +1,361 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh114-ex-14-1-q10",
+    "problem_uuid": "g10-jemh114-ex-14-1-q10",
+    "problem_text": "A piggy bank contains hundred 50p coins, fifty ₹1 coins, twenty ₹2 coins and ten ₹5 coins. If it is equally likely that one of the coins will fall out when the bank is turned upside down, what is the probability that the coin (i) will be a 50p coin? (ii) will not be a ₹5 coin?",
+    "equation": null,
+    "variable": "x",
+    "use_jev": true,
+    "guided": true,
+    "sympy_can_finish": false,
+    "sympy_note": "There is no unknown, so there is no equation: SymPy and the claim checker check the numeric lines (100 + 50 + 20 + 10 = 180, 100/180 = 5/9, 170/180 = 17/18, 1 − 1/18 = 17/18).",
+    "guided_note": "Guided mode (Q10 hint sheet): one question at a time; a wrong answer shows Hint 1, then 2, then 3. Q3 (total) and Q4 (part i) are shared; at method_choice the student answers either path's first question, and Jev picks which path's hints to show for a wrong answer.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Guided solution DAG for NCERT Class 10 Ex 14.1 Q10 (piggy bank: 100 × 50p, 50 × ₹1, 20 × ₹2, 10 × ₹5; answers (i) 5/9 (ii) 17/18). Shared: total 180 and part (i) 100/180 = 5/9. Part (ii): Path A counts the coins that are not ₹5 (170/180); Path B uses the complement rule (1 − 10/180).",
+    "created": "2026-11-02",
+    "total_methods": 2,
+    "total_nodes": 13,
+    "total_edges": 13,
+    "problem_context": {
+      "chapter": "14",
+      "topic": "Probability",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 14 Probability, Exercise 14.1, Q10 (p. 215)",
+      "question_type": "short_answer"
+    },
+    "navigation_label": "Ex 14.1 Q10: Piggy Bank Coins"
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "A piggy bank contains hundred 50p coins, fifty ₹1 coins, twenty ₹2 coins and ten ₹5 coins. If it is equally likely that one of the coins will fall out when the bank is turned upside down, what is the probability that the coin (i) will be a 50p coin? (ii) will not be a ₹5 coin?",
+      "prompt": "Read the problem. Answer each question to solve it step by step.",
+      "accept": [],
+      "hints": [
+        "Answer the question shown above the box."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "What Is Given",
+      "description": "100 coins of 50p, 50 coins of ₹1, 20 coins of ₹2 and 10 coins of ₹5; each coin is equally likely to fall out.",
+      "prompt": "What is given in the question?",
+      "accept": [
+        "100 coins of 50p, 50 coins of ₹1, 20 coins of ₹2 and 10 coins of ₹5",
+        "50p → 100, ₹1 → 50, ₹2 → 20, ₹5 → 10",
+        "100, 50, 20 and 10"
+      ],
+      "hints": [
+        "How many kinds of coins are in the piggy bank?",
+        "Write how many coins there are of each kind.",
+        "50p → 100, ₹1 → 50, ₹2 → 20, ₹5 → 10"
+      ],
+      "optional": false,
+      "keywords": [
+        "100",
+        "50",
+        "20",
+        "10"
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "What We Need to Find",
+      "description": "(i) P(50p coin) and (ii) P(not a ₹5 coin).",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "(i) P(50p coin) and (ii) P(not a ₹5 coin)",
+        "P(50p coin) and P(not ₹5 coin)",
+        "probability of a 50p coin and of not a ₹5 coin"
+      ],
+      "hints": [
+        "Read parts (i) and (ii) of the question.",
+        "There are two probabilities to find.",
+        "(i) a 50p coin, (ii) a coin that is not ₹5"
+      ],
+      "optional": false,
+      "keywords": [
+        "50",
+        "not",
+        "5"
+      ]
+    },
+    {
+      "id": "s_total",
+      "type": "step",
+      "label": "Count All the Coins",
+      "description": "Total number of coins = 100 + 50 + 20 + 10 = 180.",
+      "prompt": "How many coins are there in the piggy bank altogether?",
+      "accept": [
+        "100 + 50 + 20 + 10 = 180",
+        "total = 180",
+        "180",
+        "total = 100 + 50 + 20 + 10 = 180"
+      ],
+      "hints": [
+        "Add the number of coins of each kind.",
+        "100 + 50 + 20 + 10 = ?",
+        "Total = 180"
+      ],
+      "keywords": [
+        "180"
+      ]
+    },
+    {
+      "id": "s_part_i",
+      "type": "step",
+      "label": "(i) Probability of a 50p Coin",
+      "description": "P(50p coin) = 100/180 = 5/9.",
+      "prompt": "(i) What is the probability that the coin is a 50p coin?",
+      "accept": [
+        "P(50p coin) = 100/180 = 5/9",
+        "P(50p) = 100/180 = 5/9",
+        "100/180 = 5/9",
+        "P(50p coin) = 5/9",
+        "P(50p) = 5/9",
+        "5/9"
+      ],
+      "hints": [
+        "P(E) = number of favourable outcomes ÷ total number of outcomes.",
+        "There are 100 coins of 50p out of 180 coins.",
+        "100/180; divide top and bottom by 20 → 5/9"
+      ],
+      "keywords": [
+        "100",
+        "180"
+      ]
+    },
+    {
+      "id": "method_choice",
+      "type": "choice",
+      "label": "(ii) Choose a Method",
+      "description": "Answer either path's first question.",
+      "prompt": "For part (ii), choose a method by answering either question:\nPath A: How many coins are not ₹5 coins?\nPath B: First find P(₹5 coin). What is it?",
+      "accept": [],
+      "hints": [
+        "Answer just one of the two questions.",
+        "Path A: which coins are not ₹5?",
+        "Path B: how many ₹5 coins are there out of 180?"
+      ]
+    },
+    {
+      "id": "m1_count",
+      "type": "method",
+      "label": "Path A: Count the Coins That Are Not ₹5",
+      "description": "Coins that are not ₹5: 100 + 50 + 20 = 170, so P(not ₹5) = 170/180 = 17/18.",
+      "prompt": "(ii) How many coins are not ₹5 coins?",
+      "accept": [
+        "count the coins that are not ₹5",
+        "count the other coins"
+      ],
+      "hints": [],
+      "jev_description": "Count favourable outcomes for part (ii): coins that are not ₹5 = 100 + 50 + 20 = 170, P(not ₹5) = 170/180 = 17/18. Writing 170 identifies this path."
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "(ii) Coins That Are Not ₹5",
+      "description": "100 + 50 + 20 = 170.",
+      "prompt": "(ii) How many coins are not ₹5 coins?",
+      "accept": [
+        "100 + 50 + 20 = 170",
+        "180 - 10 = 170",
+        "170",
+        "not ₹5 coins = 170"
+      ],
+      "hints": [
+        "Which coins are not ₹5?",
+        "The 50p, ₹1 and ₹2 coins. Add them.",
+        "100 + 50 + 20 = 170"
+      ],
+      "keywords": [
+        "170"
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "(ii) Probability of Not a ₹5 Coin",
+      "description": "P(not ₹5) = 170/180 = 17/18.",
+      "prompt": "(ii) What is the probability that the coin is not a ₹5 coin?",
+      "accept": [
+        "P(not ₹5) = 170/180 = 17/18",
+        "P(not ₹5) = 170/180",
+        "170/180 = 17/18",
+        "P(not ₹5) = 17/18",
+        "17/18"
+      ],
+      "hints": [
+        "Favourable outcomes ÷ total outcomes.",
+        "170 coins are not ₹5, out of 180.",
+        "170/180; divide top and bottom by 10 → 17/18"
+      ],
+      "keywords": [
+        "170",
+        "180"
+      ]
+    },
+    {
+      "id": "m2_complement",
+      "type": "method",
+      "label": "Path B: Complement Rule P(not E) = 1 − P(E)",
+      "description": "P(₹5 coin) = 10/180 = 1/18, so P(not ₹5) = 1 − 1/18 = 17/18.",
+      "prompt": "(ii) First find P(₹5 coin). What is it?",
+      "accept": [
+        "complement",
+        "complementary",
+        "P(not E) = 1 - P(E)"
+      ],
+      "hints": [],
+      "jev_description": "Complement rule for part (ii): P(₹5) = 10/180 = 1/18, P(not ₹5) = 1 - 1/18 = 17/18. Writing 10/180, 1/18 or 1 - 1/18 identifies this path."
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "(ii) Probability of a ₹5 Coin",
+      "description": "P(₹5) = 10/180 = 1/18.",
+      "prompt": "(ii) First find P(₹5 coin). What is it?",
+      "accept": [
+        "P(₹5) = 10/180 = 1/18",
+        "P(₹5 coin) = 10/180 = 1/18",
+        "P(₹5) = 10/180",
+        "10/180 = 1/18",
+        "P(₹5) = 1/18",
+        "1/18"
+      ],
+      "hints": [
+        "How many ₹5 coins are there?",
+        "There are 10 ₹5 coins out of 180.",
+        "10/180; divide top and bottom by 10 → 1/18"
+      ],
+      "keywords": [
+        "10",
+        "180"
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "(ii) Use P(not E) = 1 − P(E)",
+      "description": "P(not ₹5) = 1 − 1/18 = 17/18.",
+      "prompt": "(ii) Use P(not E) = 1 − P(E). What is P(not a ₹5 coin)?",
+      "accept": [
+        "P(not ₹5) = 1 - 1/18 = 17/18",
+        "P(not ₹5) = 1 − 1/18 = 17/18",
+        "P(not ₹5) = 1 - 1/18",
+        "1 - 1/18 = 17/18",
+        "1 − 1/18 = 17/18",
+        "1 - 1/18",
+        "18/18 - 1/18 = 17/18",
+        "P(not ₹5) = 17/18",
+        "17/18"
+      ],
+      "hints": [
+        "“Not ₹5” and “₹5” are complementary events, so their probabilities add up to 1.",
+        "P(not ₹5) = 1 − 1/18",
+        "Write 1 as 18/18: 18/18 − 1/18 = 17/18"
+      ],
+      "keywords": [
+        "17/18"
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "(i) 5/9 (ii) 17/18",
+      "prompt": "State both answers.",
+      "accept": [
+        "(i) 5/9 (ii) 17/18",
+        "(i) 5/9, (ii) 17/18",
+        "(i) 5/9 and (ii) 17/18",
+        "5/9 and 17/18",
+        "5/9, 17/18",
+        "P(50p coin) = 5/9 and P(not ₹5 coin) = 17/18"
+      ],
+      "hints": [
+        "Part (i): 100/180 = ?",
+        "Part (ii): 170/180 or 1 − 1/18 = ?",
+        "(i) 5/9 (ii) 17/18"
+      ],
+      "answer_values": [
+        "5/9",
+        "17/18"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "What Is Given"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "What We Need to Find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "s_total",
+      "label": "Count All the Coins"
+    },
+    {
+      "from": "s_total",
+      "to": "s_part_i",
+      "label": "(i) Probability of a 50p Coin"
+    },
+    {
+      "from": "s_part_i",
+      "to": "method_choice",
+      "label": "(ii) Choose a Method"
+    },
+    {
+      "from": "method_choice",
+      "to": "m1_count",
+      "label": "Path A: Count the Coins That Are Not ₹5"
+    },
+    {
+      "from": "m1_count",
+      "to": "m1_s1",
+      "label": "(ii) Coins That Are Not ₹5"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "(ii) Probability of Not a ₹5 Coin"
+    },
+    {
+      "from": "m1_s2",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "m2_complement",
+      "label": "Path B: Complement Rule P(not E) = 1 − P(E)"
+    },
+    {
+      "from": "m2_complement",
+      "to": "m2_s1",
+      "label": "(ii) Probability of a ₹5 Coin"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "(ii) Use P(not E) = 1 − P(E)"
+    },
+    {
+      "from": "m2_s2",
+      "to": "conclusion",
+      "label": "Final Answer"
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh110-ex-10-2-q6",
+    "problem_uuid": "g10-jemh110-ex-10-2-q6",
+    "problem_text": "The length of a tangent from a point A at distance 5 cm from the centre of the circle is 4 cm. Find the radius of the circle.",
+    "equation": "x**2 + 4**2 = 5**2",
+    "variable": "r",
+    "use_jev": true,
+    "sympy_can_finish": false,
+    "sympy_note": "x in the equation is the radius r (graph_meta.variable). sympy_can_finish is false because r² = 9 also has the root −3, which is not a length; the conclusion node decides when the problem is solved. Trigonometry lines (sin, cos, θ) and coordinate points are not checked by SymPy; the graph's accept lists recognise them.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Solution DAG for NCERT Class 10 Ex 10.2 Q6 (radius from tangent length 4 cm and distance 5 cm; answer 3 cm) with the four methods available in the NCERT Class 10 book: Pythagoras' theorem, the 3-4-5 triangle, trigonometry (Chapter 8) and coordinate geometry (Chapter 7). All four use the right angle between the radius and the tangent (Theorem 10.1). Pythagoras and the 3-4-5 triangle share their first step; trigonometry and coordinate geometry are identified from their first line. The tangent-secant theorem is left out because it is not in the NCERT Class 10 book.",
+    "created": "2026-11-01",
+    "total_methods": 4,
+    "total_nodes": 20,
+    "total_edges": 26,
+    "problem_context": {
+      "chapter": "10",
+      "topic": "Circles",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 10 Circles, Exercise 10.2, Q6 (p. 152)"
+    },
+    "navigation_label": "Tangent 4 cm from a Point 5 cm Away: Find the Radius"
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "The length of a tangent from a point A at distance 5 cm from the centre of the circle is 4 cm. Find the radius of the circle.",
+      "prompt": "Read the problem. The tangent from A touches the circle at P. Find the radius OP of the circle.",
+      "accept": [],
+      "hints": [
+        "Draw the circle with centre O, the point A and the tangent AP.",
+        "The radius drawn to the point of contact is perpendicular to the tangent (Theorem 10.1).",
+        "So triangle OPA has a right angle at P: use Pythagoras, trigonometry or coordinates."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "Identify the Given Information",
+      "description": "Distance OA = 5 cm and tangent length AP = 4 cm.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "OA = 5 and AP = 4",
+        "distance = 5 cm and tangent = 4 cm",
+        "distance 5 cm, tangent 4 cm",
+        "OA = 5 cm, AP = 4 cm",
+        "5 and 4"
+      ],
+      "hints": [
+        "The distance of A from the centre is OA.",
+        "The length of the tangent from A is AP."
+      ],
+      "optional": true
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "Identify the Goal",
+      "description": "Find the radius OP.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "radius",
+        "find the radius",
+        "radius of the circle",
+        "OP",
+        "find r",
+        "r"
+      ],
+      "hints": [
+        "We need the radius OP = r."
+      ],
+      "optional": true
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "radius = 3 cm",
+      "prompt": "State your final answer: what is the radius of the circle?",
+      "accept": [
+        "radius = 3 cm",
+        "radius is 3 cm",
+        "the radius is 3 cm",
+        "the radius of the circle is 3 cm",
+        "r = 3 cm",
+        "OP = 3 cm",
+        "OT = 3 cm",
+        "3 cm",
+        "radius = 3",
+        "3"
+      ],
+      "hints": [
+        "Check: 3² + 4² = 9 + 16 = 25 = 5².",
+        "A radius is a length, so take the positive value.",
+        "The radius is 3 cm."
+      ]
+    },
+    {
+      "id": "m1_pythagoras",
+      "type": "method",
+      "label": "Method 1: Pythagoras' Theorem",
+      "description": "In right triangle OPA, r² + 4² = 5², so r² = 25 − 16 = 9 and r = 3 cm.",
+      "prompt": "Choose a method: Pythagoras' theorem, the 3-4-5 triangle, trigonometry, or coordinate geometry.",
+      "accept": [
+        "pythagoras",
+        "pythagorean theorem",
+        "rearrange",
+        "subtract",
+        "25 - 16",
+        "25 − 16"
+      ],
+      "hints": [
+        "Use Pythagoras' theorem in triangle OPA.",
+        "Get r² on its own: r² = 5² − 4².",
+        "25 − 16 = 9"
+      ],
+      "jev_description": "Pythagoras' theorem. Steps: (1) radius ⊥ tangent so r^2 + 4^2 = 5^2, (2) r^2 = 5^2 - 4^2, (3) r^2 = 25 - 16 = 9 (or (5 - 4)(5 + 4) = 9), so r = 3. Step 1 is the same as the 3-4-5 triangle method; rearranging to r^2 = 5^2 - 4^2 is what identifies this method."
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Right angle at the point of contact",
+      "description": "The radius OP is perpendicular to the tangent AP (Theorem 10.1), so triangle OPA is right-angled at P: OP² + AP² = OA², i.e. r² + 4² = 5².",
+      "prompt": "The radius OP is perpendicular to the tangent AP. Write Pythagoras' theorem for triangle OPA using r for the radius.",
+      "accept": [
+        "r^2 + 4^2 = 5^2",
+        "r² + 4² = 5²",
+        "r^2+4^2=5^2",
+        "x^2 + 4^2 = 5^2",
+        "r^2 + 16 = 25",
+        "OP^2 + AP^2 = OA^2",
+        "OP² + AP² = OA²",
+        "OP^2 + 4^2 = 5^2",
+        "OT^2 + AT^2 = OA^2",
+        "OT^2 + 4^2 = 5^2"
+      ],
+      "hints": [
+        "The radius at the point of contact is perpendicular to the tangent (Theorem 10.1).",
+        "So angle OPA = 90° and OA = 5 cm is the hypotenuse.",
+        "r² + 4² = 5²"
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Make r² the subject",
+      "description": "Subtract 4² from both sides: r² = 5² − 4².",
+      "prompt": "Rearrange to get r² on its own. What is r² equal to?",
+      "accept": [
+        "r^2 = 5^2 - 4^2",
+        "r² = 5² − 4²",
+        "r^2=5^2-4^2",
+        "x^2 = 5^2 - 4^2",
+        "OP^2 = OA^2 - AP^2",
+        "OP^2 = 5^2 - 4^2"
+      ],
+      "hints": [
+        "Move 4² to the other side.",
+        "Its sign changes from + to −.",
+        "r² = 5² − 4²"
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Solve for r",
+      "description": "5² − 4² = 25 − 16 = 9 (or, as a difference of squares, (5 − 4)(5 + 4) = 1 × 9 = 9), so r² = 9 and r = √9 = 3 (a length is positive).",
+      "prompt": "Work out 5² − 4² and find r.",
+      "accept": [
+        "r^2 = 25 - 16",
+        "r² = 25 − 16",
+        "x^2 = 25 - 16",
+        "25 - 16 = 9",
+        "r^2 = 25 - 16 = 9",
+        "r^2 = 9",
+        "r² = 9",
+        "x^2 = 9",
+        "OP^2 = 9",
+        "r^2 = (5 - 4)(5 + 4)",
+        "r² = (5 − 4)(5 + 4)",
+        "(5 - 4)(5 + 4) = 9",
+        "1 × 9 = 9",
+        "1 * 9 = 9",
+        "r = 3",
+        "r=3",
+        "r = √9 = 3",
+        "r = sqrt(9) = 3",
+        "sqrt(9) = 3",
+        "√9 = 3",
+        "x = 3",
+        "OP = 3"
+      ],
+      "hints": [
+        "5 × 5 = 25 and 4 × 4 = 16, so r² = 25 − 16 = 9.",
+        "Which number squared gives 9?",
+        "r = 3"
+      ]
+    },
+    {
+      "id": "m2_triple",
+      "type": "method",
+      "label": "Method 2: 3-4-5 Triangle (Pythagorean Triple)",
+      "description": "3, 4, 5 is a Pythagorean triple. With hypotenuse 5 and one leg 4, the other leg, the radius, is 3 cm.",
+      "prompt": "Choose a method: Pythagoras' theorem, the 3-4-5 triangle, trigonometry, or coordinate geometry.",
+      "accept": [
+        "pythagorean triple",
+        "triple",
+        "3, 4, 5",
+        "3-4-5",
+        "3 4 5 triangle",
+        "3, 4, 5 triangle"
+      ],
+      "hints": [
+        "Do you know a right triangle with sides 4 and 5?",
+        "3, 4, 5 is a Pythagorean triple.",
+        "Check that 3² + 4² = 5²."
+      ],
+      "jev_description": "3-4-5 triangle. Steps: (1) radius ⊥ tangent so r^2 + 4^2 = 5^2, (2) recognise the 3-4-5 triple and check it: 3^2 + 4^2 = 5^2 (9 + 16 = 25), so r = 3. Step 1 is the same as the Pythagoras method; checking 3^2 + 4^2 = 5^2 or naming the 3-4-5 triple is what identifies this method."
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Right angle at the point of contact",
+      "description": "The radius OP is perpendicular to the tangent AP (Theorem 10.1), so triangle OPA is right-angled at P: OP² + AP² = OA², i.e. r² + 4² = 5².",
+      "prompt": "The radius OP is perpendicular to the tangent AP. Write Pythagoras' theorem for triangle OPA using r for the radius.",
+      "accept": [
+        "r^2 + 4^2 = 5^2",
+        "r² + 4² = 5²",
+        "r^2+4^2=5^2",
+        "x^2 + 4^2 = 5^2",
+        "r^2 + 16 = 25",
+        "OP^2 + AP^2 = OA^2",
+        "OP² + AP² = OA²",
+        "OP^2 + 4^2 = 5^2",
+        "OT^2 + AT^2 = OA^2",
+        "OT^2 + 4^2 = 5^2"
+      ],
+      "hints": [
+        "The radius at the point of contact is perpendicular to the tangent (Theorem 10.1).",
+        "So angle OPA = 90° and OA = 5 cm is the hypotenuse.",
+        "r² + 4² = 5²"
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Recognise the 3-4-5 triple",
+      "description": "Hypotenuse 5 and leg 4 belong to the 3-4-5 triple: 3² + 4² = 9 + 16 = 25 = 5², so the missing leg is r = 3.",
+      "prompt": "Which Pythagorean triple has hypotenuse 5 and a leg 4? Check it, then give r.",
+      "accept": [
+        "3^2 + 4^2 = 5^2",
+        "3² + 4² = 5²",
+        "3^2+4^2=5^2",
+        "9 + 16 = 25",
+        "3, 4, 5 is a pythagorean triple",
+        "3, 4, 5",
+        "r = 3",
+        "r=3",
+        "x = 3",
+        "OP = 3"
+      ],
+      "hints": [
+        "A Pythagorean triple is three whole numbers with a² + b² = c².",
+        "Try 3, 4, 5: 3² + 4² = 9 + 16 = 25 = 5².",
+        "The missing leg is r = 3."
+      ]
+    },
+    {
+      "id": "m3_trig",
+      "type": "method",
+      "label": "Method 3: Trigonometry",
+      "description": "Let θ = ∠OAP. In right triangle OPA, cos θ = 4/5, so sin θ = √(1 − 16/25) = 3/5. Since sin θ = r/5, r = 5 × 3/5 = 3 cm.",
+      "prompt": "Choose a method: Pythagoras' theorem, the 3-4-5 triangle, trigonometry, or coordinate geometry.",
+      "accept": [
+        "trigonometr",
+        "trig ratio",
+        "cosine",
+        "theta",
+        "θ",
+        "sin^2 + cos^2 = 1",
+        "sin²θ + cos²θ = 1"
+      ],
+      "hints": [
+        "Let θ = ∠OAP in right triangle OPA.",
+        "cos θ = adjacent / hypotenuse = AP / OA.",
+        "Then use sin²θ + cos²θ = 1."
+      ],
+      "jev_description": "Trigonometry. Steps: (1) let θ = angle OAP; cos θ = AP/OA = 4/5, (2) sin θ = sqrt(1 - cos^2 θ) = sqrt(1 - 16/25) = 3/5, (3) sin θ = OP/OA = r/5, so r = 5 × 3/5 = 3. Uses trigonometric ratios (sin, cos, θ) instead of Pythagoras directly."
+    },
+    {
+      "id": "m3_s1",
+      "type": "step",
+      "label": "Write cos θ",
+      "description": "With θ = ∠OAP, cos θ = AP / OA = 4/5.",
+      "prompt": "Let θ = ∠OAP. What is cos θ in triangle OPA?",
+      "accept": [
+        "cos θ = 4/5",
+        "cosθ = 4/5",
+        "cos theta = 4/5",
+        "cos(θ) = 4/5",
+        "cos A = 4/5",
+        "cos OAP = 4/5",
+        "cos θ = AP/OA = 4/5",
+        "cos θ = AP/OA",
+        "cos θ = 0.8"
+      ],
+      "hints": [
+        "cos = adjacent / hypotenuse.",
+        "The side next to θ is AP = 4; the hypotenuse is OA = 5.",
+        "cos θ = 4/5"
+      ]
+    },
+    {
+      "id": "m3_s2",
+      "type": "step",
+      "label": "Find sin θ",
+      "description": "sin θ = √(1 − cos²θ) = √(1 − 16/25) = √(9/25) = 3/5.",
+      "prompt": "Use sin²θ + cos²θ = 1. What is sin θ?",
+      "accept": [
+        "sin θ = 3/5",
+        "sinθ = 3/5",
+        "sin theta = 3/5",
+        "sin(θ) = 3/5",
+        "sin A = 3/5",
+        "sin θ = √(1 - 16/25) = 3/5",
+        "sin θ = sqrt(1 - 16/25) = 3/5",
+        "sin θ = √(9/25) = 3/5",
+        "sin^2 θ = 1 - 16/25 = 9/25",
+        "sin^2 θ = 9/25",
+        "sin θ = 0.6"
+      ],
+      "hints": [
+        "sin²θ = 1 − cos²θ",
+        "1 − (4/5)² = 1 − 16/25 = 9/25",
+        "sin θ = 3/5"
+      ]
+    },
+    {
+      "id": "m3_s3",
+      "type": "step",
+      "label": "Use sin θ = r/5",
+      "description": "sin θ = OP / OA = r/5, so r = 5 × 3/5 = 3.",
+      "prompt": "sin θ = opposite / hypotenuse = r/5. What is r?",
+      "accept": [
+        "r = 5 × 3/5 = 3",
+        "r = 5 * 3/5 = 3",
+        "r = 5 × 3/5",
+        "r/5 = 3/5",
+        "sin θ = r/5",
+        "sin θ = OP/OA",
+        "r = 3",
+        "r=3",
+        "x = 3",
+        "OP = 3"
+      ],
+      "hints": [
+        "sin = opposite / hypotenuse.",
+        "The side opposite θ is OP = r; the hypotenuse is OA = 5.",
+        "r/5 = 3/5, so r = 3."
+      ]
+    },
+    {
+      "id": "m4_coordinate",
+      "type": "method",
+      "label": "Method 4: Coordinate Geometry",
+      "description": "Place the point of contact at the origin: P = (0, 0), A = (4, 0) on the tangent and O = (0, r) on the radius. The distance formula gives OA = √(4² + r²) = 5, so r² = 9 and r = 3 cm.",
+      "prompt": "Choose a method: Pythagoras' theorem, the 3-4-5 triangle, trigonometry, or coordinate geometry.",
+      "accept": [
+        "coordinate",
+        "distance formula",
+        "at the origin",
+        "x-axis",
+        "y-axis",
+        "(0, 0)",
+        "(0,0)"
+      ],
+      "hints": [
+        "Put the point of contact at the origin.",
+        "The tangent lies along the x-axis and the radius along the y-axis.",
+        "Use the distance formula for OA."
+      ],
+      "jev_description": "Coordinate geometry. Steps: (1) place the point of contact at the origin: P = (0, 0), A = (4, 0), O = (0, r), (2) distance formula: OA = sqrt((4 - 0)^2 + (0 - r)^2) = sqrt(4^2 + r^2) = 5, (3) 16 + r^2 = 25, (4) r^2 = 9, so r = 3. Uses points with coordinates and the distance formula."
+    },
+    {
+      "id": "m4_s1",
+      "type": "step",
+      "label": "Place the points on axes",
+      "description": "The tangent and the radius are perpendicular, so take them as the axes: P = (0, 0), A = (4, 0), O = (0, r).",
+      "prompt": "Put the point of contact P at the origin, the tangent on the x-axis and the radius on the y-axis. What are the coordinates of P, A and O?",
+      "accept": [
+        "P = (0, 0), A = (4, 0), O = (0, r)",
+        "P(0, 0), A(4, 0), O(0, r)",
+        "T = (0, 0), A = (4, 0), O = (0, r)",
+        "T(0, 0), A(4, 0), O(0, r)",
+        "A = (4, 0), O = (0, r)",
+        "A(4, 0) and O(0, r)",
+        "O = (0, r)",
+        "A = (4, 0)"
+      ],
+      "hints": [
+        "The point of contact is the origin (0, 0).",
+        "A is 4 cm along the tangent: A = (4, 0).",
+        "O is r cm along the radius: O = (0, r)."
+      ]
+    },
+    {
+      "id": "m4_s2",
+      "type": "step",
+      "label": "Use the distance formula",
+      "description": "OA = √((4 − 0)² + (0 − r)²) = √(4² + r²) = 5.",
+      "prompt": "Use the distance formula for OA = 5. What equation do you get?",
+      "accept": [
+        "√(4^2 + r^2) = 5",
+        "sqrt(4^2 + r^2) = 5",
+        "√(16 + r^2) = 5",
+        "sqrt(16 + r^2) = 5",
+        "√((4 - 0)^2 + (0 - r)^2) = 5",
+        "sqrt((4 - 0)^2 + (0 - r)^2) = 5",
+        "(4 - 0)^2 + (0 - r)^2 = 5^2",
+        "OA = √(4^2 + r^2)",
+        "OA = sqrt(4^2 + r^2) = 5"
+      ],
+      "hints": [
+        "Distance = √((x₂ − x₁)² + (y₂ − y₁)²).",
+        "Between A(4, 0) and O(0, r).",
+        "√(4² + r²) = 5"
+      ]
+    },
+    {
+      "id": "m4_s3",
+      "type": "step",
+      "label": "Square both sides",
+      "description": "16 + r² = 25.",
+      "prompt": "Square both sides. What do you get?",
+      "accept": [
+        "16 + r^2 = 25",
+        "16 + r² = 25",
+        "4^2 + r^2 = 5^2",
+        "4^2 + r^2 = 25",
+        "x^2 + 16 = 25"
+      ],
+      "hints": [
+        "Squaring removes the square root.",
+        "4² = 16 and 5² = 25.",
+        "16 + r² = 25"
+      ]
+    },
+    {
+      "id": "m4_s4",
+      "type": "step",
+      "label": "Solve for r",
+      "description": "r² = 25 − 16 = 9, so r = √9 = 3 (a length is positive).",
+      "prompt": "Solve 16 + r² = 25. What is r?",
+      "accept": [
+        "r^2 = 9",
+        "r² = 9",
+        "r^2 = 25 - 16",
+        "r^2 = 25 - 16 = 9",
+        "x^2 = 9",
+        "r = 3",
+        "r=3",
+        "r = √9 = 3",
+        "r = sqrt(9) = 3",
+        "sqrt(9) = 3",
+        "√9 = 3",
+        "x = 3",
+        "OP = 3"
+      ],
+      "hints": [
+        "Subtract 16 from both sides: r² = 9.",
+        "Which number squared gives 9?",
+        "r = 3"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "m1_pythagoras",
+      "label": "Method 1: Pythagoras' Theorem"
+    },
+    {
+      "from": "m1_pythagoras",
+      "to": "m1_s1",
+      "label": "Pythagoras"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Rearrange"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3",
+      "label": "Solve"
+    },
+    {
+      "from": "m1_s3",
+      "to": "conclusion",
+      "label": "radius = 3 cm"
+    },
+    {
+      "from": "start",
+      "to": "m2_triple",
+      "label": "Method 2: 3-4-5 Triangle"
+    },
+    {
+      "from": "m2_triple",
+      "to": "m2_s1",
+      "label": "Pythagoras"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Triple"
+    },
+    {
+      "from": "m2_s2",
+      "to": "conclusion",
+      "label": "radius = 3 cm"
+    },
+    {
+      "from": "start",
+      "to": "m3_trig",
+      "label": "Method 3: Trigonometry"
+    },
+    {
+      "from": "m3_trig",
+      "to": "m3_s1",
+      "label": "cos θ"
+    },
+    {
+      "from": "m3_s1",
+      "to": "m3_s2",
+      "label": "sin θ"
+    },
+    {
+      "from": "m3_s2",
+      "to": "m3_s3",
+      "label": "r = 5 sin θ"
+    },
+    {
+      "from": "m3_s3",
+      "to": "conclusion",
+      "label": "radius = 3 cm"
+    },
+    {
+      "from": "start",
+      "to": "m4_coordinate",
+      "label": "Method 4: Coordinate Geometry"
+    },
+    {
+      "from": "m4_coordinate",
+      "to": "m4_s1",
+      "label": "Axes"
+    },
+    {
+      "from": "m4_s1",
+      "to": "m4_s2",
+      "label": "Distance formula"
+    },
+    {
+      "from": "m4_s2",
+      "to": "m4_s3",
+      "label": "Square"
+    },
+    {
+      "from": "m4_s3",
+      "to": "m4_s4",
+      "label": "Solve"
+    },
+    {
+      "from": "m4_s4",
+      "to": "conclusion",
+      "label": "radius = 3 cm"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_pythagoras",
+      "label": "Method 1: Pythagoras' Theorem"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_triple",
+      "label": "Method 2: 3-4-5 Triangle"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m3_trig",
+      "label": "Method 3: Trigonometry"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m4_coordinate",
+      "label": "Method 4: Coordinate Geometry"
+    }
+  ]
+}

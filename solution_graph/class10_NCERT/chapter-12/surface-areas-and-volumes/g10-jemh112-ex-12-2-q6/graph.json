@@ -1,0 +1,636 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh112-ex-12-2-q6",
+    "problem_uuid": "g10-jemh112-ex-12-2-q6",
+    "problem_text": "A solid iron pole consists of a cylinder of height 220 cm and base diameter 24 cm, which is surmounted by another cylinder of height 60 cm and radius 8 cm. Find the mass of the pole, given that 1 cm³ of iron has approximately 8 g mass. (Use π = 3.14)",
+    "equation": null,
+    "variable": "x",
+    "use_jev": true,
+    "guided": true,
+    "llm_tutor": true,
+    "sympy_can_finish": false,
+    "sympy_note": "There is no unknown, so there is no equation: SymPy checks each numeric line exactly (π = 3.14 from the question; ², cm³, g and kg are read), and the final answer in g or kg (892262.4 g, 892.26 kg).",
+    "guided_note": "Guided mode (Q6 hint sheet): Q1 given, Q2 goal, Q3 describe the plan. A correct plan needs no hints; a wrong plan or I-don't-know gets K1, then K2, then K3, each followed by a new try at the plan (after K3 the plan is shown). Then the student solves alone (solve_freely): any line, any order, either path; SymPy checks each line and only mistakes get feedback; done at 892262.4 g / 892.26 kg.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Guided solution DAG for NCERT Class 10 Ex 12.2 Q6 (iron pole: cylinder h 220 cm, d 24 cm + cylinder h 60 cm, r 8 cm; 8 g per cm³; answer 892262.4 g ≈ 892.26 kg). Path A (NCERT) adds the two cylinder volumes; Path B takes π out: 3.14 × (12²×220 + 8²×60).",
+    "created": "2026-11-04",
+    "total_methods": 2,
+    "total_nodes": 14,
+    "total_edges": 14,
+    "problem_context": {
+      "chapter": "12",
+      "topic": "Surface Areas and Volumes",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 12 Surface Areas and Volumes, Exercise 12.2, Q6 (p. 170)",
+      "question_type": "short_answer"
+    },
+    "navigation_label": "Ex 12.2 Q6: Mass of an Iron Pole"
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "A solid iron pole consists of a cylinder of height 220 cm and base diameter 24 cm, which is surmounted by another cylinder of height 60 cm and radius 8 cm. Find the mass of the pole, given that 1 cm³ of iron has approximately 8 g mass. (Use π = 3.14)",
+      "prompt": "Read the problem. Answer each question to solve it step by step.",
+      "accept": [],
+      "hints": [
+        "Answer the question shown above the box."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "What Is Given",
+      "description": "Big cylinder: height 220 cm, diameter 24 cm. Small cylinder: height 60 cm, radius 8 cm. 1 cm³ of iron = 8 g. π = 3.14.",
+      "prompt": "What is given in the question?",
+      "accept": [
+        "big cylinder: h = 220 cm, d = 24 cm; small cylinder: h = 60 cm, r = 8 cm; 1 cm³ = 8 g",
+        "h = 220, d = 24, h = 60, r = 8, 1 cm³ = 8 g",
+        "220 cm, 24 cm, 60 cm, 8 cm and 8 g"
+      ],
+      "hints": [
+        "There are two cylinders. Write the height and the width of each one.",
+        "Big cylinder: height and diameter. Small cylinder: height and radius. Also: the mass of 1 cm³.",
+        "Big: h = 220 cm, d = 24 cm; small: h = 60 cm, r = 8 cm; 1 cm³ = 8 g"
+      ],
+      "optional": false,
+      "keywords": [
+        "220",
+        "24",
+        "60",
+        "8"
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "What We Need to Find",
+      "description": "The mass of the pole.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "the mass of the pole",
+        "mass of the iron pole",
+        "mass",
+        "the mass of the pole in kg"
+      ],
+      "hints": [
+        "Read the last sentence of the question.",
+        "The question says: Find the ___ of the pole.",
+        "The mass of the pole"
+      ],
+      "optional": false,
+      "keywords": [
+        "mass"
+      ]
+    },
+    {
+      "id": "method_choice",
+      "type": "choice",
+      "label": "Describe the Plan",
+      "description": "Describe the plan. Each missing idea gets a question, then a nudge, then the step itself; ideas said once are kept. If nothing is found: K1, K2, K3, then the reveal. When the tutor gave a step, the student explains it in their own words before solving.",
+      "prompt": "Describe your plan to solve the problem. How will you find the mass of the pole?",
+      "accept": [],
+      "hints": [
+        "Picture the pole described in the question. What shapes is it made of?",
+        "The question says 1 cm³ of iron weighs 8 g. So what decides how heavy the pole is?",
+        "The pole has two parts. How would you find how much iron the whole pole holds?"
+      ],
+      "concepts_required": [
+        {
+          "id": "C2",
+          "idea": "finding the volumes",
+          "keywords": [
+            "volume",
+            "πr²h",
+            "r²h",
+            "π(r"
+          ],
+          "hints": [
+            "Iron fills the whole pole. What tells you how much iron each cylinder holds?",
+            "The space a cylinder takes up is its volume. How do you find the volume of a cylinder?"
+          ],
+          "answer": "Find the volume of each cylinder with V = πr²h.",
+          "explain": {
+            "question": "Why do we need the volume to find the mass?",
+            "expected_keywords": [
+              "8 g",
+              "8g",
+              "1 cm",
+              "each cm",
+              "every cm",
+              "per cm",
+              "cm³",
+              "how much iron",
+              "amount of iron",
+              "space",
+              "weigh"
+            ],
+            "understanding": "Each cm³ of iron weighs 8 g, so the mass depends on how many cm³ of iron the pole holds: its volume."
+          }
+        },
+        {
+          "id": "C1",
+          "idea": "adding the two volumes",
+          "keywords": [
+            "add",
+            "sum",
+            "plus",
+            "+",
+            "total",
+            "together",
+            "combine",
+            "volume of both cylinder",
+            "volumes of both cylinder"
+          ],
+          "needs_any": [
+            "volume",
+            "πr²h",
+            "r²h",
+            "π(r"
+          ],
+          "hints": [
+            "The pole is made of two cylinders. How do you get the volume of the whole pole from its two parts?",
+            "The small cylinder sits on top of the big one, and both are iron. Do you take one away, or put them together?"
+          ],
+          "answer": "Add the two volumes: the pole's volume is the big cylinder's plus the small one's.",
+          "explain": {
+            "question": "Why do we add the two volumes instead of subtracting one from the other?",
+            "expected_keywords": [
+              "both",
+              "whole",
+              "together",
+              "on top",
+              "two parts",
+              "made of",
+              "sits",
+              "solid",
+              "nothing is cut",
+              "not hollow",
+              "all the iron"
+            ],
+            "understanding": "The small cylinder sits on top of the big one, so the pole is both cylinders together. Nothing is cut out, so nothing is subtracted."
+          }
+        },
+        {
+          "id": "C3",
+          "idea": "× 8 for the mass",
+          "keywords": [
+            "× 8",
+            "8 g",
+            "8g",
+            "8 gram"
+          ],
+          "hints": [
+            "The question says 1 cm³ of iron weighs 8 g. Once you know the volume, how do you get the mass?",
+            "Each cm³ weighs 8 g. If the pole holds V cm³ of iron, its mass is V times what?"
+          ],
+          "answer": "Multiply the volume by 8 to get the mass in grams.",
+          "explain": {
+            "question": "Why do we multiply the volume by 8?",
+            "expected_keywords": [
+              "8 g",
+              "8g",
+              "8 gram",
+              "1 cm",
+              "each cm",
+              "every cm",
+              "per cm",
+              "weighs 8",
+              "each cubic",
+              "every cubic"
+            ],
+            "understanding": "Every 1 cm³ of iron weighs 8 g, so V cm³ of iron weigh V × 8 g."
+          }
+        }
+      ],
+      "path_signals": {
+        "m1_add_volumes": [
+          "each cylinder",
+          "both cylinders",
+          "both volumes",
+          "two volumes",
+          "volume of each",
+          "add the volumes"
+        ],
+        "m2_factor_pi": [
+          "take π out",
+          "π out",
+          "π common",
+          "factor",
+          "π(r",
+          "r²h +"
+        ]
+      },
+      "default_path": "m1_add_volumes",
+      "misconceptions": [
+        {
+          "signal": "C1",
+          "keywords": [
+            "minus",
+            "subtract",
+            "difference",
+            "take away"
+          ],
+          "response": "The small cylinder sits on top of the big one, so the pole has both volumes. Should you take one away, or put them together?"
+        },
+        {
+          "signal": "",
+          "keywords": [
+            "add the height",
+            "add height",
+            "add the two height",
+            "sum of the height",
+            "add the radi",
+            "divide by radius",
+            "divide by the radius",
+            "divide them by radius",
+            "divide them by the radius"
+          ],
+          "response": "Heights and radii on their own don't tell you how much iron the pole holds. What decides how heavy the pole is?"
+        }
+      ],
+      "contradiction_response": "You said both add and subtract. The pole is made of both cylinders: which one is it?",
+      "dont_know_response": "That's fine. Think about this question, then try the plan again.",
+      "off_topic_response": "Let's stay with the iron pole. How would you find its mass?",
+      "retry_response": "Use that idea and try the plan again: how will you find the mass of the pole?",
+      "concept_hints": [
+        {
+          "id": "K1",
+          "question": "Picture the pole described in the question. What shapes is it made of?",
+          "understanding": "Two cylinders, one on top of the other"
+        },
+        {
+          "id": "K2",
+          "question": "The question says 1 cm³ of iron weighs 8 g. So what decides how heavy the pole is?",
+          "understanding": "How much iron it holds, which is its volume"
+        },
+        {
+          "id": "K3",
+          "question": "The pole has two parts. How would you find how much iron the whole pole holds?",
+          "understanding": "Find each part's volume and add them"
+        }
+      ],
+      "partial_prefix": "Good, {found} is right.",
+      "max_hints": 4,
+      "reveal": "Here is the plan: find the volume of each cylinder, add the two volumes, then multiply by 8.",
+      "solve_freely": true,
+      "formulas": [
+        {
+          "name": "volume of a cylinder",
+          "expression": "pi*r**2*h",
+          "labels": [
+            "volume",
+            "v"
+          ]
+        },
+        {
+          "name": "total volume",
+          "expression": "v1 + v2",
+          "labels": [
+            "total volume",
+            "volume of the pole",
+            "total",
+            "v"
+          ],
+          "words": {
+            "volume of the big cylinder": "v1",
+            "volume of big cylinder": "v1",
+            "big cylinder": "v1",
+            "big volume": "v1",
+            "volume of the small cylinder": "v2",
+            "volume of small cylinder": "v2",
+            "small cylinder": "v2",
+            "small volume": "v2"
+          }
+        },
+        {
+          "name": "total volume",
+          "expression": "pi*r1**2*h1 + pi*r2**2*h2",
+          "labels": [
+            "total volume",
+            "volume of the pole",
+            "total",
+            "v"
+          ]
+        },
+        {
+          "name": "mass of the pole",
+          "expression": "8*v",
+          "labels": [
+            "mass",
+            "m"
+          ],
+          "words": {
+            "total volume": "v",
+            "volume of the pole": "v",
+            "volume": "v",
+            "vol": "v"
+          }
+        }
+      ],
+      "plan_formula": {
+        "expression": "8*pi*(r1**2*h1 + r2**2*h2)",
+        "symbols": {
+          "r1": "radius of the big (lower) cylinder",
+          "h1": "height of the big cylinder",
+          "r2": "radius of the small (upper) cylinder",
+          "h2": "height of the small cylinder"
+        },
+        "values": {
+          "r1": 12,
+          "h1": 220,
+          "r2": 8,
+          "h2": 60
+        }
+      },
+      "solve_prompt": "Now solve it on your own, one step per line. I'll only stop you if something is wrong."
+    },
+    {
+      "id": "m1_add_volumes",
+      "type": "method",
+      "label": "Path A: Add the Volumes of the Two Cylinders",
+      "description": "V₁ = 3.14 × 12² × 220 = 99475.2, V₂ = 3.14 × 8² × 60 = 12057.6, V = 111532.8 cm³ (NCERT method).",
+      "prompt": "What is the volume of the big cylinder?",
+      "accept": [
+        "volume of the pole = volume of big cylinder + volume of small cylinder",
+        "add the two volumes"
+      ],
+      "hints": [],
+      "jev_description": "NCERT method: find each cylinder's volume with π r² h, then add. Writing 3.14 × 12² × 220 or 99475.2 identifies this path."
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Volume of the Big Cylinder",
+      "description": "V₁ = 3.14 × 12² × 220 = 99475.2 cm³.",
+      "prompt": "What is the volume of the big cylinder?",
+      "accept": [
+        "V1 = 3.14 × 12² × 220 = 99475.2 cm³",
+        "V1 = π r² h = 3.14 × 12 × 12 × 220 = 99475.2",
+        "3.14 × 12² × 220 = 99475.2",
+        "3.14 × 144 × 220 = 99475.2",
+        "V1 = 99475.2 cm³",
+        "99475.2",
+        "r = 24/2 = 12 cm"
+      ],
+      "hints": [
+        "Volume of a cylinder = π r² h.",
+        "r = 12 cm and h = 220 cm, π = 3.14.",
+        "3.14 × 12² × 220 = 99475.2 cm³"
+      ],
+      "keywords": [
+        "99475.2"
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Volume of the Small Cylinder",
+      "description": "V₂ = 3.14 × 8² × 60 = 12057.6 cm³.",
+      "prompt": "What is the volume of the small cylinder?",
+      "accept": [
+        "V2 = 3.14 × 8² × 60 = 12057.6 cm³",
+        "V2 = π r² h = 3.14 × 8 × 8 × 60 = 12057.6",
+        "3.14 × 8² × 60 = 12057.6",
+        "3.14 × 64 × 60 = 12057.6",
+        "V2 = 12057.6 cm³",
+        "12057.6"
+      ],
+      "hints": [
+        "Use π r² h again, for the small cylinder.",
+        "r = 8 cm and h = 60 cm.",
+        "3.14 × 8² × 60 = 12057.6 cm³"
+      ],
+      "keywords": [
+        "12057.6"
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Total Volume",
+      "description": "V = 99475.2 + 12057.6 = 111532.8 cm³.",
+      "prompt": "What is the total volume of the pole?",
+      "accept": [
+        "V = 99475.2 + 12057.6 = 111532.8 cm³",
+        "99475.2 + 12057.6 = 111532.8",
+        "V = 111532.8 cm³",
+        "111532.8"
+      ],
+      "hints": [
+        "The pole is made of both cylinders.",
+        "Add the two volumes.",
+        "99475.2 + 12057.6 = 111532.8 cm³"
+      ],
+      "keywords": [
+        "111532.8"
+      ]
+    },
+    {
+      "id": "m1_s4",
+      "type": "step",
+      "label": "Mass of the Pole",
+      "description": "Mass = 111532.8 × 8 = 892262.4 g.",
+      "prompt": "What is the mass of the pole?",
+      "accept": [
+        "mass = 111532.8 × 8 = 892262.4 g",
+        "111532.8 × 8 = 892262.4",
+        "892262.4 g",
+        "892262.4",
+        "mass = 892262.4 g",
+        "mass = 892.2624 kg",
+        "892.2624 kg"
+      ],
+      "hints": [
+        "Every 1 cm³ of iron has a mass of 8 g.",
+        "Mass = total volume × 8",
+        "111532.8 × 8 = 892262.4 g"
+      ],
+      "keywords": [
+        "892"
+      ]
+    },
+    {
+      "id": "m2_factor_pi",
+      "type": "method",
+      "label": "Path B: Take π Out: V = π(r₁²h₁ + r₂²h₂)",
+      "description": "12² × 220 + 8² × 60 = 35520, V = 3.14 × 35520 = 111532.8 cm³.",
+      "prompt": "Take π out first. What is 12² × 220 + 8² × 60?",
+      "accept": [
+        "V = 3.14 × (12² × 220 + 8² × 60)",
+        "V = π(r1²h1 + r2²h2)",
+        "take π common",
+        "take π out"
+      ],
+      "hints": [],
+      "jev_description": "Single formula with π taken out: 12² × 220 + 8² × 60 = 35520, then × 3.14. Writing 35520 identifies this path."
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Add r²h for Both Cylinders",
+      "description": "12² × 220 + 8² × 60 = 31680 + 3840 = 35520.",
+      "prompt": "Take π out first. What is 12² × 220 + 8² × 60?",
+      "accept": [
+        "12² × 220 + 8² × 60 = 31680 + 3840 = 35520",
+        "144 × 220 + 64 × 60 = 31680 + 3840 = 35520",
+        "12² × 220 + 8² × 60 = 35520",
+        "31680 + 3840 = 35520",
+        "35520",
+        "r = 24/2 = 12 cm"
+      ],
+      "hints": [
+        "Work out each part separately, then add.",
+        "12² × 220 = 31680 and 8² × 60 = 3840.",
+        "31680 + 3840 = 35520"
+      ],
+      "keywords": [
+        "35520"
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Multiply by π",
+      "description": "V = 3.14 × 35520 = 111532.8 cm³.",
+      "prompt": "Now multiply by π. What is the total volume of the pole?",
+      "accept": [
+        "V = 3.14 × 35520 = 111532.8 cm³",
+        "3.14 × 35520 = 111532.8",
+        "V = π × 35520 = 111532.8",
+        "V = 111532.8 cm³",
+        "111532.8"
+      ],
+      "hints": [
+        "V = π × (the number you just found).",
+        "3.14 × 35520 = ?",
+        "3.14 × 35520 = 111532.8 cm³"
+      ],
+      "keywords": [
+        "111532.8"
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Mass of the Pole",
+      "description": "Mass = 111532.8 × 8 = 892262.4 g.",
+      "prompt": "What is the mass of the pole?",
+      "accept": [
+        "mass = 111532.8 × 8 = 892262.4 g",
+        "111532.8 × 8 = 892262.4",
+        "892262.4 g",
+        "892262.4",
+        "mass = 892262.4 g",
+        "mass = 892.2624 kg",
+        "892.2624 kg"
+      ],
+      "hints": [
+        "Every 1 cm³ of iron has a mass of 8 g.",
+        "Mass = total volume × 8",
+        "111532.8 × 8 = 892262.4 g"
+      ],
+      "keywords": [
+        "892"
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "The mass of the pole is 892262.4 g ≈ 892.26 kg.",
+      "prompt": "State the mass of the pole.",
+      "accept": [
+        "The mass of the pole is 892262.4 g",
+        "The mass of the pole is 892.26 kg",
+        "892.26 kg",
+        "892262.4 g",
+        "mass = 892262.4 g = 892.26 kg"
+      ],
+      "hints": [
+        "Use the mass you just found.",
+        "1 kg = 1000 g, so you can also write it in kg.",
+        "The mass of the pole is 892262.4 g ≈ 892.26 kg"
+      ],
+      "answer_values": [
+        "892262.4|892.2624"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "What Is Given"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "What We Need to Find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "method_choice",
+      "label": "Describe the Plan"
+    },
+    {
+      "from": "method_choice",
+      "to": "m1_add_volumes",
+      "label": "Path A: Add the Volumes of the Two Cylinders"
+    },
+    {
+      "from": "m1_add_volumes",
+      "to": "m1_s1",
+      "label": "Volume of the Big Cylinder"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Volume of the Small Cylinder"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3",
+      "label": "Total Volume"
+    },
+    {
+      "from": "m1_s3",
+      "to": "m1_s4",
+      "label": "Mass of the Pole"
+    },
+    {
+      "from": "m1_s4",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "m2_factor_pi",
+      "label": "Path B: Take π Out: V = π(r₁²h₁ + r₂²h₂)"
+    },
+    {
+      "from": "m2_factor_pi",
+      "to": "m2_s1",
+      "label": "Add r²h for Both Cylinders"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Multiply by π"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3",
+      "label": "Mass of the Pole"
+    },
+    {
+      "from": "m2_s3",
+      "to": "conclusion",
+      "label": "Final Answer"
+    }
+  ]
+}

@@ -1,0 +1,1031 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh102-ex-2-2-q2",
+    "problem_uuid": "g10-jemh102-ex-2-2-q2",
+    "problem_text": "Find a quadratic polynomial each with the given numbers as the sum and product of its zeroes respectively. (i) 1/4, −1 (ii) √2, 1/3 (iii) 0, √5 (iv) 1, 1 (v) −1/4, 1/4 (vi) 4, 1",
+    "equation": null,
+    "variable": "x",
+    "use_jev": true,
+    "guided": true,
+    "llm_tutor": true,
+    "sympy_can_finish": false,
+    "sympy_note": "Zeroes, sums, products and polynomials are checked by SymPy (engine/polynomials.py): zeroes as a set (±, √, fractions), working by expanding, a quadratic by its −b/a and c/a.",
+    "guided_note": "Guided mode: after the plan, the parts in any order ('(iv)' picks part (iv)). SymPy reads a, b, c of the student's quadratic (k allowed) and compares −b/a and c/a with the given sum and product; a wrong polynomial is told its own sum and product. One method: a second (find the zeroes, then (x − α)(x − β)) only works when the zeroes are real, which is not so for (iii), (iv) and (v).",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Guided solution DAG for NCERT Class 10 Ex 2.2 Q2: k(x² − Sx + P) for six (sum, product) pairs; any k ≠ 0.",
+    "created": "2026-11-13",
+    "total_methods": 1,
+    "total_nodes": 34,
+    "total_edges": 38,
+    "problem_context": {
+      "chapter": "2",
+      "topic": "Polynomials",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 2 Polynomials, Exercise 2.2, Q2 (p. 23)",
+      "question_type": "short_answer"
+    },
+    "navigation_label": "Ex 2.2 Q2: Quadratic from Sum and Product",
+    "glossary": [
+      {
+        "term": "zero of a polynomial",
+        "aliases": [
+          "zeroes",
+          "zeros",
+          "zero",
+          "root",
+          "roots"
+        ],
+        "definition": "A zero of a polynomial is a value that makes it 0. For x² − 5x + 6, x = 2 is a zero because 2² − 5 × 2 + 6 = 0.",
+        "hints": [
+          "What happens to the value of a polynomial when you substitute one of its zeroes? Can you use that idea to understand what you are looking for?",
+          "Example: for x² − 5x + 6, put x = 2: 2² − 5 × 2 + 6 = 4 − 10 + 6 = 0. So 2 is a zero. Put x = 1: 1 − 5 + 6 = 2, not 0, so 1 is not a zero. A zero is a value that makes the polynomial 0."
+        ]
+      },
+      {
+        "term": "quadratic polynomial",
+        "aliases": [
+          "quadratic",
+          "quadratics"
+        ],
+        "definition": "A quadratic polynomial has degree 2: ax² + bx + c with a ≠ 0, like 2x² + x − 3. It has at most two zeroes."
+      },
+      {
+        "term": "polynomial",
+        "aliases": [
+          "polynomials"
+        ],
+        "definition": "A polynomial is a sum of terms like 3x², −5x and 7, where the powers of x are whole numbers."
+      },
+      {
+        "term": "coefficient",
+        "aliases": [
+          "coefficients"
+        ],
+        "definition": "A coefficient is the number in front of a power of x. In 2x² + x − 3: a = 2, b = 1, c = −3."
+      },
+      {
+        "term": "degree",
+        "aliases": [],
+        "definition": "The degree is the highest power of the variable. 2x² + x − 3 has degree 2."
+      },
+      {
+        "term": "discriminant",
+        "aliases": [
+          "d",
+          "b² − 4ac",
+          "b^2 - 4ac"
+        ],
+        "definition": "The discriminant is D = b² − 4ac. For 2x² + x − 3, D = 1 + 24 = 25."
+      },
+      {
+        "term": "quadratic formula",
+        "aliases": [
+          "formula"
+        ],
+        "definition": "The quadratic formula gives the zeroes of ax² + bx + c: x = (−b ± √D) / 2a, with D = b² − 4ac."
+      },
+      {
+        "term": "splitting the middle term",
+        "aliases": [
+          "middle term",
+          "split the middle term",
+          "factorise",
+          "factorize",
+          "factorisation",
+          "factorization",
+          "factor"
+        ],
+        "definition": "To factorise ax² + bx + c, split bx into two terms whose numbers multiply to a × c. Example: x² − 5x + 6 = x² − 2x − 3x + 6 = (x − 2)(x − 3)."
+      },
+      {
+        "term": "sum of zeroes",
+        "aliases": [
+          "sum of the zeroes",
+          "sum",
+          "alpha + beta",
+          "α + β"
+        ],
+        "definition": "For ax² + bx + c, the sum of the zeroes is α + β = −b/a. For x² − 5x + 6: 2 + 3 = 5 = −(−5)/1."
+      },
+      {
+        "term": "product of zeroes",
+        "aliases": [
+          "product of the zeroes",
+          "product",
+          "alpha beta",
+          "αβ"
+        ],
+        "definition": "For ax² + bx + c, the product of the zeroes is αβ = c/a. For x² − 5x + 6: 2 × 3 = 6 = 6/1."
+      }
+    ],
+    "parts": [
+      {
+        "id": "p1",
+        "label": "i",
+        "title": "(i) sum 1/4, product −1",
+        "text": "1/4, −1",
+        "numbers": [],
+        "nodes": [
+          "p1_poly"
+        ]
+      },
+      {
+        "id": "p2",
+        "label": "ii",
+        "title": "(ii) sum √2, product 1/3",
+        "text": "√2, 1/3",
+        "numbers": [],
+        "nodes": [
+          "p2_poly"
+        ]
+      },
+      {
+        "id": "p3",
+        "label": "iii",
+        "title": "(iii) sum 0, product √5",
+        "text": "0, √5",
+        "numbers": [],
+        "nodes": [
+          "p3_poly"
+        ]
+      },
+      {
+        "id": "p4",
+        "label": "iv",
+        "title": "(iv) sum 1, product 1",
+        "text": "1, 1",
+        "numbers": [],
+        "nodes": [
+          "p4_poly"
+        ]
+      },
+      {
+        "id": "p5",
+        "label": "v",
+        "title": "(v) sum −1/4, product 1/4",
+        "text": "−1/4, 1/4",
+        "numbers": [],
+        "nodes": [
+          "p5_poly"
+        ]
+      },
+      {
+        "id": "p6",
+        "label": "vi",
+        "title": "(vi) sum 4, product 1",
+        "text": "4, 1",
+        "numbers": [],
+        "nodes": [
+          "p6_poly"
+        ]
+      }
+    ]
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Find a quadratic polynomial each with the given numbers as the sum and product of its zeroes respectively. (i) 1/4, −1 (ii) √2, 1/3 (iii) 0, √5 (iv) 1, 1 (v) −1/4, 1/4 (vi) 4, 1",
+      "prompt": "Read the problem. Answer each question to solve it step by step.",
+      "accept": [],
+      "hints": [
+        "Answer the question shown above the box."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "What Is Given",
+      "description": "Six pairs (sum, product): (1/4, −1), (√2, 1/3), (0, √5), (1, 1), (−1/4, 1/4), (4, 1).",
+      "prompt": "What is given in the question?",
+      "accept": [
+        "the sum and product of the zeroes for six polynomials",
+        "six pairs of sum and product"
+      ],
+      "hints": [
+        "What do the two numbers in each part stand for?",
+        "The first is the sum of the zeroes, the second is …",
+        "Six pairs: the sum and the product of the zeroes"
+      ],
+      "optional": false,
+      "keywords": [
+        "sum",
+        "product"
+      ],
+      "given_pairs": [
+        [
+          "1/4",
+          "-1"
+        ],
+        [
+          "sqrt(2)",
+          "1/3"
+        ],
+        [
+          "0",
+          "sqrt(5)"
+        ],
+        [
+          "1",
+          "1"
+        ],
+        [
+          "-1/4",
+          "1/4"
+        ],
+        [
+          "4",
+          "1"
+        ]
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "What We Need to Find",
+      "description": "A quadratic polynomial for each pair.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "a quadratic polynomial for each pair",
+        "a quadratic polynomial with those zeroes",
+        "the quadratic polynomial"
+      ],
+      "hints": [
+        "Read the first line of the question.",
+        "What kind of polynomial?",
+        "A quadratic polynomial for each pair"
+      ],
+      "optional": false,
+      "keywords": [
+        "quadratic"
+      ]
+    },
+    {
+      "id": "method_choice",
+      "type": "choice",
+      "label": "Describe the Plan",
+      "description": "Describe the plan: x² − (sum)x + (product), put in the numbers, × k to clear fractions. Then the parts (i) to (vi), in any order.",
+      "prompt": "Describe your plan: how will you build a quadratic from the sum and the product of its zeroes?",
+      "accept": [],
+      "hints": [
+        "Think about (x − α)(x − β).",
+        "The sum and the product are its coefficients.",
+        "x² − (sum)x + (product), then × k."
+      ],
+      "concepts_required": [
+        {
+          "id": "C1",
+          "idea": "the form x² − (sum of zeroes)x + (product of zeroes)",
+          "keywords": [
+            "x²",
+            "x^2",
+            "x2",
+            "x squared",
+            "sx",
+            "s x",
+            "- sx",
+            "(sum)x",
+            "sum x"
+          ],
+          "needs_any": [
+            "sum",
+            "product",
+            "s",
+            "p"
+          ],
+          "hints": [
+            "If α and β are the zeroes, what is (x − α)(x − β) when you expand it?",
+            "Example: zeroes 1 and 2: (x − 1)(x − 2) = x² − 3x + 2, and 3 is the sum, 2 the product."
+          ],
+          "answer": "Use x² − (sum of zeroes)x + (product of zeroes).",
+          "explain": {
+            "question": "Why is the polynomial x² − (sum)x + (product)?",
+            "expected_keywords": [
+              "expand",
+              "(x − α)(x − β)",
+              "(x-α)(x-β)",
+              "α",
+              "zeroes"
+            ],
+            "understanding": "(x − α)(x − β) = x² − (α + β)x + αβ: the sum and the product are the coefficients."
+          }
+        },
+        {
+          "id": "C2",
+          "idea": "putting in the given sum and product",
+          "keywords": [
+            "put",
+            "substitut",
+            "replace",
+            "plug",
+            "insert",
+            "fill in",
+            "use the given"
+          ],
+          "needs_any": [],
+          "hints": [
+            "Once you have the form, what do you do with the two given numbers?",
+            "Example: sum 3 and product 2 go into x² − (3)x + (2)."
+          ],
+          "answer": "Put the given sum and product into the form.",
+          "explain": {
+            "question": "Which number goes where?",
+            "expected_keywords": [
+              "sum",
+              "product",
+              "middle",
+              "constant",
+              "x term",
+              "last"
+            ],
+            "understanding": "The sum goes (with a minus) in front of x; the product is the constant term."
+          }
+        },
+        {
+          "id": "C3",
+          "idea": "multiplying by any number k (to clear fractions)",
+          "keywords": [
+            "k",
+            "multiply",
+            "constant",
+            "clear",
+            "fraction",
+            "any number",
+            "multiple"
+          ],
+          "needs_any": [],
+          "hints": [
+            "Is there only one answer, or can you multiply the polynomial by a number?",
+            "Example: x² − 3x + 2 and 2x² − 6x + 4 have the same zeroes."
+          ],
+          "answer": "Multiply by any number k ≠ 0 if you like, for example to clear fractions.",
+          "explain": {
+            "question": "Why does multiplying by k not change the zeroes?",
+            "expected_keywords": [
+              "same",
+              "zero",
+              "0",
+              "k × 0",
+              "still"
+            ],
+            "understanding": "If p(x) = 0 then k × p(x) = 0 too, so k·p(x) has the same zeroes."
+          }
+        }
+      ],
+      "path_signals": {},
+      "default_path": null,
+      "misconceptions": [
+        {
+          "signal": "C1",
+          "keywords": [
+            "x² + sx",
+            "x^2 + sx",
+            "plus the sum",
+            "+ (sum)x",
+            "+ sum x"
+          ],
+          "response": "Careful with the sign: it is x² − (sum)x + (product). Check with zeroes 1 and 2: (x − 1)(x − 2) = x² − 3x + 2."
+        }
+      ],
+      "contradiction_response": "You said two different things. Which one is it?",
+      "dont_know_response": "That's fine. Think about this question, then try the plan again.",
+      "off_topic_response": "Let's stay with the pairs of numbers. How will you build each quadratic?",
+      "retry_response": "Use that idea and try the plan again: how will you build a quadratic from the sum and the product of its zeroes?",
+      "concept_hints": [
+        {
+          "id": "K1",
+          "question": "What does 'the sum of the zeroes' mean?",
+          "understanding": "α + β, the two zeroes added"
+        },
+        {
+          "id": "K2",
+          "question": "Expand (x − 1)(x − 2).",
+          "understanding": "x² − 3x + 2"
+        },
+        {
+          "id": "K3",
+          "question": "In x² − 3x + 2, which numbers are the sum and the product of the zeroes 1 and 2?",
+          "understanding": "3 and 2"
+        }
+      ],
+      "partial_prefix": "Good, {found} is right.",
+      "max_hints": 4,
+      "reveal": "Here is the plan: write x² − (sum)x + (product), put in the given numbers, and multiply by a number k if you want to clear fractions.",
+      "solve_freely": false
+    },
+    {
+      "id": "p1",
+      "type": "choice",
+      "label": "(i) sum 1/4, product −1",
+      "description": "x² − (sum)x + (product), then × k",
+      "prompt": "(i) Find a quadratic polynomial whose zeroes have sum 1/4 and product −1.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p1",
+      "type": "method",
+      "label": "x² − Sx + P",
+      "description": "Put the sum and product in, then clear fractions",
+      "prompt": "(i) Write x² − (sum)x + (product).",
+      "accept": [
+        "x² − (sum)x + (product)",
+        "x^2 - Sx + P"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic from sum 1/4 and product −1: x² − (1/4)x − 1, then k(x² − (1/4)x − 1)."
+    },
+    {
+      "id": "m1_p1_s1",
+      "type": "step",
+      "label": "x² − (1/4)x − 1",
+      "description": "(i) put in S and P",
+      "prompt": "(i) x² − (1/4)x − 1",
+      "accept": [
+        "x² − (1/4)x − 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p1_s2",
+      "type": "step",
+      "label": "4x² − x − 4",
+      "description": "(i) a multiple k",
+      "prompt": "(i) 4x² − x − 4",
+      "accept": [
+        "4x² − x − 4"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p1_poly",
+      "type": "step",
+      "label": "(i) Sum 1/4, Product −1",
+      "description": "4x² − x − 4 (or k(x² − (1/4)x − 1))",
+      "prompt": "(i) Find a quadratic polynomial whose zeroes have sum 1/4 and product −1.",
+      "accept": [
+        "4x² − x − 4",
+        "x² − (1/4)x − 1",
+        "k(x² − (1/4)x − 1)"
+      ],
+      "hints": [
+        "A quadratic whose zeroes have sum S and product P is x² − Sx + P (or any multiple k of it). Example: sum 3 and product 2 give x² − 3x + 2.",
+        "With fractions, multiply by a number to clear them. Example: sum 2/5 and product 3/5 give x² − (2/5)x + 3/5, and × 5 gives 5x² − 2x + 3.",
+        "x² − (1/4)x − 1, or × a number: 4x² − x − 4"
+      ],
+      "quadratic_with": {
+        "sum": "1/4",
+        "product": "-1",
+        "var": "x",
+        "sum_text": "1/4",
+        "product_text": "−1"
+      }
+    },
+    {
+      "id": "p2",
+      "type": "choice",
+      "label": "(ii) sum √2, product 1/3",
+      "description": "x² − (sum)x + (product), then × k",
+      "prompt": "(ii) Find a quadratic polynomial whose zeroes have sum √2 and product 1/3.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p2",
+      "type": "method",
+      "label": "x² − Sx + P",
+      "description": "Put the sum and product in, then clear fractions",
+      "prompt": "(ii) Write x² − (sum)x + (product).",
+      "accept": [
+        "x² − (sum)x + (product)",
+        "x^2 - Sx + P"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic from sum √2 and product 1/3: x² − √2x + 1/3, then k(x² − √2x + 1/3)."
+    },
+    {
+      "id": "m1_p2_s1",
+      "type": "step",
+      "label": "x² − √2x + 1/3",
+      "description": "(ii) put in S and P",
+      "prompt": "(ii) x² − √2x + 1/3",
+      "accept": [
+        "x² − √2x + 1/3"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p2_s2",
+      "type": "step",
+      "label": "3x² − 3√2x + 1",
+      "description": "(ii) a multiple k",
+      "prompt": "(ii) 3x² − 3√2x + 1",
+      "accept": [
+        "3x² − 3√2x + 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p2_poly",
+      "type": "step",
+      "label": "(ii) Sum √2, Product 1/3",
+      "description": "3x² − 3√2x + 1 (or k(x² − √2x + 1/3))",
+      "prompt": "(ii) Find a quadratic polynomial whose zeroes have sum √2 and product 1/3.",
+      "accept": [
+        "3x² − 3√2x + 1",
+        "x² − √2x + 1/3",
+        "k(x² − √2x + 1/3)"
+      ],
+      "hints": [
+        "A quadratic whose zeroes have sum S and product P is x² − Sx + P (or any multiple k of it). Example: sum 3 and product 2 give x² − 3x + 2.",
+        "With fractions, multiply by a number to clear them. Example: sum 2/5 and product 3/5 give x² − (2/5)x + 3/5, and × 5 gives 5x² − 2x + 3.",
+        "x² − √2x + 1/3, or × a number: 3x² − 3√2x + 1"
+      ],
+      "quadratic_with": {
+        "sum": "sqrt(2)",
+        "product": "1/3",
+        "var": "x",
+        "sum_text": "√2",
+        "product_text": "1/3"
+      }
+    },
+    {
+      "id": "p3",
+      "type": "choice",
+      "label": "(iii) sum 0, product √5",
+      "description": "x² − (sum)x + (product), then × k",
+      "prompt": "(iii) Find a quadratic polynomial whose zeroes have sum 0 and product √5.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p3",
+      "type": "method",
+      "label": "x² − Sx + P",
+      "description": "Put the sum and product in, then clear fractions",
+      "prompt": "(iii) Write x² − (sum)x + (product).",
+      "accept": [
+        "x² − (sum)x + (product)",
+        "x^2 - Sx + P"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic from sum 0 and product √5: x² − 0x + √5, then k(x² − 0x + √5)."
+    },
+    {
+      "id": "m1_p3_s1",
+      "type": "step",
+      "label": "x² − 0x + √5",
+      "description": "(iii) put in S and P",
+      "prompt": "(iii) x² − 0x + √5",
+      "accept": [
+        "x² − 0x + √5"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p3_s2",
+      "type": "step",
+      "label": "x² + √5",
+      "description": "(iii) a multiple k",
+      "prompt": "(iii) x² + √5",
+      "accept": [
+        "x² + √5"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p3_poly",
+      "type": "step",
+      "label": "(iii) Sum 0, Product √5",
+      "description": "x² + √5 (or k(x² − 0x + √5))",
+      "prompt": "(iii) Find a quadratic polynomial whose zeroes have sum 0 and product √5.",
+      "accept": [
+        "x² + √5",
+        "x² − 0x + √5",
+        "k(x² − 0x + √5)"
+      ],
+      "hints": [
+        "A quadratic whose zeroes have sum S and product P is x² − Sx + P (or any multiple k of it). Example: sum 3 and product 2 give x² − 3x + 2.",
+        "Square roots stay as they are. Example: sum √3 and product 2 give x² − √3x + 2.",
+        "x² − 0x + √5, or × a number: x² + √5"
+      ],
+      "quadratic_with": {
+        "sum": "0",
+        "product": "sqrt(5)",
+        "var": "x",
+        "sum_text": "0",
+        "product_text": "√5"
+      }
+    },
+    {
+      "id": "p4",
+      "type": "choice",
+      "label": "(iv) sum 1, product 1",
+      "description": "x² − (sum)x + (product), then × k",
+      "prompt": "(iv) Find a quadratic polynomial whose zeroes have sum 1 and product 1.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p4",
+      "type": "method",
+      "label": "x² − Sx + P",
+      "description": "Put the sum and product in, then clear fractions",
+      "prompt": "(iv) Write x² − (sum)x + (product).",
+      "accept": [
+        "x² − (sum)x + (product)",
+        "x^2 - Sx + P"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic from sum 1 and product 1: x² − 1x + 1, then k(x² − 1x + 1)."
+    },
+    {
+      "id": "m1_p4_s1",
+      "type": "step",
+      "label": "x² − 1x + 1",
+      "description": "(iv) put in S and P",
+      "prompt": "(iv) x² − 1x + 1",
+      "accept": [
+        "x² − 1x + 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p4_s2",
+      "type": "step",
+      "label": "x² − x + 1",
+      "description": "(iv) a multiple k",
+      "prompt": "(iv) x² − x + 1",
+      "accept": [
+        "x² − x + 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p4_poly",
+      "type": "step",
+      "label": "(iv) Sum 1, Product 1",
+      "description": "x² − x + 1 (or k(x² − 1x + 1))",
+      "prompt": "(iv) Find a quadratic polynomial whose zeroes have sum 1 and product 1.",
+      "accept": [
+        "x² − x + 1",
+        "x² − 1x + 1",
+        "k(x² − 1x + 1)"
+      ],
+      "hints": [
+        "A quadratic whose zeroes have sum S and product P is x² − Sx + P (or any multiple k of it). Example: sum 3 and product 2 give x² − 3x + 2.",
+        "Put the numbers straight in. Example: sum 3 and product 2: x² − (3)x + (2) = x² − 3x + 2.",
+        "x² − 1x + 1, or × a number: x² − x + 1"
+      ],
+      "quadratic_with": {
+        "sum": "1",
+        "product": "1",
+        "var": "x",
+        "sum_text": "1",
+        "product_text": "1"
+      }
+    },
+    {
+      "id": "p5",
+      "type": "choice",
+      "label": "(v) sum −1/4, product 1/4",
+      "description": "x² − (sum)x + (product), then × k",
+      "prompt": "(v) Find a quadratic polynomial whose zeroes have sum −1/4 and product 1/4.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p5",
+      "type": "method",
+      "label": "x² − Sx + P",
+      "description": "Put the sum and product in, then clear fractions",
+      "prompt": "(v) Write x² − (sum)x + (product).",
+      "accept": [
+        "x² − (sum)x + (product)",
+        "x^2 - Sx + P"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic from sum −1/4 and product 1/4: x² + (1/4)x + 1/4, then k(x² + (1/4)x + 1/4)."
+    },
+    {
+      "id": "m1_p5_s1",
+      "type": "step",
+      "label": "x² + (1/4)x + 1/4",
+      "description": "(v) put in S and P",
+      "prompt": "(v) x² + (1/4)x + 1/4",
+      "accept": [
+        "x² + (1/4)x + 1/4"
+      ],
+      "hints": []
+    },
+    {
+      "id": "m1_p5_s2",
+      "type": "step",
+      "label": "4x² + x + 1",
+      "description": "(v) a multiple k",
+      "prompt": "(v) 4x² + x + 1",
+      "accept": [
+        "4x² + x + 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p5_poly",
+      "type": "step",
+      "label": "(v) Sum −1/4, Product 1/4",
+      "description": "4x² + x + 1 (or k(x² + (1/4)x + 1/4))",
+      "prompt": "(v) Find a quadratic polynomial whose zeroes have sum −1/4 and product 1/4.",
+      "accept": [
+        "4x² + x + 1",
+        "x² + (1/4)x + 1/4",
+        "k(x² + (1/4)x + 1/4)"
+      ],
+      "hints": [
+        "A quadratic whose zeroes have sum S and product P is x² − Sx + P (or any multiple k of it). Example: sum 3 and product 2 give x² − 3x + 2.",
+        "With fractions, multiply by a number to clear them. Example: sum 2/5 and product 3/5 give x² − (2/5)x + 3/5, and × 5 gives 5x² − 2x + 3.",
+        "x² + (1/4)x + 1/4, or × a number: 4x² + x + 1"
+      ],
+      "quadratic_with": {
+        "sum": "-1/4",
+        "product": "1/4",
+        "var": "x",
+        "sum_text": "−1/4",
+        "product_text": "1/4"
+      }
+    },
+    {
+      "id": "p6",
+      "type": "choice",
+      "label": "(vi) sum 4, product 1",
+      "description": "x² − (sum)x + (product), then × k",
+      "prompt": "(vi) Find a quadratic polynomial whose zeroes have sum 4 and product 1.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p6",
+      "type": "method",
+      "label": "x² − Sx + P",
+      "description": "Put the sum and product in, then clear fractions",
+      "prompt": "(vi) Write x² − (sum)x + (product).",
+      "accept": [
+        "x² − (sum)x + (product)",
+        "x^2 - Sx + P"
+      ],
+      "hints": [],
+      "jev_description": "Quadratic from sum 4 and product 1: x² − 4x + 1, then k(x² − 4x + 1)."
+    },
+    {
+      "id": "m1_p6_s1",
+      "type": "step",
+      "label": "x² − 4x + 1",
+      "description": "(vi) put in S and P",
+      "prompt": "(vi) x² − 4x + 1",
+      "accept": [
+        "x² − 4x + 1"
+      ],
+      "hints": []
+    },
+    {
+      "id": "p6_poly",
+      "type": "step",
+      "label": "(vi) Sum 4, Product 1",
+      "description": "x² − 4x + 1 (or k(x² − 4x + 1))",
+      "prompt": "(vi) Find a quadratic polynomial whose zeroes have sum 4 and product 1.",
+      "accept": [
+        "x² − 4x + 1",
+        "x² − 4x + 1",
+        "k(x² − 4x + 1)"
+      ],
+      "hints": [
+        "A quadratic whose zeroes have sum S and product P is x² − Sx + P (or any multiple k of it). Example: sum 3 and product 2 give x² − 3x + 2.",
+        "Put the numbers straight in. Example: sum 3 and product 2: x² − (3)x + (2) = x² − 3x + 2.",
+        "x² − 4x + 1, or × a number: x² − 4x + 1"
+      ],
+      "quadratic_with": {
+        "sum": "4",
+        "product": "1",
+        "var": "x",
+        "sum_text": "4",
+        "product_text": "1"
+      }
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "k(x² − Sx + P), any k ≠ 0",
+      "prompt": "All six are done. In general: which quadratic has zeroes with sum S and product P?",
+      "accept": [
+        "k(x² − Sx + P)",
+        "x² − Sx + P",
+        "x^2 - Sx + P",
+        "x² − (sum)x + (product)"
+      ],
+      "hints": [
+        "Look at the form you used in every part.",
+        "x² − (?)x + (?)",
+        "k(x² − Sx + P)"
+      ],
+      "keywords": [
+        "x"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "What Is Given"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "What We Need to Find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "method_choice",
+      "label": "Describe the Plan"
+    },
+    {
+      "from": "method_choice",
+      "to": "p1",
+      "label": "(i) sum 1/4, product −1"
+    },
+    {
+      "from": "p1",
+      "to": "m1_p1",
+      "label": "x² − Sx + P"
+    },
+    {
+      "from": "m1_p1",
+      "to": "m1_p1_s1",
+      "label": "x² − (1/4)x − 1"
+    },
+    {
+      "from": "m1_p1_s1",
+      "to": "m1_p1_s2",
+      "label": "4x² − x − 4"
+    },
+    {
+      "from": "m1_p1_s2",
+      "to": "p1_poly",
+      "label": "(i) Sum 1/4, Product −1"
+    },
+    {
+      "from": "p1_poly",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p2",
+      "label": "(ii) sum √2, product 1/3"
+    },
+    {
+      "from": "p2",
+      "to": "m1_p2",
+      "label": "x² − Sx + P"
+    },
+    {
+      "from": "m1_p2",
+      "to": "m1_p2_s1",
+      "label": "x² − √2x + 1/3"
+    },
+    {
+      "from": "m1_p2_s1",
+      "to": "m1_p2_s2",
+      "label": "3x² − 3√2x + 1"
+    },
+    {
+      "from": "m1_p2_s2",
+      "to": "p2_poly",
+      "label": "(ii) Sum √2, Product 1/3"
+    },
+    {
+      "from": "p2_poly",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p3",
+      "label": "(iii) sum 0, product √5"
+    },
+    {
+      "from": "p3",
+      "to": "m1_p3",
+      "label": "x² − Sx + P"
+    },
+    {
+      "from": "m1_p3",
+      "to": "m1_p3_s1",
+      "label": "x² − 0x + √5"
+    },
+    {
+      "from": "m1_p3_s1",
+      "to": "m1_p3_s2",
+      "label": "x² + √5"
+    },
+    {
+      "from": "m1_p3_s2",
+      "to": "p3_poly",
+      "label": "(iii) Sum 0, Product √5"
+    },
+    {
+      "from": "p3_poly",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p4",
+      "label": "(iv) sum 1, product 1"
+    },
+    {
+      "from": "p4",
+      "to": "m1_p4",
+      "label": "x² − Sx + P"
+    },
+    {
+      "from": "m1_p4",
+      "to": "m1_p4_s1",
+      "label": "x² − 1x + 1"
+    },
+    {
+      "from": "m1_p4_s1",
+      "to": "m1_p4_s2",
+      "label": "x² − x + 1"
+    },
+    {
+      "from": "m1_p4_s2",
+      "to": "p4_poly",
+      "label": "(iv) Sum 1, Product 1"
+    },
+    {
+      "from": "p4_poly",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p5",
+      "label": "(v) sum −1/4, product 1/4"
+    },
+    {
+      "from": "p5",
+      "to": "m1_p5",
+      "label": "x² − Sx + P"
+    },
+    {
+      "from": "m1_p5",
+      "to": "m1_p5_s1",
+      "label": "x² + (1/4)x + 1/4"
+    },
+    {
+      "from": "m1_p5_s1",
+      "to": "m1_p5_s2",
+      "label": "4x² + x + 1"
+    },
+    {
+      "from": "m1_p5_s2",
+      "to": "p5_poly",
+      "label": "(v) Sum −1/4, Product 1/4"
+    },
+    {
+      "from": "p5_poly",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p6",
+      "label": "(vi) sum 4, product 1"
+    },
+    {
+      "from": "p6",
+      "to": "m1_p6",
+      "label": "x² − Sx + P"
+    },
+    {
+      "from": "m1_p6",
+      "to": "m1_p6_s1",
+      "label": "x² − 4x + 1"
+    },
+    {
+      "from": "m1_p6_s1",
+      "to": "p6_poly",
+      "label": "(vi) Sum 4, Product 1"
+    },
+    {
+      "from": "p6_poly",
+      "to": "conclusion",
+      "label": "Final Answer"
+    }
+  ]
+}

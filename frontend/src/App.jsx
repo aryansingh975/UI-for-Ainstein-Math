@@ -9,6 +9,8 @@ import {
   startTutorSession,
   submitTutorStep,
   resetTutorSession,
+  classifyMethod,
+  lockMethod,
   classifyJevMethod
 } from './api/tutorApi.js';
 
@@ -43,6 +45,7 @@ export default function App() {
   const [input, setInput] = useState('');
   const [stepResult, setStepResult] = useState(null);
   const [jevMessage, setJevMessage] = useState(null);
+  const [pendingLines, setPendingLines] = useState([]);
   const [isChecking, setIsChecking] = useState(false);
   const [checkButtonText, setCheckButtonText] = useState('Check Step');
   const [isLoadingProblem, setIsLoadingProblem] = useState(false);
@@ -79,6 +82,7 @@ export default function App() {
     setLoadError(null);
     setStepResult(null);
     setJevMessage(null);
+    setPendingLines([]);
     setInput('');
     setIsReviewingSteps(false);
     setShowHint(false);
@@ -137,6 +141,7 @@ export default function App() {
     setInput('');
     setStepResult(null);
     setJevMessage(null);
+    setPendingLines([]);
     setIsReviewingSteps(false);
     setShowHint(false);
   };
@@ -177,93 +182,181 @@ export default function App() {
     setJevMessage(null);
 
     try {
-      if (currentProblem.uuid === 'g10-quad-ex001' && !session.method_id) {
-        setCheckButtonText('Identifying method...');
-        const classification = await classifyJevMethod(currentProblem.uuid, raw);
+      const rawLines = raw.split('\n').map((l) => l.trim()).filter(Boolean);
+      const isMultiLine = rawLines.length > 1;
 
-        if (classification.status === 'off_graph') {
+      // JEV METHOD CLASSIFICATION FLOW (for problems with use_jev where method is not yet locked)
+      if ((session.use_jev || currentProblem?.uuid === 'g10-quad-ex001') && !session.method_id) {
+        setCheckButtonText('Identifying method...');
+        const cumulativeLines = [...pendingLines, ...rawLines];
+        const classification = await classifyMethod(currentProblem.uuid, cumulativeLines);
+
+        // 1. Math mistake caught by SymPy validator
+        if (classification.status === 'fix_mistake') {
           setJevMessage({
-            label: 'METHOD NOT IN THIS GRAPH',
-            message: 'Jev could not match this work to one of the supported methods. Try explaining your approach or choose another method.',
+            label: 'CHECK YOUR MATHS',
+            message: classification.feedback,
+            stateClass: 'failure-state'
+          });
+          return;
+        }
+
+        // 2. Off graph: method not recognised
+        if (classification.status === 'off_graph' || classification.method?.status === 'off_graph') {
+          setJevMessage({
+            label: 'METHOD NOT RECOGNISED',
+            message: classification.feedback || 'Jev could not match this work to one of the supported methods. Which method are you using?',
             stateClass: 'warn-state'
           });
           return;
         }
 
-        if (classification.status !== 'selected') {
+        // 3. Shared step across multiple methods (accumulate lines and invite next step)
+        if (classification.method?.status === 'shared') {
+          setPendingLines(cumulativeLines);
+          setJevMessage({
+            label: 'SHARED STEP · KEEP GOING',
+            message: classification.feedback || 'Good! This step fits multiple methods. Write your next step to show your chosen approach.',
+            stateClass: 'on-track-state'
+          });
+          setInput('');
+          return;
+        }
+
+        // 4. Method uncertain
+        if (classification.method?.status === 'uncertain') {
           setJevMessage({
             label: 'METHOD UNCLEAR',
-            message: 'Jev is not confident which method you are using. Add another line or explain your approach, then try again.',
+            message: classification.feedback || 'Jev is not confident which method you are using. Add another line or explain your approach, then try again.',
             stateClass: 'warn-state'
           });
           return;
         }
 
+        // 5. Method selected: lock method and evaluate lines
+        const methodId = classification.method?.methodId || classification.method?.methodKey || classification.method?.id;
         const methodNames = {
           m1_factor: 'Factoring',
           m2_formula: 'Quadratic Formula',
           m3_square: 'Completing the Square',
           m4_graph: 'Graphical Method',
           m5_vieta: 'Sum and Product of Roots',
-          m6_trial: 'Trial and Factor Theorem'
+          m6_trial: 'Trial and Factor Theorem',
+          ...(classification.method_labels || {})
         };
-        const label = methodNames[classification.methodId] || classification.methodKey || 'Selected Method';
+        const label = methodNames[methodId] || classification.method?.methodKey || 'Selected Method';
 
-        const stepData = await submitTutorStep(session.session_id, raw);
-        setSession((prev) => ({
-          ...prev,
-          completed: stepData.completed,
-          active_node_id: stepData.active_node_id,
-          active_label: stepData.active_label,
-          prompt: stepData.next_prompt,
-          hint: stepData.hint || (stepData.hints && stepData.hints[0]) || prev?.hint,
-          hints: stepData.hints || prev?.hints,
-          fail_streak: stepData.fail_streak,
-          trail: stepData.trail || prev.trail,
-          history: stepData.history || prev.history || [],
-          method_id: classification.methodId,
-          method_label: label,
-          is_beginning: false
-        }));
+        if (methodId) {
+          try {
+            await lockMethod(session.session_id, methodId);
+          } catch (lockErr) {
+            console.warn('Could not lock method on session:', lockErr);
+          }
+        }
+        setPendingLines([]);
 
-        if (stepData.verdict === 'GARBAGE' || stepData.verdict === 'UNPARSED') {
-          setJevMessage({
-            label: 'METHOD SELECTED · STEP NOT VERIFIED',
-            message: `Jev identified ${label.toLowerCase()}, but the tutor could not verify that line as a correct step. ${stepData.next_prompt || ''}`,
-            stateClass: 'warn-state'
-          });
-          setInput('');
-          return;
+        // Evaluate cumulative lines against tutor engine
+        let lastStepData = null;
+        for (const line of cumulativeLines) {
+          lastStepData = await submitTutorStep(session.session_id, line);
+          if (lastStepData.completed) break;
+          if (lastStepData.verdict === 'WRONG_CLAIM' || lastStepData.verdict === 'GARBAGE' || lastStepData.verdict === 'UNPARSED') {
+            break;
+          }
         }
 
-        setStepResult(stepData);
-        setInput('');
-        if (stepData.completed) {
-          markProblemSolved(currentProblem.uuid);
-          setIsReviewingSteps(false);
+        if (lastStepData) {
+          setSession((prev) => ({
+            ...prev,
+            completed: lastStepData.completed,
+            active_node_id: lastStepData.active_node_id,
+            active_label: lastStepData.active_label,
+            prompt: lastStepData.next_prompt,
+            hint: lastStepData.hint || (lastStepData.hints && lastStepData.hints[0]) || prev?.hint,
+            hints: lastStepData.hints || prev?.hints,
+            fail_streak: lastStepData.fail_streak,
+            trail: lastStepData.trail || prev.trail,
+            history: lastStepData.history || prev.history || [],
+            method_id: methodId || lastStepData.method_id || prev.method_id,
+            method_label: label || lastStepData.method_label || prev.method_label,
+            is_beginning: false
+          }));
+
+          if (lastStepData.verdict === 'GARBAGE' || lastStepData.verdict === 'UNPARSED') {
+            setJevMessage({
+              label: 'METHOD SELECTED · STEP NOT VERIFIED',
+              message: `Jev identified ${label.toLowerCase()}, but the tutor could not verify that line as a correct step. ${lastStepData.feedback_message || lastStepData.next_prompt || ''}`,
+              stateClass: 'warn-state'
+            });
+            setInput('');
+            return;
+          }
+
+          setStepResult(lastStepData);
+          setInput('');
+          if (lastStepData.completed) {
+            markProblemSolved(currentProblem.uuid);
+            setIsReviewingSteps(false);
+          }
         }
       } else {
-        const stepData = await submitTutorStep(session.session_id, raw);
-        setInput('');
-        setSession((prev) => ({
-          ...prev,
-          completed: stepData.completed,
-          active_node_id: stepData.active_node_id,
-          active_label: stepData.active_label,
-          prompt: stepData.next_prompt,
-          hint: stepData.hint || (stepData.hints && stepData.hints[0]) || prev?.hint,
-          hints: stepData.hints || prev?.hints,
-          fail_streak: stepData.fail_streak,
-          trail: stepData.trail || prev.trail,
-          history: stepData.history || prev.history || [],
-          method_id: stepData.method_id || prev.method_id,
-          method_label: stepData.method_label || prev.method_label,
-          is_beginning: false
-        }));
-        setStepResult(stepData);
-        if (stepData.completed) {
-          markProblemSolved(currentProblem.uuid);
-          setIsReviewingSteps(false);
+        // STANDARD TUTOR EVALUATION (Guided or Unguided)
+        if (session.guided || !isMultiLine) {
+          const stepData = await submitTutorStep(session.session_id, raw);
+          setInput('');
+          setSession((prev) => ({
+            ...prev,
+            completed: stepData.completed,
+            active_node_id: stepData.active_node_id,
+            active_label: stepData.active_label,
+            prompt: stepData.next_prompt,
+            hint: stepData.hint || (stepData.hints && stepData.hints[0]) || prev?.hint,
+            hints: stepData.hints || prev?.hints,
+            fail_streak: stepData.fail_streak,
+            trail: stepData.trail || prev.trail,
+            history: stepData.history || prev.history || [],
+            method_id: stepData.method_id || prev.method_id,
+            method_label: stepData.method_label || prev.method_label,
+            is_beginning: false
+          }));
+          setStepResult(stepData);
+          if (stepData.completed) {
+            markProblemSolved(currentProblem.uuid);
+            setIsReviewingSteps(false);
+          }
+        } else {
+          // Unguided multi-line: submit line by line sequentially until error or completion
+          let lastStepData = null;
+          for (const line of rawLines) {
+            lastStepData = await submitTutorStep(session.session_id, line);
+            if (lastStepData.completed) break;
+            if (lastStepData.verdict === 'WRONG_CLAIM' || lastStepData.verdict === 'GARBAGE' || lastStepData.verdict === 'UNPARSED') {
+              break;
+            }
+          }
+          if (lastStepData) {
+            setInput('');
+            setSession((prev) => ({
+              ...prev,
+              completed: lastStepData.completed,
+              active_node_id: lastStepData.active_node_id,
+              active_label: lastStepData.active_label,
+              prompt: lastStepData.next_prompt,
+              hint: lastStepData.hint || (lastStepData.hints && lastStepData.hints[0]) || prev?.hint,
+              hints: lastStepData.hints || prev?.hints,
+              fail_streak: lastStepData.fail_streak,
+              trail: lastStepData.trail || prev.trail,
+              history: lastStepData.history || prev.history || [],
+              method_id: lastStepData.method_id || prev.method_id,
+              method_label: lastStepData.method_label || prev.method_label,
+              is_beginning: false
+            }));
+            setStepResult(lastStepData);
+            if (lastStepData.completed) {
+              markProblemSolved(currentProblem.uuid);
+              setIsReviewingSteps(false);
+            }
+          }
         }
       }
     } catch (err) {

@@ -7,7 +7,13 @@ const CHAPTER_ICONS = {
   'inverse-proportion': '🔄',
   'percentages': '📈',
   'algebra-play': '🧩',
-  'linear-equation': '🎯'
+  'linear-equation': '🎯',
+  'real-numbers': '🔢',
+  'polynomials': '📐',
+  'pair-of-linear-equations': '✂️',
+  'circles': '⭕',
+  'surface-areas-and-volumes': '📦',
+  'probability': '🎲'
 };
 
 export default function CurriculumHubView({

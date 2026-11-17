@@ -11,6 +11,8 @@ from app.schemas.session import (
     SessionStartResponse,
     StepRequest,
     StepResponse,
+    MethodLockRequest,
+    MethodLockResponse,
 )
 from app.engine.state_machine import (
     Session,
@@ -19,8 +21,11 @@ from app.engine.state_machine import (
     hint_for,
     get_method_node,
     first_step_of,
+    begin_method,
+    method_of,
 )
 from app.engine.tutor_engine import process_step
+from app.engine.guided import is_guided, guided_step, first_question
 from app.engine.claims import Claim, explain_claim
 from app.services import session_logger
 
@@ -30,6 +35,14 @@ router = APIRouter(prefix="/sessions")
 _SESSIONS: Dict[str, Tuple[Session, SolutionGraph]] = {}
 
 
+def _new_session(graph: SolutionGraph) -> Session:
+    """A guided graph starts at its first question; a free-form graph as before."""
+    session = new_session(graph)
+    if is_guided(graph):
+        session.current_node_id = first_question(graph)
+    return session
+
+
 @router.post("/start", response_model=SessionStartResponse)
 def start_session(req: SessionStartRequest):
     """Start a new Socratic tutoring session for a given problem."""
@@ -37,7 +50,7 @@ def start_session(req: SessionStartRequest):
     if not graph:
         raise HTTPException(status_code=404, detail=f"Problem '{req.problem_id}' not found.")
 
-    session = new_session(graph)
+    session = _new_session(graph)
     session_id = f"sess_{uuid.uuid4().hex[:10]}"
     _SESSIONS[session_id] = (session, graph)
 
@@ -82,6 +95,8 @@ def start_session(req: SessionStartRequest):
         topic=str(ctx.get("topic", "")),
         grade=grade_val,
         is_beginning=(len(session.trail) == 0 and not session.method_id and not session.current_node_id),
+        use_jev=getattr(meta, "use_jev", None) is True,
+        guided=is_guided(graph),
         trail=[],
         history=[],
     )
@@ -97,8 +112,12 @@ def check_step(session_id: str, req: StepRequest):
     if session.completed:
         raise HTTPException(status_code=400, detail="Problem is already completed. Reset to start again.")
 
-    result = process_step(req.student_input, session, graph)
-    apply_result(session, result, graph)
+    guided, guided_jev, plan = is_guided(graph), None, None
+    if guided:
+        result, guided_hint, guided_jev, plan = guided_step(req.student_input, session, graph)
+    else:
+        result = process_step(req.student_input, session, graph)
+        apply_result(session, result, graph)
 
     node_map = {n.id: n for n in graph.nodes}
     concl_node = node_map.get(graph.conclusion_node)
@@ -119,6 +138,20 @@ def check_step(session_id: str, req: StepRequest):
         cur = node_map[active_id]
         active_label = cur.label
         next_prompt = cur.prompt
+        if plan and plan.get("concept_hint") and not plan.get("accepted"):
+            k = plan["concept_hint"]
+            next_prompt = f"Hint {k['id']}: {k['question']}\nThen try again. {cur.prompt}"
+        if plan and plan.get("next_question") and not plan.get("accepted"):
+            next_prompt = plan["next_question"]
+            if plan.get("category") == "explain":
+                active_label = "Explain the Plan"
+        if getattr(session, "prompt_override", None):
+            next_prompt = session.prompt_override
+        if getattr(session, "free_solving", False):
+            active_label = "Solve on Your Own"
+            next_prompt = ("Keep going, one step per line. I'll only stop you if something is wrong."
+                           if getattr(session, "plan_skipped", False)
+                           else getattr(cur, "solve_prompt", None) or "Now solve it on your own, one step per line.")
     elif not session.completed and not active_id and not session.method_id:
         active_label = "Step 1"
         next_prompt = "Great! Now that we know what is given and what to find, what is your first step to solve this problem?"
@@ -130,9 +163,12 @@ def check_step(session_id: str, req: StepRequest):
         claim_data = result.claim
 
     # Hint & Explanation
-    hint = hint_for(session, graph, result.node_id or session.current_node_id)
-    if not hint and next_is_conclusion and concl_node and concl_node.hints:
-        hint = concl_node.hints[0]
+    if guided:
+        hint = guided_hint
+    else:
+        hint = hint_for(session, graph, result.node_id or session.current_node_id)
+        if not hint and next_is_conclusion and concl_node and concl_node.hints:
+            hint = concl_node.hints[0]
     explanation = explain_claim(result.claim)
 
     method_node = get_method_node(session.method_id, graph) if session.method_id else None
@@ -140,7 +176,9 @@ def check_step(session_id: str, req: StepRequest):
 
     # Feedback messages
     feedback_msg = None
-    if getattr(result, "feedback", None):
+    if plan:                                                  # a plan in words: the plan's own reply
+        feedback_msg = plan["message"]
+    elif getattr(result, "feedback", None):
         feedback_msg = result.feedback
     elif result.verdict in ("ACCEPT", "MULTI_STEP_ACCEPT"):
         feedback_msg = "That's correct."
@@ -157,9 +195,23 @@ def check_step(session_id: str, req: StepRequest):
     elif result.verdict == "MISCONCEPTION":
         feedback_msg = f"🔴 {explanation}" if explanation else "Review the mathematical operation needed."
     elif result.verdict == "WRONG_CLAIM":
-        feedback_msg = f"🔴 {explanation} Fix this step and try it again." if explanation else "This step contains a mathematical mistake. Fix this calculation and try again."
+        if isinstance(result.claim, dict) and result.claim.get("message"):
+            feedback_msg = f"🔴 {result.claim['message']} Fix this step and try it again."
+        elif explanation:
+            feedback_msg = f"🔴 {explanation} Fix this step and try it again."
+        else:
+            feedback_msg = "This step contains a mathematical mistake. Fix this calculation and try again."
     elif result.verdict == "IRRELEVANT_TRUE":
         feedback_msg = f'"{result.parsed.raw}" is true, but it does not yet help answer this question. Connect your step to the quantities in the problem.'
+    elif result.verdict == "UNIT_ISSUE":
+        feedback_msg = result.claim.get("message") if isinstance(result.claim, dict) else "Check the unit."
+    elif result.verdict == "WRONG_ANSWER":
+        feedback_msg = "That is not the answer to this question yet."
+    elif result.verdict in ("PART", "WORKING"):
+        feedback_msg = (result.claim or {}).get("message", "") if isinstance(result.claim, dict) else ""
+    elif result.verdict == "DONT_KNOW":
+        defs = (result.claim or {}).get("definitions") if isinstance(result.claim, dict) else None
+        feedback_msg = "That's fine. " + (" ".join(defs) if defs else "Let's take it one hint at a time.")
     elif result.verdict == "GARBAGE":
         feedback_msg = "That does not look related to this problem. Try a calculation or explain a method for the question above."
     else:  # UNPARSED
@@ -176,7 +228,7 @@ def check_step(session_id: str, req: StepRequest):
         "next_prompt": next_prompt,
         "hint": hint,
         "explanation": explanation,
-        "is_correct": result.verdict in ("ACCEPT", "MULTI_STEP_ACCEPT", "CONCLUSION_RIGHT"),
+        "is_correct": result.verdict in ("ACCEPT", "MULTI_STEP_ACCEPT", "CONCLUSION_RIGHT", "WORKING"),
         "node_id": result.node_id or active_id,
         "label": active_label,
     }
@@ -210,6 +262,31 @@ def check_step(session_id: str, req: StepRequest):
         next_is_conclusion=next_is_conclusion,
         method_id=session.method_id,
         method_label=method_label,
+        jev=guided_jev,
+        choice=plan,
+    )
+
+
+@router.post("/{session_id}/method", response_model=MethodLockResponse)
+def lock_method(session_id: str, req: MethodLockRequest):
+    """Lock in the method Jev identified, so replayed steps are matched against that method only."""
+    if session_id not in _SESSIONS:
+        raise HTTPException(status_code=404, detail="Session not found or expired.")
+
+    session, graph = _SESSIONS[session_id]
+    if not begin_method(session, req.method_id, graph):
+        raise HTTPException(status_code=409, detail=f"Method '{req.method_id}' cannot be started in this session.")
+
+    session.method_id = method_of(session.current_node_id) or session.method_id
+
+    node_map = {n.id: n for n in graph.nodes}
+    active_node = node_map.get(session.current_node_id)
+    return MethodLockResponse(
+        method_id=session.method_id,
+        method_label=node_map[req.method_id].label if req.method_id in node_map else req.method_id,
+        active_node_id=session.current_node_id,
+        active_label=active_node.label if active_node else None,
+        prompt=active_node.prompt if active_node else None,
     )
 
 
@@ -220,7 +297,7 @@ def reset_session(session_id: str):
         raise HTTPException(status_code=404, detail="Session not found.")
 
     _, graph = _SESSIONS[session_id]
-    new_sess = new_session(graph)
+    new_sess = _new_session(graph)
     _SESSIONS[session_id] = (new_sess, graph)
 
     node_map = {n.id: n for n in graph.nodes}
@@ -262,6 +339,8 @@ def reset_session(session_id: str):
         topic=str(ctx.get("topic", "")),
         grade=grade_val,
         is_beginning=True,
+        use_jev=getattr(meta, "use_jev", None) is True,
+        guided=is_guided(graph),
         trail=[],
         history=[],
     )

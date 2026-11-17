@@ -31,8 +31,36 @@ class SessionStartResponse(BaseModel):
     topic: Optional[str] = None
     grade: Optional[int] = None
     is_beginning: bool = True
+    use_jev: bool = False
+    guided: bool = False
     trail: List[Dict[str, Any]] = Field(default_factory=list)
     history: List[Dict[str, Any]] = Field(default_factory=list)
+
+
+class MethodLockRequest(BaseModel):
+    method_id: str
+
+
+class MethodLockResponse(BaseModel):
+    method_id: str
+    method_label: str
+    active_node_id: Optional[str] = None
+    active_label: Optional[str] = None
+    prompt: Optional[str] = None
+
+
+class MethodClassifyRequest(BaseModel):
+    problem_id: str
+    lines: List[str]
+
+
+class MethodClassifyResponse(BaseModel):
+    status: str
+    feedback: str
+    method: Dict[str, Any]
+    validation: Dict[str, Any]
+    method_labels: Dict[str, str] = Field(default_factory=dict)
+    declared_methods: List[Optional[str]] = Field(default_factory=list)
 
 
 class StepRequest(BaseModel):
@@ -59,4 +87,6 @@ class StepResponse(BaseModel):
     next_is_conclusion: bool = False
     method_id: Optional[str] = None
     method_label: Optional[str] = None
+    jev: Optional[Dict[str, Any]] = None          # guided mode: Jev's view at the method choice
+    choice: Optional[Dict[str, Any]] = None       # guided plan: {category, concepts_found, concepts_missing, path, message, accepted}
 

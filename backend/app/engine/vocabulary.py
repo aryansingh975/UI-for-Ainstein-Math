@@ -12,8 +12,7 @@ RELEVANT_WORDS: Set[str] = {
     "this", "that", "these", "those", "there", "here", "of", "to", "for", "with", "by",
     "in", "on", "at", "as", "from", "into", "both", "each", "per",
     "get", "got", "have", "has", "had", "give", "gives", "given", "use", "used", "using", "after",
-    "check", "checks", "checking", "see", "find", "finding", "found", "try", "tries", "trying", "want", "wants", "let",
-    "need", "needs", "needed", "whether", "determine", "determines", "determining", "compare", "comparing", "comparison", "goal", "goals",
+    "check", "see", "find", "found", "try", "tries", "trying", "want", "wants", "need", "needs", "whether", "determine", "given", "goal", "let",
     "lets", "think", "okay", "ok", "yes", "no", "not", "now", "first", "next", "last",
     "final", "because", "since", "when", "make", "makes", "made", "means", "mean",
     "know", "known", "suppose", "supposed", "maybe", "please",
@@ -45,7 +44,14 @@ RELEVANT_WORDS: Set[str] = {
     "age", "ages", "daughter", "daughters", "mother", "mothers", "father", "son", "present", "future", "past",
     "ago", "hence", "older", "younger", "unit", "units", "part", "parts", "constant", "difference", "sum", "total",
     "equation", "let", "assume", "variable", "linear", "solve", "solved", "solving", "subtract", "subtracted", "subtracting",
-    "add", "added", "adding", "addition", "subtraction"
+    "add", "added", "adding", "addition", "subtraction",
+
+    # Probability
+    "p", "e", "probability", "probabilities", "event", "events", "outcome", "outcomes", "favourable", "favorable",
+    "complement", "complementary", "impossible", "sure", "certain", "possible", "likely", "theoretical",
+    "birthday", "birthdays", "student", "students", "option", "options", "required",
+    "coin", "coins", "piggy", "bank", "fall", "falls", "will", "be",
+    "cannot", "negative", "positive", "less", "more", "greater", "than", "between", "lies", "range", "rule"
 }
 
 MATH_INTENT: Set[str] = {

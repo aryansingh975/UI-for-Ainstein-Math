@@ -1,0 +1,893 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh101-ex-1-1-q2",
+    "problem_uuid": "g10-jemh101-ex-1-1-q2",
+    "problem_text": "Find the LCM and HCF of the following pairs of integers and verify that LCM × HCF = product of the two numbers. (i) 26 and 91 (ii) 510 and 92 (iii) 336 and 54",
+    "equation": null,
+    "variable": "x",
+    "use_jev": true,
+    "guided": true,
+    "llm_tutor": true,
+    "sympy_can_finish": false,
+    "sympy_note": "No unknown, so no equation. Factorisations are checked by the node's `factorise` list (every factor must be prime and the product right); other lines by SymPy's value checks.",
+    "guided_note": "Guided mode: after the plan, the pairs in any order. '(ii)' or 'ii)' picks pair (ii); a line without a label is for the pair being solved. Per pair four questions (factorise, HCF, LCM, verify); a correct division or split of either number is working at the factorise question. Wrong answers: Hint 1, 2, then 3.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "2.0.0",
+    "description": "Guided solution DAG for NCERT Class 10 Ex 1.1 Q2: (i) HCF = 13, LCM = 182 (ii) HCF = 2, LCM = 23460 (iii) HCF = 6, LCM = 3024. For each pair: prime factorisation, HCF (shared primes, smallest powers), LCM (all primes, greatest powers), then LCM × HCF = product.",
+    "created": "2026-11-13",
+    "total_methods": 1,
+    "total_nodes": 23,
+    "total_edges": 24,
+    "problem_context": {
+      "chapter": "1",
+      "topic": "Real Numbers",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 1 Real Numbers, Exercise 1.1, Q2 (p. 5)",
+      "question_type": "short_answer"
+    },
+    "navigation_label": "Ex 1.1 Q2: LCM and HCF",
+    "glossary": [
+      {
+        "term": "prime factor",
+        "aliases": [
+          "prime factors",
+          "prime factorisation",
+          "prime factorization"
+        ],
+        "definition": "A prime factor is a factor that is also a prime number. For 10 = 2 × 5, the prime factors are 2 and 5."
+      },
+      {
+        "term": "prime number",
+        "aliases": [
+          "prime numbers",
+          "prime",
+          "primes"
+        ],
+        "definition": "A prime number has exactly two factors: 1 and itself. 2, 3, 5, 7, 11 and 13 are primes; 1 is not a prime."
+      },
+      {
+        "term": "composite number",
+        "aliases": [
+          "composite numbers",
+          "composite"
+        ],
+        "definition": "A composite number has more than two factors, like 4, 6 or 9, so it can be broken into smaller factors."
+      },
+      {
+        "term": "factor",
+        "aliases": [
+          "factors",
+          "divisor",
+          "divisors"
+        ],
+        "definition": "A factor of a number divides it exactly. The factors of 12 are 1, 2, 3, 4, 6 and 12."
+      },
+      {
+        "term": "HCF",
+        "aliases": [
+          "highest common factor",
+          "gcd",
+          "greatest common divisor",
+          "greatest common factor"
+        ],
+        "definition": "The HCF (highest common factor) is the largest number that divides both numbers exactly. HCF(8, 12) = 4."
+      },
+      {
+        "term": "LCM",
+        "aliases": [
+          "lowest common multiple",
+          "least common multiple"
+        ],
+        "definition": "The LCM (lowest common multiple) is the smallest number that both numbers divide into exactly. LCM(4, 6) = 12."
+      },
+      {
+        "term": "multiple",
+        "aliases": [
+          "multiples"
+        ],
+        "definition": "A multiple of a number is that number times a whole number. The multiples of 4 are 4, 8, 12, 16, …"
+      },
+      {
+        "term": "power",
+        "aliases": [
+          "powers",
+          "exponent",
+          "exponents",
+          "index",
+          "squared",
+          "cubed"
+        ],
+        "definition": "A power is repeated multiplication: 3² = 3 × 3 and 2³ = 2 × 2 × 2."
+      },
+      {
+        "term": "product",
+        "aliases": [
+          "products"
+        ],
+        "definition": "The product is the answer to a multiplication: the product of 3 and 4 is 12."
+      }
+    ],
+    "parts": [
+      {
+        "id": "p1",
+        "label": "i",
+        "title": "(i) 26 and 91",
+        "numbers": [
+          26,
+          91
+        ],
+        "nodes": [
+          "m1_p1_factor",
+          "m1_p1_hcf",
+          "m1_p1_lcm",
+          "m1_p1_verify"
+        ]
+      },
+      {
+        "id": "p2",
+        "label": "ii",
+        "title": "(ii) 510 and 92",
+        "numbers": [
+          510,
+          92
+        ],
+        "nodes": [
+          "m1_p2_factor",
+          "m1_p2_hcf",
+          "m1_p2_lcm",
+          "m1_p2_verify"
+        ]
+      },
+      {
+        "id": "p3",
+        "label": "iii",
+        "title": "(iii) 336 and 54",
+        "numbers": [
+          336,
+          54
+        ],
+        "nodes": [
+          "m1_p3_factor",
+          "m1_p3_hcf",
+          "m1_p3_lcm",
+          "m1_p3_verify"
+        ]
+      }
+    ]
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Find the LCM and HCF of the following pairs of integers and verify that LCM × HCF = product of the two numbers. (i) 26 and 91 (ii) 510 and 92 (iii) 336 and 54",
+      "prompt": "Read the problem. Answer each question to solve it step by step.",
+      "accept": [],
+      "hints": [
+        "Answer the question shown above the box."
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "What Is Given",
+      "description": "The pairs 26 and 91, 510 and 92, 336 and 54.",
+      "prompt": "What is given in the question?",
+      "accept": [
+        "26 and 91, 510 and 92, 336 and 54",
+        "the pairs (26, 91), (510, 92), (336, 54)"
+      ],
+      "hints": [
+        "Which pairs of numbers does the question list?",
+        "There are three pairs, (i) to (iii).",
+        "26 and 91, 510 and 92, 336 and 54"
+      ],
+      "optional": false,
+      "keywords": [
+        "26",
+        "91",
+        "510",
+        "92",
+        "336",
+        "54"
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "What We Need to Find",
+      "description": "The LCM and HCF of each pair, and a check that LCM × HCF = product of the two numbers.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "the LCM and HCF of each pair",
+        "LCM and HCF, then verify LCM × HCF = product",
+        "HCF and LCM of each pair and check LCM × HCF = the product"
+      ],
+      "hints": [
+        "Read the question again: which two numbers do we find for each pair?",
+        "Two answers per pair, then a check.",
+        "The LCM and HCF of each pair, and check LCM × HCF = product"
+      ],
+      "optional": false,
+      "keywords": [
+        "lcm",
+        "hcf"
+      ]
+    },
+    {
+      "id": "method_choice",
+      "type": "choice",
+      "label": "Describe the Plan",
+      "description": "Describe the plan: factorise both numbers; HCF = common primes, smallest powers; LCM = all primes, greatest powers; check LCM × HCF = product. Then the pairs (i) to (iii), in any order.",
+      "prompt": "Describe your plan: how will you find the HCF and LCM of each pair, and verify LCM × HCF = product?",
+      "accept": [],
+      "hints": [
+        "Think about what HCF and LCM mean.",
+        "Both come from the prime factors of the two numbers.",
+        "Factorise, HCF from common primes, LCM from all primes, then check."
+      ],
+      "concepts_required": [
+        {
+          "id": "C1",
+          "idea": "writing both numbers as products of primes",
+          "keywords": [
+            "prime factor",
+            "factorise",
+            "factorize",
+            "factorisation",
+            "factorization",
+            "factor tree",
+            "product of primes",
+            "break",
+            "primes of",
+            "factor both",
+            "factors of both",
+            "factor each",
+            "factors of each"
+          ],
+          "needs_any": [],
+          "hints": [
+            "What do you need to know about the two numbers before you can find their HCF or LCM?",
+            "Break each number into its prime factors. Example: 12 = 2² × 3."
+          ],
+          "answer": "Write both numbers as products of primes.",
+          "explain": {
+            "question": "Why do we factorise both numbers first?",
+            "expected_keywords": [
+              "common",
+              "share",
+              "see",
+              "compare",
+              "which primes",
+              "build"
+            ],
+            "understanding": "The HCF and the LCM are built from the primes of the two numbers, so we need to see those primes."
+          }
+        },
+        {
+          "id": "C2",
+          "idea": "HCF from the common primes at their smallest powers",
+          "keywords": [
+            "common",
+            "shared",
+            "both",
+            "smallest power",
+            "lowest power",
+            "least power",
+            "minimum",
+            "smaller power"
+          ],
+          "needs_any": [
+            "hcf",
+            "highest common",
+            "gcd",
+            "greatest common"
+          ],
+          "hints": [
+            "Once you have the primes, how do you get the HCF, the highest common factor?",
+            "The HCF can only use primes that are in both numbers. Which power of each: the smaller or the bigger?"
+          ],
+          "answer": "HCF = product of the common primes, each to its smallest power.",
+          "explain": {
+            "question": "Why does the HCF use only the common primes?",
+            "expected_keywords": [
+              "both",
+              "divide",
+              "common",
+              "factor of both"
+            ],
+            "understanding": "The HCF must divide both numbers, so it can only contain primes, and powers, that both numbers have."
+          }
+        },
+        {
+          "id": "C3",
+          "idea": "LCM from all the primes at their greatest powers",
+          "keywords": [
+            "all the prime",
+            "all prime",
+            "all of the prime",
+            "every prime",
+            "each prime",
+            "greatest power",
+            "highest power",
+            "largest power",
+            "biggest power",
+            "maximum",
+            "bigger power",
+            "all factors",
+            "all the factors",
+            "all of the factors",
+            "greatest",
+            "highest",
+            "biggest",
+            "largest"
+          ],
+          "needs_any": [
+            "lcm",
+            "lowest common",
+            "least common"
+          ],
+          "hints": [
+            "And how do you get the LCM, the lowest common multiple?",
+            "The LCM must be a multiple of both numbers. Which primes must it include, and to which power?"
+          ],
+          "answer": "LCM = product of every prime in either number, each to its greatest power.",
+          "explain": {
+            "question": "Why does the LCM use every prime at its greatest power?",
+            "expected_keywords": [
+              "multiple of both",
+              "both",
+              "divisible",
+              "all",
+              "contain"
+            ],
+            "understanding": "The LCM must be divisible by both numbers, so it needs every prime of each, at the biggest power."
+          }
+        },
+        {
+          "id": "C4",
+          "idea": "checking LCM × HCF = the product of the two numbers",
+          "keywords": [
+            "verify",
+            "check",
+            "compare",
+            "product of the two",
+            "product of the numbers",
+            "equal to the product",
+            "equals the product",
+            "same as the product"
+          ],
+          "needs_any": [],
+          "hints": [
+            "The question also asks you to verify something. What?",
+            "Work out LCM × HCF and the product of the two numbers. What should you find?"
+          ],
+          "answer": "Check that LCM × HCF equals the product of the two numbers.",
+          "explain": {
+            "question": "Why is it worth checking LCM × HCF = product?",
+            "expected_keywords": [
+              "check",
+              "mistake",
+              "correct",
+              "sure",
+              "verify",
+              "right",
+              "wrong"
+            ],
+            "understanding": "It is a quick check: if the two products differ, the HCF or the LCM is wrong."
+          }
+        }
+      ],
+      "path_signals": {},
+      "default_path": null,
+      "misconceptions": [
+        {
+          "signal": "",
+          "keywords": [
+            "lcm = common",
+            "lcm is common",
+            "lcm from the common",
+            "lcm uses the common",
+            "lcm uses only",
+            "hcf from all",
+            "hcf = all",
+            "hcf uses all",
+            "hcf uses every"
+          ],
+          "response": "Careful: the HCF uses only the primes both numbers share, and the LCM uses every prime from either number. Which goes with which?"
+        },
+        {
+          "signal": "",
+          "keywords": [
+            "add the numbers",
+            "add the two numbers",
+            "sum of the numbers"
+          ],
+          "response": "HCF and LCM come from multiplying primes, not from adding the numbers. What do you need to know about each number first?"
+        }
+      ],
+      "contradiction_response": "You said two different things. Which one is it?",
+      "dont_know_response": "That's fine. Think about this question, then try the plan again.",
+      "off_topic_response": "Let's stay with the pairs. How will you find the HCF and LCM of each pair?",
+      "retry_response": "Use that idea and try the plan again: how will you find the HCF and LCM of each pair, and verify LCM × HCF = product?",
+      "concept_hints": [
+        {
+          "id": "K1",
+          "question": "What does HCF stand for, and what does LCM stand for?",
+          "understanding": "Highest common factor; lowest common multiple"
+        },
+        {
+          "id": "K2",
+          "question": "Which prime numbers multiply to give 15?",
+          "understanding": "15 = 3 × 5"
+        },
+        {
+          "id": "K3",
+          "question": "What does 'verify LCM × HCF = product' ask you to do?",
+          "understanding": "Work out both products and see they are equal"
+        }
+      ],
+      "partial_prefix": "Good, {found} is right.",
+      "max_hints": 4,
+      "reveal": "Here is the plan: write both numbers as products of primes; HCF = the common primes at their smallest powers; LCM = all the primes at their greatest powers; then check LCM × HCF = the product of the two numbers.",
+      "solve_freely": false
+    },
+    {
+      "id": "p1",
+      "type": "choice",
+      "label": "(i) 26 and 91",
+      "description": "Factorise, HCF, LCM, then check",
+      "prompt": "(i) Write 26 and 91 as products of prime factors.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p1",
+      "type": "method",
+      "label": "Prime Factorisation",
+      "description": "HCF: common primes, smallest powers; LCM: all, greatest",
+      "prompt": "(i) Write 26 and 91 as products of prime factors.",
+      "accept": [
+        "prime factorisation",
+        "factorise both numbers"
+      ],
+      "hints": [],
+      "jev_description": "Prime factorisation of 26 and 91 for their HCF and LCM."
+    },
+    {
+      "id": "m1_p1_factor",
+      "type": "step",
+      "label": "(i) Factorise 26 and 91",
+      "description": "26 = 2 × 13 and 91 = 7 × 13",
+      "prompt": "(i) Write 26 and 91 as products of prime factors.",
+      "accept": [
+        "26 = 2 × 13 and 91 = 7 × 13"
+      ],
+      "hints": [
+        "Factorise each number on its own. Example: 15 = 3 × 5.",
+        "Worked example: 22 = 2 × 11 and 35 = 5 × 7. For an odd number, test 3, 5, 7, … in order.",
+        "26 = 2 × 13 and 91 = 7 × 13"
+      ],
+      "factorise": [
+        26,
+        91
+      ]
+    },
+    {
+      "id": "m1_p1_hcf",
+      "type": "step",
+      "label": "(i) HCF of 26 and 91",
+      "description": "HCF(26, 91) = 13",
+      "prompt": "(i) What is the HCF of 26 and 91?",
+      "accept": [
+        "HCF = 13",
+        "HCF(26, 91) = 13",
+        "13"
+      ],
+      "hints": [
+        "The HCF multiplies the primes both numbers share, each to its smallest power.",
+        "Example: 10 = 2 × 5 and 35 = 5 × 7 share only 5, so HCF(10, 35) = 5.",
+        "HCF = 13"
+      ],
+      "keywords": [
+        "13"
+      ]
+    },
+    {
+      "id": "m1_p1_lcm",
+      "type": "step",
+      "label": "(i) LCM of 26 and 91",
+      "description": "LCM(26, 91) = 2 × 7 × 13 = 182",
+      "prompt": "(i) What is the LCM of 26 and 91?",
+      "accept": [
+        "LCM = 2 × 7 × 13 = 182",
+        "LCM = 182",
+        "LCM(26, 91) = 182",
+        "182"
+      ],
+      "hints": [
+        "The LCM takes every prime in either number, each to its greatest power.",
+        "Example: 10 = 2 × 5 and 35 = 5 × 7. All the primes: 2, 5, 7, so LCM(10, 35) = 70.",
+        "LCM = 2 × 7 × 13 = 182"
+      ],
+      "keywords": [
+        "182"
+      ]
+    },
+    {
+      "id": "m1_p1_verify",
+      "type": "step",
+      "label": "(i) Check LCM × HCF",
+      "description": "182 × 13 = 2366 = 26 × 91",
+      "prompt": "(i) Verify: work out LCM × HCF and 26 × 91. Are they equal?",
+      "accept": [
+        "182 × 13 = 2366 = 26 × 91",
+        "LCM × HCF = 182 × 13 = 2366",
+        "182 × 13 = 2366 and 26 × 91 = 2366",
+        "2366"
+      ],
+      "hints": [
+        "Multiply your LCM by your HCF, then multiply the two numbers. Compare.",
+        "Example: for 10 and 35, LCM × HCF = 70 × 5 = 350 and 10 × 35 = 350. Do the same for your pair.",
+        "182 × 13 = 2366 and 26 × 91 = 2366, so LCM × HCF = product of the two numbers."
+      ],
+      "keywords": [
+        "2366"
+      ]
+    },
+    {
+      "id": "p2",
+      "type": "choice",
+      "label": "(ii) 510 and 92",
+      "description": "Factorise, HCF, LCM, then check",
+      "prompt": "(ii) Write 510 and 92 as products of prime factors.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p2",
+      "type": "method",
+      "label": "Prime Factorisation",
+      "description": "HCF: common primes, smallest powers; LCM: all, greatest",
+      "prompt": "(ii) Write 510 and 92 as products of prime factors.",
+      "accept": [
+        "prime factorisation",
+        "factorise both numbers"
+      ],
+      "hints": [],
+      "jev_description": "Prime factorisation of 510 and 92 for their HCF and LCM."
+    },
+    {
+      "id": "m1_p2_factor",
+      "type": "step",
+      "label": "(ii) Factorise 510 and 92",
+      "description": "510 = 2 × 3 × 5 × 17 and 92 = 2² × 23",
+      "prompt": "(ii) Write 510 and 92 as products of prime factors.",
+      "accept": [
+        "510 = 2 × 3 × 5 × 17 and 92 = 2² × 23"
+      ],
+      "hints": [
+        "Factorise each number. A number ending in 0 has 2 and 5 as factors. Example: 30 = 2 × 3 × 5.",
+        "Worked example: 190 = 2 × 5 × 19 and 44 = 2 × 2 × 11 = 2² × 11.",
+        "510 = 2 × 3 × 5 × 17 and 92 = 2² × 23"
+      ],
+      "factorise": [
+        510,
+        92
+      ]
+    },
+    {
+      "id": "m1_p2_hcf",
+      "type": "step",
+      "label": "(ii) HCF of 510 and 92",
+      "description": "HCF(510, 92) = 2",
+      "prompt": "(ii) What is the HCF of 510 and 92?",
+      "accept": [
+        "HCF = 2",
+        "HCF(510, 92) = 2",
+        "2"
+      ],
+      "hints": [
+        "The HCF multiplies the primes both numbers share, each to its smallest power.",
+        "Example: 8 = 2³ and 12 = 2² × 3 share only 2; its smallest power is 2², so HCF(8, 12) = 4.",
+        "HCF = 2"
+      ],
+      "keywords": [
+        "2"
+      ]
+    },
+    {
+      "id": "m1_p2_lcm",
+      "type": "step",
+      "label": "(ii) LCM of 510 and 92",
+      "description": "LCM(510, 92) = 2² × 3 × 5 × 17 × 23 = 23460",
+      "prompt": "(ii) What is the LCM of 510 and 92?",
+      "accept": [
+        "LCM = 2² × 3 × 5 × 17 × 23 = 23460",
+        "LCM = 23460",
+        "LCM(510, 92) = 23460",
+        "23460"
+      ],
+      "hints": [
+        "The LCM takes every prime in either number, each to its greatest power.",
+        "Example: 8 = 2³ and 12 = 2² × 3. The greatest powers are 2³ and 3, so LCM(8, 12) = 24.",
+        "LCM = 2² × 3 × 5 × 17 × 23 = 23460"
+      ],
+      "keywords": [
+        "23460"
+      ]
+    },
+    {
+      "id": "m1_p2_verify",
+      "type": "step",
+      "label": "(ii) Check LCM × HCF",
+      "description": "23460 × 2 = 46920 = 510 × 92",
+      "prompt": "(ii) Verify: work out LCM × HCF and 510 × 92. Are they equal?",
+      "accept": [
+        "23460 × 2 = 46920 = 510 × 92",
+        "LCM × HCF = 23460 × 2 = 46920",
+        "23460 × 2 = 46920 and 510 × 92 = 46920",
+        "46920"
+      ],
+      "hints": [
+        "Multiply your LCM by your HCF, then multiply the two numbers. Compare.",
+        "Example: for 8 and 12, LCM × HCF = 24 × 4 = 96 and 8 × 12 = 96. Do the same for your pair.",
+        "23460 × 2 = 46920 and 510 × 92 = 46920, so LCM × HCF = product of the two numbers."
+      ],
+      "keywords": [
+        "46920"
+      ]
+    },
+    {
+      "id": "p3",
+      "type": "choice",
+      "label": "(iii) 336 and 54",
+      "description": "Factorise, HCF, LCM, then check",
+      "prompt": "(iii) Write 336 and 54 as products of prime factors.",
+      "accept": [],
+      "hints": []
+    },
+    {
+      "id": "m1_p3",
+      "type": "method",
+      "label": "Prime Factorisation",
+      "description": "HCF: common primes, smallest powers; LCM: all, greatest",
+      "prompt": "(iii) Write 336 and 54 as products of prime factors.",
+      "accept": [
+        "prime factorisation",
+        "factorise both numbers"
+      ],
+      "hints": [],
+      "jev_description": "Prime factorisation of 336 and 54 for their HCF and LCM."
+    },
+    {
+      "id": "m1_p3_factor",
+      "type": "step",
+      "label": "(iii) Factorise 336 and 54",
+      "description": "336 = 2⁴ × 3 × 7 and 54 = 2 × 3³",
+      "prompt": "(iii) Write 336 and 54 as products of prime factors.",
+      "accept": [
+        "336 = 2⁴ × 3 × 7 and 54 = 2 × 3³"
+      ],
+      "hints": [
+        "Both numbers are even: divide by 2 as many times as you can. Example: 48 = 2⁴ × 3.",
+        "Worked example: 72 = 2³ × 3² and 40 = 2³ × 5.",
+        "336 = 2⁴ × 3 × 7 and 54 = 2 × 3³"
+      ],
+      "factorise": [
+        336,
+        54
+      ]
+    },
+    {
+      "id": "m1_p3_hcf",
+      "type": "step",
+      "label": "(iii) HCF of 336 and 54",
+      "description": "HCF(336, 54) = 6",
+      "prompt": "(iii) What is the HCF of 336 and 54?",
+      "accept": [
+        "HCF = 6",
+        "HCF(336, 54) = 6",
+        "6"
+      ],
+      "hints": [
+        "The HCF multiplies the primes both numbers share, each to its smallest power.",
+        "Example: 20 = 2² × 5 and 30 = 2 × 3 × 5 share 2 and 5; smallest powers 2 and 5, so HCF(20, 30) = 10.",
+        "HCF = 6"
+      ],
+      "keywords": [
+        "6"
+      ]
+    },
+    {
+      "id": "m1_p3_lcm",
+      "type": "step",
+      "label": "(iii) LCM of 336 and 54",
+      "description": "LCM(336, 54) = 2⁴ × 3³ × 7 = 3024",
+      "prompt": "(iii) What is the LCM of 336 and 54?",
+      "accept": [
+        "LCM = 2⁴ × 3³ × 7 = 3024",
+        "LCM = 3024",
+        "LCM(336, 54) = 3024",
+        "3024"
+      ],
+      "hints": [
+        "The LCM takes every prime in either number, each to its greatest power.",
+        "Example: 20 = 2² × 5 and 30 = 2 × 3 × 5. The greatest powers are 2², 3 and 5, so LCM(20, 30) = 60.",
+        "LCM = 2⁴ × 3³ × 7 = 3024"
+      ],
+      "keywords": [
+        "3024"
+      ]
+    },
+    {
+      "id": "m1_p3_verify",
+      "type": "step",
+      "label": "(iii) Check LCM × HCF",
+      "description": "3024 × 6 = 18144 = 336 × 54",
+      "prompt": "(iii) Verify: work out LCM × HCF and 336 × 54. Are they equal?",
+      "accept": [
+        "3024 × 6 = 18144 = 336 × 54",
+        "LCM × HCF = 3024 × 6 = 18144",
+        "3024 × 6 = 18144 and 336 × 54 = 18144",
+        "18144"
+      ],
+      "hints": [
+        "Multiply your LCM by your HCF, then multiply the two numbers. Compare.",
+        "Example: for 20 and 30, LCM × HCF = 60 × 10 = 600 and 20 × 30 = 600. Do the same for your pair.",
+        "3024 × 6 = 18144 and 336 × 54 = 18144, so LCM × HCF = product of the two numbers."
+      ],
+      "keywords": [
+        "18144"
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "(i) HCF = 13, LCM = 182 (ii) HCF = 2, LCM = 23460 (iii) HCF = 6, LCM = 3024",
+      "prompt": "State the HCF and LCM of each pair.",
+      "accept": [
+        "(i) HCF = 13, LCM = 182 (ii) HCF = 2, LCM = 23460 (iii) HCF = 6, LCM = 3024",
+        "13, 182; 2, 23460; 6, 3024"
+      ],
+      "hints": [
+        "Collect your HCF and LCM for each pair.",
+        "Write (i) HCF = …, LCM = … and so on.",
+        "(i) HCF = 13, LCM = 182 (ii) HCF = 2, LCM = 23460 (iii) HCF = 6, LCM = 3024"
+      ],
+      "answer_values": [
+        "13",
+        "182",
+        "2",
+        "23460",
+        "6",
+        "3024"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "What Is Given"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "What We Need to Find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "method_choice",
+      "label": "Describe the Plan"
+    },
+    {
+      "from": "method_choice",
+      "to": "p1",
+      "label": "(i) 26 and 91"
+    },
+    {
+      "from": "p1",
+      "to": "m1_p1",
+      "label": "Prime Factorisation"
+    },
+    {
+      "from": "m1_p1",
+      "to": "m1_p1_factor",
+      "label": "(i) Factorise 26 and 91"
+    },
+    {
+      "from": "m1_p1_factor",
+      "to": "m1_p1_hcf",
+      "label": "(i) HCF of 26 and 91"
+    },
+    {
+      "from": "m1_p1_hcf",
+      "to": "m1_p1_lcm",
+      "label": "(i) LCM of 26 and 91"
+    },
+    {
+      "from": "m1_p1_lcm",
+      "to": "m1_p1_verify",
+      "label": "(i) Check LCM × HCF"
+    },
+    {
+      "from": "m1_p1_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p2",
+      "label": "(ii) 510 and 92"
+    },
+    {
+      "from": "p2",
+      "to": "m1_p2",
+      "label": "Prime Factorisation"
+    },
+    {
+      "from": "m1_p2",
+      "to": "m1_p2_factor",
+      "label": "(ii) Factorise 510 and 92"
+    },
+    {
+      "from": "m1_p2_factor",
+      "to": "m1_p2_hcf",
+      "label": "(ii) HCF of 510 and 92"
+    },
+    {
+      "from": "m1_p2_hcf",
+      "to": "m1_p2_lcm",
+      "label": "(ii) LCM of 510 and 92"
+    },
+    {
+      "from": "m1_p2_lcm",
+      "to": "m1_p2_verify",
+      "label": "(ii) Check LCM × HCF"
+    },
+    {
+      "from": "m1_p2_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "method_choice",
+      "to": "p3",
+      "label": "(iii) 336 and 54"
+    },
+    {
+      "from": "p3",
+      "to": "m1_p3",
+      "label": "Prime Factorisation"
+    },
+    {
+      "from": "m1_p3",
+      "to": "m1_p3_factor",
+      "label": "(iii) Factorise 336 and 54"
+    },
+    {
+      "from": "m1_p3_factor",
+      "to": "m1_p3_hcf",
+      "label": "(iii) HCF of 336 and 54"
+    },
+    {
+      "from": "m1_p3_hcf",
+      "to": "m1_p3_lcm",
+      "label": "(iii) LCM of 336 and 54"
+    },
+    {
+      "from": "m1_p3_lcm",
+      "to": "m1_p3_verify",
+      "label": "(iii) Check LCM × HCF"
+    },
+    {
+      "from": "m1_p3_verify",
+      "to": "conclusion",
+      "label": "Final Answer"
+    }
+  ]
+}

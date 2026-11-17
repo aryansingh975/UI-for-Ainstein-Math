@@ -24,6 +24,8 @@ def graphs():
 def test_all_32_graphs_method_resolution(graphs):
     """Verify that every step across all 32 solution graphs resolves to a valid method node."""
     for pid, g in graphs.items():
+        if getattr(g.graph_meta, "guided", None) is True:
+            continue
         steps = [n for n in g.nodes if n.type == "step"]
         for s in steps:
             m = method_for_node(s.id, g)
@@ -37,6 +39,8 @@ def test_all_32_graphs_method_resolution(graphs):
 def test_all_32_graphs_first_step_resolution(graphs):
     """Verify that first_step_of always returns a step node (never a method or conclusion)."""
     for pid, g in graphs.items():
+        if getattr(g.graph_meta, "guided", None) is True:
+            continue
         methods = [n for n in g.nodes if n.type == "method"]
         node_map = {n.id: n for n in g.nodes}
         for mn in methods:

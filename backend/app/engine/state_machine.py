@@ -15,6 +15,24 @@ class Session:
         self.completed: bool = False
         self.raw_input: Optional[str] = None
         self.extracted_entities: Set[str] = set()
+        self.scaffold_index: Optional[int] = None    # guided plan: the scaffold question being asked
+        self.free_solving: bool = False              # guided plan done: the student solves alone
+        self.free_values: List[Any] = []             # values the student has worked out correctly
+        self.plan_skipped: bool = False              # went straight to calculating at the plan step
+        self.plan_progress: Optional[Dict[str, Any]] = None   # guided plan: ideas found/given so far, hint levels
+        # parts (graph_meta.parts): "(ii)" picks a part; parts in any order, each by any method
+        self.parts_active: bool = False
+        self.part: Optional[str] = None              # the part being solved
+        self.part_pos: Dict[str, int] = {}           # part → index of its current question
+        self.parts_done: List[str] = []
+        self.part_method: Dict[str, str] = {}        # part → method seen in its working (m1 division, m2 tree)
+        self.node_fails: Dict[str, int] = {}         # question → wrong attempts (its hint level)
+        self.factored: Dict[str, List[int]] = {}     # question → numbers already written as products of primes
+        self.plan_q: Optional[int] = None             # plan_questions: which one is being asked (None: not started)
+        self.plan_q_fails: int = 0                    # wrong answers / "I don't know" at that question
+        self.letters: Dict[str, str] = {}             # the student's letters → the graph's ('Sonu = x': x → y)
+        self.help_level: Dict[str, int] = {}          # glossary term → times asked (its own hint ladder)
+        self.prompt_override: Optional[str] = None   # the next question text, when it is not the node's prompt
 
 
 def new_session(graph: SolutionGraph) -> Session:

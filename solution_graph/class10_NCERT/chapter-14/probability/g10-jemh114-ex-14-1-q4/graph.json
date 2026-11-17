@@ -1,0 +1,502 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-jemh114-ex-14-1-q4",
+    "problem_uuid": "g10-jemh114-ex-14-1-q4",
+    "problem_text": "Which of the following cannot be the probability of an event? (A) 2/3 (B) –1.5 (C) 15% (D) 0.7",
+    "equation": null,
+    "variable": "x",
+    "use_jev": true,
+    "sympy_can_finish": false,
+    "sympy_note": "There is no unknown, so there is no equation: SymPy checks the numeric lines (15/100 = 0.15, 1 − (−1.5) = 2.5, −1.5 < 0, 2.5 > 1). The answer is an option letter, so the conclusion node decides when the problem is solved.",
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution DAG for NCERT Class 10 Ex 14.1 Q4 (multiple choice: which number cannot be a probability; answer (B) –1.5). Three methods from Chapter 14: the rule 0 ≤ P(E) ≤ 1, the complement rule P(not E) = 1 − P(E), and the definition P(E) = favourable outcomes ÷ total outcomes.",
+    "created": "2026-11-02",
+    "total_methods": 3,
+    "total_nodes": 16,
+    "total_edges": 20,
+    "problem_context": {
+      "chapter": "14",
+      "topic": "Probability",
+      "grade": "10",
+      "source": "NCERT Class 10 Mathematics, Chapter 14 Probability, Exercise 14.1, Q4 (p. 214)",
+      "question_type": "multiple_choice",
+      "options": {
+        "A": "2/3",
+        "B": "–1.5",
+        "C": "15%",
+        "D": "0.7"
+      },
+      "correct_option": "B"
+    },
+    "navigation_label": "Ex 14.1 Q4: Which Cannot Be a Probability? (MCQ)"
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "Which of the following cannot be the probability of an event? (A) 2/3 (B) –1.5 (C) 15% (D) 0.7",
+      "prompt": "Look at each option. Which one can never be the probability of an event?",
+      "accept": [],
+      "hints": [
+        "A probability can never be less than 0 or more than 1.",
+        "Write every option as a decimal: 2/3, –1.5, 15% and 0.7.",
+        "Which option is outside the range 0 to 1?"
+      ]
+    },
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "label": "Identify the Given Information",
+      "description": "Four numbers are given: 2/3, –1.5, 15% and 0.7.",
+      "prompt": "What information is given in the problem?",
+      "accept": [
+        "2/3, -1.5, 15% and 0.7",
+        "2/3, –1.5, 15%, 0.7",
+        "2/3, -1.5, 15%, 0.7",
+        "four options",
+        "the four options",
+        "four numbers"
+      ],
+      "hints": [
+        "The options are (A) 2/3, (B) –1.5, (C) 15% and (D) 0.7."
+      ],
+      "optional": true
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "label": "Identify the Goal",
+      "description": "Find the option that cannot be the probability of an event.",
+      "prompt": "What do we need to find?",
+      "accept": [
+        "which cannot be a probability",
+        "the option that cannot be a probability",
+        "cannot be a probability",
+        "find the wrong probability",
+        "correct option"
+      ],
+      "hints": [
+        "We need the one number that can never be a probability."
+      ],
+      "optional": true
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Answer",
+      "description": "(B) –1.5",
+      "prompt": "State your final answer: which option cannot be the probability of an event?",
+      "accept": [
+        "(B) -1.5",
+        "(B) –1.5",
+        "(B) −1.5",
+        "(b) -1.5",
+        "(b) –1.5",
+        "(b) −1.5",
+        "B) -1.5",
+        "b) -1.5",
+        "option (B)",
+        "option (b)",
+        "option B",
+        "option b",
+        "(B)",
+        "(b)",
+        "B",
+        "b",
+        "the answer is (B)",
+        "the answer is (B) -1.5",
+        "the answer is (B) –1.5",
+        "the answer is option B",
+        "-1.5",
+        "–1.5",
+        "−1.5",
+        "-1.5 cannot be a probability",
+        "–1.5 cannot be a probability",
+        "−1.5 cannot be a probability",
+        "-1.5 cannot be the probability of an event",
+        "–1.5 cannot be the probability of an event",
+        "−1.5 cannot be the probability of an event",
+        "(B) -1.5 cannot be a probability",
+        "(B) –1.5 cannot be a probability"
+      ],
+      "hints": [
+        "A probability is never negative.",
+        "–1.5 is less than 0.",
+        "So (B) –1.5 cannot be the probability of an event."
+      ]
+    },
+    {
+      "id": "m1_range",
+      "type": "method",
+      "label": "Method 1: The Rule 0 ≤ P(E) ≤ 1",
+      "description": "The probability of any event lies between 0 and 1. Write each option as a decimal (0.67, –1.5, 0.15, 0.7); only –1.5 is outside, so (B).",
+      "prompt": "Choose a method: use the rule 0 ≤ P(E) ≤ 1, use P(not E) = 1 − P(E), or write each option as favourable outcomes ÷ total outcomes.",
+      "accept": [
+        "0 ≤ P(E) ≤ 1",
+        "0 <= P(E) <= 1",
+        "0 ≤ p ≤ 1",
+        "0 <= p <= 1",
+        "between 0 and 1",
+        "lies between 0 and 1",
+        "probability lies between 0 and 1",
+        "probability is between 0 and 1",
+        "range of probability",
+        "range rule"
+      ],
+      "hints": [
+        "For any event E, 0 ≤ P(E) ≤ 1.",
+        "Change every option to a decimal.",
+        "Which decimal is less than 0 or more than 1?"
+      ],
+      "jev_description": "The rule 0 <= P(E) <= 1. Steps: (1) write 0 ≤ P(E) ≤ 1, (2) write the options as decimals: 2/3 ≈ 0.67, 15% = 0.15, 0.7, (3) check each against the rule: -1.5 < 0, so (B) cannot be a probability. Writing 0 ≤ P(E) ≤ 1, '%' conversions or comparisons with 0 and 1 identify this method."
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Write the rule",
+      "description": "For any event E, 0 ≤ P(E) ≤ 1.",
+      "prompt": "What is the smallest and the largest value a probability can have? Write it as a rule.",
+      "accept": [
+        "0 ≤ P(E) ≤ 1",
+        "0 <= P(E) <= 1",
+        "0 ≤ p ≤ 1",
+        "0 <= p <= 1",
+        "0 ≤ P ≤ 1",
+        "0 <= P <= 1",
+        "probability lies between 0 and 1",
+        "probability is between 0 and 1",
+        "between 0 and 1"
+      ],
+      "hints": [
+        "An impossible event has probability 0.",
+        "A sure event has probability 1.",
+        "0 ≤ P(E) ≤ 1"
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Write the options as decimals",
+      "description": "2/3 ≈ 0.67, –1.5, 15% = 15/100 = 0.15 and 0.7.",
+      "prompt": "Change the options that are not decimals into decimals. What is 15% as a decimal?",
+      "accept": [
+        "15% = 0.15",
+        "15% = 15/100 = 0.15",
+        "15% = 15/100",
+        "15/100 = 0.15",
+        "2/3 ≈ 0.67",
+        "2/3 ≈ 0.667",
+        "2/3 = 0.666...",
+        "2/3 = 0.666…"
+      ],
+      "hints": [
+        "Per cent means 'out of 100'.",
+        "15% = 15/100 = 0.15",
+        "2/3 ≈ 0.67"
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Compare each option with 0 and 1",
+      "description": "0.67, 0.15 and 0.7 all lie between 0 and 1, but –1.5 < 0.",
+      "prompt": "Which decimal is outside the range 0 to 1? Write it as an inequality.",
+      "accept": [
+        "-1.5 < 0",
+        "–1.5 < 0",
+        "−1.5 < 0",
+        "-1.5 is less than 0",
+        "–1.5 is less than 0",
+        "-1.5 is negative",
+        "–1.5 is negative",
+        "−1.5 is negative",
+        "0 ≤ 0.7 ≤ 1",
+        "0 ≤ 0.15 ≤ 1",
+        "0 ≤ 0.67 ≤ 1",
+        "0 <= 0.7 <= 1",
+        "0 <= 0.15 <= 1"
+      ],
+      "hints": [
+        "0.67, 0.15 and 0.7 are between 0 and 1.",
+        "–1.5 is negative.",
+        "–1.5 < 0"
+      ]
+    },
+    {
+      "id": "m2_complement",
+      "type": "method",
+      "label": "Method 2: The Complement Rule P(not E) = 1 − P(E)",
+      "description": "If P(E) = –1.5 then P(not E) = 1 − (–1.5) = 2.5, which is more than 1 — impossible. So (B).",
+      "prompt": "Choose a method: use the rule 0 ≤ P(E) ≤ 1, use P(not E) = 1 − P(E), or write each option as favourable outcomes ÷ total outcomes.",
+      "accept": [
+        "P(E) + P(not E) = 1",
+        "P(not E) = 1 - P(E)",
+        "P(not E) = 1 − P(E)",
+        "complement",
+        "complementary",
+        "not E"
+      ],
+      "hints": [
+        "P(E) + P(not E) = 1, so P(not E) = 1 − P(E).",
+        "Work out 1 − P(E) for P(E) = –1.5.",
+        "Can a probability be 2.5?"
+      ],
+      "jev_description": "The complement rule. Steps: (1) P(not E) = 1 - P(E), (2) for option (B): 1 - (-1.5) = 2.5 (the other options give 1 - 2/3 = 1/3, 1 - 0.15 = 0.85, 1 - 0.7 = 0.3), (3) 2.5 > 1 is impossible, so (B). Writing P(not E), 1 - (-1.5) or 2.5 > 1 identifies this method."
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Write the complement rule",
+      "description": "P(E) + P(not E) = 1, so P(not E) = 1 − P(E).",
+      "prompt": "How are P(E) and P(not E) related?",
+      "accept": [
+        "P(E) + P(not E) = 1",
+        "P(not E) = 1 - P(E)",
+        "P(not E) = 1 − P(E)",
+        "P(E) + P(not E) = 1",
+        "P(E) + P(E') = 1",
+        "P(not E) + P(E) = 1"
+      ],
+      "hints": [
+        "E and 'not E' together cover every outcome.",
+        "P(E) + P(not E) = 1"
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Find P(not E) for option (B)",
+      "description": "If P(E) = –1.5, then P(not E) = 1 − (–1.5) = 1 + 1.5 = 2.5.",
+      "prompt": "Suppose P(E) = –1.5. What would P(not E) be?",
+      "accept": [
+        "1 - (-1.5) = 2.5",
+        "1 − (−1.5) = 2.5",
+        "1 - (–1.5) = 2.5",
+        "1 + 1.5 = 2.5",
+        "P(not E) = 1 - (-1.5) = 2.5",
+        "P(not E) = 1 + 1.5 = 2.5",
+        "P(not E) = 2.5",
+        "1 - 2/3 = 1/3",
+        "1 - 0.15 = 0.85",
+        "1 - 0.7 = 0.3"
+      ],
+      "hints": [
+        "Subtracting a negative number is the same as adding.",
+        "1 − (–1.5) = 1 + 1.5",
+        "= 2.5"
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Check P(not E)",
+      "description": "2.5 > 1, but a probability cannot be more than 1, so P(E) = –1.5 is impossible.",
+      "prompt": "Can P(not E) = 2.5 be a probability? Compare it with 1.",
+      "accept": [
+        "2.5 > 1",
+        "2.5 is more than 1",
+        "2.5 is greater than 1",
+        "P(not E) > 1",
+        "P(not E) = 2.5 > 1",
+        "2.5 cannot be a probability"
+      ],
+      "hints": [
+        "A probability is never more than 1.",
+        "2.5 > 1",
+        "So P(E) cannot be –1.5."
+      ]
+    },
+    {
+      "id": "m3_definition",
+      "type": "method",
+      "label": "Method 3: Favourable Outcomes ÷ Total Outcomes",
+      "description": "P(E) = number of favourable outcomes ÷ total number of outcomes. 2/3, 15/100 and 7/10 are possible; –1.5 = –3/2 would need a negative number of outcomes. So (B).",
+      "prompt": "Choose a method: use the rule 0 ≤ P(E) ≤ 1, use P(not E) = 1 − P(E), or write each option as favourable outcomes ÷ total outcomes.",
+      "accept": [
+        "favourable outcomes",
+        "favorable outcomes",
+        "number of outcomes favourable",
+        "total number of outcomes",
+        "favourable / total",
+        "favourable ÷ total",
+        "theoretical probability"
+      ],
+      "hints": [
+        "P(E) = number of outcomes favourable to E ÷ total number of outcomes.",
+        "Write each option as a fraction.",
+        "Can the number of favourable outcomes be negative?"
+      ],
+      "jev_description": "The definition P(E) = favourable outcomes / total outcomes. Steps: (1) write P(E) = favourable / total, (2) write the options as fractions: 2/3, 15% = 15/100, 0.7 = 7/10, (3) -1.5 = -3/2 would need -3 favourable outcomes, which is impossible, so (B). Writing 'favourable outcomes', 0.7 = 7/10 or -3/2 identifies this method."
+    },
+    {
+      "id": "m3_s1",
+      "type": "step",
+      "label": "Write the definition",
+      "description": "P(E) = number of outcomes favourable to E ÷ total number of possible outcomes.",
+      "prompt": "How do we find the theoretical probability of an event E?",
+      "accept": [
+        "P(E) = favourable outcomes / total outcomes",
+        "P(E) = favourable / total",
+        "P(E) = number of favourable outcomes / total number of outcomes",
+        "P(E) = favourable outcomes ÷ total outcomes",
+        "favourable outcomes / total outcomes",
+        "P(E) = number of outcomes favourable to E / number of all possible outcomes"
+      ],
+      "hints": [
+        "Count the outcomes that give E.",
+        "Divide by the number of all possible outcomes."
+      ]
+    },
+    {
+      "id": "m3_s2",
+      "type": "step",
+      "label": "Write the options as fractions",
+      "description": "2/3, 15% = 15/100 and 0.7 = 7/10 are all (favourable) ÷ (total) with 0 ≤ favourable ≤ total.",
+      "prompt": "Write 15% and 0.7 as fractions. Could each be favourable ÷ total?",
+      "accept": [
+        "15% = 15/100",
+        "0.7 = 7/10",
+        "15% = 15/100 = 3/20",
+        "15/100 and 7/10",
+        "2/3, 15/100, 7/10",
+        "2/3 = 2 out of 3"
+      ],
+      "hints": [
+        "15% = 15/100: 15 favourable outcomes out of 100.",
+        "0.7 = 7/10: 7 out of 10.",
+        "2/3: 2 out of 3."
+      ]
+    },
+    {
+      "id": "m3_s3",
+      "type": "step",
+      "label": "Check option (B)",
+      "description": "–1.5 = –3/2 would need –3 favourable outcomes, but the number of outcomes cannot be negative.",
+      "prompt": "Write –1.5 as a fraction. How many favourable outcomes would that need?",
+      "accept": [
+        "-1.5 = -3/2",
+        "–1.5 = –3/2",
+        "−1.5 = −3/2",
+        "-3/2",
+        "–3/2",
+        "−3/2",
+        "-3 favourable outcomes",
+        "–3 favourable outcomes",
+        "negative number of outcomes",
+        "outcomes cannot be negative",
+        "favourable outcomes cannot be negative"
+      ],
+      "hints": [
+        "–1.5 = –3/2",
+        "That means –3 favourable outcomes out of 2.",
+        "The number of outcomes can never be negative."
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "m1_range",
+      "label": "Method 1: The Rule 0 ≤ P(E) ≤ 1"
+    },
+    {
+      "from": "m1_range",
+      "to": "m1_s1",
+      "label": "Write the rule"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2",
+      "label": "Write the options as decimals"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3",
+      "label": "Compare each option with 0 and 1"
+    },
+    {
+      "from": "m1_s3",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "start",
+      "to": "m2_complement",
+      "label": "Method 2: The Complement Rule P(not E) = 1 − P(E)"
+    },
+    {
+      "from": "m2_complement",
+      "to": "m2_s1",
+      "label": "Write the complement rule"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2",
+      "label": "Find P(not E) for option (B)"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3",
+      "label": "Check P(not E)"
+    },
+    {
+      "from": "m2_s3",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "start",
+      "to": "m3_definition",
+      "label": "Method 3: Favourable Outcomes ÷ Total Outcomes"
+    },
+    {
+      "from": "m3_definition",
+      "to": "m3_s1",
+      "label": "Write the definition"
+    },
+    {
+      "from": "m3_s1",
+      "to": "m3_s2",
+      "label": "Write the options as fractions"
+    },
+    {
+      "from": "m3_s2",
+      "to": "m3_s3",
+      "label": "Check option (B)"
+    },
+    {
+      "from": "m3_s3",
+      "to": "conclusion",
+      "label": "Final Answer"
+    },
+    {
+      "from": "start",
+      "to": "given_extraction",
+      "label": "Identify the given information"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction",
+      "label": "Identify what to find"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_range",
+      "label": "Method 1: The Rule 0 ≤ P(E) ≤ 1"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_complement",
+      "label": "Method 2: The Complement Rule P(not E) = 1 − P(E)"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m3_definition",
+      "label": "Method 3: Favourable Outcomes ÷ Total Outcomes"
+    }
+  ]
+}

@@ -57,10 +57,15 @@ def matches_accept(raw_input: str, accepted_answer: str) -> bool:
     if accepted_numbers and len(accepted_numbers) > 1 and input_numbers:
         if ",".join(input_numbers) != ",".join(accepted_numbers):
             return False
-        accepted_has_op = bool(re.search(r"[/*=÷×]", normalized_accepted))
+        # Do not match if arithmetic operators conflict (+ vs -)
+        if ("+" in normalized_accepted and "+" not in normalized_input) or ("+" in normalized_input and "+" not in normalized_accepted):
+            return False
+        if ("-" in normalized_accepted and "-" not in normalized_input) or ("-" in normalized_input and "-" not in normalized_accepted):
+            return False
+        accepted_has_op = bool(re.search(r"[/*=÷×+\-]", normalized_accepted))
         if not accepted_has_op:
             return False
-        has_op = bool(re.search(r"[/*=÷×]", normalized_input))
+        has_op = bool(re.search(r"[/*=÷×+\-]", normalized_input))
         if not has_op:
             return False
         return True

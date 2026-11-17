@@ -184,6 +184,9 @@ export default function LiveSolutionNotebook({
   const [animatingStepInput, setAnimatingStepInput] = useState(null);
   const prevTrailLengthRef = useRef(trail.length);
 
+  // Dual-mode input: Step-by-Step vs Full Working
+  const [inputMode, setInputMode] = useState('single'); // 'single' | 'multi'
+
   useEffect(() => {
     if (trail.length > prevTrailLengthRef.current) {
       const latest = trail[trail.length - 1];
@@ -271,6 +274,50 @@ export default function LiveSolutionNotebook({
         { label: '²', insert: '^2' },
       ];
     }
+    if (id === 'real-numbers') {
+      return [
+        { label: '²', insert: '^2' },
+        { label: '³', insert: '^3' },
+        { label: '×', insert: ' × ' },
+        { label: '÷', insert: ' ÷ ' },
+        { label: '=', insert: ' = ' },
+        { label: 'HCF', insert: 'HCF' },
+        { label: 'LCM', insert: 'LCM' },
+      ];
+    }
+    if (id === 'polynomials') {
+      return [
+        { label: 'x²', insert: 'x^2' },
+        { label: 'α', insert: 'α' },
+        { label: 'β', insert: 'β' },
+        { label: '±', insert: '±' },
+        { label: '√', insert: '√' },
+        { label: ' = ', insert: ' = ' },
+        { label: 'D = b² - 4ac', insert: 'D = b^2 - 4ac' },
+      ];
+    }
+    if (id === 'circles' || id === 'surface-areas-and-volumes') {
+      return [
+        { label: 'π', insert: 'π' },
+        { label: 'r²', insert: 'r^2' },
+        { label: 'r³', insert: 'r^3' },
+        { label: 'cm²', insert: 'cm^2' },
+        { label: 'cm³', insert: 'cm^3' },
+        { label: 'kg', insert: 'kg' },
+        { label: 'g', insert: 'g' },
+        { label: '=', insert: ' = ' },
+      ];
+    }
+    if (id === 'probability') {
+      return [
+        { label: 'P(E)', insert: 'P(E)' },
+        { label: 'P(not E)', insert: 'P(not E)' },
+        { label: '≤', insert: '≤' },
+        { label: '≥', insert: '≥' },
+        { label: '1 - ', insert: '1 - ' },
+        { label: '=', insert: ' = ' },
+      ];
+    }
     return [
       { label: 'x', insert: 'x' },
       { label: '5x', insert: '5x' },
@@ -350,7 +397,7 @@ export default function LiveSolutionNotebook({
               <span className="font-bold text-slate-600">Date: {currentDateStr}</span>
               <span className="text-slate-300">•</span>
               <span className="font-bold text-indigo-900">
-                {chapter?.title ? `${chapter.title} • Class 8` : 'Mathematics • Class 8'}
+                {chapter?.title ? `${chapter.title} • Class ${chapter.grade || session?.grade || 8}` : `Mathematics • Class ${session?.grade || 8}`}
               </span>
             </div>
             <span className="font-semibold text-slate-600 truncate max-w-[340px]">
@@ -592,20 +639,50 @@ export default function LiveSolutionNotebook({
         {/* ============================================================== */}
         <div id="notebook-input-dock" className="border-t border-slate-200 bg-white px-3.5 py-1.5 shrink-0 space-y-1 shadow-2xs">
           
-          {/* Math Helper Chips Tray (Slimmer 5-10%) */}
-          <div className="flex items-center gap-1.5 overflow-x-auto min-w-0 shrink-0 custom-scrollbar">
-            <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 shrink-0">Insert:</span>
-            <div className="flex items-center gap-1">
-              {topicChips.map((chip, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => handleChipClick(chip.insert)}
-                  className="px-1.5 py-0.2 rounded bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 font-bold text-slate-700 border border-slate-200 text-[10px] transition cursor-pointer"
-                >
-                  {chip.label}
-                </button>
-              ))}
+          {/* Math Helper Chips Tray + Input Mode Toggle */}
+          <div className="flex items-center justify-between gap-2 overflow-x-auto min-w-0 shrink-0 custom-scrollbar">
+            <div className="flex items-center gap-1.5 shrink-0">
+              <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 shrink-0">Insert:</span>
+              <div className="flex items-center gap-1">
+                {topicChips.map((chip, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => handleChipClick(chip.insert)}
+                    className="px-1.5 py-0.2 rounded bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 font-bold text-slate-700 border border-slate-200 text-[10px] transition cursor-pointer"
+                  >
+                    {chip.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mode Switcher */}
+            <div className="flex items-center gap-0.5 bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[10px] shrink-0 ml-auto">
+              <button
+                type="button"
+                onClick={() => setInputMode('single')}
+                className={`px-2 py-0.5 rounded font-bold transition cursor-pointer ${
+                  inputMode === 'single'
+                    ? 'bg-white text-indigo-700 shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+                title="Single step mode with immediate tutor guidance"
+              >
+                Step-by-Step
+              </button>
+              <button
+                type="button"
+                onClick={() => setInputMode('multi')}
+                className={`px-2 py-0.5 rounded font-bold transition cursor-pointer ${
+                  inputMode === 'multi'
+                    ? 'bg-white text-indigo-700 shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+                title="Multi-line mode: write your plan and full working line by line"
+              >
+                Full Working 📝
+              </button>
             </div>
           </div>
 
@@ -618,54 +695,117 @@ export default function LiveSolutionNotebook({
           )}
 
           {/* ROW 2: Input Field + Submit Button + Inline Controls */}
-          <div className="flex items-center gap-2">
+          {inputMode === 'single' ? (
+            <div className="flex items-center gap-2">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const trimmed = (input || '').trim();
+                  if (!trimmed || isChecking) return;
+                  setPendingDraft(trimmed);
+                  playPencilSound();
+                  if (onCheckStep) {
+                    onCheckStep();
+                  }
+                }}
+                className="relative flex-1 flex items-center min-w-0"
+              >
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={input}
+                  onChange={(e) => onInputChange && onInputChange(e.target.value)}
+                  disabled={isChecking || isCompleted}
+                  placeholder={
+                    isCompleted
+                      ? 'Problem solved! Press Next Problem to continue.'
+                      : 'Type your algebraic step or extraction here...'
+                  }
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-lg pl-3 pr-20 py-1.5 text-xs font-mono-math font-medium text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 transition shadow-2xs disabled:opacity-60"
+                />
+                <button
+                  type="submit"
+                  disabled={isChecking || isCompleted}
+                  className="absolute right-1 px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-[11px] shadow-xs transition cursor-pointer flex items-center justify-center gap-1 disabled:opacity-50"
+                  title="Write on Notebook (Submit)"
+                >
+                  <span>{isChecking ? 'Writing...' : 'Write'}</span>
+                </button>
+              </form>
+
+              {onResetProblem && (
+                <button
+                  type="button"
+                  onClick={onResetProblem}
+                  className="hover:text-slate-800 text-[11px] font-semibold text-slate-500 hover:bg-slate-100 px-2 py-1 rounded transition cursor-pointer shrink-0"
+                  title="Reset this problem paper"
+                >
+                  ↺ Reset
+                </button>
+              )}
+            </div>
+          ) : (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 const trimmed = (input || '').trim();
                 if (!trimmed || isChecking) return;
-                setPendingDraft(trimmed);
+                setPendingDraft(trimmed.split('\n')[0]);
                 playPencilSound();
                 if (onCheckStep) {
                   onCheckStep();
                 }
               }}
-              className="relative flex-1 flex items-center min-w-0"
+              className="space-y-1.5"
             >
-              <input
-                ref={inputRef}
-                type="text"
-                value={input}
-                onChange={(e) => onInputChange && onInputChange(e.target.value)}
-                disabled={isChecking || isCompleted}
-                placeholder={
-                  isCompleted
-                    ? 'Problem solved! Press Next Problem to continue.'
-                    : 'Type your algebraic step or extraction here...'
-                }
-                className="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-lg pl-3 pr-20 py-1.5 text-xs font-mono-math font-medium text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 transition shadow-2xs disabled:opacity-60"
-              />
-              <button
-                type="submit"
-                disabled={isChecking || isCompleted}
-                className="absolute right-1 px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-[11px] shadow-xs transition cursor-pointer flex items-center justify-center gap-1 disabled:opacity-50"
-                title="Write on Notebook (Submit)"
-              >
-                <span>{isChecking ? 'Writing...' : 'Write'}</span>
-              </button>
+              <div className="relative">
+                <textarea
+                  rows={4}
+                  value={input}
+                  onChange={(e) => onInputChange && onInputChange(e.target.value)}
+                  disabled={isChecking || isCompleted}
+                  placeholder="Write your plan and working line by line:&#10;e.g.&#10;Givens: ...&#10;Plan: factorise the quadratic&#10;x² - 5x + 6 = 0&#10;(x - 2)(x - 3) = 0&#10;x = 2 or x = 3"
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-lg p-2.5 text-xs font-mono-math font-medium text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 transition shadow-2xs disabled:opacity-60 resize-y min-h-[80px]"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                      e.preventDefault();
+                      const trimmed = (input || '').trim();
+                      if (!trimmed || isChecking) return;
+                      setPendingDraft(trimmed.split('\n')[0]);
+                      playPencilSound();
+                      if (onCheckStep) {
+                        onCheckStep();
+                      }
+                    }
+                  }}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-slate-400 font-medium italic">
+                  Press <kbd className="px-1 py-0.2 bg-slate-100 border border-slate-300 rounded text-[9px] not-italic font-mono">Ctrl + Enter</kbd> to evaluate full working
+                </span>
+                <div className="flex items-center gap-2">
+                  {onResetProblem && (
+                    <button
+                      type="button"
+                      onClick={onResetProblem}
+                      className="hover:text-slate-800 text-[11px] font-semibold text-slate-500 hover:bg-slate-100 px-2 py-0.5 rounded transition cursor-pointer"
+                    >
+                      ↺ Reset
+                    </button>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={isChecking || isCompleted}
+                    className="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-[11px] shadow-xs transition cursor-pointer flex items-center gap-1 disabled:opacity-50"
+                  >
+                    <span>{isChecking ? 'Checking Working...' : 'Check Full Working'}</span>
+                    <span>→</span>
+                  </button>
+                </div>
+              </div>
             </form>
-
-            {onResetProblem && (
-              <button
-                type="button"
-                onClick={onResetProblem}
-                className="hover:text-slate-800 text-[11px] font-semibold text-slate-500 hover:bg-slate-100 px-2 py-1 rounded transition cursor-pointer shrink-0"
-                title="Reset this problem paper"
-              >
-                ↺ Reset
-              </button>
-            )}
-          </div>
+          )}
         </div>
 
       </section>

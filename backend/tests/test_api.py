@@ -8,7 +8,7 @@ def test_get_all_problems():
     response = client.get("/api/v1/problems")
     assert response.status_code == 200
     data = response.json()
-    assert len(data) == 32
+    assert len(data) >= 32
     assert any(p["problem_uuid"] == "g08-hegp201-ex010" for p in data)
 
 
