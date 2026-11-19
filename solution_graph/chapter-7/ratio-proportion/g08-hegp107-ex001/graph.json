@@ -401,6 +401,16 @@
       "description": "The result from each reduction-based method is equivalent to the original ratio 3 : 4.",
       "prompt": "Does the result from your method match the original ratio 3 : 4?",
       "accept": [
+        "yes",
+        "yep",
+        "yeah",
+        "yes it does",
+        "yes they match",
+        "yes, they match",
+        "yes, it matches",
+        "it matches",
+        "they match",
+        "matches",
         "same",
         "equal",
         "identical",
@@ -410,8 +420,7 @@
         "3/4 equals 3/4",
         "they are the same",
         "both are 3:4",
-        "both are 3/4",
-        "they match"
+        "both are 3/4"
       ],
       "hints": [
         "The result is 3 : 4 (or 3/4).",

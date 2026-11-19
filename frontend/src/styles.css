@@ -1,3 +1,141 @@
+@import "tailwindcss";
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Lined School Notebook Paper Styling */
+.notebook-paper {
+  background-color: #fdfcf7;
+  background-image: 
+    linear-gradient(90deg, transparent 48px, #fca5a5 49px, transparent 50px),
+    linear-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 100% 100%, 100% 32px;
+  line-height: 32px;
+}
+
+/* Clean Progressive Notebook Paper (Single Left Student Margin, Clean Whole Width) */
+.notebook-clean-sheet {
+  background-color: #fdfcf7;
+  background-image: 
+    /* Left Red Student Margin Line (at 54px) */
+    linear-gradient(90deg, transparent 54px, #fca5a5 55px, #fca5a5 56px, transparent 57px),
+    /* Horizontal Blue Ruling Lines (30px school exercise rhythm) */
+    linear-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 100% 100%, 100% 30px;
+  line-height: 30px;
+}
+
+.font-handwritten {
+  font-family: 'Caveat', cursive, sans-serif;
+}
+.font-pen {
+  font-family: 'Patrick Hand', 'Caveat', cursive, sans-serif;
+}
+.font-pencil {
+  font-family: 'Caveat', cursive, sans-serif;
+}
+.font-teacher {
+  font-family: 'Caveat', 'Kalam', cursive, sans-serif;
+}
+.font-mono-math {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Student Fountain Pen Blue Ink */
+.ink-student {
+  color: #0f2b5c;
+  text-shadow: 0.5px 0.5px 0px rgba(15, 43, 92, 0.12);
+}
+
+/* Teacher Deep Crimson Red Ink */
+.ink-teacher {
+  color: #b91c1c;
+  text-shadow: 0.5px 0.5px 0px rgba(185, 28, 28, 0.12);
+}
+
+/* Faint Graphite Pencil Draft */
+.pencil-draft {
+  color: #64748b;
+}
+
+/* Option A: Animated Strike-Through Line */
+.strikethrough-line {
+  position: relative;
+  display: inline-block;
+}
+.strikethrough-line::after {
+  content: '';
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  top: 52%;
+  height: 3px;
+  background: #dc2626; /* Teacher Red Ink */
+  border-radius: 2px;
+  transform: rotate(-1.5deg);
+  transform-origin: left center;
+  animation: strikeAnim 0.35s ease-out forwards;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.25);
+}
+
+@keyframes strikeAnim {
+  from { width: 0%; opacity: 0; }
+  to { width: 104%; opacity: 0.95; }
+}
+
+/* Highlighter Effect */
+.highlight-marker {
+  background: linear-gradient(104deg, rgba(254, 240, 138, 0.9) 0%, rgba(253, 224, 71, 0.85) 100%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Pen Nib Gliding Cursor */
+.pen-cursor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-2px) rotate(-15deg);
+  transition: transform 0.05s ease-out;
+  filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.2));
+}
+
+/* Animations */
+@keyframes badgePop {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-badge-pop {
+  animation: badgePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-stage-appear {
+  animation: fadeSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* Ainstein Math Tutor - Simple UI Styles */
 
 /* Basic Layout */
@@ -195,6 +333,20 @@
   border-radius: 50%;
   background: var(--deep-green);
   display: inline-block;
+}
+
+.method-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(34, 197, 94, 0.12);
+  color: #166534;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 /* Math Toolbar */
@@ -890,17 +1042,6 @@ button:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visi
 .steps { margin: 20px 0 0; display: grid; gap: 9px; }
 .step { background: rgba(255,255,255,.08); border-left: 2px solid var(--green); padding: 11px 13px; font-size: 13px; }
 .preset-chip { border: 1px solid var(--line); background: var(--panel); border-radius: 4px; padding: 7px 12px; font-size: 12px; cursor: pointer; color: var(--ink); }
-.jev-probabilities { margin-top: 14px; }
-.plan-concepts { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 4px; }
-.plan-concept { font-size: 13px; color: #a9bbae; }
-.plan-concept.found { color: #bbf7d0; }
-.plan-concept.given { color: #fde68a; }
-.plan-concept-tag { margin-left: 6px; padding: 0 6px; border-radius: 8px; font-size: 11px; background: rgba(253, 230, 138, 0.15); }
-.jev-prob-row { display: flex; align-items: center; gap: 8px; margin: 4px 0; font-size: 13px; }
-.jev-prob-label { flex: 0 0 150px; min-width: 0; overflow-wrap: anywhere; }
-.jev-prob-track { flex: 1; height: 8px; background: rgba(127,127,127,.2); border-radius: 4px; overflow: hidden; }
-.jev-prob-fill { display: block; height: 100%; background: currentColor; opacity: .6; }
-.jev-prob-value { flex: 0 0 40px; text-align: right; }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 1000px) {
@@ -939,27 +1080,4 @@ button:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visi
   .panel-top { align-items: flex-start; flex-direction: column; }
   .query-footer { align-items: stretch; flex-direction: column; }
   .solve-button { width: 100%; }
-}
-/* Guided mode: the tutor's current question, shown above the answer box */
-.guided-question {
-  margin: 12px 0 10px;
-  padding: 12px 16px;
-  border-left: 3px solid var(--coral);
-  background: rgba(241, 120, 94, 0.07);
-  color: var(--ink);
-  border-radius: 6px;
-}
-.guided-question-label {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.7;
-  margin-bottom: 4px;
-}
-.guided-question-text {
-  margin: 0;
-  white-space: pre-line;
-  font-weight: 600;
-  line-height: 1.5;
 }

@@ -21,7 +21,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Warm up the graph cache, and load Qwen in the background so the first plan is not slow."""
+    """Warm up the graph cache on server start, and load Qwen in the background so the first plan is not slow."""
     load_all_graphs()
     threading.Thread(target=plan_llm.warm_up, daemon=True).start()
     yield

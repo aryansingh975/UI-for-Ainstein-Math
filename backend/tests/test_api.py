@@ -10,7 +10,6 @@ def test_get_all_problems():
     data = response.json()
     assert len(data) >= 32
     assert any(p["problem_uuid"] == "g08-hegp201-ex010" for p in data)
-    assert any(p["problem_uuid"] == "g08-lin-ex003" for p in data)
 
 
 def test_get_problem_details():

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 from app.schemas.graph import SolutionGraph, Node
 
 
@@ -14,6 +14,7 @@ class Session:
         self.fail_streak: int = 0
         self.completed: bool = False
         self.raw_input: Optional[str] = None
+        self.extracted_entities: Set[str] = set()
         self.scaffold_index: Optional[int] = None    # guided plan: the scaffold question being asked
         self.free_solving: bool = False              # guided plan done: the student solves alone
         self.free_values: List[Any] = []             # values the student has worked out correctly
@@ -45,34 +46,101 @@ def new_session(graph: SolutionGraph) -> Session:
 
 
 def method_of(node_id: Optional[str]) -> Optional[str]:
-    """Extract method prefix (e.g. 'm1' from 'm1_step1')."""
+    """Extract method prefix (e.g. 'm1' from 'm1_step1' or 'method1' from 'method1_s1')."""
     if not node_id:
         return None
     m = re.match(r"^(m\d+)_", str(node_id))
+    if m:
+        return m.group(1)
+    m2 = re.match(r"^(method\d+)", str(node_id))
+    if m2:
+        return m2.group(1)
+    return None
+
+
+def method_for_node(node_id: Optional[str], graph: Optional[SolutionGraph] = None) -> Optional[str]:
+    """Determine method identifier for a given node id using prefix or DAG ancestry."""
+    if not node_id:
+        return None
+    m = method_of(node_id)
+    if m:
+        return m
+    if graph:
+        node_map = {n.id: n for n in graph.nodes}
+        cur = node_map.get(node_id)
+        if cur and cur.type == "method":
+            return method_of(cur.id) or cur.id
+        visited = set()
+        queue = [node_id]
+        while queue:
+            curr_id = queue.pop(0)
+            if curr_id in visited:
+                continue
+            visited.add(curr_id)
+            for e in graph.edges:
+                if e.to_node == curr_id:
+                    parent_node = node_map.get(e.from_node)
+                    if parent_node and parent_node.type == "method":
+                        return method_of(parent_node.id) or parent_node.id
+                    if parent_node and parent_node.type == "step":
+                        queue.append(parent_node.id)
+    return None
+
+
+def method_index_of(node_id: Optional[str]) -> Optional[str]:
+    """Extract numeric method index (e.g. '1' from 'm1', 'method1', or 'm1_s1')."""
+    if not node_id:
+        return None
+    m = re.search(r"(?:m|method)(\d+)", str(node_id))
     return m.group(1) if m else None
 
 
+def get_method_node(method_id: Optional[str], graph: Optional[SolutionGraph]) -> Optional[Node]:
+    """Retrieve the method junction Node object from graph by id or method prefix."""
+    if not method_id or not graph:
+        return None
+    node_map = {n.id: n for n in graph.nodes}
+    direct = node_map.get(method_id)
+    if direct and direct.type == "method":
+        return direct
+    idx = method_index_of(method_id)
+    return next(
+        (
+            n for n in graph.nodes
+            if n.type == "method"
+            and (
+                n.id == method_id
+                or method_of(n.id) == method_id
+                or n.id.startswith(f"{method_id}_")
+                or (idx and method_index_of(n.id) == idx)
+                or method_for_node(n.id, graph) == method_id
+            )
+        ),
+        None,
+    )
+
+
 def successor_of(node_id: Optional[str], graph: SolutionGraph) -> Optional[str]:
-    """Find the next DAG node. goal_extraction branches so it returns None."""
+    """Find the next DAG node. goal_extraction branches so it returns None.
+    Bypasses internal method junction nodes directly to their first calculation step."""
     if not node_id:
         return None
     if node_id == "goal_extraction":
         return None
     edges = [e for e in graph.edges if e.from_node == node_id]
-    return edges[0].to_node if edges else graph.conclusion_node
+    if not edges:
+        return graph.conclusion_node
+    nxt = edges[0].to_node
+    node_map = {n.id: n for n in graph.nodes}
+    if nxt in node_map and node_map[nxt].type == "method":
+        return first_step_of(nxt, graph)
+    return nxt
 
 
 def first_step_of(method_id: str, graph: SolutionGraph) -> str:
-    """Get the first step node of a method."""
-    node_map = {n.id: n for n in graph.nodes}
-    src: Optional[str] = None
-    direct = node_map.get(method_id)
-    if direct and direct.type == "method":
-        src = method_id
-    else:
-        mn = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == method_id), None)
-        if mn:
-            src = mn.id
+    """Get the first calculation step node of a method."""
+    mn = get_method_node(method_id, graph)
+    src: Optional[str] = mn.id if mn else method_id
 
     if not src:
         return graph.conclusion_node
@@ -82,8 +150,10 @@ def first_step_of(method_id: str, graph: SolutionGraph) -> str:
 
 def method_chain(method_id: str, graph: SolutionGraph) -> List[str]:
     """Return the sequential chain of node IDs for a method."""
+    mn = get_method_node(method_id, graph)
+    start_id = mn.id if mn else method_id
     chain: List[str] = []
-    cur: Optional[str] = method_id
+    cur: Optional[str] = start_id
     seen = set()
     while cur and cur not in seen:
         seen.add(cur)
@@ -150,7 +220,30 @@ def apply_result(session: Session, result: Any, graph: SolutionGraph) -> Session
             if result.method_id:
                 session.method_id = result.method_id
             session.current_node_id = successor_of(result.node_id, graph)
-    elif verdict == "WRONG_CLAIM":
+    elif verdict == "MULTI_STEP_ACCEPT":
+        session.fail_streak = 0
+        compound_trail = getattr(result, "compound_trail", None)
+        if compound_trail:
+            for step in compound_trail:
+                session.trail.append({
+                    "input": step.get("input", result.parsed.raw),
+                    "nodeId": step.get("node_id"),
+                    "methodId": step.get("method_id") or result.method_id,
+                })
+            last_node_id = compound_trail[-1].get("node_id")
+            session.current_node_id = successor_of(last_node_id, graph)
+        else:
+            session.trail.append({
+                "input": result.parsed.raw,
+                "nodeId": result.node_id,
+                "methodId": result.method_id,
+            })
+            session.current_node_id = successor_of(result.node_id, graph)
+        if result.method_id:
+            session.method_id = result.method_id
+    elif verdict in ("PARTIAL_EXTRACTION", "EXTRACTION_REQUIRED", "METHOD_LOCKED"):
+        session.fail_streak = 0
+    elif verdict in ("WRONG_CLAIM", "MISCONCEPTION"):
         session.fail_streak += 1
     elif verdict == "CONCLUSION_RIGHT":
         session.completed = True

@@ -8,14 +8,14 @@ dependencies = [
     "fastapi>=0.115.0",
     "uvicorn>=0.30.0",
     "pydantic>=2.8.0",
-    "sympy>=1.14.0",
+    "sympy>=1.13.0",
     "rapidfuzz>=3.0.0",
-    "httpx>=0.27.0",                # app/main.py uses it at runtime (Jev's OpenRouter call)
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=8.0.0",
+    "httpx>=0.27.0",
 ]
 
 [build-system]

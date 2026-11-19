@@ -231,4 +231,3 @@ export async function classifyJevMethod(problemId, studentWork) {
   }
   return res.json();
 }
-

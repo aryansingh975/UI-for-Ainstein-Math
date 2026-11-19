@@ -12,7 +12,7 @@ RELEVANT_WORDS: Set[str] = {
     "this", "that", "these", "those", "there", "here", "of", "to", "for", "with", "by",
     "in", "on", "at", "as", "from", "into", "both", "each", "per",
     "get", "got", "have", "has", "had", "give", "gives", "given", "use", "used", "using", "after",
-    "check", "see", "find", "found", "try", "tries", "trying", "want", "wants", "let",
+    "check", "see", "find", "found", "try", "tries", "trying", "want", "wants", "need", "needs", "whether", "determine", "given", "goal", "let",
     "lets", "think", "okay", "ok", "yes", "no", "not", "now", "first", "next", "last",
     "final", "because", "since", "when", "make", "makes", "made", "means", "mean",
     "know", "known", "suppose", "supposed", "maybe", "please",

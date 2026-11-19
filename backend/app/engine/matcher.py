@@ -6,11 +6,6 @@ from app.engine.normalizer import normalize_text, strip_connecting_words
 from app.engine.vocabulary import has_irrelevant_words
 
 
-def _plus_minus(text: str) -> List[str]:
-    """The + and − between numbers, in order (a leading or bracketed minus sign is not an operator)."""
-    return ["+" if op == "+" else "-" for op in re.findall(r"(?<=[\d)\s])\s*([+\-−–])\s*(?=[\d(])", text)]
-
-
 def matches_accept(raw_input: str, accepted_answer: str) -> bool:
     """Matches a raw student input against an accepted answer string."""
     normalized_input = normalize_text(raw_input)
@@ -21,6 +16,10 @@ def matches_accept(raw_input: str, accepted_answer: str) -> bool:
 
     if has_irrelevant_words(normalized_input, normalized_accepted):
         return False
+
+    # Verbal phrase matching: student input contains the multi-word non-numeric accepted phrase (e.g. "whether the ratios are proportional")
+    if " " in normalized_accepted and not re.search(r"\d", normalized_accepted) and normalized_accepted in normalized_input:
+        return True
 
     # Single-word keyword matching
     if re.match(r"^[a-z]+$", normalized_accepted) and len(normalized_accepted) >= 3:
@@ -58,14 +57,18 @@ def matches_accept(raw_input: str, accepted_answer: str) -> bool:
     if accepted_numbers and len(accepted_numbers) > 1 and input_numbers:
         if ",".join(input_numbers) != ",".join(accepted_numbers):
             return False
-        accepted_has_op = bool(re.search(r"[/*=÷×]", normalized_accepted))
+        # Do not match if arithmetic operators conflict (+ vs -)
+        if ("+" in normalized_accepted and "+" not in normalized_input) or ("+" in normalized_input and "+" not in normalized_accepted):
+            return False
+        if ("-" in normalized_accepted and "-" not in normalized_input) or ("-" in normalized_input and "-" not in normalized_accepted):
+            return False
+        accepted_has_op = bool(re.search(r"[/*=÷×+\-]", normalized_accepted))
         if not accepted_has_op:
             return False
-        has_op = bool(re.search(r"[/*=÷×]", normalized_input))
+        has_op = bool(re.search(r"[/*=÷×+\-]", normalized_input))
         if not has_op:
             return False
-        # same numbers but "1 + 0.992" is not "1 - 0.992"
-        return _plus_minus(normalized_input) == _plus_minus(normalized_accepted)
+        return True
 
     # Phrasing with connecting words stripped
     if re.search(r"[a-z]", normalized_accepted):

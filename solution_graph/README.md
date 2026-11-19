@@ -36,8 +36,6 @@ solution_graph/
         graph.svg
 ```
 
-Class 10 graphs live under `class10_NCERT/`, organised by NCERT Class 10 chapter (e.g. `class10_NCERT/chapter-10/circles/`); the top-level `chapter-N/` folders are Class 8.
-
 Folder names identify the question; `graph_meta.problem_uuid` is its stable ID. Keep IDs unique, especially when one textbook example has multiple questions. The lemonade question retains `g08-hegp107-ex002`; the 6:8 ratio question uses `g08-hegp107-ex002-ratio`.
 
 The `.json` file is the portable graph data, `.js` makes a graph available to the browser, and `.svg` is its visual representation. When adding or changing a graph, keep the same content and metadata in all three files. Update any app or test paths that load a graph after moving it.

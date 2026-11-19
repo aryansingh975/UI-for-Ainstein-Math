@@ -14,7 +14,16 @@ from app.schemas.session import (
     MethodLockRequest,
     MethodLockResponse,
 )
-from app.engine.state_machine import Session, new_session, apply_result, hint_for, begin_method, method_of
+from app.engine.state_machine import (
+    Session,
+    new_session,
+    apply_result,
+    hint_for,
+    get_method_node,
+    first_step_of,
+    begin_method,
+    method_of,
+)
 from app.engine.tutor_engine import process_step
 from app.engine.guided import is_guided, guided_step, first_question
 from app.engine.claims import Claim, explain_claim
@@ -47,6 +56,8 @@ def start_session(req: SessionStartRequest):
 
     node_map = {n.id: n for n in graph.nodes}
     active_id = session.current_node_id or graph.start_node
+    if active_id in node_map and node_map[active_id].type == "method":
+        active_id = first_step_of(active_id, graph)
     active_node = node_map.get(active_id)
 
     meta = graph.graph_meta
@@ -127,20 +138,23 @@ def check_step(session_id: str, req: StepRequest):
         cur = node_map[active_id]
         active_label = cur.label
         next_prompt = cur.prompt
-        if plan and plan.get("concept_hint") and not plan.get("accepted"):   # K1/K2/K3 in the question box
+        if plan and plan.get("concept_hint") and not plan.get("accepted"):
             k = plan["concept_hint"]
             next_prompt = f"Hint {k['id']}: {k['question']}\nThen try again. {cur.prompt}"
-        if plan and plan.get("next_question") and not plan.get("accepted"):   # the ladder's question in the box
+        if plan and plan.get("next_question") and not plan.get("accepted"):
             next_prompt = plan["next_question"]
-            if plan.get("category") == "explain":            # explain a given step before solving
+            if plan.get("category") == "explain":
                 active_label = "Explain the Plan"
-        if getattr(session, "prompt_override", None):        # parts: "Still to do: (ii) 156, …"
+        if getattr(session, "prompt_override", None):
             next_prompt = session.prompt_override
-        if getattr(session, "free_solving", False):          # after the plan: the student solves alone
+        if getattr(session, "free_solving", False):
             active_label = "Solve on Your Own"
             next_prompt = ("Keep going, one step per line. I'll only stop you if something is wrong."
-                           if getattr(session, "plan_skipped", False)    # started with a calculation: no "now solve"
-                           else cur.solve_prompt or "Now solve it on your own, one step per line.")
+                           if getattr(session, "plan_skipped", False)
+                           else getattr(cur, "solve_prompt", None) or "Now solve it on your own, one step per line.")
+    elif not session.completed and not active_id and not session.method_id:
+        active_label = "Step 1"
+        next_prompt = "Great! Now that we know what is given and what to find, what is your first step to solve this problem?"
 
     claim_data = None
     if isinstance(result.claim, Claim):
@@ -157,32 +171,45 @@ def check_step(session_id: str, req: StepRequest):
             hint = concl_node.hints[0]
     explanation = explain_claim(result.claim)
 
-    method_node = (node_map.get(session.method_id) or next(          # "m1" names the method node "m1_count"
-        (n for n in graph.nodes if n.type == "method" and method_of(n.id) == session.method_id), None)
-    ) if session.method_id else None
+    method_node = get_method_node(session.method_id, graph) if session.method_id else None
     method_label = method_node.label if method_node else None
 
     # Feedback messages
     feedback_msg = None
     if plan:                                                  # a plan in words: the plan's own reply
         feedback_msg = plan["message"]
-    elif result.verdict == "ACCEPT":
+    elif getattr(result, "feedback", None):
+        feedback_msg = result.feedback
+    elif result.verdict in ("ACCEPT", "MULTI_STEP_ACCEPT"):
         feedback_msg = "That's correct."
     elif result.verdict == "CONCLUSION_RIGHT":
         feedback_msg = concl_node.description if concl_node else "Your solution is complete."
     elif result.verdict == "CONCLUSION_WRONG":
         feedback_msg = "Your conclusion does not match this problem. Recheck your steps."
+    elif result.verdict == "EXTRACTION_REQUIRED":
+        feedback_msg = "Let's first identify the given information for this problem."
+    elif result.verdict == "METHOD_LOCKED":
+        feedback_msg = "Let's continue solving with your current method."
+    elif result.verdict == "PARTIAL_EXTRACTION":
+        feedback_msg = "Good start! What other information is given?"
+    elif result.verdict == "MISCONCEPTION":
+        feedback_msg = f"🔴 {explanation}" if explanation else "Review the mathematical operation needed."
     elif result.verdict == "WRONG_CLAIM":
-        feedback_msg = f"🔴 {explanation} Fix this step and try it again." if explanation else "This step contains a mathematical mistake. Fix this calculation and try again."
+        if isinstance(result.claim, dict) and result.claim.get("message"):
+            feedback_msg = f"🔴 {result.claim['message']} Fix this step and try it again."
+        elif explanation:
+            feedback_msg = f"🔴 {explanation} Fix this step and try it again."
+        else:
+            feedback_msg = "This step contains a mathematical mistake. Fix this calculation and try again."
     elif result.verdict == "IRRELEVANT_TRUE":
         feedback_msg = f'"{result.parsed.raw}" is true, but it does not yet help answer this question. Connect your step to the quantities in the problem.'
     elif result.verdict == "UNIT_ISSUE":
         feedback_msg = result.claim.get("message") if isinstance(result.claim, dict) else "Check the unit."
     elif result.verdict == "WRONG_ANSWER":
         feedback_msg = "That is not the answer to this question yet."
-    elif result.verdict in ("PART", "WORKING"):                # a part picked, or a correct working step
+    elif result.verdict in ("PART", "WORKING"):
         feedback_msg = (result.claim or {}).get("message", "") if isinstance(result.claim, dict) else ""
-    elif result.verdict == "DONT_KNOW":                       # a request for help: the term, then the hint
+    elif result.verdict == "DONT_KNOW":
         defs = (result.claim or {}).get("definitions") if isinstance(result.claim, dict) else None
         feedback_msg = "That's fine. " + (" ".join(defs) if defs else "Let's take it one hint at a time.")
     elif result.verdict == "GARBAGE":
@@ -198,9 +225,10 @@ def check_step(session_id: str, req: StepRequest):
         "input": req.student_input,
         "verdict": result.verdict,
         "feedback": feedback_msg,
+        "next_prompt": next_prompt,
         "hint": hint,
         "explanation": explanation,
-        "is_correct": result.verdict in ("ACCEPT", "CONCLUSION_RIGHT", "WORKING"),
+        "is_correct": result.verdict in ("ACCEPT", "MULTI_STEP_ACCEPT", "CONCLUSION_RIGHT", "WORKING"),
         "node_id": result.node_id or active_id,
         "label": active_label,
     }
@@ -249,15 +277,13 @@ def lock_method(session_id: str, req: MethodLockRequest):
     if not begin_method(session, req.method_id, graph):
         raise HTTPException(status_code=409, detail=f"Method '{req.method_id}' cannot be started in this session.")
 
-    # Method ids like "method1" don't carry the m1_ prefix the engine groups steps by,
-    # so take it from the first step id (e.g. "m1_step1" -> "m1").
     session.method_id = method_of(session.current_node_id) or session.method_id
 
     node_map = {n.id: n for n in graph.nodes}
     active_node = node_map.get(session.current_node_id)
     return MethodLockResponse(
         method_id=session.method_id,
-        method_label=node_map[req.method_id].label,
+        method_label=node_map[req.method_id].label if req.method_id in node_map else req.method_id,
         active_node_id=session.current_node_id,
         active_label=active_node.label if active_node else None,
         prompt=active_node.prompt if active_node else None,
