@@ -58,5 +58,7 @@ class StepResponse(BaseModel):
     conclusion_description: Optional[str] = None
     next_is_conclusion: bool = False
     method_id: Optional[str] = None
+    jumped_node_id: Optional[str] = None
+    jumped_label: Optional[str] = None
     method_label: Optional[str] = None
 

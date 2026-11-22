@@ -30,7 +30,7 @@ def method_of(node_id: Optional[str]) -> Optional[str]:
     """Extract method prefix (e.g. 'm1' from 'm1_step1' or 'method1')."""
     if not node_id:
         return None
-    m = re.match(r"^(m\d+)_", str(node_id))
+    m = re.match(r"^(m\d+)(?:_|$)", str(node_id))
     if m:
         return m.group(1)
     m2 = re.match(r"^method(\d+)", str(node_id))
@@ -173,6 +173,9 @@ def apply_result(session: Session, result: Any, graph: SolutionGraph) -> Session
         session.fail_streak = 0
     elif verdict == "METHOD_MISMATCH":
         # Pedagogical redirect, not a math failure
+        pass
+    elif verdict == "STEP_JUMP":
+        # Keep session completely unchanged at previous node, do not increase fail streak
         pass
 
     return session

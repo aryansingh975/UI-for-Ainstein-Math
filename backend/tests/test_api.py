@@ -8,8 +8,10 @@ def test_get_all_problems():
     response = client.get("/api/v1/problems")
     assert response.status_code == 200
     data = response.json()
-    assert len(data) == 32
+    assert len(data) >= 34
     assert any(p["problem_uuid"] == "g08-hegp201-ex010" for p in data)
+    assert any(p["problem_uuid"] == "g10-prob-bag-balls" for p in data)
+    assert any(p["problem_uuid"] == "g10-prob-die-throw" for p in data)
 
 
 def test_get_problem_details():
@@ -19,6 +21,16 @@ def test_get_problem_details():
     assert data["problem_id"] == "g08-hegp201-ex010"
     assert "₹21,000" in data["problem_text"]
     assert data["extraction_optional"] is False
+
+    # Test graph endpoint
+    graph_resp = client.get("/api/v1/problems/g08-hegp201-ex010/graph")
+    assert graph_resp.status_code == 200
+    g_data = graph_resp.json()
+    assert "nodes" in g_data
+    assert "edges" in g_data
+    assert g_data["start_node"] == "start"
+    assert g_data["conclusion_node"] == "conclusion"
+
 
 
 def test_session_lifecycle_and_step_verification():
@@ -238,6 +250,135 @@ def test_api_early_conclusion_and_method_mismatch():
     assert "Cross Multiplication" in d3["feedback_message"]
     assert "Simplification" in d3["feedback_message"]
     assert d3["completed"] is False
+
+    # 5. Start a new session and leap > 2 hops -> STEP_JUMP
+    start_resp2 = client.post("/api/v1/sessions/start", json={"problem_id": "g08-hegp107-ex001"})
+    sess_id2 = start_resp2.json()["session_id"]
+    jump_resp = client.post(
+        f"/api/v1/sessions/{sess_id2}/step",
+        json={"student_input": "3:4 = 3:4"}
+    )
+    assert jump_resp.status_code == 200
+    dj = jump_resp.json()
+    assert dj["verdict"] == "STEP_JUMP"
+    assert dj["jumped_node_id"] == "shared_ratio_comparison"
+    assert "leaped ahead" in dj["feedback_message"].lower()
+    assert dj["completed"] is False
+    assert len(dj["trail"]) == 0
+
+
+def test_probability_bag_balls_problem():
+    # Start session for probability bag problem
+    start_resp = client.post("/api/v1/sessions/start", json={"problem_id": "g10-prob-bag-balls"})
+    assert start_resp.status_code == 200
+    sess_id = start_resp.json()["session_id"]
+
+    # Step 1: Total balls
+    s1 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "8"}).json()
+    assert s1["verdict"] == "ACCEPT"
+    assert s1["active_node_id"] == "m1_s2"
+
+    # Step 2: Red probability
+    s2 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "3/8"}).json()
+    assert s2["verdict"] == "ACCEPT"
+    assert s2["active_node_id"] == "m1_s3"
+
+    # Step 3: Not red probability
+    s3 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "5/8"}).json()
+    assert s3["verdict"] == "ACCEPT"
+    assert s3["active_node_id"] == "conclusion"
+
+    # Step 4: Final Conclusion
+    s4 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "3/8 and 5/8"}).json()
+    assert s4["verdict"] == "CONCLUSION_RIGHT"
+    assert s4["completed"] is True
+
+
+def test_probability_die_throw_problem():
+    # Start session for die throw problem
+    start_resp = client.post("/api/v1/sessions/start", json={"problem_id": "g10-prob-die-throw"})
+    assert start_resp.status_code == 200
+    sess_id = start_resp.json()["session_id"]
+
+    # Step 1: Total outcomes
+    s1 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "6"}).json()
+    assert s1["verdict"] == "ACCEPT"
+    assert s1["active_node_id"] == "m1_s2"
+
+    # Step 2: Prime probability
+    s2 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "1/2"}).json()
+    assert s2["verdict"] == "ACCEPT"
+    assert s2["active_node_id"] == "m1_s3"
+
+    # Step 3: Number between 2 and 6 probability
+    s3 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "1/2"}).json()
+    assert s3["verdict"] == "ACCEPT"
+    assert s3["active_node_id"] == "m1_s4"
+
+    # Step 4: Odd number probability
+    s4 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "1/2"}).json()
+    assert s4["verdict"] == "ACCEPT"
+    assert s4["active_node_id"] == "conclusion"
+
+    # Step 5: Final Conclusion
+    s5 = client.post(f"/api/v1/sessions/{sess_id}/step", json={"student_input": "1/2, 1/2, 1/2"}).json()
+    assert s5["verdict"] == "CONCLUSION_RIGHT"
+    assert s5["completed"] is True
+
+
+def test_probability_marbles_sample_sessions_and_extra_effort():
+    # 1. Sequential Socratic Flow as in sample_sessions.md
+    s1 = client.post("/api/v1/sessions/start", json={"problem_id": "g10-prob-marbles"}).json()
+    sess1 = s1["session_id"]
+    assert "sample space" in s1["prompt"].lower()
+
+    # Turn 1: sample space = 9
+    t1 = client.post(f"/api/v1/sessions/{sess1}/step", json={"student_input": "9"}).json()
+    assert t1["verdict"] == "ACCEPT"
+    assert "event" in t1["next_prompt"].lower()
+
+    # Turn 2: event = 2
+    t2 = client.post(f"/api/v1/sessions/{sess1}/step", json={"student_input": "2"}).json()
+    assert t2["verdict"] == "ACCEPT"
+    assert "probability" in t2["next_prompt"].lower()
+
+    # Turn 3: probability = 2/9
+    t3 = client.post(f"/api/v1/sessions/{sess1}/step", json={"student_input": "2/9"}).json()
+    assert t3["verdict"] == "ACCEPT"
+    assert "explain" in t3["next_prompt"].lower()
+
+    # Turn 4: reasoning
+    t4 = client.post(
+        f"/api/v1/sessions/{sess1}/step",
+        json={"student_input": "2 favourable outcomes out of 9 possible outcomes"}
+    ).json()
+    assert t4["verdict"] == "CONCLUSION_RIGHT"
+    assert t4["completed"] is True
+
+    # 2. Combined Answer / Extra Effort Leap: Student gives both sample space and event
+    s2 = client.post("/api/v1/sessions/start", json={"problem_id": "g10-prob-marbles"}).json()
+    sess2 = s2["session_id"]
+    t_combo = client.post(
+        f"/api/v1/sessions/{sess2}/step",
+        json={"student_input": "sample space is 9 and white is 2"}
+    ).json()
+    assert t_combo["verdict"] == "ACCEPT"
+    assert "great effort" in t_combo["feedback_message"].lower()
+    assert t_combo["active_node_id"] == "m1_s3"
+    assert "probability" in t_combo["next_prompt"].lower()
+
+    # 3. Redirection when input does not address the question
+    s3 = client.post("/api/v1/sessions/start", json={"problem_id": "g10-prob-marbles"}).json()
+    sess3 = s3["session_id"]
+    t_unanswered = client.post(
+        f"/api/v1/sessions/{sess3}/step",
+        json={"student_input": "i like the colors"}
+    ).json()
+    assert t_unanswered["verdict"] == "GARBAGE"
+    assert "does not address" in t_unanswered["feedback_message"].lower()
+    assert s3["prompt"] in t_unanswered["feedback_message"]
+
+
 
 
 

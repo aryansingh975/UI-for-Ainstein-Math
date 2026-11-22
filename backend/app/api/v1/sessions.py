@@ -12,7 +12,7 @@ from app.schemas.session import (
     StepRequest,
     StepResponse,
 )
-from app.engine.state_machine import Session, new_session, apply_result, hint_for, method_of
+from app.engine.state_machine import Session, new_session, apply_result, hint_for, method_of, first_step_of
 from app.engine.tutor_engine import process_step
 from app.engine.claims import Claim, explain_claim
 from app.services import session_logger
@@ -97,6 +97,7 @@ def check_step(session_id: str, req: StepRequest):
     if session.completed:
         raise HTTPException(status_code=400, detail="Problem is already completed. Reset to start again.")
 
+    prior_node_id = session.current_node_id
     result = process_step(req.student_input, session, graph)
     apply_result(session, result, graph)
 
@@ -137,12 +138,32 @@ def check_step(session_id: str, req: StepRequest):
 
     # Feedback messages
     feedback_msg = None
+    jumped_node_id = None
+    jumped_label = None
+
     if result.verdict == "ACCEPT":
-        feedback_msg = "That's correct."
+        # Check if the student leaped/fast-forwarded ahead (e.g. answering both sample space and event)
+        effective_prior = prior_node_id or (first_step_of(result.method_id, graph) if result.method_id else graph.start_node)
+        if effective_prior and result.node_id and result.node_id != effective_prior and result.node_id not in ("start", "given_extraction", "goal_extraction"):
+            matched_node = node_map.get(result.node_id)
+            node_name = _clean_method_label(matched_node.label if matched_node else "the next step")
+            feedback_msg = f"Great effort! You answered what was asked and also provided {node_name}. Advancing you directly to the next stage!"
+        else:
+            feedback_msg = "That's correct."
     elif result.verdict == "CONCLUSION_RIGHT":
         feedback_msg = concl_node.description if concl_node else "Your solution is complete."
     elif result.verdict == "EARLY_CONCLUSION":
         feedback_msg = "That's correct! But before we conclude, please show your steps. Let's work through it step by step."
+    elif result.verdict == "STEP_JUMP":
+        jumped_node_id = result.node_id
+        jumped_node = node_map.get(result.node_id)
+        jumped_label = _clean_method_label(jumped_node.label if jumped_node else "that step")
+        cur_node = node_map.get(session.current_node_id or graph.start_node)
+        cur_prompt = cur_node.prompt if cur_node and cur_node.prompt else "the first step"
+        feedback_msg = (
+            f"That calculation is part of {jumped_label}, but you leaped ahead without showing intermediate work. "
+            f"Please show your work step-by-step first: {cur_prompt}"
+        )
     elif result.verdict == "METHOD_MISMATCH":
         cur_node = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == session.method_id), None)
         other_node = next((n for n in graph.nodes if n.type == "method" and method_of(n.id) == result.method_id), None)
@@ -159,9 +180,13 @@ def check_step(session_id: str, req: StepRequest):
     elif result.verdict == "IRRELEVANT_TRUE":
         feedback_msg = f'"{result.parsed.raw}" is true, but it does not yet help answer this question. Connect your step to the quantities in the problem.'
     elif result.verdict == "GARBAGE":
-        feedback_msg = "That does not look related to this problem. Try a calculation or explain a method for the question above."
+        cur_node = node_map.get(session.current_node_id or graph.start_node)
+        cur_prompt = cur_node.prompt if cur_node and cur_node.prompt else "the question above"
+        feedback_msg = f"That does not address the current question. Please answer: {cur_prompt}"
     else:  # UNPARSED
-        feedback_msg = "Try writing a calculation or mathematical relationship that helps answer this question."
+        cur_node = node_map.get(session.current_node_id or graph.start_node)
+        cur_prompt = cur_node.prompt if cur_node and cur_node.prompt else "the question above"
+        feedback_msg = f"That doesn't answer the current question. Please answer: {cur_prompt}"
 
     trail_data = [{"nodeId": t.get("nodeId", ""), "input": t.get("input", "")} for t in session.trail]
 
@@ -173,7 +198,7 @@ def check_step(session_id: str, req: StepRequest):
         "feedback": feedback_msg,
         "hint": hint,
         "explanation": explanation,
-        "is_correct": result.verdict in ("ACCEPT", "CONCLUSION_RIGHT", "EARLY_CONCLUSION"),
+        "is_correct": result.verdict in ("ACCEPT", "CONCLUSION_RIGHT"),
         "node_id": result.node_id or active_id,
         "label": active_label,
     }
@@ -207,6 +232,8 @@ def check_step(session_id: str, req: StepRequest):
         next_is_conclusion=next_is_conclusion,
         method_id=session.method_id,
         method_label=method_label,
+        jumped_node_id=jumped_node_id,
+        jumped_label=jumped_label,
     )
 
 

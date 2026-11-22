@@ -89,6 +89,29 @@ export const AVAILABLE_CHAPTERS = [
     problems: [
       { id: 'g10-quad-ex001', title: 'Quadratic Equation: x² - 5x + 6 = 0', uuid: 'g10-quad-ex001' }
     ]
+  },
+  {
+    id: 'probability',
+    title: 'Probability',
+    grade: 10,
+    description: 'Grade 10 · 3 problems',
+    problems: [
+      {
+        id: 'g10-prob-marbles',
+        title: 'Drawing a White Marble (Sample Space & Event)',
+        uuid: 'g10-prob-marbles'
+      },
+      {
+        id: 'g10-prob-bag-balls',
+        title: 'Bag with 3 Red & 5 Black Balls',
+        uuid: 'g10-prob-bag-balls'
+      },
+      {
+        id: 'g10-prob-die-throw',
+        title: 'Single Die Throw Outcomes',
+        uuid: 'g10-prob-die-throw'
+      }
+    ]
   }
 ];
 
@@ -97,6 +120,13 @@ export async function fetchAllProblems() {
   if (!res.ok) throw new Error('Failed to fetch problems catalogue');
   return res.json();
 }
+
+export async function fetchProblemGraph(problemId) {
+  const res = await fetch(`${API_BASE}/api/v1/problems/${problemId}/graph`);
+  if (!res.ok) throw new Error('Failed to fetch problem graph');
+  return res.json();
+}
+
 
 export async function startTutorSession(problemId) {
   const res = await fetch(`${API_BASE}/api/v1/sessions/start`, {

@@ -31,7 +31,7 @@ function HistoryItem({ turn, input, isCorrect, verdict, feedback }) {
     }
   }, [input]);
 
-  const isWarn = verdict === 'IRRELEVANT_TRUE' || verdict === 'GARBAGE' || verdict === 'METHOD_MISMATCH' || verdict === 'UNPARSED';
+  const isWarn = verdict === 'IRRELEVANT_TRUE' || verdict === 'GARBAGE' || verdict === 'METHOD_MISMATCH' || verdict === 'UNPARSED' || verdict === 'EARLY_CONCLUSION' || verdict === 'STEP_JUMP';
   const badgeClass = isCorrect
     ? 'live-trail-badge live-trail-badge-correct'
     : isWarn

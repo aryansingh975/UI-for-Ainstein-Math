@@ -1,0 +1,341 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-prob-die-throw",
+    "problem_uuid": "g10-prob-die-throw",
+    "problem_text": "A die is thrown once. Find the probability of getting (i) a prime number; (ii) a number lying between 2 and 6; (iii) an odd number.",
+    "navigation_label": "Probability: Single Die Throw Outcomes",
+    "problem_context": {
+      "chapter": 14,
+      "topic": "Probability",
+      "grade": 10,
+      "difficulty": "Medium",
+      "subject": "Mathematics",
+      "sample_space": [1, 2, 3, 4, 5, 6],
+      "total_outcomes": 6
+    },
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution graph for determining probabilities of elementary events when a single fair die is rolled. Method 1 calculates probabilities event by event sequentially; Method 2 lists the sample space and event sets comprehensively.",
+    "created": "2026-11-05",
+    "total_methods": 2,
+    "total_nodes": 13,
+    "total_edges": 15
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Experiment",
+      "description": "A single standard 6-sided die is rolled once.",
+      "prompt": "What is the experiment described in the problem?",
+      "accept": [
+        "a die is thrown once",
+        "die thrown once",
+        "throwing a die",
+        "rolling a die",
+        "a die is thrown",
+        "die is thrown once"
+      ],
+      "hints": [
+        "The problem states that a fair die is thrown once."
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Three Goals",
+      "description": "Find probabilities of: (i) a prime number, (ii) a number between 2 and 6, (iii) an odd number.",
+      "prompt": "What three probabilities do we need to calculate?",
+      "accept": [
+        "prime, between 2 and 6, odd",
+        "prime number, between 2 and 6, odd number",
+        "probability of prime, number between 2 and 6, and odd number",
+        "prime, between 2 and 6, and odd"
+      ],
+      "hints": [
+        "We need to find P(prime number), P(number between 2 and 6), and P(odd number)."
+      ]
+    },
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "A die is thrown once. Find the probability of getting (i) a prime number; (ii) a number lying between 2 and 6; (iii) an odd number.",
+      "prompt": "A die is thrown once. How would you begin finding the probabilities for prime, between 2 and 6, and odd?",
+      "accept": [],
+      "hints": [
+        "First write down all possible outcomes when a die is thrown: S = {1, 2, 3, 4, 5, 6}.",
+        "The total number of possible outcomes is 6."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "All three probabilities are equal to 1/2: P(prime) = 1/2, P(between 2 and 6) = 1/2, P(odd) = 1/2.",
+      "prompt": "State your final answers for (i) prime, (ii) between 2 and 6, and (iii) odd number.",
+      "accept": [
+        "1/2, 1/2, 1/2",
+        "1/2 and 1/2 and 1/2",
+        "1/2, 1/2 and 1/2",
+        "3/6, 3/6, 3/6",
+        "0.5, 0.5, 0.5",
+        "(i) 1/2, (ii) 1/2, (iii) 1/2",
+        "p(prime) = 1/2, p(between 2 and 6) = 1/2, p(odd) = 1/2",
+        "1/2 for (i), 1/2 for (ii), 1/2 for (iii)"
+      ],
+      "hints": [
+        "For (i), P(prime) = 3/6 = 1/2.",
+        "For (ii), P(between 2 and 6) = 3/6 = 1/2.",
+        "For (iii), P(odd) = 3/6 = 1/2."
+      ]
+    },
+    {
+      "id": "m1_sequential",
+      "type": "method",
+      "label": "Method 1: Sequential Event Analysis",
+      "description": "Find total outcomes (6), then solve for prime (3/6 = 1/2), between 2 and 6 (3/6 = 1/2), and odd (3/6 = 1/2) step by step.",
+      "prompt": "Choose a method. We will analyze the total outcomes and then each event step-by-step. What is the total number of outcomes?",
+      "accept": [
+        "sequential",
+        "step by step",
+        "event by event",
+        "direct analysis"
+      ],
+      "hints": [
+        "A standard die has 6 faces numbered 1 through 6.",
+        "Total possible outcomes = 6."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Find Total Number of Outcomes",
+      "description": "Possible outcomes on a die are {1, 2, 3, 4, 5, 6}, so total outcomes = 6.",
+      "prompt": "What are the possible outcomes when a die is thrown once, and what is the total number of outcomes?",
+      "accept": [
+        "6",
+        "{1, 2, 3, 4, 5, 6}",
+        "1, 2, 3, 4, 5, 6",
+        "total outcomes = 6",
+        "total is 6",
+        "6 outcomes",
+        "n(s) = 6",
+        "s = {1, 2, 3, 4, 5, 6}",
+        "there are 6 outcomes"
+      ],
+      "hints": [
+        "The die can show 1, 2, 3, 4, 5, or 6.",
+        "The total number of possible outcomes is 6."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "(i) Probability of Getting a Prime Number",
+      "description": "Prime numbers on a die are {2, 3, 5} (3 favourable outcomes). P(prime) = 3/6 = 1/2.",
+      "prompt": "The prime numbers on a die are 2, 3, and 5 (3 outcomes). What is P(prime)?",
+      "accept": [
+        "1/2",
+        "3/6",
+        "3/6 = 1/2",
+        "0.5",
+        "p(prime) = 1/2",
+        "p(prime) = 3/6",
+        "half",
+        "3/6 or 1/2",
+        "1 / 2"
+      ],
+      "hints": [
+        "The prime numbers are 2, 3, and 5 (note that 1 is neither prime nor composite).",
+        "There are 3 favourable outcomes out of 6.",
+        "P(prime) = 3/6 = 1/2."
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "(ii) Probability of a Number Between 2 and 6",
+      "description": "Numbers strictly between 2 and 6 are {3, 4, 5} (3 favourable outcomes). P(between 2 and 6) = 3/6 = 1/2.",
+      "prompt": "The numbers lying strictly between 2 and 6 are 3, 4, and 5 (3 outcomes). What is P(between 2 and 6)?",
+      "accept": [
+        "1/2",
+        "3/6",
+        "3/6 = 1/2",
+        "0.5",
+        "p(between 2 and 6) = 1/2",
+        "p(between 2 and 6) = 3/6",
+        "half",
+        "3/6 or 1/2",
+        "1 / 2"
+      ],
+      "hints": [
+        "'Between 2 and 6' means excluding 2 and 6, so the numbers are 3, 4, and 5.",
+        "Number of favourable outcomes = 3.",
+        "P(between 2 and 6) = 3/6 = 1/2."
+      ]
+    },
+    {
+      "id": "m1_s4",
+      "type": "step",
+      "label": "(iii) Probability of Getting an Odd Number",
+      "description": "Odd numbers on a die are {1, 3, 5} (3 favourable outcomes). P(odd) = 3/6 = 1/2.",
+      "prompt": "The odd numbers on a die are 1, 3, and 5 (3 outcomes). What is P(odd)?",
+      "accept": [
+        "1/2",
+        "3/6",
+        "3/6 = 1/2",
+        "0.5",
+        "p(odd) = 1/2",
+        "p(odd) = 3/6",
+        "half",
+        "3/6 or 1/2",
+        "1 / 2"
+      ],
+      "hints": [
+        "The odd numbers on a die are 1, 3, and 5.",
+        "Number of favourable outcomes = 3.",
+        "P(odd) = 3/6 = 1/2."
+      ]
+    },
+    {
+      "id": "m2_outcomes",
+      "type": "method",
+      "label": "Method 2: Sample Space & Set Listing",
+      "description": "List the full sample space S and the event subsets: Primes={2,3,5}, Between={3,4,5}, Odds={1,3,5}. Each has size 3, giving 3/6 = 1/2 for each.",
+      "prompt": "Choose a method. We will list the sample space and subsets.",
+      "accept": [
+        "sample space",
+        "set listing",
+        "subsets",
+        "sets"
+      ],
+      "hints": [
+        "List all outcomes in the sample space S = {1, 2, 3, 4, 5, 6}."
+      ]
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "List Sample Space",
+      "description": "S = {1, 2, 3, 4, 5, 6}, total outcomes n(S) = 6.",
+      "prompt": "List the sample space S of rolling a fair die.",
+      "accept": [
+        "{1, 2, 3, 4, 5, 6}",
+        "1, 2, 3, 4, 5, 6",
+        "6",
+        "1 to 6",
+        "s = {1, 2, 3, 4, 5, 6}",
+        "{1,2,3,4,5,6}"
+      ],
+      "hints": [
+        "The possible numbers are 1, 2, 3, 4, 5, and 6."
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Count Favourable Outcomes for All Events",
+      "description": "Primes: {2,3,5} (3). Between 2 and 6: {3,4,5} (3). Odds: {1,3,5} (3). Each has 3 favourable outcomes.",
+      "prompt": "How many favourable outcomes are there for each of the three events?",
+      "accept": [
+        "3",
+        "3 each",
+        "3 for each",
+        "3, 3, 3",
+        "each has 3",
+        "3 favourable outcomes each",
+        "all have 3"
+      ],
+      "hints": [
+        "Primes: {2, 3, 5} -> 3 outcomes.",
+        "Between 2 and 6: {3, 4, 5} -> 3 outcomes.",
+        "Odds: {1, 3, 5} -> 3 outcomes.",
+        "Each event has 3 favourable outcomes."
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Compute Probabilities for All Three Events",
+      "description": "For each event, P = 3/6 = 1/2.",
+      "prompt": "Since each event has 3 favourable outcomes out of 6, what is the probability for each?",
+      "accept": [
+        "1/2",
+        "3/6",
+        "3/6 = 1/2",
+        "0.5",
+        "1/2 for all",
+        "1/2 each",
+        "all are 1/2",
+        "1 / 2"
+      ],
+      "hints": [
+        "Divide favourable outcomes by total outcomes: 3/6.",
+        "Simplify 3/6 to 1/2."
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "m1_sequential"
+    },
+    {
+      "from": "start",
+      "to": "m2_outcomes"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_sequential"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_outcomes"
+    },
+    {
+      "from": "m1_sequential",
+      "to": "m1_s1"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3"
+    },
+    {
+      "from": "m1_s3",
+      "to": "m1_s4"
+    },
+    {
+      "from": "m1_s4",
+      "to": "conclusion"
+    },
+    {
+      "from": "m2_outcomes",
+      "to": "m2_s1"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3"
+    },
+    {
+      "from": "m2_s3",
+      "to": "conclusion"
+    }
+  ]
+}

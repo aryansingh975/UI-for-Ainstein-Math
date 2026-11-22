@@ -257,5 +257,32 @@ def test_early_conclusion_guard_and_method_mismatch(graphs):
     assert r_end.verdict == "CONCLUSION_RIGHT"
     assert s4.completed is True
 
+    # 5. STEP_JUMP: Leaping > 2 hops flags STEP_JUMP and preserves session state
+    s5 = new_session(g1)
+    # Leaping from start to shared_ratio_comparison (3+ hops ahead)
+    r_jump = step("3:4 = 3:4", s5, g1)
+    assert r_jump.verdict == "STEP_JUMP"
+    assert r_jump.node_id == "shared_ratio_comparison"
+    assert s5.method_id is None
+    assert s5.current_node_id in (None, "start")
+    assert len(s5.trail) == 0
+    assert s5.completed is False
+
+    # 6. Specific node matching: "Divide 72:96 by 24" matches m1_s2, not m1_s3
+    s6 = new_session(g1)
+    step("gcd(72, 96) = 24", s6, g1)
+    assert s6.current_node_id == "m1_s2"
+    r_div = step("Divide 72:96 by 24", s6, g1)
+    assert r_div.verdict == "ACCEPT"
+    assert r_div.node_id == "m1_s2"
+    assert s6.current_node_id == "m1_s3"
+    # Unreduced ratio 72:96 does NOT satisfy simplified ratio m1_s3
+    r_unreduced = step("72:96", s6, g1)
+    assert r_unreduced.node_id != "m1_s3"
+    # Reduced ratio 3:4 satisfies m1_s3
+    r_reduced = step("3:4", s6, g1)
+    assert r_reduced.verdict == "ACCEPT"
+    assert r_reduced.node_id == "m1_s3"
+
 
 

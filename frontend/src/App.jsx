@@ -3,10 +3,12 @@ import Sidebar from './components/Sidebar.jsx';
 import TopbarAndHero from './components/TopbarAndHero.jsx';
 import ProblemControls from './components/ProblemControls.jsx';
 import ProblemCard from './components/ProblemCard.jsx';
+import GraphVisualizer from './components/GraphVisualizer.jsx';
 import WorkspacePanel from './components/WorkspacePanel.jsx';
 import TutorFeedback from './components/TutorFeedback.jsx';
 import {
   AVAILABLE_CHAPTERS,
+  fetchProblemGraph,
   startTutorSession,
   submitTutorStep,
   resetTutorSession,
@@ -37,6 +39,7 @@ export default function App() {
   );
 
   const [session, setSession] = useState(null);
+  const [graphData, setGraphData] = useState(null);
   const [input, setInput] = useState('');
   const [stepResult, setStepResult] = useState(null);
   const [jevMessage, setJevMessage] = useState(null);
@@ -67,12 +70,20 @@ export default function App() {
     setInput('');
 
     try {
-      const sessionData = await startTutorSession(currentProblem.uuid);
+      const [sessionData, graph] = await Promise.all([
+        startTutorSession(currentProblem.uuid),
+        fetchProblemGraph(currentProblem.uuid).catch((e) => {
+          console.warn('Could not fetch graph data for problem:', e);
+          return null;
+        })
+      ]);
       setSession(sessionData);
+      setGraphData(graph);
     } catch (err) {
       console.error('Error starting problem session:', err);
       setLoadError(err.message || 'Problem data unavailable.');
       setSession(null);
+      setGraphData(null);
     } finally {
       setIsLoadingProblem(false);
     }
@@ -270,6 +281,12 @@ export default function App() {
             <ProblemCard
               badge={problemBadge}
               text={session?.problem_text}
+            />
+
+            <GraphVisualizer
+              graph={graphData}
+              session={session}
+              stepResult={stepResult}
             />
 
             <WorkspacePanel

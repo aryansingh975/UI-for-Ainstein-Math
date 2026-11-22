@@ -1,0 +1,255 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-prob-marbles",
+    "problem_uuid": "g10-prob-marbles",
+    "problem_text": "A box contains 3 blue, 2 white, and 4 red marbles. One marble is drawn at random. What is the probability of drawing a white marble?",
+    "navigation_label": "Probability: Drawing a White Marble",
+    "problem_context": {
+      "chapter": 14,
+      "topic": "Probability",
+      "grade": 10,
+      "difficulty": "Easy",
+      "subject": "Mathematics",
+      "blue_marbles": 3,
+      "white_marbles": 2,
+      "red_marbles": 4,
+      "total_marbles": 9
+    },
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution graph for finding the probability of drawing a white marble from a box of 3 blue, 2 white, and 4 red marbles using Socratic inquiry: sample space identification, event outcome counting, probability calculation, and conceptual reasoning.",
+    "created": "2026-11-05",
+    "total_methods": 1,
+    "total_nodes": 8,
+    "total_edges": 8
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify Given Information",
+      "description": "3 blue, 2 white, and 4 red marbles.",
+      "prompt": "What are the given marbles in the box?",
+      "accept": [
+        "3 blue, 2 white, and 4 red",
+        "3 blue, 2 white, 4 red",
+        "3 blue 2 white 4 red",
+        "blue = 3, white = 2, red = 4",
+        "3, 2, 4"
+      ],
+      "hints": [
+        "Read the first sentence: there are 3 blue, 2 white, and 4 red marbles."
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Goal",
+      "description": "Find the probability of drawing a white marble.",
+      "prompt": "What do we need to calculate?",
+      "accept": [
+        "probability of drawing a white marble",
+        "probability of white marble",
+        "p(white)",
+        "p(white marble)",
+        "find p(white)"
+      ],
+      "hints": [
+        "We need to find the probability of drawing a white marble."
+      ]
+    },
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "A box contains 3 blue, 2 white, and 4 red marbles. One marble is drawn at random. What is the probability of drawing a white marble?",
+      "prompt": "A box contains 3 blue, 2 white, and 4 red marbles. One marble is drawn at random. What is the sample space (total possible outcomes)?",
+      "accept": [],
+      "hints": [
+        "First, find the total number of marbles in the box."
+      ]
+    },
+    {
+      "id": "m1_classical",
+      "type": "method",
+      "label": "Method 1: Classical Probability & Event Analysis",
+      "description": "Find total possible outcomes (sample space = 9), count favourable outcomes (white marbles = 2), compute P(white) = 2/9, and verify conceptual reasoning.",
+      "prompt": "We will solve this step-by-step using classical probability. What is the sample space?",
+      "accept": [
+        "classical probability",
+        "step by step",
+        "formula",
+        "sample space"
+      ],
+      "hints": [
+        "Start by determining the total number of possible outcomes in the sample space."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "1. Find the Sample Space",
+      "description": "Total possible outcomes = 3 blue + 2 white + 4 red = 9 marbles.",
+      "prompt": "What is the sample space, or the total number of possible outcomes when one marble is drawn?",
+      "accept": [
+        "9",
+        "3 + 2 + 4 = 9",
+        "3+2+4=9",
+        "total is 9",
+        "total outcomes = 9",
+        "sample space is 9",
+        "sample space = 9",
+        "n(s) = 9",
+        "9 marbles",
+        "9 outcomes",
+        "total = 9",
+        "there are 9 outcomes",
+        "s = 9",
+        "3+2+4 = 9"
+      ],
+      "hints": [
+        "Add all the marbles together: 3 blue + 2 white + 4 red.",
+        "3 + 2 + 4 = 9 total possible outcomes."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "2. Identify the Event (White Marbles)",
+      "description": "The event is drawing a white marble. There are 2 white marbles (favourable outcomes).",
+      "prompt": "What is the event, or how many favourable outcomes (white marbles) are there?",
+      "accept": [
+        "2",
+        "white is 2",
+        "2 white marbles",
+        "2 white",
+        "event is 2",
+        "favourable outcomes = 2",
+        "n(e) = 2",
+        "2 favourable outcomes",
+        "there are 2 white marbles",
+        "9 and 2",
+        "total is 9 and white is 2",
+        "sample space is 9 and event is 2",
+        "sample space = 9, event = 2",
+        "sample space is 9 and white is 2",
+        "total 9, white 2",
+        "9 outcomes and 2 white",
+        "sample space is 9, white is 2",
+        "3+2+4=9 and 2 white",
+        "total is 9 and favourable is 2",
+        "9 total and 2 favourable",
+        "total = 9 and event = 2"
+      ],
+      "hints": [
+        "Count how many white marbles are in the box.",
+        "There are 2 white marbles, so the number of favourable outcomes is 2."
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Calculate the Probability: P(white)",
+      "description": "P(white) = (Favourable outcomes) / (Total outcomes) = 2/9.",
+      "prompt": "Good. So, what is the probability of drawing a white marble?",
+      "accept": [
+        "2/9",
+        "2 / 9",
+        "p(white) = 2/9",
+        "p(white)=2/9",
+        "2 out of 9",
+        "0.222",
+        "2/9 probability",
+        "probability is 2/9",
+        "2/9 white"
+      ],
+      "hints": [
+        "Use the formula: P(E) = (Favourable outcomes) / (Total outcomes).",
+        "P(white) = 2/9."
+      ]
+    },
+    {
+      "id": "m1_s4",
+      "type": "step",
+      "label": "Explain the Reasoning",
+      "description": "Explain why 2 is in the numerator and 9 is in the denominator based on the classical definition of probability.",
+      "prompt": "Correct! Can you explain why you chose 2 as the numerator and 9 as the denominator?",
+      "accept": [
+        "2 favourable outcomes out of 9 possible outcomes",
+        "because there are 2 favourable outcomes out of 9 possible outcomes",
+        "2 favourable out of 9 total",
+        "favourable outcomes / total outcomes",
+        "favourable outcomes divided by total outcomes",
+        "ratio of favourable outcomes to total outcomes",
+        "classical definition of probability",
+        "ratio of favourable to total",
+        "2 white marbles out of 9 total marbles",
+        "because there are 2 white marbles out of 9 total",
+        "2 is favourable and 9 is total",
+        "favourable outcomes to total equally likely outcomes",
+        "favourable outcomes to total possible outcomes"
+      ],
+      "hints": [
+        "Recall the definition of probability: ratio of favourable outcomes to total possible outcomes.",
+        "2 is the number of white marbles (favourable), and 9 is the total number of marbles (sample space)."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "P(white) = 2/9 because there are 2 favourable outcomes out of 9 total possible outcomes.",
+      "prompt": "State your final conclusion: why is P(white) = 2/9?",
+      "accept": [
+        "2 favourable outcomes out of 9 possible outcomes",
+        "2 favourable out of 9 possible",
+        "2 favourable out of 9 total",
+        "2 white marbles out of 9 total marbles",
+        "because there are 2 favourable outcomes out of 9 possible outcomes",
+        "2 white out of 9 total",
+        "2 favourable outcomes divided by 9 possible outcomes"
+      ],
+      "hints": [
+        "The probability of drawing a white marble is 2/9."
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "m1_classical"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_classical"
+    },
+    {
+      "from": "m1_classical",
+      "to": "m1_s1"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3"
+    },
+    {
+      "from": "m1_s3",
+      "to": "m1_s4"
+    },
+    {
+      "from": "m1_s4",
+      "to": "conclusion"
+    }
+  ]
+}

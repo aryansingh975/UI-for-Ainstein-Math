@@ -147,6 +147,9 @@ def parse_step(raw: str, default_gcd_pair: Optional[Tuple[float, float]] = None)
 
 
 def expected_for(node: Node) -> Optional[Dict[str, Any]]:
+    if node.type == "extraction":
+        return None
+
     for a in node.accept or []:
         n = normalize_text(a)
         m = re.match(r"^(\d+(?:\.\d+)?):(\d+(?:\.\d+)?)$", n)
@@ -182,20 +185,16 @@ def verify_against_expected(parsed: ParsedStep, exp: Dict[str, Any]) -> Dict[str
             return {"accepted": True}
         if exp["kind"] == "values" and any(any(abs(v - x) < EPS for x in exp["values"]) for v in vals):
             return {"accepted": True}
-        if exp["kind"] == "ratio" and any(abs(v - exp["a"] / exp["b"]) < EPS for v in vals):
-            return {"accepted": True}
+        if exp["kind"] == "ratio" and c.kind == "ratio_eq":
+            if (abs(c.a - exp["a"]) < EPS and abs(c.b - exp["b"]) < EPS) or (abs(c.c - exp["a"]) < EPS and abs(c.d - exp["b"]) < EPS):
+                return {"accepted": True}
 
     if exp["kind"] == "ratio":
         for r in parsed.ratios:
             if abs(r[0] - exp["a"]) < EPS and abs(r[1] - exp["b"]) < EPS:
                 return {"accepted": True}
-            if abs(r[0] / r[1] - exp["a"] / exp["b"]) < EPS:
-                return {"accepted": True}
         for f in parsed.fractions:
-            if abs(f[0] / f[1] - exp["a"] / exp["b"]) < EPS:
-                return {"accepted": True}
-        if len(parsed.numbers) == 1 and not parsed.claims:
-            if abs(parsed.numbers[0] - exp["a"] / exp["b"]) < EPS:
+            if abs(f[0] - exp["a"]) < EPS and abs(f[1] - exp["b"]) < EPS:
                 return {"accepted": True}
 
     if exp["kind"] == "number":
@@ -243,6 +242,13 @@ def verify_against_expected(parsed: ParsedStep, exp: Dict[str, Any]) -> Dict[str
 
 
 def match_node(parsed: ParsedStep, node: Node) -> Dict[str, Any]:
+    if node.type == "extraction":
+        if parsed.claims:
+            return {"accepted": False}
+        if matches_accept_any(parsed.raw, node.accept):
+            return {"accepted": True}
+        return {"accepted": False}
+
     if matches_accept_any(parsed.raw, node.accept):
         return {"accepted": True}
     exp = expected_for(node)
@@ -280,11 +286,9 @@ def detect_conclusion(
 
     if is_bare_yes_no(parsed):
         at_concl = session.current_node_id == graph.conclusion_node
-        dist = dag_hop_distance(session.current_node_id, graph.conclusion_node, graph) if session.current_node_id else None
-        near_concl = (dist is not None and dist <= 2)
         no_current = not session.current_node_id
-        # Bare yes/no is treated as a conclusion if at conclusion, near conclusion, or at start/fresh session
-        if at_concl or near_concl or no_current or len(session.trail) == 0:
+        # Bare yes/no is treated as a conclusion if at conclusion or at start/fresh session
+        if at_concl or no_current or len(session.trail) == 0:
             return {"detected": True, "correct": matches_accept_any(parsed.raw, concl.accept)}
         return None
 
@@ -341,19 +345,21 @@ def find_global_step_match(
     if is_bare_yes_no(parsed):
         return None
 
+    active_m = method_of(session.method_id) if session.method_id else None
+
     steps = [
         n for n in graph.nodes
-        if n.type == "step" and (not session.method_id or method_of(n.id) == session.method_id or method_of(n.id) is None)
+        if n.type == "step" and (not active_m or method_of(n.id) == active_m or method_of(n.id) is None)
     ]
 
     scored = []
     for n in steps:
         score = 0
         nm = method_of(n.id)
-        if session.method_id and nm == session.method_id:
+        if active_m and nm == active_m:
             score += 2
-        if session.method_id and nm == session.method_id and session.current_node_id:
-            chain = method_chain(session.method_id, graph)
+        if active_m and nm == active_m and session.current_node_id:
+            chain = method_chain(active_m, graph)
             if session.current_node_id in chain and n.id in chain:
                 ci = chain.index(session.current_node_id)
                 ni = chain.index(n.id)
@@ -364,34 +370,40 @@ def find_global_step_match(
     scored.sort(key=lambda x: x[0], reverse=True)
     ordered = [n for _, n in scored if n.id != session.current_node_id]
 
-    # Enforce bounded hop distance (at most 2 hops ahead)
     origin_node = session.current_node_id
 
-    valid_candidates = []
+    # Pass 1: exact matches
+    jumps_pass1 = []
     for node in ordered:
-        if not origin_node or origin_node in ("start", "given_extraction", "goal_extraction"):
-            mn = find_method_node_for_step(node.id, graph)
-            dist = dag_hop_distance(mn.id, node.id, graph) if mn else None
-        else:
-            dist = dag_hop_distance(origin_node, node.id, graph)
-
-        if dist is not None and dist > 2:
-            continue
-        valid_candidates.append(node)
-
-    # Pass 1: exact accept-list matches
-    for node in valid_candidates:
         if matches_accept_any(parsed.raw, node.accept):
-            return {"node_id": node.id, "method_id": method_of(node.id)}
+            if not origin_node or origin_node in ("start", "given_extraction", "goal_extraction"):
+                mn = find_method_node_for_step(node.id, graph)
+                dist = dag_hop_distance(mn.id, node.id, graph) if mn else None
+            else:
+                dist = dag_hop_distance(origin_node, node.id, graph)
+            if dist is None or dist <= 2:
+                return {"node_id": node.id, "method_id": method_of(node.id), "is_jump": False, "dist": dist}
+            jumps_pass1.append({"node_id": node.id, "method_id": method_of(node.id), "is_jump": True, "dist": dist})
+
+    if jumps_pass1:
+        return jumps_pass1[0]
 
     # Pass 2: semantic verification
-    for node in valid_candidates:
+    jumps_pass2 = []
+    for node in ordered:
         exp = expected_for(node)
-        if not exp:
-            continue
-        m = verify_against_expected(parsed, exp)
-        if m.get("accepted"):
-            return {"node_id": node.id, "method_id": method_of(node.id)}
+        if exp and verify_against_expected(parsed, exp).get("accepted"):
+            if not origin_node or origin_node in ("start", "given_extraction", "goal_extraction"):
+                mn = find_method_node_for_step(node.id, graph)
+                dist = dag_hop_distance(mn.id, node.id, graph) if mn else None
+            else:
+                dist = dag_hop_distance(origin_node, node.id, graph)
+            if dist is None or dist <= 2:
+                return {"node_id": node.id, "method_id": method_of(node.id), "is_jump": False, "dist": dist}
+            jumps_pass2.append({"node_id": node.id, "method_id": method_of(node.id), "is_jump": True, "dist": dist})
+
+    if jumps_pass2:
+        return jumps_pass2[0]
 
     return None
 
@@ -412,28 +424,7 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
     if is_garbage(parsed) and not exact_graph_answer:
         return StepResult(verdict="GARBAGE", parsed=parsed)
 
-    # 1. Current-node match
-    if session.current_node_id:
-        node = node_map.get(session.current_node_id)
-        if node and node.type == "conclusion":
-            concl = detect_conclusion(parsed, session, graph, ctx)
-            if concl and concl["detected"]:
-                v = "CONCLUSION_RIGHT" if concl["correct"] else "CONCLUSION_WRONG"
-                return StepResult(verdict=v, parsed=parsed)
-        elif node and node.accept:
-            m = match_node(parsed, node)
-            if m.get("accepted"):
-                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id, method_id=method_of(node.id))
-            if m.get("wrong_claim"):
-                return StepResult(
-                    verdict="WRONG_CLAIM",
-                    parsed=parsed,
-                    node_id=node.id,
-                    method_id=method_of(node.id),
-                    claim=m.get("claim"),
-                )
-
-    # 2. Conclusion match
+    # 1. Conclusion match
     concl = detect_conclusion(parsed, session, graph, ctx)
     if concl and concl["detected"]:
         if concl["correct"]:
@@ -450,11 +441,11 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
             # Accept conclusion if:
             # 1. Graph has no steps, or
             # 2. Already at conclusion node, or
-            # 3. Within 2 hops of conclusion AND student has demonstrated actual working steps
+            # 3. Within 1 hop of conclusion AND student has demonstrated actual working steps
             is_at_conclusion = (
                 not has_steps
                 or session.current_node_id == graph.conclusion_node
-                or (has_shown_work and dist_to_concl is not None and dist_to_concl <= 2)
+                or (has_shown_work and dist_to_concl is not None and dist_to_concl <= 1)
             )
             if is_at_conclusion:
                 return StepResult(verdict="CONCLUSION_RIGHT", parsed=parsed)
@@ -465,6 +456,22 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
                 method_id=session.method_id,
             )
         return StepResult(verdict="CONCLUSION_WRONG", parsed=parsed)
+
+    # 2. Current-node match
+    if session.current_node_id:
+        node = node_map.get(session.current_node_id)
+        if node and node.type != "conclusion" and node.accept:
+            m = match_node(parsed, node)
+            if m.get("accepted"):
+                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id, method_id=method_of(node.id))
+            if m.get("wrong_claim"):
+                return StepResult(
+                    verdict="WRONG_CLAIM",
+                    parsed=parsed,
+                    node_id=node.id,
+                    method_id=method_of(node.id),
+                    claim=m.get("claim"),
+                )
 
     # 3. Reject reversed ratios (e.g. 4:3 instead of 3:4)
     first_pair = ctx.get("first", (3.0, 4.0))
@@ -527,13 +534,21 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
     # 7. Global step search (silent inference / skip-ahead)
     g = find_global_step_match(parsed, session, graph)
     if g:
+        if g.get("is_jump"):
+            return StepResult(
+                verdict="STEP_JUMP",
+                parsed=parsed,
+                node_id=g["node_id"],
+                method_id=g["method_id"],
+            )
         return StepResult(verdict="ACCEPT", parsed=parsed, node_id=g["node_id"], method_id=g["method_id"])
 
     # 7b. Method mismatch detection (active method exists, but student entered valid step of another method)
     if session.method_id:
+        active_m = method_of(session.method_id) or session.method_id
         other_steps = [
             n for n in graph.nodes
-            if n.type == "step" and method_of(n.id) and method_of(n.id) != session.method_id
+            if n.type == "step" and method_of(n.id) and method_of(n.id) != active_m
         ]
         for other_node in other_steps:
             if matches_accept_any(parsed.raw, other_node.accept):

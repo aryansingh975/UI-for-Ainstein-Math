@@ -26,6 +26,7 @@ __pycache__/
 backend/logs/
 logs/
 
-# Secrets
+# Secrets & Personal Documents
 .env
 .claude/
+resource/Acct Statement.pdf

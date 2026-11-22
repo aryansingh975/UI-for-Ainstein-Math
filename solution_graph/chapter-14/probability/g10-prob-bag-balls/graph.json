@@ -1,0 +1,319 @@
+{
+  "graph_meta": {
+    "graph_id": "sg-g10-prob-bag-balls",
+    "problem_uuid": "g10-prob-bag-balls",
+    "problem_text": "A bag contains 3 red balls and 5 black balls. A ball is drawn at random from the bag. What is the probability that the ball drawn is (i) red ? (ii) not red?",
+    "navigation_label": "Probability: Red & Black Balls in a Bag",
+    "problem_context": {
+      "chapter": 14,
+      "topic": "Probability",
+      "grade": 10,
+      "difficulty": "Easy",
+      "subject": "Mathematics",
+      "red_balls": 3,
+      "black_balls": 5,
+      "total_balls": 8
+    },
+    "graph_type": "directed_acyclic_graph",
+    "version": "1.0.0",
+    "description": "Solution graph for finding the probability of drawing a red ball and not a red ball from a bag containing 3 red and 5 black balls. Method 1 uses the direct formula and the complement rule; Method 2 uses direct counting of favourable outcomes.",
+    "created": "2026-11-05",
+    "total_methods": 2,
+    "total_nodes": 12,
+    "total_edges": 14
+  },
+  "start_node": "start",
+  "conclusion_node": "conclusion",
+  "nodes": [
+    {
+      "id": "given_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify Given Information",
+      "description": "Identify the number of red balls and black balls in the bag.",
+      "prompt": "What are the given numbers of red balls and black balls in the bag?",
+      "accept": [
+        "3 red and 5 black",
+        "3 red, 5 black",
+        "3 red balls and 5 black balls",
+        "3 red 5 black",
+        "red = 3, black = 5",
+        "3 and 5",
+        "3 red, 5 black balls"
+      ],
+      "hints": [
+        "Read the first sentence of the problem statement.",
+        "There are 3 red balls and 5 black balls in the bag."
+      ]
+    },
+    {
+      "id": "goal_extraction",
+      "type": "extraction",
+      "optional": true,
+      "label": "Identify the Goal",
+      "description": "Identify what probabilities need to be determined.",
+      "prompt": "What do we need to find in this problem?",
+      "accept": [
+        "p(red) and p(not red)",
+        "probability of red and not red",
+        "probability of red and probability of not red",
+        "p(red) and p(not red) probability",
+        "probability that the ball drawn is red and not red",
+        "find p(red) and p(not red)"
+      ],
+      "hints": [
+        "We need to find the probability of drawing: (i) a red ball, and (ii) a ball that is not red."
+      ]
+    },
+    {
+      "id": "start",
+      "type": "start",
+      "label": "Problem Statement",
+      "description": "A bag contains 3 red balls and 5 black balls. A ball is drawn at random from the bag. What is the probability that the ball drawn is (i) red ? (ii) not red?",
+      "prompt": "A bag contains 3 red balls and 5 black balls. What is the probability that the ball drawn is (i) red? (ii) not red? How would you begin?",
+      "accept": [],
+      "hints": [
+        "First, find the total number of balls in the bag to know the total possible outcomes.",
+        "Then find the number of favourable outcomes for red and for not red."
+      ]
+    },
+    {
+      "id": "conclusion",
+      "type": "conclusion",
+      "label": "Final Conclusion",
+      "description": "P(red) = 3/8 and P(not red) = 5/8.",
+      "prompt": "State your final answers: what are the probabilities for (i) red and (ii) not red?",
+      "accept": [
+        "3/8 and 5/8",
+        "3/8, 5/8",
+        "p(red) = 3/8, p(not red) = 5/8",
+        "p(red)=3/8 and p(not red)=5/8",
+        "(i) 3/8, (ii) 5/8",
+        "(i) 3/8 and (ii) 5/8",
+        "3/8 and 5/8 respectively",
+        "0.375 and 0.625",
+        "p(red) is 3/8 and p(not red) is 5/8",
+        "3/8 and 5/8 are the probabilities"
+      ],
+      "hints": [
+        "For (i), P(red) = 3/8.",
+        "For (ii), P(not red) = 5/8.",
+        "So the final answers are 3/8 and 5/8."
+      ]
+    },
+    {
+      "id": "m1_classical",
+      "type": "method",
+      "label": "Method 1: Direct Formula & Complement Rule",
+      "description": "Find total balls, calculate P(red) = 3/8, and use P(not red) = 1 - P(red) = 5/8.",
+      "prompt": "Choose a method. You can use the classical probability formula and the complement rule. What is the total number of outcomes?",
+      "accept": [
+        "formula",
+        "complement",
+        "classical probability",
+        "complement rule",
+        "p(e) + p(not e) = 1",
+        "1 - p(red)"
+      ],
+      "hints": [
+        "Total outcomes = number of red balls + number of black balls.",
+        "Use P(E) = (Number of favourable outcomes) / (Total number of possible outcomes)."
+      ]
+    },
+    {
+      "id": "m1_s1",
+      "type": "step",
+      "label": "Find Total Number of Balls",
+      "description": "Total balls = 3 + 5 = 8.",
+      "prompt": "What is the total number of balls in the bag (total possible outcomes)?",
+      "accept": [
+        "8",
+        "3 + 5 = 8",
+        "3+5=8",
+        "total is 8",
+        "total = 8",
+        "8 balls",
+        "total balls = 8",
+        "3+5 = 8",
+        "there are 8 balls in total"
+      ],
+      "hints": [
+        "Add the red balls and black balls together.",
+        "3 + 5 = 8 total balls."
+      ]
+    },
+    {
+      "id": "m1_s2",
+      "type": "step",
+      "label": "Probability of Drawing a Red Ball: P(red)",
+      "description": "P(red) = (Number of red balls) / (Total balls) = 3/8.",
+      "prompt": "There are 3 red balls out of 8 total balls. What is P(red)?",
+      "accept": [
+        "3/8",
+        "0.375",
+        "3 / 8",
+        "p(red) = 3/8",
+        "p(red)=3/8",
+        "3 out of 8",
+        "probability is 3/8"
+      ],
+      "hints": [
+        "Favourable outcomes for red = 3.",
+        "Total possible outcomes = 8.",
+        "P(red) = 3/8."
+      ]
+    },
+    {
+      "id": "m1_s3",
+      "type": "step",
+      "label": "Probability of Not Red via Complement: P(not red)",
+      "description": "P(not red) = 1 - P(red) = 1 - 3/8 = 5/8.",
+      "prompt": "Using the complement rule, P(not red) = 1 - P(red). What is 1 - 3/8?",
+      "accept": [
+        "5/8",
+        "1 - 3/8 = 5/8",
+        "1-3/8 = 5/8",
+        "1-3/8=5/8",
+        "0.625",
+        "5 / 8",
+        "p(not red) = 5/8",
+        "p(not red)=5/8",
+        "5 out of 8"
+      ],
+      "hints": [
+        "1 - 3/8 = (8 - 3) / 8 = 5/8.",
+        "P(not red) = 5/8."
+      ]
+    },
+    {
+      "id": "m2_counting",
+      "type": "method",
+      "label": "Method 2: Direct Outcome Counting",
+      "description": "Count favourable outcomes directly: 3 red balls out of 8 gives 3/8; 5 black balls (not red) out of 8 gives 5/8.",
+      "prompt": "Choose a method. You can count the outcomes for each event directly.",
+      "accept": [
+        "counting",
+        "direct counting",
+        "count outcomes",
+        "count directly"
+      ],
+      "hints": [
+        "First find the total number of balls.",
+        "Then count the red balls (3) and the non-red balls (5 black balls)."
+      ]
+    },
+    {
+      "id": "m2_s1",
+      "type": "step",
+      "label": "Count Total Number of Balls",
+      "description": "Total possible outcomes = 3 red + 5 black = 8 balls.",
+      "prompt": "What is the total number of balls (total possible outcomes)?",
+      "accept": [
+        "8",
+        "3 + 5 = 8",
+        "3+5=8",
+        "total is 8",
+        "total = 8",
+        "8 balls",
+        "total balls = 8"
+      ],
+      "hints": [
+        "3 red + 5 black = 8 balls total."
+      ]
+    },
+    {
+      "id": "m2_s2",
+      "type": "step",
+      "label": "Count Red Balls for P(red)",
+      "description": "3 red balls out of 8 total balls gives P(red) = 3/8.",
+      "prompt": "What is the probability of drawing a red ball?",
+      "accept": [
+        "3/8",
+        "0.375",
+        "3 / 8",
+        "p(red) = 3/8",
+        "p(red)=3/8",
+        "3 out of 8"
+      ],
+      "hints": [
+        "There are 3 red balls out of 8 total balls.",
+        "P(red) = 3/8."
+      ]
+    },
+    {
+      "id": "m2_s3",
+      "type": "step",
+      "label": "Count Black Balls for P(not red)",
+      "description": "Balls that are not red are black (5 balls). So P(not red) = 5/8.",
+      "prompt": "Balls that are not red are black balls (5 balls). What is P(not red)?",
+      "accept": [
+        "5/8",
+        "0.625",
+        "5 / 8",
+        "5 out of 8",
+        "p(not red) = 5/8",
+        "p(not red)=5/8",
+        "5 black balls so 5/8"
+      ],
+      "hints": [
+        "The non-red balls are the 5 black balls.",
+        "P(not red) = 5/8."
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "m1_classical"
+    },
+    {
+      "from": "start",
+      "to": "m2_counting"
+    },
+    {
+      "from": "given_extraction",
+      "to": "goal_extraction"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m1_classical"
+    },
+    {
+      "from": "goal_extraction",
+      "to": "m2_counting"
+    },
+    {
+      "from": "m1_classical",
+      "to": "m1_s1"
+    },
+    {
+      "from": "m1_s1",
+      "to": "m1_s2"
+    },
+    {
+      "from": "m1_s2",
+      "to": "m1_s3"
+    },
+    {
+      "from": "m1_s3",
+      "to": "conclusion"
+    },
+    {
+      "from": "m2_counting",
+      "to": "m2_s1"
+    },
+    {
+      "from": "m2_s1",
+      "to": "m2_s2"
+    },
+    {
+      "from": "m2_s2",
+      "to": "m2_s3"
+    },
+    {
+      "from": "m2_s3",
+      "to": "conclusion"
+    }
+  ]
+}
+

@@ -76,6 +76,23 @@ export default function TutorFeedback({ result, jevMessage, onStartAgain }) {
         </article>
       )}
 
+      {v === 'STEP_JUMP' && (
+        <article className="answer-card failure-state">
+          <div className="answer-meta">🔴 STEP JUMP · INTERMEDIATE WORK REQUIRED</div>
+          <h3>Too many steps skipped!</h3>
+          <div className="tutor-bubble">
+            <div className="tutor-speech">{result.feedback_message}</div>
+          </div>
+          <p className="retry-prompt">
+            {result.next_prompt ? (
+              <>Show the intermediate step first: <strong>{result.next_prompt}</strong></>
+            ) : (
+              "Please show the step right before this one."
+            )}
+          </p>
+        </article>
+      )}
+
       {v === 'METHOD_MISMATCH' && (
         <article className="answer-card warn-state">
           <div className="answer-meta">🟡 METHOD MISMATCH</div>

@@ -47,3 +47,13 @@ def get_problem_details(problem_id: str):
         "extraction_optional": (given_ext.optional if given_ext else True),
     }
 
+
+@router.get("/{problem_id}/graph")
+def get_problem_graph(problem_id: str):
+    """Retrieve full solution DAG structure (nodes, edges, metadata) for graph traversal visualization."""
+    graph = get_graph(problem_id)
+    if not graph:
+        raise HTTPException(status_code=404, detail=f"Problem '{problem_id}' not found.")
+    return graph.model_dump(by_alias=True)
+
+
