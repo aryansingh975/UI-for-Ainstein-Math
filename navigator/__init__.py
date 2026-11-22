@@ -26,7 +26,7 @@ except ImportError:
         get_skipped_optional_nodes,
         select_best_path,
     )
-    from navigator.ranker_v1 import DEFAULT_THRESHOLD, rank_all_nodes, resolve, resolve_with_details, resolve_with_score
+    from navigator.ranker import DEFAULT_THRESHOLD, rank_all_nodes, resolve, resolve_with_details, resolve_with_score
     from session import NavigatorSession
 
 __all__ = [

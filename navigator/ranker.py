@@ -266,6 +266,12 @@ def main(argv: list[str] | None = None) -> None:
     nodes = dag.get("nodes", [])
 
     def _evaluate_and_print(inp: str) -> None:
+        # 1. Print tokens from normalizer
+        tokens = sorted(to_token_set(inp))
+        print(f"  Tokens: {tokens}")
+        print("-" * 68)
+
+        # 2. Existing ranker evaluation output
         winner, score, match_type, matched_phrase, tied = resolve_with_details(
             inp, nodes, threshold=args.threshold
         )

@@ -250,7 +250,38 @@ def load_dag(source: str | Path | dict[str, Any]) -> dict[str, Any]:
 
 
 # ============================================================================
-# 4. Developer CLI & Standalone Inspection Tool
+# 4. Optional Corpus Extraction Utility
+# ============================================================================
+
+def get_dag_corpus(dag: dict[str, Any]) -> list[str]:
+    """Collect all textual content from a DAG for corpus analysis or NLP diagnostics.
+
+    Extracts problem statement, node prompts, labels, descriptions, and accept phrases.
+    """
+    corpus: list[str] = []
+
+    meta = dag.get("graph_meta", {})
+    if meta.get("problem_text"):
+        corpus.append(str(meta["problem_text"]))
+    if meta.get("description"):
+        corpus.append(str(meta["description"]))
+
+    for node in dag.get("nodes", []):
+        for acc in node.get("accept", []):
+            if acc:
+                corpus.append(str(acc))
+        if node.get("label"):
+            corpus.append(str(node["label"]))
+        if node.get("description"):
+            corpus.append(str(node["description"]))
+        if node.get("prompt"):
+            corpus.append(str(node["prompt"]))
+
+    return corpus
+
+
+# ============================================================================
+# 5. Developer CLI & Standalone Inspection Tool
 # ============================================================================
 
 def main(argv: list[str] | None = None) -> None:

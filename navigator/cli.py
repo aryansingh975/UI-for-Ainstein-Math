@@ -13,12 +13,17 @@ import json
 import sys
 from pathlib import Path
 
+# Ensure workspace root is in sys.path so navigator is recognized as a package
+_WORKSPACE_ROOT = str(Path(__file__).resolve().parent.parent)
+if _WORKSPACE_ROOT not in sys.path:
+    sys.path.insert(0, _WORKSPACE_ROOT)
+
 try:
     from .navigator import Navigator, NavigatorResult
     from .ranker import DEFAULT_THRESHOLD
-except ImportError:
-    from navigator import Navigator, NavigatorResult
-    from navigator.ranker_v1 import DEFAULT_THRESHOLD
+except (ImportError, ValueError):
+    from navigator.navigator import Navigator, NavigatorResult
+    from navigator.ranker import DEFAULT_THRESHOLD
 
 
 def _find_default_dag() -> str:
@@ -207,6 +212,13 @@ def main() -> None:
     )
 
     args = parser.parse_args()
+
+    # Convenience: if first positional argument is a .json file path, treat it as --dag
+    if args.inputs and (args.inputs[0].endswith(".json") or Path(args.inputs[0]).exists()):
+        candidate_path = Path(args.inputs[0])
+        if candidate_path.exists():
+            args.dag = str(candidate_path)
+            args.inputs = args.inputs[1:]
 
     # Verify DAG file
     dag_path = Path(args.dag)

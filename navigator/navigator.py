@@ -1,7 +1,7 @@
 """Core Navigator Engine (v2) for Ainstein Socratic Math Tutor.
 
-Coordinates DAG loading, Socratic session tracking,
-v1 ranker cascade (String Match -> Weighted Jaccard & Input Coverage -> Specificity Tie-Breaker),
+Coordinates DAG loading, Session tracking,
+Ranker Workflow (String Match -> Jaccard Similarity -> Tie-Breaker),
 and DAG reachability / step-jump detection for important nodes.
 """
 
@@ -12,14 +12,14 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from .graph_loader import load_dag
+    from .graph_loader import is_optional_node, load_dag
     from .path_finder import evaluate_transition
     from .ranker import DEFAULT_THRESHOLD, resolve_with_score
     from .session import NavigatorSession
-except ImportError:
-    from graph_loader import load_dag
+except (ImportError, ValueError):
+    from graph_loader import is_optional_node, load_dag
     from path_finder import evaluate_transition
-    from navigator.ranker_v1 import DEFAULT_THRESHOLD, resolve_with_score
+    from ranker import DEFAULT_THRESHOLD, resolve_with_score
     from session import NavigatorSession
 
 @dataclass
@@ -64,7 +64,7 @@ class NavigatorResult:
                     "id": n["id"],
                     "label": n.get("label", ""),
                     "prompt": n.get("prompt", ""),
-                    "optional": n.get("optional", False),
+                    "optional": is_optional_node(n),
                 }
                 for n in self.skipped_nodes
             ],

@@ -371,7 +371,7 @@
       "label": "Volume of the Big Cylinder",
       "description": "V₁ = 3.14 × 12² × 220 = 99475.2 cm³.",
       "prompt": "What is the volume of the big cylinder?",
-      "accept": [
+      "accept": [ 
         "V1 = 3.14 × 12² × 220 = 99475.2 cm³",
         "V1 = π r² h = 3.14 × 12 × 12 × 220 = 99475.2",
         "3.14 × 12² × 220 = 99475.2",

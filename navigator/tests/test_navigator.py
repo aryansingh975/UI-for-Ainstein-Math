@@ -506,6 +506,46 @@ def test_step_jump_detected_on_mandatory_node():
     assert nav.trail == ["start", "step1", "step2", "conclusion"]
 
 
+def test_step_jump_detected_when_node_lacks_optional_field():
+    """Verify that nodes without any 'optional' key are treated strictly as mandatory.
+
+    If an author creates a DAG without specifying 'optional', jumping over that
+    intermediate node must trigger a STEP_JUMP violation and not be skipped.
+    """
+    sample_dag = {
+        "start_node": "start",
+        "conclusion_node": "conclusion",
+        "nodes": [
+            {"id": "start", "accept": ["start"]},
+            # Note: intermediate node has NO 'optional' key at all!
+            {"id": "step_no_optional", "label": "Implicitly Mandatory Step", "accept": ["do intermediate"]},
+            {"id": "conclusion", "accept": ["done"]},
+        ],
+        "edges": [
+            {"from": "start", "to": "step_no_optional"},
+            {"from": "step_no_optional", "to": "conclusion"},
+        ],
+    }
+    nav = Navigator(sample_dag, threshold=0.1)
+
+    # 1. Ingestion check: dag['nodes'][1]['optional'] must be normalized to False (mandatory)
+    assert nav.dag["nodes"][1]["optional"] is False
+
+    # 2. Start session
+    r1 = nav.process_input("start")
+    assert r1.status == "FIRST_MATCH"
+
+    # 3. Try jumping directly to conclusion, skipping 'step_no_optional'
+    r2 = nav.process_input("done")
+    assert r2.status == "STEP_JUMP"
+    assert "STEP JUMP DETECTED" in r2.message
+    assert len(r2.skipped_nodes) == 1
+    assert r2.skipped_nodes[0]["id"] == "step_no_optional"
+    assert r2.skipped_nodes[0]["optional"] is False
+    # Pointer must remain at start
+    assert nav.current_node["id"] == "start"
+
+
 def test_invalid_path_backward_or_unreachable():
     sample_dag = {
         "start_node": "start",

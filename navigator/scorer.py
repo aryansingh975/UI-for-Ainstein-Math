@@ -132,4 +132,4 @@ def score_phrase(input_text: str, accept_phrase: str) -> tuple[float, str]:
     # Blend: 40% weighted Jaccard + 60% grounded input coverage
     final_score = 0.4 * jaccard + 0.6 * (cov_input * max(match_a.values(), default=0.0))
 
-    return min(1.0, final_score), "JACCARD_SIMILIRITY"
+    return min(1.0, final_score), "FUZZY_WEIGHTED_JACCARD"
