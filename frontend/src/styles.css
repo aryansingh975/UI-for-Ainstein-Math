@@ -41,6 +41,12 @@
   line-height: 30px;
 }
 
+/* Unruled Cambridge Top Header Strip (Continuous 54px Red Margin, No Horizontal Blue Lines) */
+.notebook-header-band {
+  background-color: #fdfcf7;
+  background-image: linear-gradient(90deg, transparent 54px, #fca5a5 55px, #fca5a5 56px, transparent 57px);
+}
+
 .font-handwritten {
   font-family: 'Caveat', cursive, sans-serif;
 }

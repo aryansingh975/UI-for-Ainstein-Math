@@ -206,3 +206,33 @@ def test_tv_depreciation_and_age_problems(graphs):
     assert r.verdict == "CONCLUSION_RIGHT"
     assert s.completed is True
 
+
+def test_navigator_step_jump_detection(graphs):
+    """Test that leaping over mandatory intermediate steps triggers STEP_JUMP via Navigator BFS."""
+    quad = graphs["g10-quad-ex001"]
+    s = new_session(quad)
+    begin_method(s, "m1_factor", quad)
+
+    # Step 1: solve first step (-2 and -3)
+    r1 = step("-2 and -3", s, quad)
+    assert r1.verdict == "ACCEPT"
+    assert s.method_id == "m1"
+    assert s.current_node_id == "m1_s2"
+
+    # Now leap to Step 3 ((x-2)(x-3)) without showing Step 2 (split middle term: x^2 - 2x - 3x + 6)
+    r_jump = step("(x-2)(x-3)", s, quad)
+    assert r_jump.verdict == "STEP_JUMP"
+    assert "leaped ahead" in r_jump.feedback.lower()
+    # Pointer must remain at m1_s2
+    assert s.current_node_id == "m1_s2"
+
+    # Fulfill the skipped step (m1_s2)
+    r_next = step("x^2 - 2x - 3x + 6", s, quad)
+    assert r_next.verdict == "ACCEPT"
+    assert s.current_node_id == "m1_s3"
+
+    # Now Step 3 is accepted
+    r_done = step("(x-2)(x-3)", s, quad)
+    assert r_done.verdict == "ACCEPT"
+    assert s.current_node_id == "m1_s4"
+

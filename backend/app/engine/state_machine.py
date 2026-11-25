@@ -241,7 +241,7 @@ def apply_result(session: Session, result: Any, graph: SolutionGraph) -> Session
             session.current_node_id = successor_of(result.node_id, graph)
         if result.method_id:
             session.method_id = result.method_id
-    elif verdict in ("PARTIAL_EXTRACTION", "EXTRACTION_REQUIRED", "METHOD_LOCKED"):
+    elif verdict in ("PARTIAL_EXTRACTION", "EXTRACTION_REQUIRED", "METHOD_LOCKED", "STEP_JUMP"):
         session.fail_streak = 0
     elif verdict in ("WRONG_CLAIM", "MISCONCEPTION"):
         session.fail_streak += 1

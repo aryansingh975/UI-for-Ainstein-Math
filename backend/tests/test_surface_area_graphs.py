@@ -40,9 +40,9 @@ def test_q6_correct_plan_then_solve_alone_in_any_order(lines):
 
 
 @pytest.mark.parametrize("answer", ["π × 12² × 220 = 99475.2 cm³", "3.14 × 144 × 220 = 99475.2 cm3", "r = 12 cm",
-                                    "12^2*220 + 8^2*60 = 35520", "892262.4 g = 892.2624 kg", "3.14 × 64 × 60"])
+                                    "12^2*220 + 8^2*60 = 35520", "3.14 × 64 × 60"])
 def test_q6_free_solving_accepts_any_correct_form(answer):
-    assert _guided(INTRO + [PLAN, answer])[-1]["verdict"] in ("ACCEPT", "CONCLUSION_RIGHT")
+    assert _guided(INTRO + [PLAN, answer])[-1]["verdict"] == "ACCEPT"
 
 
 @pytest.mark.parametrize("wrong,explains", [
@@ -62,13 +62,13 @@ def test_q6_free_solving_gives_feedback_only_on_mistakes(wrong, explains):
     ("892262.4", "UNIT_ISSUE"), ("892262.4 kg", "UNIT_ISSUE"),
 ])
 def test_q6_final_answer_in_g_or_kg(answer, verdict):
-    assert _guided(INTRO + [PLAN, answer])[-1]["verdict"] == verdict
+    prefix = PATH_A[:-1]
+    assert _guided(INTRO + [PLAN] + prefix + [answer])[-1]["verdict"] == verdict
 
 
 def test_q6_a_calculation_instead_of_a_plan_starts_solving():
-    steps = _guided(INTRO + ["V1 = 3.14 × 12² × 220 = 99475.2 cm³", "mass = 892262.4 g"])
-    assert steps[-2]["verdict"] == "ACCEPT" and steps[-2]["active_label"] == "Solve on Your Own"
-    assert steps[-1]["verdict"] == "CONCLUSION_RIGHT"
+    steps = _guided(INTRO + ["V1 = 3.14 × 12² × 220 = 99475.2 cm³"])
+    assert steps[-1]["verdict"] == "ACCEPT" and steps[-1]["active_label"] == "Solve on Your Own"
 
 
 @pytest.mark.parametrize("work,expected", [
@@ -175,4 +175,48 @@ def test_q6_formula_check_only_for_the_cylinder_formula(line, verdict):
     ("3.14 × 64 × 60 = 12057.6 cubic cm", "ACCEPT"), ("3.14 × 64 × 60 = 12057.6 cubic m", "UNIT_ISSUE"),
 ])
 def test_q6_final_answer_needs_every_unit(answer, verdict):
-    assert _guided(INTRO + [PLAN, answer])[-1]["verdict"] == verdict
+    if verdict == "CONCLUSION_RIGHT":
+        # Final conclusion requires intermediate steps to be solved first
+        assert _guided(INTRO + [PLAN] + PATH_A[:-1] + [answer])[-1]["verdict"] == verdict
+    else:
+        assert _guided(INTRO + [PLAN, answer])[-1]["verdict"] == verdict
+
+
+def test_q6_missing_v2_triggers_step_jump():
+    """Leaping from V1 directly to Total Volume without calculating V2 must trigger STEP_JUMP."""
+    inputs = INTRO + [
+        PLAN,
+        "V1 = pir^2h\nv1 = 3.14 * 144 * 220 = 99475.2 cm³\ntotal volume = 111532.8 cm³",
+    ]
+    steps = _guided(inputs)
+    step = steps[-1]
+    assert step["verdict"] == "STEP_JUMP"
+    assert "Volume of the Small Cylinder" in step["feedback_message"]
+
+
+def test_q6_v2_then_conclusion_triggers_step_jump():
+    """User screenshot regression: entering V2 then skipping V1/total to mass must trigger STEP_JUMP."""
+    inputs = INTRO + [
+        PLAN,
+        "v2 = 3.14 * 64 * 60 = 12057.6cm^3",
+        "mass = 111532.8 * 8 = 892262.4g",
+    ]
+    steps = _guided(inputs)
+    step = steps[-1]
+    assert step["verdict"] == "STEP_JUMP"
+    assert "volume of the big cylinder" in step["feedback_message"].lower()
+
+
+def test_q6_v2_then_v1_then_total_then_mass_succeeds():
+    """Full commutative path: solving small cylinder first, then big, then total, then mass succeeds."""
+    inputs = INTRO + [
+        PLAN,
+        "v2 = 3.14 * 64 * 60 = 12057.6cm^3",
+        "v1 = 3.14 * 144 * 220 = 99475.2cm^3",
+        "total volume = 99475.2 + 12057.6 = 111532.8cm^3",
+        "mass = 111532.8 * 8 = 892262.4g",
+    ]
+    steps = _guided(inputs)
+    assert steps[-1]["verdict"] == "CONCLUSION_RIGHT"
+    assert steps[-1]["completed"] is True
+

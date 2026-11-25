@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AInstein UI Mockup — Option 1B vs Option 2B</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .font-hand {
+      font-family: 'Segoe Print', 'Bradley Hand', 'Comic Sans MS', cursive;
+    }
+    .font-question {
+      font-family: Georgia, 'Cambria', 'Times New Roman', serif;
+    }
+    .cambridge-paper {
+      background-color: #fffef9;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 27px,
+        #dbeafe 27px,
+        #dbeafe 28px
+      );
+      background-attachment: local;
+    }
+    .cambridge-margin {
+      border-left: 2px solid rgba(244, 63, 94, 0.35);
+      box-shadow: -4px 0 0 0 rgba(244, 63, 94, 0.14);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-800 antialiased h-screen flex flex-col overflow-hidden m-0 p-0">
+
+  <!-- =================================================================== -->
+  <!-- 2-OPTION SWITCHER BAR (1B vs 2B)                                    -->
+  <!-- =================================================================== -->
+  <div class="bg-slate-900 text-white px-4 py-2.5 border-b border-slate-700 shrink-0 space-y-1.5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-[1720px] mx-auto">
+      <button
+        id="btn-1b"
+        onclick="switchMode('1b')"
+        class="px-3.5 py-2 rounded-lg text-left transition cursor-pointer bg-slate-800 text-slate-200 border border-slate-700 hover:border-indigo-400"
+      >
+        <div class="text-xs font-extrabold leading-tight">1B · Whole Top Question Bar + 3-Panel</div>
+        <div class="text-[11px] text-slate-400 truncate">Full-width question banner above all 3 panels + Roadmap &amp; Chapter List</div>
+      </button>
+
+      <button
+        id="btn-2b"
+        onclick="switchMode('2b')"
+        class="px-3.5 py-2 rounded-lg text-left transition cursor-pointer bg-indigo-600 text-white shadow-sm border border-indigo-500"
+      >
+        <div class="text-xs font-extrabold leading-tight">2B · Notebook-Style Question + 3-Panel (Upgraded)</div>
+        <div class="text-[11px] opacity-85 truncate">Question written directly inside the ruled Cambridge notebook with continuous red margin</div>
+      </button>
+    </div>
+
+    <div id="mode-tip" class="text-xs text-emerald-300 font-medium max-w-[1720px] mx-auto">
+      🎯 2B (Clean Cambridge Pad): Unruled notebook header strip for crisp reading + continuous red margin column aligning Q6, GIVEN, PLAN, and STEPs.
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- SIMULATED FULL AINSTEIN WORKSPACE                                   -->
+  <!-- =================================================================== -->
+  <div class="flex-1 min-h-0 flex flex-col bg-slate-100 text-slate-800 overflow-hidden">
+
+    <!-- TOP NAVIGATION HEADER -->
+    <header class="bg-white border-b border-slate-200 shrink-0 px-4 py-2 flex items-center justify-between">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-700 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+            ⚡
+          </div>
+          <span class="text-base font-extrabold text-indigo-900">AInstein</span>
+          <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+            Class 10
+          </span>
+        </div>
+        <div class="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 pl-3 border-l border-slate-200 truncate">
+          <span>Mathematics</span>
+          <span>›</span>
+          <span>Surface Areas &amp; Volumes</span>
+          <span>›</span>
+          <span class="font-semibold text-indigo-900 bg-indigo-50 px-2 py-0.5 rounded">Ex 12.2 Q6: Mass of an Iron Pole</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5 shrink-0">
+        <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700">
+          📚 All Chapters
+        </span>
+        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center">
+          S
+        </div>
+      </div>
+    </header>
+
+    <!-- WORKSPACE BODY -->
+    <div class="flex-1 min-h-0 w-full max-w-[1720px] mx-auto p-2.5 flex flex-col gap-2.5 overflow-hidden">
+
+      <!-- =============================================================== -->
+      <!-- OPTION 1B ONLY: FULL-WIDTH HORIZONTAL QUESTION BANNER           -->
+      <!-- =============================================================== -->
+      <div
+        id="top-question-banner"
+        class="hidden bg-white rounded-xl border border-indigo-200 shadow-xs shrink-0 overflow-hidden relative"
+      >
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-600 to-purple-600"></div>
+
+        <div class="px-4 py-2.5 flex items-start gap-3">
+          <span class="shrink-0 mt-0.5 text-[10px] font-extrabold uppercase text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+            ❓ Q6
+          </span>
+          <div class="flex-1 min-w-0">
+            <p id="top-q-text" class="text-[13px] font-medium text-slate-800 leading-snug">
+              <strong class="text-indigo-950">Mass of an Iron Pole:</strong> A solid iron pole consists of a cylinder of height <strong class="text-indigo-900">220 cm</strong> and base diameter <strong class="text-indigo-900">24 cm</strong>, surmounted by another cylinder of height <strong class="text-indigo-900">60 cm</strong> and radius <strong class="text-indigo-900">8 cm</strong>. Find the <strong class="text-indigo-900 underline">mass of the pole</strong>, given 1 cm³ of iron has 8 g mass. <span class="text-slate-500">(Use π = 3.14)</span>
+            </p>
+          </div>
+          <button
+            onclick="toggleBannerCompact()"
+            id="banner-collapse-btn"
+            class="shrink-0 text-[11px] font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-2.5 py-1 rounded-md transition cursor-pointer"
+          >
+            ▲ Compact
+          </button>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- 3-PANEL STUDIO (Always visible in both 1B and 2B)               -->
+      <!-- =============================================================== -->
+      <div class="flex flex-1 min-h-0 items-stretch bg-white rounded-xl border border-slate-300 overflow-hidden">
+
+        <!-- COLUMN 1: ROADMAP + CHAPTER PROBLEMS NAVIGATOR -->
+        <aside class="w-[210px] shrink-0 flex flex-col h-full min-h-0 border-r border-slate-200 p-2.5 bg-slate-50/70 gap-2.5 overflow-hidden">
+          <!-- TOP HALF: Compact 5-Step Roadmap -->
+          <div class="bg-white rounded-xl p-2.5 border border-indigo-100 shrink-0 shadow-2xs">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-extrabold text-slate-800 uppercase">🎯 Roadmap</span>
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 rounded-full">3/5</span>
+            </div>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center shrink-0">✓</span>
+                <span class="text-[11px] font-bold text-slate-600 truncate">Understand</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center shrink-0">✓</span>
+                <span class="text-[11px] font-bold text-slate-600 truncate">Givens</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center shrink-0">✓</span>
+                <span class="text-[11px] font-bold text-slate-600 truncate">Goal &amp; Plan</span>
+              </div>
+              <div class="flex items-center gap-2 bg-indigo-50 border border-indigo-200 rounded-md px-1.5 py-1 -mx-1">
+                <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[9px] font-bold flex items-center justify-center shrink-0">4</span>
+                <span class="text-[11px] font-extrabold text-indigo-900 truncate">Math Steps</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-slate-100 text-slate-400 border border-slate-300 text-[9px] font-bold flex items-center justify-center shrink-0">5</span>
+                <span class="text-[11px] font-semibold text-slate-400 truncate">Final Answer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTTOM HALF: Clickable Chapter Problems Navigator -->
+          <div class="bg-white rounded-xl p-2.5 border border-slate-200 flex-1 min-h-0 flex flex-col overflow-hidden shadow-2xs">
+            <div class="flex items-center justify-between mb-2 shrink-0">
+              <span class="text-[11px] font-extrabold text-slate-800 uppercase">📋 Chapter List</span>
+              <span class="text-[10px] font-semibold text-slate-400">2/5</span>
+            </div>
+            <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar space-y-1 pr-0.5">
+              <div class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-slate-100 cursor-pointer text-[11px]">
+                <span class="text-emerald-600 font-bold shrink-0">✓</span>
+                <span class="text-slate-600 truncate">Q1: Cone on Hemisphere</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-slate-100 cursor-pointer text-[11px]">
+                <span class="text-emerald-600 font-bold shrink-0">✓</span>
+                <span class="text-slate-600 truncate">Q2: Engineering Model</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-indigo-50 border border-indigo-200 cursor-pointer text-[11px]">
+                <span class="text-indigo-600 font-bold shrink-0">●</span>
+                <span class="text-indigo-950 font-bold truncate">Q6: Iron Pole Mass</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-slate-100 cursor-pointer text-[11px]">
+                <span class="text-slate-300 font-bold shrink-0">○</span>
+                <span class="text-slate-600 truncate">Q7: Cone in Cylinder</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-slate-100 cursor-pointer text-[11px]">
+                <span class="text-slate-300 font-bold shrink-0">○</span>
+                <span class="text-slate-600 truncate">Q8: Spherical Glass</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- COLUMN 2: CAMBRIDGE SOLUTION NOTEBOOK -->
+        <section class="flex-1 min-w-0 flex flex-col h-full min-h-0 overflow-hidden bg-white">
+          <!-- Notebook Header Bar -->
+          <div class="px-4 py-1.5 border-b border-slate-200 bg-slate-50 flex items-center justify-between shrink-0 text-xs">
+            <span class="font-extrabold text-indigo-950">📓 Solution Notebook</span>
+            <span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-bold">
+              SymPy Active · Method: Add Cylinder Volumes
+            </span>
+          </div>
+
+          <!-- Scrollable Cambridge Notebook Paper -->
+          <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar cambridge-paper relative">
+
+            <!-- ========================================================= -->
+            <!-- OPTION 2B ONLY: CLEAN CAMBRIDGE PAD HEADER QUESTION       -->
+            <!-- Unruled top pad strip + continuous red margin + serif Q   -->
+            <!-- ========================================================= -->
+            <div
+              id="notebook-pinned-question"
+              class="sticky top-0 z-20 bg-[#fdfbf4] border-b border-indigo-200/80 shadow-[0_2px_6px_-2px_rgba(30,41,59,0.06)]"
+            >
+              <div class="relative ml-14 cambridge-margin pl-5 pr-4 pt-2.5 pb-2.5">
+                <!-- Margin label in left column -->
+                <span class="absolute -left-12 top-3 text-[11px] font-extrabold text-rose-700 bg-rose-50/90 border border-rose-200/80 px-1.5 py-0.5 rounded select-none">
+                  Q6
+                </span>
+
+                <!-- Top subtle notebook metadata row -->
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                    Class 10 · Surface Areas &amp; Volumes · Pinned Problem
+                  </span>
+                  <button
+                    onclick="toggleNotebookQuestionCompact()"
+                    id="notebook-q-toggle"
+                    class="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50/80 hover:bg-indigo-100 px-2 py-0.5 rounded border border-indigo-200/70 transition cursor-pointer shrink-0"
+                  >
+                    ▲ Compact
+                  </button>
+                </div>
+
+                <!-- Clean editorial question text (no ruled lines colliding behind it) -->
+                <p id="notebook-q-text" class="font-question text-[14px] text-slate-800 leading-[1.55]">
+                  A solid iron pole consists of a cylinder of height <strong class="font-semibold text-slate-950">220 cm</strong> and base diameter <strong class="font-semibold text-slate-950">24 cm</strong>, surmounted by another cylinder of height <strong class="font-semibold text-slate-950">60 cm</strong> and radius <strong class="font-semibold text-slate-950">8 cm</strong>. Find the <mark class="bg-amber-200/65 text-slate-950 font-semibold px-1 rounded-xs">mass of the pole</mark>, given <span class="text-slate-700 font-medium">1 cm³ = 8 g</span>. <span class="text-slate-500 italic text-[13px]">(Use π = 3.14)</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Ruled Working Lines (aligned with same ml-14 margin column) -->
+            <div class="pl-5 pr-5 py-4 min-h-[700px] cambridge-margin ml-14 space-y-4">
+              <div class="relative flex items-start justify-between gap-2">
+                <span class="absolute -left-[68px] top-1 w-12 text-right font-sans text-[10px] font-bold tracking-wide text-slate-400 select-none">GIVEN</span>
+                <p class="font-hand text-[15.5px] text-slate-800 leading-7">
+                  Cyl 1: h₁ = 220 cm, r₁ = 12 cm · Cyl 2: h₂ = 60 cm, r₂ = 8 cm · 1 cm³ = 8 g
+                </p>
+                <span class="shrink-0 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">✓ Verified</span>
+              </div>
+
+              <div class="relative flex items-start justify-between gap-2">
+                <span class="absolute -left-[68px] top-1 w-12 text-right font-sans text-[10px] font-bold tracking-wide text-indigo-400 select-none">PLAN</span>
+                <p class="font-hand text-[15.5px] text-indigo-900 leading-7">
+                  Find both cylinder volumes (πr²h), add them together, then multiply by 8 g.
+                </p>
+                <span class="shrink-0 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">✓ Plan Accepted</span>
+              </div>
+
+              <div class="relative flex items-start justify-between gap-2">
+                <span class="absolute -left-[68px] top-1 w-12 text-right font-sans text-[10px] font-bold tracking-wide text-slate-400 select-none">STEP 1</span>
+                <p class="font-hand text-[16.5px] text-slate-900 leading-7">
+                  V₁ = π r₁² h₁ = 3.14 × 12² × 220 = 99475.2 cm³
+                </p>
+                <span class="shrink-0 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">✓ SymPy OK</span>
+              </div>
+
+              <div class="relative flex items-start justify-between gap-2">
+                <span class="absolute -left-[68px] top-1 w-12 text-right font-sans text-[10px] font-bold tracking-wide text-slate-400 select-none">STEP 2</span>
+                <p class="font-hand text-[16.5px] text-slate-900 leading-7">
+                  V₂ = π r₂² h₂ = 3.14 × 8² × 60 = 12057.6 cm³
+                </p>
+                <span class="shrink-0 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">✓ SymPy OK</span>
+              </div>
+
+              <div class="relative flex items-start justify-between gap-2">
+                <span class="absolute -left-[68px] top-1 w-12 text-right font-sans text-[10px] font-bold tracking-wide text-slate-400 select-none">STEP 3</span>
+                <p class="font-hand text-[16.5px] text-slate-900 leading-7">
+                  Total V = V₁ + V₂ = 99475.2 + 12057.6 = 111532.8 cm³
+                </p>
+                <span class="shrink-0 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">✓ SymPy OK</span>
+              </div>
+
+              <div class="border-b-2 border-dashed border-indigo-300 pb-1 text-indigo-600 font-hand text-base">
+                Next: Mass = 111532.8 × 8 ...
+              </div>
+
+              <div class="pt-16 text-center text-xs text-slate-400 italic">
+                ↕ Scroll inside this notebook to see the unruled header question stay cleanly pinned above the ruled steps
+              </div>
+            </div>
+          </div>
+
+          <!-- Input Dock -->
+          <div class="border-t border-slate-200 bg-white px-3.5 py-2 shrink-0 space-y-1.5">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1">
+                <span class="text-[10px] font-bold uppercase text-slate-400 mr-1">Insert:</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">π</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">²</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">³</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">×</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">cm³</span>
+              </div>
+              <div class="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-white text-indigo-700 font-bold shadow-2xs">Step-by-Step</span>
+                <span class="px-2 py-0.5 text-slate-500 font-semibold">Full Working 📝</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="e.g. Mass = 111532.8 × 8 = 892262.4 g"
+                class="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+              />
+              <button class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs cursor-pointer">
+                Check Step →
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- COLUMN 3: SOCRATIC DIALOGUE STREAM -->
+        <aside class="w-[290px] shrink-0 bg-white flex flex-col h-full min-h-0 border-l border-slate-200 overflow-hidden">
+          <div class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white px-3.5 py-2 flex items-center justify-between shrink-0">
+            <span class="text-xs font-bold">🦉 Socratic Dialogue</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 text-amber-200">💡 Clue</span>
+          </div>
+          <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-3 space-y-2.5 bg-slate-50">
+            <div class="flex justify-end">
+              <div class="bg-indigo-600 text-white rounded-2xl rounded-tr-xs px-3 py-2 text-xs max-w-[88%]">
+                Find both volumes, add them, multiply by 8.
+              </div>
+            </div>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl rounded-tl-xs p-2.5 text-xs text-emerald-950">
+              <p class="leading-relaxed">Great plan! Now solve one step per line.</p>
+            </div>
+            <div class="flex justify-end">
+              <div class="bg-indigo-600 text-white rounded-2xl rounded-tr-xs px-3 py-2 text-xs max-w-[88%]">
+                Total V = 111532.8 cm³
+              </div>
+            </div>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl rounded-tl-xs p-2.5 text-xs text-emerald-950">
+              <p class="font-bold text-indigo-950 leading-relaxed">👉 Now find the total mass in g or kg!</p>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isCompactBanner = false;
+    let isNotebookQCompact = false;
+
+    function switchMode(mode) {
+      const topBanner = document.getElementById('top-question-banner');
+      const notebookPinnedQ = document.getElementById('notebook-pinned-question');
+      const tip = document.getElementById('mode-tip');
+
+      const btn1b = document.getElementById('btn-1b');
+      const btn2b = document.getElementById('btn-2b');
+
+      const activeClass = 'px-3.5 py-2 rounded-lg text-left transition cursor-pointer bg-indigo-600 text-white shadow-sm border border-indigo-500';
+      const inactiveClass = 'px-3.5 py-2 rounded-lg text-left transition cursor-pointer bg-slate-800 text-slate-200 border border-slate-700 hover:border-indigo-400';
+
+      if (mode === '1b') {
+        btn1b.className = activeClass;
+        btn2b.className = inactiveClass;
+        topBanner.classList.remove('hidden');
+        notebookPinnedQ.classList.add('hidden');
+        tip.textContent = '📋 1B: Full-width question banner across the top + balanced 3-panel sidebar (Roadmap + Chapter Problems list).';
+      } else {
+        btn1b.className = inactiveClass;
+        btn2b.className = activeClass;
+        topBanner.classList.add('hidden');
+        notebookPinnedQ.classList.remove('hidden');
+        tip.textContent = '🎯 2B (Clean Cambridge Pad): Unruled notebook header strip for crisp reading + continuous red margin column aligning Q6, GIVEN, PLAN, and STEPs.';
+      }
+    }
+
+    function toggleBannerCompact() {
+      isCompactBanner = !isCompactBanner;
+      const p = document.getElementById('top-q-text');
+      const btn = document.getElementById('banner-collapse-btn');
+      if (isCompactBanner) {
+        p.classList.add('truncate');
+        btn.textContent = '▼ Expand';
+      } else {
+        p.classList.remove('truncate');
+        btn.textContent = '▲ Compact';
+      }
+    }
+
+    function toggleNotebookQuestionCompact() {
+      isNotebookQCompact = !isNotebookQCompact;
+      const p = document.getElementById('notebook-q-text');
+      const btn = document.getElementById('notebook-q-toggle');
+      if (isNotebookQCompact) {
+        p.classList.add('truncate');
+        btn.textContent = '▼ Expand';
+      } else {
+        p.classList.remove('truncate');
+        btn.textContent = '▲ Compact';
+      }
+    }
+  </script>
+</body>
+</html>

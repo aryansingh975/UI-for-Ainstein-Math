@@ -83,6 +83,7 @@ function TypewriterText({ text, speed = 25, onComplete, cursorSymbol = "✒️",
 export default function LiveSolutionNotebook({
   chapter,
   problem,
+  problemIndex = 1,
   session,
   isCompleted,
   input = '',
@@ -101,6 +102,7 @@ export default function LiveSolutionNotebook({
   const tutorFeedRef = useRef(null);
   const typeSpeed = 20; // smooth, brisk character writing speed
   const [pendingDraft, setPendingDraft] = useState(null);
+  const [isQuestionCompact, setIsQuestionCompact] = useState(false);
 
   // Clear pendingDraft once verification completes
   useEffect(() => {
@@ -207,6 +209,8 @@ export default function LiveSolutionNotebook({
     const isVerdictWrong = [
       'MISCONCEPTION',
       'WRONG_CLAIM',
+      'WRONG_ANSWER',
+      'STEP_JUMP',
       'EXTRACTION_REQUIRED',
       'METHOD_LOCKED',
       'CONCLUSION_WRONG',
@@ -386,24 +390,52 @@ export default function LiveSolutionNotebook({
       {/* ============================================================== */}
       <section className="flex-1 min-w-0 bg-white lg:border-r border-slate-200 flex flex-col h-full min-h-0 overflow-hidden">
         
+        {/* Pinned Cambridge Pad Top Header Band (Option 2B: Unruled Header + Continuous 54px Red Margin) */}
+        <div className="notebook-header-band shrink-0 border-b border-indigo-200/80 shadow-[0_2px_6px_-2px_rgba(30,41,59,0.05)] relative">
+          {/* Question Badge inside Left 54px Margin */}
+          <div className="absolute left-0 top-3 w-[54px] flex justify-center select-none pointer-events-none">
+            <span className="text-[11px] font-extrabold text-rose-700 bg-rose-50/90 border border-rose-200/80 px-1.5 py-0.5 rounded">
+              Q{problemIndex}
+            </span>
+          </div>
+
+          <div className="pl-16 sm:pl-18 pr-4 pt-2 pb-2.5">
+            {/* Subtle Notebook Page Stamp */}
+            <div className="flex items-center justify-between gap-2 text-[11px] text-slate-500 font-mono-math mb-1">
+              <div className="flex items-center gap-2.5 min-w-0 truncate">
+                <span className="font-bold text-slate-600 shrink-0">Date: {currentDateStr}</span>
+                <span className="text-slate-300">•</span>
+                <span className="font-bold text-indigo-900 truncate">
+                  {chapter?.title ? `${chapter.title} • Class ${chapter.grade || session?.grade || 8}` : `Mathematics • Class ${session?.grade || 8}`}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="font-semibold text-slate-500 truncate max-w-[220px] hidden sm:inline">
+                  {problem?.title || ''}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsQuestionCompact((prev) => !prev)}
+                  className="text-[10px] font-sans font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50/80 hover:bg-indigo-100 px-2 py-0.5 rounded border border-indigo-200/70 transition cursor-pointer"
+                  title={isQuestionCompact ? 'Expand full question' : 'Compact question to 1 line'}
+                >
+                  {isQuestionCompact ? '▼ Expand' : '▲ Compact'}
+                </button>
+              </div>
+            </div>
+
+            {/* Crisp Editorial Question Statement */}
+            <p className={`font-serif text-[14px] sm:text-[14.5px] text-slate-800 leading-[1.55] ${isQuestionCompact ? 'truncate' : ''}`}>
+              {text || 'Loading problem statement...'}
+            </p>
+          </div>
+        </div>
+
         {/* Ruled School Notebook Paper (Clean, Uncluttered, Max Width) */}
         <div
           ref={scrollRef}
-          className="notebook-clean-sheet flex-1 min-h-0 custom-scrollbar overflow-y-auto text-slate-900 pt-0 pr-3.5 pb-3.5 pl-16 sm:pl-18 relative"
+          className="notebook-clean-sheet flex-1 min-h-0 custom-scrollbar overflow-y-auto text-slate-900 pt-2 pr-3.5 pb-3.5 pl-16 sm:pl-18 relative"
         >
-          {/* Top Header Stamp (Locked to exact 30px first notebook line) */}
-          <div className="h-[30px] border-b border-slate-300/60 flex items-center justify-between text-[11px] text-slate-500 font-mono-math mb-1">
-            <div className="flex items-center gap-3">
-              <span className="font-bold text-slate-600">Date: {currentDateStr}</span>
-              <span className="text-slate-300">•</span>
-              <span className="font-bold text-indigo-900">
-                {chapter?.title ? `${chapter.title} • Class ${chapter.grade || session?.grade || 8}` : `Mathematics • Class ${session?.grade || 8}`}
-              </span>
-            </div>
-            <span className="font-semibold text-slate-600 truncate max-w-[340px]">
-              {problem?.title || 'Algebra Play'}
-            </span>
-          </div>
 
           {/* SECTION 1: GIVEN */}
           <div className="space-y-0.5 mb-2.5">
@@ -874,7 +906,7 @@ export default function LiveSolutionNotebook({
                   </div>
                   <div
                     className={`rounded-2xl rounded-tr-xs p-2.5 text-xs shadow-2xs font-mono-math break-words ${
-                      turn.is_correct
+                      turn.is_correct || turn.verdict === 'PARTIAL_EXTRACTION'
                         ? 'bg-indigo-600 text-white'
                         : 'bg-rose-600 text-white line-through opacity-90'
                     }`}

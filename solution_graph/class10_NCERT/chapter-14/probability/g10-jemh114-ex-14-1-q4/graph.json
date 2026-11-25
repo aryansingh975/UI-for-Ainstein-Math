@@ -181,6 +181,7 @@
       "id": "m1_s2",
       "type": "step",
       "label": "Write the options as decimals",
+      "optional": true,
       "description": "2/3 ≈ 0.67, –1.5, 15% = 15/100 = 0.15 and 0.7.",
       "prompt": "Change the options that are not decimals into decimals. What is 15% as a decimal?",
       "accept": [

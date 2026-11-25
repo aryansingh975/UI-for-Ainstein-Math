@@ -74,11 +74,12 @@ export const AVAILABLE_CHAPTERS = [
     id: 'algebra-play',
     title: 'Algebra Play',
     grade: 8,
-    description: 'Grade 8 · 3 problems',
+    description: 'Grade 8 · 4 problems',
     problems: [
       { id: 'g08-hegp206-grid-eq', title: 'Grid Intersection Points', uuid: 'g08-hegp206-grid-eq' },
       { id: 'g08-hegp206-age-q7', title: 'Mother and Daughter Age Problem', uuid: 'g08-hegp206-age-q7' },
-      { id: 'g08-hegp206-heads-legs', title: 'Horses and Hens Problem', uuid: 'g08-hegp206-heads-legs' }
+      { id: 'g08-hegp206-heads-legs', title: 'Horses and Hens Problem', uuid: 'g08-hegp206-heads-legs' },
+      { id: 'g08-lin-ex003', title: 'Linear Equation: 3(x − 2) + 5 = 2x + 4', uuid: 'g08-lin-ex003' }
     ]
   },
   {
@@ -111,12 +112,11 @@ export const AVAILABLE_CHAPTERS = [
     ]
   },
   {
-    id: 'linear-equation',
-    title: 'Linear & Quadratic Equations',
+    id: 'quadratic-equations',
+    title: 'Quadratic Equations',
     grade: 10,
-    description: 'Equations in One Variable',
+    description: 'Grade 10 · 1 problem · Jev + SymPy',
     problems: [
-      { id: 'g08-lin-ex003', title: 'Linear Equation: 3(x − 2) + 5 = 2x + 4', uuid: 'g08-lin-ex003' },
       { id: 'g10-quad-ex001', title: 'Quadratic Equation: x² - 5x + 6 = 0', uuid: 'g10-quad-ex001' }
     ]
   },

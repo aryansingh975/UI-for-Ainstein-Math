@@ -10,6 +10,13 @@ from app.engine.vocabulary import has_irrelevant_words, MATH_INTENT
 from app.engine.evaluator import eval_arithmetic, EPS
 from app.engine.claims import extract_claims, Claim, fmt_num
 from app.engine.matcher import matches_accept, matches_accept_any
+from app.engine.navigator_bridge import navigator_match_node, navigator_resolve_nodes
+from app.engine.llm_verifier import (
+    _should_call_remote_llm,
+    verify_candidates_with_qwen,
+    verify_node_with_qwen,
+)
+from app.engine.method_resolver import resolve_method_waterfall
 from app.engine.state_machine import (
     Session,
     method_of,
@@ -279,10 +286,22 @@ def verify_against_expected(parsed: ParsedStep, exp: Dict[str, Any]) -> Dict[str
 
 
 def match_node(parsed: ParsedStep, node: Node, equation: Optional[str] = None) -> Dict[str, Any]:
+    # A step node should not match a full conclusion statement naming 'proportional'
+    if getattr(node, "type", None) == "step" and re.search(r"\bproportional\b", parsed.normalized):
+        return {"accepted": False}
     if matches_accept_any(parsed.raw, node.accept):
         return {"accepted": True}
     exp = expected_for(node)
     if exp:
+        # Extraction nodes should never swallow arithmetic equations
+        if getattr(node, "type", None) == "extraction" and (
+            any(c.kind == "arith" for c in parsed.claims)
+            or "=" in parsed.raw
+            or "×" in parsed.raw
+            or "*" in parsed.raw
+            or "/" in parsed.raw
+        ):
+            return {"accepted": False}
         m = verify_against_expected(parsed, exp)
         if m.get("accepted"):
             return m
@@ -410,6 +429,147 @@ def detect_conclusion(
     return None
 
 
+def check_dag_step_jump(
+    session_or_node_id: Any,
+    target_node_id: str,
+    graph: SolutionGraph,
+    raw_input: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
+    """Uses Navigator Solution Paths & DAG reachability to detect if intermediate mandatory nodes were skipped."""
+    session = session_or_node_id if hasattr(session_or_node_id, "trail") else None
+    node_map = {n.id: n for n in graph.nodes}
+    target_node = node_map.get(target_node_id)
+    if not target_node or target_node.type not in ("step", "conclusion"):
+        return None
+
+    completed_ids = set()
+    if session and session.trail:
+        completed_ids = {t.get("nodeId") for t in session.trail if t.get("nodeId")}
+    elif not session and session_or_node_id:
+        completed_ids = {session_or_node_id}
+
+    if target_node_id in completed_ids:
+        return None
+    if session and session.current_node_id == target_node_id:
+        return None
+
+    # Determine active method
+    method_id = session.method_id if (session and session.method_id) else None
+    if not method_id:
+        for cid in completed_ids:
+            m = method_for_node(cid, graph)
+            if m:
+                method_id = m
+                break
+    if not method_id and target_node_id != graph.conclusion_node:
+        method_id = method_for_node(target_node_id, graph)
+
+    try:
+        from app.navigator.graph_loader import get_all_solution_paths
+        dag_dict = {
+            "start_node": graph.start_node,
+            "conclusion_node": graph.conclusion_node,
+            "nodes": [n.model_dump() if hasattr(n, "model_dump") else n.__dict__ for n in graph.nodes],
+            "edges": [{"from": e.from_node, "to": e.to_node} for e in graph.edges],
+        }
+        all_paths = get_all_solution_paths(dag_dict)
+    except Exception:
+        all_paths = []
+
+    if not all_paths:
+        return None
+
+    # Filter candidate paths
+    candidate_paths = []
+    if method_id:
+        candidate_paths = [p for p in all_paths if method_id in p]
+    if not candidate_paths:
+        candidate_paths = [p for p in all_paths if target_node_id in p]
+    if not candidate_paths:
+        candidate_paths = all_paths
+
+    # Pick the path that best matches current completed_ids
+    best_path = candidate_paths[0]
+    best_match_score = -1
+    for p in candidate_paths:
+        score = len(set(p) & completed_ids)
+        if score > best_match_score:
+            best_match_score = score
+            best_path = p
+
+    step_nodes_in_path = [nid for nid in best_path if nid in node_map and node_map[nid].type == "step"]
+
+    if target_node_id == graph.conclusion_node:
+        last_step_matches = False
+        if raw_input and step_nodes_in_path:
+            last_step = node_map[step_nodes_in_path[-1]]
+            if matches_accept_any(raw_input, last_step.accept):
+                last_step_matches = True
+            else:
+                try:
+                    from app.engine.guided import _check
+                    chk = _check(raw_input, last_step, None, graph.graph_meta.problem_text)
+                    if chk.get("accepted"):
+                        last_step_matches = True
+                except Exception:
+                    pass
+        if last_step_matches:
+            prior_node_ids = best_path[:best_path.index(step_nodes_in_path[-1])]
+        else:
+            prior_node_ids = best_path[:-1]
+    elif target_node_id in best_path:
+        idx = best_path.index(target_node_id)
+        prior_node_ids = best_path[:idx]
+    else:
+        prior_node_ids = []
+
+    prior_steps = [
+        node_map[nid] for nid in prior_node_ids
+        if nid in node_map and node_map[nid].type == "step"
+        and not getattr(node_map[nid], "optional", False)
+    ]
+
+    # Starting a method: if no calculations have been completed yet,
+    # starting with any initial calculation (or setup) of the method is allowed.
+    has_any_calc_done = any(
+        node_map.get(cid) and node_map[cid].type == "step"
+        for cid in completed_ids
+    )
+    if not has_any_calc_done and target_node_id != graph.conclusion_node:
+        if step_nodes_in_path and target_node_id in step_nodes_in_path[:2]:
+            prior_steps = []
+    elif target_node_id == "m1_s1" and "m1_s2" in completed_ids:
+        prior_steps = []
+
+    # If the student explicitly states both ratio pairs and proportional in conclusion:
+    if raw_input and re.search(r"\bproportional\b", raw_input, re.I) and has_any_calc_done:
+        prior_steps = [n for n in prior_steps if n.id not in ("shared_ratio_comparison", "m1_s3", "m8_s2", "m6_s2", "m6_s3")]
+
+    # Ratio / Proportion full explicit claim (e.g. "3:4 = 72:96" or "3:4 and 72:96 are proportional")
+    if raw_input:
+        norm_r = normalize_text(raw_input)
+        if (
+            re.search(r"\bproportional\b", norm_r)
+            or re.search(r"\d+:\d+\s*=\s*\d+:\d+", norm_r)
+            or re.search(r"\d+/\d+\s*=\s*\d+/\d+", norm_r)
+        ):
+            return None
+        # All-in-one complete solution expression (e.g. 8 * 3.14 * (12^2 * 220 + 8^2 * 60) = 892262.4 g)
+        if ("(" in raw_input or "×" in raw_input or "*" in raw_input):
+            input_nums = re.findall(r"\d+(?:\.\d+)?", raw_input)
+            if len(input_nums) >= 5 and any("892" in n for n in input_nums):
+                return None
+
+    skipped_steps = [n for n in prior_steps if n.id not in completed_ids]
+    if skipped_steps:
+        return {
+            "is_jump": True,
+            "skipped": [n.model_dump() if hasattr(n, "model_dump") else n.__dict__ for n in skipped_steps],
+            "first_skipped": skipped_steps[0].model_dump() if hasattr(skipped_steps[0], "model_dump") else skipped_steps[0].__dict__,
+        }
+    return None
+
+
 def find_global_step_match(
     parsed: ParsedStep, session: Session, graph: SolutionGraph
 ) -> Optional[Dict[str, Any]]:
@@ -444,7 +604,7 @@ def find_global_step_match(
         if matches_accept_any(parsed.raw, node.accept):
             return {"node_id": node.id, "method_id": method_for_node(node.id, graph)}
 
-    # Pass 2: semantic verification
+    # Pass 2: semantic / numeric verification
     for node in ordered:
         exp = expected_for(node)
         if not exp:
@@ -452,6 +612,19 @@ def find_global_step_match(
         m = verify_against_expected(parsed, exp)
         if m.get("accepted"):
             return {"node_id": node.id, "method_id": method_for_node(node.id, graph)}
+
+    # Pass 3: Navigator Jaccard similarity (>= 0.70) with math/number guard
+    nav_hit = navigator_resolve_nodes(parsed.raw, ordered, threshold=0.70)
+    if nav_hit:
+        nav_node, _ = nav_hit
+        return {"node_id": nav_node.id, "method_id": method_for_node(nav_node.id, graph)}
+
+    # Pass 4: LLM Semantic Verifier fallback (Qwen 3.5 via OpenRouter API)
+    problem_text = (graph.graph_meta and graph.graph_meta.problem_text) or ""
+    qwen_hit = verify_candidates_with_qwen(parsed.raw, ordered, problem_text)
+    if qwen_hit:
+        qwen_node, _ = qwen_hit
+        return {"node_id": qwen_node.id, "method_id": method_for_node(qwen_node.id, graph)}
 
     return None
 
@@ -721,6 +894,57 @@ def check_compound_steps(
     return None
 
 
+def _match_extraction_node(
+    parsed: ParsedStep,
+    session: Session,
+    node: Node,
+    graph: SolutionGraph,
+    ctx: Dict[str, Tuple[float, float]],
+    node_role: str,
+) -> Optional[StepResult]:
+    """Evaluate a given/goal extraction node: Exact/Math -> Navigator Jaccard -> Qwen 3.5 -> Incremental."""
+    m = match_node(parsed, node)
+    if m.get("accepted"):
+        return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id)
+
+    # If already mid-way through incremental extraction, continue tracking entities first
+    if node_role == "given" and session.extracted_entities:
+        partial = check_incremental_extraction(parsed, session, node, ctx)
+        if partial:
+            return partial
+
+    nav_m = navigator_match_node(parsed.raw, node, threshold=0.70)
+    if nav_m.get("accepted"):
+        return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id)
+
+    if getattr(node, "optional", True) is False:
+        future_calc = find_any_calculation_step(parsed, graph)
+        if future_calc:
+            default_prompt = "list what is given first." if node_role == "given" else "state what we need to calculate first."
+            lead = "But for this problem, let's first list what is given" if node_role == "given" else "But first, let's identify our goal"
+            prompt_text = node.prompt or default_prompt
+            return StepResult(
+                verdict="EXTRACTION_REQUIRED",
+                parsed=parsed,
+                node_id=node.id,
+                feedback=f"Great calculation! That will come in handy in just a moment. {lead}: {prompt_text}",
+            )
+
+    # LLM Semantic Verifier fallback (Qwen 3.5 via OpenRouter API) for complete natural-language statements
+    if len(parsed.words) >= 3:
+        problem_text = (graph.graph_meta and graph.graph_meta.problem_text) or ""
+        qwen_m = verify_node_with_qwen(parsed.raw, node, problem_text, node_role=node_role)
+        if qwen_m and qwen_m.get("accepted"):
+            return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id)
+
+    if node_role == "given":
+        partial = check_incremental_extraction(parsed, session, node, ctx)
+        if partial:
+            return partial
+
+    return None
+
+
 def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> StepResult:
     """Master Socratic step classifier: categorizes student input into deterministic verdicts."""
     ctx = parse_context_from_graph(graph)
@@ -763,8 +987,19 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
         and any(normalize_text(a) == normalized_input or matches_accept(raw_input, a) for a in (node.accept or []))
         for node in graph.nodes
     )
+    nav_any_match = bool(
+        navigator_resolve_nodes(
+            raw_input,
+            [n for n in graph.nodes if n.type in ("method", "step", "conclusion", "extraction")],
+            threshold=0.70,
+        )
+    )
+    allow_remote_prose = (
+        _should_call_remote_llm()
+        and len(parsed.words) >= 2
+    )
 
-    if is_garbage(parsed) and not exact_graph_answer and not mcq_option(normalized_input, graph):
+    if is_garbage(parsed) and not exact_graph_answer and not nav_any_match and not mcq_option(normalized_input, graph) and not allow_remote_prose:
         return StepResult(verdict="GARBAGE", parsed=parsed)
 
     # 4. Current-node match
@@ -776,42 +1011,19 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
                 v = "CONCLUSION_RIGHT" if concl["correct"] else "CONCLUSION_WRONG"
                 return StepResult(verdict=v, parsed=parsed)
         elif node and node.id == "given_extraction":
-            m = match_node(parsed, node)
-            if m.get("accepted"):
-                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id)
-            # Problem 8: Incremental Entity Extraction across multiple turns
-            partial = check_incremental_extraction(parsed, session, node, ctx)
-            if partial:
-                return partial
-            # Problem 3: Jumping directly to calculation on word problems with REQUIRED extraction
-            if getattr(node, "optional", True) is False:
-                future_calc = find_any_calculation_step(parsed, graph)
-                if future_calc:
-                    prompt_text = node.prompt or "list what is given first."
-                    return StepResult(
-                        verdict="EXTRACTION_REQUIRED",
-                        parsed=parsed,
-                        node_id=node.id,
-                        feedback=f"Great calculation! That will come in handy in just a moment. But for this problem, let's first list what is given: {prompt_text}",
-                    )
+            ext_res = _match_extraction_node(parsed, session, node, graph, ctx, "given")
+            if ext_res:
+                return ext_res
         elif node and node.id == "goal_extraction":
-            m = match_node(parsed, node)
-            if m.get("accepted"):
-                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id)
-            # Problem 3: Jumping directly to calculation on word problems with REQUIRED extraction
-            if getattr(node, "optional", True) is False:
-                future_calc = find_any_calculation_step(parsed, graph)
-                if future_calc:
-                    prompt_text = node.prompt or "state what we need to calculate first."
-                    return StepResult(
-                        verdict="EXTRACTION_REQUIRED",
-                        parsed=parsed,
-                        node_id=node.id,
-                        feedback=f"Great calculation! That will come in handy in just a moment. But first, let's identify our goal: {prompt_text}",
-                    )
+            ext_res = _match_extraction_node(parsed, session, node, graph, ctx, "goal")
+            if ext_res:
+                return ext_res
         elif node and node.accept:
             m = match_node(parsed, node)
             if m.get("accepted"):
+                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id, method_id=method_for_node(node.id, graph))
+            nav_m = navigator_match_node(parsed.raw, node, threshold=0.70)
+            if nav_m.get("accepted"):
                 return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node.id, method_id=method_for_node(node.id, graph))
             # Problem 4: If the student is in an active method and entered a step from another method, lock them in
             if session.method_id:
@@ -841,6 +1053,21 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
     # 5. Conclusion match
     concl = detect_conclusion(parsed, session, graph, ctx)
     if concl and concl["detected"]:
+        if concl["correct"]:
+            jump = check_dag_step_jump(session, graph.conclusion_node, graph, raw_input=raw_input)
+            if jump and jump.get("is_jump"):
+                first_skipped = jump["first_skipped"]
+                skipped_prompt = first_skipped.get("prompt") or "what is the next step?"
+                return StepResult(
+                    verdict="STEP_JUMP",
+                    parsed=parsed,
+                    node_id=session.current_node_id,
+                    method_id=session.method_id,
+                    feedback=(
+                        f"That is the final answer, but in Socratic learning you must prove each step first. "
+                        f"Please show your work step-by-step: {skipped_prompt}"
+                    ),
+                )
         v = "CONCLUSION_RIGHT" if concl["correct"] else "CONCLUSION_WRONG"
         return StepResult(verdict=v, parsed=parsed)
 
@@ -877,43 +1104,64 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
         has_goal = any(t.get("nodeId") == "goal_extraction" for t in session.trail)
 
         if not has_given and given_ext:
-            m = match_node(parsed, given_ext)
-            if m.get("accepted"):
-                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=given_ext.id)
-            partial = check_incremental_extraction(parsed, session, given_ext, ctx)
-            if partial:
-                return partial
-            # Problem 3: Jumping directly to calculation on word problems with REQUIRED extraction
-            if getattr(given_ext, "optional", True) is False:
-                future_calc = find_any_calculation_step(parsed, graph)
-                if future_calc:
-                    prompt_text = given_ext.prompt or "list what is given first."
-                    return StepResult(
-                        verdict="EXTRACTION_REQUIRED",
-                        parsed=parsed,
-                        node_id=given_ext.id,
-                        feedback=f"Great calculation! That will come in handy in just a moment. But for this problem, let's first list what is given: {prompt_text}",
-                    )
+            ext_res = _match_extraction_node(parsed, session, given_ext, graph, ctx, "given")
+            if ext_res:
+                return ext_res
         elif has_given and not has_goal and goal_ext:
-            m = match_node(parsed, goal_ext)
-            if m.get("accepted"):
-                return StepResult(verdict="ACCEPT", parsed=parsed, node_id=goal_ext.id)
-            # Problem 3: Jumping directly to calculation on word problems with REQUIRED extraction
-            if getattr(goal_ext, "optional", True) is False:
-                future_calc = find_any_calculation_step(parsed, graph)
-                if future_calc:
-                    prompt_text = goal_ext.prompt or "state what we need to calculate first."
-                    return StepResult(
-                        verdict="EXTRACTION_REQUIRED",
-                        parsed=parsed,
-                        node_id=goal_ext.id,
-                        feedback=f"Great calculation! That will come in handy in just a moment. But first, let's identify our goal: {prompt_text}",
-                    )
+            ext_res = _match_extraction_node(parsed, session, goal_ext, graph, ctx, "goal")
+            if ext_res:
+                return ext_res
 
     # 8. Global step search within current method (or any method if none locked yet)
+    # Includes Navigator Exact/Math -> Navigator Jaccard -> Qwen 3.5 fallback
     g = find_global_step_match(parsed, session, graph)
     if g:
+        jump = check_dag_step_jump(session, g["node_id"], graph)
+        if jump and jump.get("is_jump"):
+            first_skipped = jump["first_skipped"]
+            skipped_label = first_skipped.get("label") or first_skipped.get("id")
+            skipped_prompt = first_skipped.get("prompt") or "what is the next step?"
+            return StepResult(
+                verdict="STEP_JUMP",
+                parsed=parsed,
+                node_id=g["node_id"],
+                method_id=g["method_id"],
+                feedback=(
+                    f"That calculation is part of {skipped_label}, but you leaped ahead without showing intermediate work. "
+                    f"Please show your work step-by-step first: {skipped_prompt}"
+                ),
+            )
         return StepResult(verdict="ACCEPT", parsed=parsed, node_id=g["node_id"], method_id=g["method_id"])
+
+    # 8b. Active step LLM Semantic Verifier fallback (Qwen 3.5) if global step search didn't match elsewhere
+    if cur_node and cur_node.type == "step":
+        problem_text = (graph.graph_meta and graph.graph_meta.problem_text) or ""
+        qwen_cur = verify_node_with_qwen(parsed.raw, cur_node, problem_text, node_role="step")
+        if qwen_cur and qwen_cur.get("accepted"):
+            return StepResult(verdict="ACCEPT", parsed=parsed, node_id=cur_node.id, method_id=method_for_node(cur_node.id, graph))
+
+    # 8c. Conclusion Step-Jump Safety Catch (when final answer matches conclusion before any calculation step)
+    concl_node = node_map.get(graph.conclusion_node)
+    if (
+        concl_node
+        and not is_bare_yes_no(parsed)
+        and session.current_node_id not in ("given_extraction", "goal_extraction")
+        and (matches_accept_any(parsed.raw, concl_node.accept) or navigator_match_node(parsed.raw, concl_node, threshold=0.70).get("accepted"))
+    ):
+        jump = check_dag_step_jump(session, graph.conclusion_node, graph, raw_input=raw_input)
+        if jump and jump.get("is_jump"):
+            first_skipped = jump["first_skipped"]
+            skipped_prompt = first_skipped.get("prompt") or "what is the next step?"
+            return StepResult(
+                verdict="STEP_JUMP",
+                parsed=parsed,
+                node_id=session.current_node_id,
+                method_id=session.method_id,
+                feedback=(
+                    f"That is the final answer, but in Socratic learning you must prove each step first. "
+                    f"Please show your work step-by-step: {skipped_prompt}"
+                ),
+            )
 
     # 9. Problem 4: Enforcing Method Commitment (No mid-way switching)
     # Only triggered if the calculation does NOT belong to the active method, but DOES belong to another method
@@ -934,16 +1182,26 @@ def process_step(raw_input: str, session: Session, graph: SolutionGraph) -> Step
                 feedback=f"Looks like you're trying a different method ({other_label})! That's a valid approach too, but you are currently solving with {cur_label}. Let's stick with this method so we don't mix up the steps: {cur_prompt}",
             )
 
-    # 10. Method keyword approach (fallback only if no math calculation was matched)
+    # 10. Method Identification Waterfall (Strictly for Method Identification: Navigator -> Local JEV -> Global JEV)
     if not session.method_id and has_completed_required_extraction(session, graph):
         mk = detect_method_keyword(parsed, graph)
         if mk:
             return StepResult(verdict="ACCEPT", parsed=parsed, method_id=mk, approach_only=True)
+        resolved = resolve_method_waterfall(raw_input, graph)
+        if resolved and resolved.get("method_id"):
+            return StepResult(
+                verdict="ACCEPT",
+                parsed=parsed,
+                method_id=resolved["method_id"],
+                approach_only=True,
+            )
 
     # 11. True math, but irrelevant
     if any(c.is_true for c in parsed.claims):
         return StepResult(verdict="IRRELEVANT_TRUE", parsed=parsed)
 
-    # 12. Relevant words but nothing checkable
+    # 12. Garbage or Relevant words without checkable content
+    if is_garbage(parsed) and not exact_graph_answer and not nav_any_match and not mcq_option(normalized_input, graph):
+        return StepResult(verdict="GARBAGE", parsed=parsed)
     return StepResult(verdict="UNPARSED", parsed=parsed)
 

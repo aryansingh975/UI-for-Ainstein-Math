@@ -1103,6 +1103,30 @@ def _free_line(raw: str, answer: str, parsed, session: Session, graph: SolutionG
     if unit_issue:
         return StepResult(verdict="UNIT_ISSUE", parsed=parsed, node_id=node_id, claim=unit_issue), None, None, None
     if final.get("accepted"):
+        try:
+            from app.engine.tutor_engine import check_dag_step_jump
+            jump = check_dag_step_jump(session, concl.id, graph, raw_input=raw)
+            if jump and jump.get("is_jump"):
+                first_skipped = jump["first_skipped"]
+                skipped_label = first_skipped.get("label") or first_skipped.get("id")
+                skipped_prompt = first_skipped.get("prompt") or "what is the next step?"
+                return (
+                    StepResult(
+                        verdict="STEP_JUMP",
+                        parsed=parsed,
+                        node_id=node_id,
+                        method_id=session.method_id,
+                        feedback=(
+                            f"That is the final answer, but in Socratic learning you must prove each step first. "
+                            f"Please show your work step-by-step: {skipped_prompt}"
+                        ),
+                    ),
+                    None,
+                    None,
+                    None,
+                )
+        except Exception:
+            pass
         session.completed, session.current_node_id = True, concl.id
         session.trail.append({"input": raw, "nodeId": concl.id, "methodId": session.method_id})
         return StepResult(verdict="CONCLUSION_RIGHT", parsed=parsed, node_id=concl.id), None, None, None
@@ -1115,6 +1139,9 @@ def _free_line(raw: str, answer: str, parsed, session: Session, graph: SolutionG
         return StepResult(verdict="WRONG_CLAIM", parsed=parsed, node_id=node_id, claim=formula["claim"]), None, None, None
 
     steps = [n for n in graph.nodes if n.type == "step"]
+    if session.method_id:
+        m_curr = method_of(session.method_id) or session.method_id
+        steps = sorted(steps, key=lambda n: 0 if (method_of(n.id) == m_curr or method_of(n.id) == session.method_id) else 1)
     if numbers:
         last, value = numbers[-1]
         unit = _unit(last)                                    # "111532.8 g": that value is in cm³, not g
@@ -1134,6 +1161,30 @@ def _free_line(raw: str, answer: str, parsed, session: Session, graph: SolutionG
             return StepResult(verdict="UNPARSED", parsed=parsed, node_id=node_id), None, None, None
     if matched is not None:
         session.method_id = method_of(matched.id) or session.method_id
+        try:
+            from app.engine.tutor_engine import check_dag_step_jump
+            jump = check_dag_step_jump(session, matched.id, graph)
+            if jump and jump.get("is_jump"):
+                first_skipped = jump["first_skipped"]
+                skipped_label = first_skipped.get("label") or first_skipped.get("id")
+                skipped_prompt = first_skipped.get("prompt") or "what is the next step?"
+                return (
+                    StepResult(
+                        verdict="STEP_JUMP",
+                        parsed=parsed,
+                        node_id=node_id,
+                        method_id=session.method_id,
+                        feedback=(
+                            f"That calculation is part of {skipped_label}, but you leaped ahead without showing intermediate work. "
+                            f"Please show your work step-by-step first: {skipped_prompt}"
+                        ),
+                    ),
+                    None,
+                    None,
+                    None,
+                )
+        except Exception:
+            pass
     session.fail_streak = 0
     session.trail.append({"input": raw, "nodeId": matched.id if matched else node_id, "methodId": session.method_id})
     return StepResult(verdict="ACCEPT", parsed=parsed, node_id=node_id, method_id=session.method_id), None, None, None
@@ -1294,11 +1345,12 @@ def guided_step(raw: str, session: Session, graph: SolutionGraph
         candidates = [(node, "full") for node in _choices(current, graph)]
     else:
         later = _later_steps(current.id, graph) if current.type == "step" else []
-        candidates = [(node, "exact") for node in [current] + later] + [(current, "full")]
+        candidates = [(current, "exact"), (current, "full")] + [(node, "exact") for node in later]
 
     jev = _classify(raw, graph) if current.type == "choice" else None
     wrong = None
     for node, mode in candidates:
+        is_current_candidate = (node.id == current.id)
         if mode == "exact":
             if _forbidden(answer, node) or not matches_accept_any(answer, node.accept):
                 continue
@@ -1313,11 +1365,61 @@ def guided_step(raw: str, session: Session, graph: SolutionGraph
             if res.get("accepted") and current.type == "step":
                 node = _furthest_with_same_answer(answer, node, graph)
         if res.get("accepted"):
+            if not is_current_candidate and node.id != current.id:
+                try:
+                    from app.engine.tutor_engine import check_dag_step_jump
+                    jump = check_dag_step_jump(session, node.id, graph, raw_input=raw)
+                    if jump and jump.get("is_jump"):
+                        first_skipped = jump["first_skipped"]
+                        skipped_label = first_skipped.get("label") or first_skipped.get("id")
+                        skipped_prompt = first_skipped.get("prompt") or "what is the next step?"
+                        target_label = getattr(node, "label", None) or node.id
+                        return (
+                            StepResult(
+                                verdict="STEP_JUMP",
+                                parsed=parsed,
+                                node_id=current.id,
+                                method_id=method_of(node.id) or session.method_id,
+                                feedback=(
+                                    f"That calculation is part of {target_label}, but you leaped ahead without showing intermediate work. "
+                                    f"Please show your work step-by-step first: {skipped_prompt}"
+                                ),
+                            ),
+                            None,
+                            None,
+                            None,
+                        )
+                except Exception:
+                    pass
             session.fail_streak = 0
             session.scaffold_index = None
             session.method_id = method_of(node.id) or session.method_id
             session.trail.append({"input": raw, "nodeId": node.id, "methodId": method_of(node.id)})
             if node.type == "conclusion":
+                try:
+                    from app.engine.tutor_engine import check_dag_step_jump
+                    jump = check_dag_step_jump(session, node.id, graph, raw_input=raw)
+                    if jump and jump.get("is_jump"):
+                        first_skipped = jump["first_skipped"]
+                        skipped_label = first_skipped.get("label") or first_skipped.get("id")
+                        skipped_prompt = first_skipped.get("prompt") or "what is the next step?"
+                        return (
+                            StepResult(
+                                verdict="STEP_JUMP",
+                                parsed=parsed,
+                                node_id=current.id,
+                                method_id=method_of(node.id) or session.method_id,
+                                feedback=(
+                                    f"That is the final answer, but in Socratic learning you must prove each step first. "
+                                    f"Please show your work step-by-step: {skipped_prompt}"
+                                ),
+                            ),
+                            None,
+                            None,
+                            None,
+                        )
+                except Exception:
+                    pass
                 session.completed = True
                 session.current_node_id = node.id
                 return StepResult(verdict="CONCLUSION_RIGHT", parsed=parsed, node_id=node.id), None, None, None

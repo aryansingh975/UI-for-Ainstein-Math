@@ -5,6 +5,9 @@
     "problem_text": "Solve the quadratic equation x² − 5x + 6 = 0.",
     "navigation_label": "Quadratic: x² − 5x + 6 = 0",
     "problem_context": {
+      "grade": 10,
+      "chapter": "Chapter 4 – Quadratic Equations",
+      "topic": "Quadratic Equations",
       "equation": "x^2 - 5x + 6 = 0"
     },
     "graph_type": "directed_acyclic_graph",

@@ -215,7 +215,13 @@ def check_step(session_id: str, req: StepRequest):
     elif result.verdict == "GARBAGE":
         feedback_msg = "That does not look related to this problem. Try a calculation or explain a method for the question above."
     else:  # UNPARSED
-        feedback_msg = "Try writing a calculation or mathematical relationship that helps answer this question."
+        if not session.method_id and not session.completed and len([n for n in graph.nodes if n.type == "method"]) > 1:
+            feedback_msg = (
+                "I couldn't recognize that step or method yet. "
+                "Write your first calculation step directly, or tell me which method you'd like to use."
+            )
+        else:
+            feedback_msg = "Try writing a calculation or mathematical relationship that helps answer this question."
 
     trail_data = [{"nodeId": t.get("nodeId", ""), "input": t.get("input", "")} for t in session.trail]
 
